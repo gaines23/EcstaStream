@@ -38,11 +38,19 @@
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />
     <Compile Include="app\migrations\__init__.py" />
+    <Compile Include="EcstaStream\wsgi.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EcstaStream\urls.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EcstaStream\settings.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EcstaStream\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="manage.py" />
-    <Compile Include="EcstaStream\__init__.py" />
-    <Compile Include="EcstaStream\settings.py" />
-    <Compile Include="EcstaStream\urls.py" />
-    <Compile Include="EcstaStream\wsgi.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />
@@ -54,9 +62,13 @@
     <Folder Include="app\static\app\scripts\" />
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\app\" />
+    <Folder Include="app\templates\app\LoggedIn\" />
+    <Folder Include="app\templates\app\NotLoggedIn\" />
     <Folder Include="EcstaStream\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\templates\app\LoggedIn\layout.html" />
+    <Content Include="app\templates\app\NotLoggedIn\layout.html" />
     <Content Include="requirements.txt" />
     <Content Include="app\static\app\content\bootstrap.css" />
     <Content Include="app\static\app\content\bootstrap.min.css" />
@@ -80,10 +92,6 @@
     <Content Include="app\static\app\scripts\respond.js" />
     <Content Include="app\static\app\scripts\respond.min.js" />
     <Content Include="app\static\app\scripts\_references.js" />
-    <Content Include="app\templates\app\about.html" />
-    <Content Include="app\templates\app\contact.html" />
-    <Content Include="app\templates\app\index.html" />
-    <Content Include="app\templates\app\layout.html" />
     <Content Include="app\templates\app\login.html" />
     <Content Include="app\templates\app\loginpartial.html" />
   </ItemGroup>
