@@ -63,6 +63,35 @@ body{
     float: right;
 }
 
+.NavOptions{
+    height: 150px;
+    width: 60%;
+    margin-left: 20%;
+    text-align: center;
+}
+
+.NavOptions ul{
+    height: 100px;
+    padding-top: 75px;
+    list-style-type: none;
+    margin: 0;
+    overflow: hidden;
+    font-size: 20px;
+}
+
+.NavOptions li{
+    display: inline;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.NavOptions li a{
+    text-decoration: none;
+    color: white;
+}
+
+
+
 
 
 
@@ -106,9 +135,16 @@ body{
     width: 8%;
     float: right;
     background-color: white;
-    border-bottom-right-radius: 20px;
-    border-top-right-radius: 20px;
+    border-radius: 20px;
 }
+
+
+
+
+
+
+
+
 
 
 
