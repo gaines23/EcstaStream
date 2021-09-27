@@ -1,0 +1,61 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'content\site.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'content\normalize.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'content\jquery-ui.css' %}">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>EcstaStream</title>
+</head>
+<body>
+
+    <header>
+        <nav class="NavBar">
+
+            <div class="NavLogo">
+                <div class="LogoPic">
+                    <img id="logo" alt="navlogo" src="{% static 'Images\FinalLogos\LogoFinal1-removebg-preview.png' %}" height="130" width="150" onclick="windows.location.href='{% url 'home' %}'" value="go">
+                </div>
+            </div>
+
+            <div class="NavLogin">
+                <div class="Login">
+                    <img id="login" alt="loginlogo" src="{% static 'Images\LoginButton.png' %}" height="75" width="75" value="go">
+                </div>         
+            </div>
+
+        </nav>
+    </header>
+
+
+    <div class="MainContainer">
+
+        <div class="Search">
+            <div class="SearchSection">
+                <div class="SearchBar">
+                    <input id="searchbar" type="text" placeholder="Whatcha Looking For?">
+                    <img id="logoSearch" alt="logo_search_button" src="{% static 'Images\searchbutton-removebg-preview.png' %}" height="50px" width="50px" onclick="windows.location.href='{% url 'SearchTitle' %}'" value="go">
+                </div>
+            </div>
+    
+    </div>
+
+
+        {% block maincontent %}{% endblock %}
+    </div>
+
+
+    <footer>
+
+        <p>A GainesMoney Design</p>
+
+    </footer>
+
+
+</body>
+</html>
