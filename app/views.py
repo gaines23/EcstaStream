@@ -28,3 +28,4 @@ def TitlePage(request):
         request,
         'app/TitlePage.html'
     )
+
