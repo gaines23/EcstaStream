@@ -15,7 +15,6 @@ from django.views.generic import View, CreateView, UpdateView, DeleteView
 from django.http import HttpResponse
 
 def home(request):
-    """Renders the home page."""
     assert isinstance(request, HttpRequest)
     return render(
         request,
