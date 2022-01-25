@@ -4,7 +4,7 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <Name>EcstaStream</Name>
     <RootNamespace>EcstaStream</RootNamespace>
-    <InterpreterId>MSBuild|env1|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
     <TestFramework>Pytest</TestFramework>
     <SuppressPackageInstallationPrompt>True</SuppressPackageInstallationPrompt>
   </PropertyGroup>
@@ -38,6 +38,15 @@
     <Compile Include="app\admin.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\apps.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\filter.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\signals.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\urls.py">
       <SubType>Code</SubType>
     </Compile>
@@ -45,6 +54,9 @@
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />
     <Compile Include="app\migrations\__init__.py" />
+    <Compile Include="EcstaStream\.env">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="EcstaStream\wsgi.py">
       <SubType>Code</SubType>
     </Compile>
@@ -58,6 +70,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="manage.py" />
+    <Compile Include=".gitignore">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />
@@ -74,6 +89,8 @@
     <Folder Include="app\templates\app\LoggedIn\" />
     <Folder Include="app\templates\app\NotLoggedIn\" />
     <Folder Include="EcstaStream\" />
+    <Folder Include="media\" />
+    <Folder Include="media\profile_images\" />
     <Folder Include="static\" />
     <Folder Include="static\admin\" />
     <Folder Include="static\admin\css\" />
@@ -402,6 +419,9 @@
     <Content Include="app\static\app\Images\searchButton.png" />
     <Content Include="app\templates\app\LoggedIn\layout.html" />
     <Content Include="app\templates\app\NotLoggedIn\layout.html" />
+    <Content Include="media\default.png" />
+    <Content Include="media\profile_images\20210410_160241.jpg" />
+    <Content Include="media\profile_images\20210509_074402.jpg" />
     <Content Include="requirements.txt" />
     <Content Include="app\static\app\content\bootstrap.css" />
     <Content Include="app\static\app\content\bootstrap.min.css" />
@@ -3159,10 +3179,10 @@
     <None Include="static\app\scripts\jquery-1.10.2.intellisense.js" />
   </ItemGroup>
   <ItemGroup>
-    <Interpreter Include="env1\">
-      <Id>env1</Id>
+    <Interpreter Include="env\">
+      <Id>env</Id>
       <Version>3.7</Version>
-      <Description>env1 (Python 3.7 (64-bit))</Description>
+      <Description>env (Python 3.7 (64-bit))</Description>
       <InterpreterPath>Scripts\python.exe</InterpreterPath>
       <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>

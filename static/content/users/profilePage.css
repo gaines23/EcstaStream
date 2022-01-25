@@ -1,0 +1,48 @@
+
+.ProfileForm {
+	text-align: center;
+	float: left;
+}
+
+.ProfileForm input {
+	text-align: center;
+}
+
+
+
+
+.SavedArticles {
+	float: right;
+	padding-right: 25px;
+	color: white;
+}
+
+.SavedArticles h2 {
+	text-align: center;
+}
+
+.SavedArticles .row {
+	text-align: center;
+}
+
+.SavedArticles img {
+	object-fit: cover;
+	width: 50%;
+	height: 65%;
+	margin-top: 5px;
+}
+
+.SavedArticles .Saved-PostContent {
+	width: 100%;
+	color: white;
+}
+
+.SavedArticles .Saved-PostContent h3 {
+	text-align: center;
+}
+
+.SavedArticles .Saved-PostContent .Saved-PostSummary {
+	text-align: justify;
+}
+
+

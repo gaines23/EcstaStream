@@ -1,0 +1,29 @@
+
+.container .AuthLogin {
+	text-align: center;
+}
+
+.container .NamePass {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.container .NamePass input {
+	margin-left: 70px;
+}
+
+.container .Remember {
+	height: 40px;
+}
+
+.container .Remember .form-group {
+	text-align: center;
+}
+
+.container .SubmitLogin {
+	margin-left: 80px;
+}
+
+.container .card-footer {
+	margin-left: 15px;
+}

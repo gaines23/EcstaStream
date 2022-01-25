@@ -1,0 +1,17 @@
+
+.container .card-body {
+	height: 345px;
+}
+
+.card-body .form-row {
+	height: 80px;
+}
+
+.card-body .form-row .First {
+	float: left;
+}
+
+.card-body .form-row .Second {
+	float: right;
+}
+

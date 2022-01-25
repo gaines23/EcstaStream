@@ -1,0 +1,40 @@
+
+{% extends "users/UserProfile.html" %}
+
+{% block favlist %}
+{% load static %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'content\users\profilePage.css' %}">
+</head>
+
+<div class="col-4 SavedArticles">
+    <h2>Bookmarked Posts</h2>
+    
+    <div class="row">
+
+        {% for post in new %}
+
+            <div class="col" id="saved-Post">
+                <a href="{% url 'post-detail' post.slug %}">
+                    <img class="Saved-Img" src="{{ post.cover_img.url }}"/>
+
+                    <div class="Saved-PostContent">
+                        <h3 class="Saved-PostTitle">{{ post.title }}</h3>
+                        <p class="Saved-PostSummary">{{ post.summary|slice:150 }}</p>
+                    </div>
+                </a>
+            </div>
+            
+            <div id="favourite-section">
+                <a href="{% url 'fav-add' post.id %}" class="btn btn-outline-primary">Remove</a>
+            </div>
+
+        {% endfor %}
+
+    </div>
+    
+
+</div>
+
+{% endblock %}
