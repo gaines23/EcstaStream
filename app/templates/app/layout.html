@@ -13,13 +13,67 @@
     
 
     <link rel="stylesheet" type="text/css" href="{% static 'content\site.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fontawesome\css\all.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'content\jquery-ui.css' %}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images\favicon_io\apple-touch-icon.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fontawesome\css\all.css' %}">
 
     <title>EcstaStream</title>
 </head>
 <body>
+
+    <header class="SideNav">
+
+        <div class="NavContent-Box">
+
+            <div class="NavContent">
+
+                <div class="Nav-Logo">        
+                    <a href="{% url 'home' %}">
+                        <img id="titleLogo" alt="titlelogo" src="{% static 'images\FinalLogos\LogoFinal3-removebg-preview.png' %}">
+                    </a>
+                </div>
+
+                <nav class="Nav">
+                    <div class="Nav-Options">
+                        <a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
+
+                        {% if user.is_authenticated %}
+                        <a href="#"><i class="far fa-bell"></i> Notifications</a>
+                        <a href="#"><i class="fas fa-envelope-open-text"></i> DMs ;)</a>
+                        <a href="#"><i class="far fa-plus-square"></i> Create List</a>
+                        <a href="#"><i class="far fa-bookmark"></i> Bookmarks</a>
+                        <div class="UserLists">
+                            
+                        </div>
+                        {% endif %}
+                    </div>
+
+
+                    <div class="Nav-UserLogin">
+                        <p id="ellipsis"><i class="fas fa-circle"></i><i class="fas fa-circle"></i><i class="fas fa-circle"></i></p>
+
+                            {% if user.is_authenticated %}
+
+                            <img class="account-img" src="{{ user.profile.avatar.url }}"/>
+                            <p>
+                                <a href="{% url 'users-profile' user.id user.username %}"> {{request.user.username}}</a>
+                                <a href="{% url 'logout' %}">Logout</a>
+                            </p>
+
+                            <p>    
+                                {% else %}
+                                    <a href="{% url 'login' %}">Login </a>| 
+                                    <a href="{% url 'users-register'%}" class="no_action">Join </a>
+                                {% endif %}
+                            </p>
+                    </div>
+                </nav>
+
+            </div>
+
+        </div>        
+
+    </header>
+
 
     <div class="MainContainer">
 
@@ -34,6 +88,13 @@
 
         {% block maincontent %}{% endblock %}
     </div>
+
+
+    <footer>
+        
+        <p>A GainesMoney Design</p>
+
+    </footer>
 
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS 

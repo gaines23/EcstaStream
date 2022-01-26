@@ -25,51 +25,136 @@ body{
 
 /* Navbar */
 
-.SideMenu{
-    height: 13%;
-    width: 100%;
-    margin-top: -18px;
-}
-
-.NavBar{
-    width: 100%;
-    height: 135px;
-    padding-top: 10px;
-}
-
-.NavBar .NavLogo{
-    height: 150px;
-    width: 20%;
-    float: left;
-}
-
-.NavBar .NavLogo .LogoPic{
-    height: 150px;
-    width: 40%;
-    margin-left: 25px;
-}
-
-.NavBar .NavLogo .LogoPic img{
+.SideNav {
+    height: 100%;
+    width: 300px;
+    flex-direction: column;
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow: hidden;
     padding-top: 20px;
 }
 
-.NavBar .UserLoginTop {
-    float: right;
-    width: 15%;
+.SideNav .NavContent-Box {
+    width: 275px;
     height: 100%;
-    padding-top: 30px;
-    text-align: center;
+    margin-left: 25px;
+    align-items: stretch;
+    flex-direction: column;
+    display: flex;
+    position: relative;
+}
+
+.SideNav .NavContent-Box .NavContent {
+    height: 100%;
+    width: 240px;
+    margin-left: 35px;
+    align-items: stretch;
+    flex-direction: column;
+    display: flex;
+    position: relative;
+}
+
+.NavContent-Box .NavContent .Nav-Logo {
+    height: 10%;
+}
+
+.NavContent-Box .NavContent .Nav-Logo a {
+    text-decoration: none;
+}
+
+.NavContent-Box .NavContent .Nav-Logo img {
+    height: 80px;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+
+
+
+.NavContent nav {
+    height: 90%;
+}
+
+.NavContent .Nav-Options {
+    height: 75%;
+}
+
+.NavContent .Nav-Options a {
+    padding: 12px 0px 10px 30px;
+    text-align: justify;
+    text-decoration: none;
+    font-size: 25px;
+    color: #6d44a8;
+    display: block;
+}
+
+.NavContent .Nav-Options a:hover {
+    color: #f96b2e;
+    border: .5px solid #f96b2e;
+    border-radius: 20px;
+}
+
+.NavContent nav a i {
+    width: 35px;
+}
+
+.NavContent .Nav-Options .UserLists {
+    height: 58%;
+}
+
+
+
+
+
+.NavContent-Box .NavContent .Nav-UserLogin {
+    height: 25%;
     font-size: 23px;
 }
 
-.NavBar .UserLoginTop p .LoginForm {
-    margin-top: 10px;
-    margin-bottom: 10px;
+.NavContent-Box .NavContent .Nav-UserLogin #ellipsis {
+    text-align: center;
+    width: 100%;
+
 }
 
-.NavBar .UserLoginTop a {
+.NavContent-Box .NavContent .Nav-UserLogin #ellipsis i {
+    width: 35px;
+    font-size: 15px;
+}
+
+.NavContent-Box .NavContent .Nav-UserLogin a {
+    padding: 12px 0px 10px 30px;
+    text-align: justify;
     text-decoration: none;
-    color: white;
+    font-size: 25px;
+    color: #6d44a8;
+    display: block;
+}
+
+.NavContent-Box .NavContent .Nav-UserLogin a:hover {
+    color: #f96b2e;
+}
+
+
+.NavContent-Box .NavContent .Nav-UserLogin img {
+    padding: 12px 0px 10px 30px;
+    margin-top: 20px;
+    height: 100px;
+    width: 100px;
+    float: left;
+    cursor: pointer;
+    object-fit: cover;
+}
+
+
+.NavContent-Box .NavContent .Nav-UserLogin p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    float: left;
 }
 
 
@@ -78,11 +163,13 @@ body{
 
 
 .MainContainer{
-    height: 78.5%;
-    width: 95%;
-    border-top-left-radius: 50px;
-    border-top-right-radius: 50px;
-    margin-left: 2%;
+    height: 90%;
+    position: relative;
+    margin-left: 300px;
+    display: flex;
+    flex-basis: auto;
+    flex-direction: column;
+    z-index: 0;
 }
 
 
