@@ -4,3 +4,7 @@ from django.contrib.admin import AdminSite
 from .models import *
 
 admin.site.register(Profile)
+
+#admin.site.register(Movie)
+#admin.site.register(Director)
+#admin.site.register(Actor)

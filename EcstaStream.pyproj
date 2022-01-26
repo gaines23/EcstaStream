@@ -73,6 +73,7 @@
     <Compile Include=".gitignore">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\TMDB_Test_API_Request.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />
@@ -393,6 +394,7 @@
     <Folder Include="static\app\Images\" />
     <Folder Include="static\app\Images\FinalLogos\" />
     <Folder Include="static\app\scripts\" />
+    <Folder Include="TestData\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\static\app\content\index.css" />

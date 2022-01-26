@@ -42,13 +42,14 @@
                         <a href="#"><i class="far fa-plus-square"></i> Create List</a>
                         <a href="#"><i class="far fa-bookmark"></i> Bookmarks</a>
                         <div class="UserLists">
-                            
+
                         </div>
                         {% endif %}
                     </div>
 
 
                     <div class="Nav-UserLogin">
+
                         <p id="ellipsis"><i class="fas fa-circle"></i><i class="fas fa-circle"></i><i class="fas fa-circle"></i></p>
 
                             {% if user.is_authenticated %}
@@ -59,12 +60,14 @@
                                 <a href="{% url 'logout' %}">Logout</a>
                             </p>
 
+                            {% else %}
+                            
                             <p>    
-                                {% else %}
-                                    <a href="{% url 'login' %}">Login </a>| 
-                                    <a href="{% url 'users-register'%}" class="no_action">Join </a>
-                                {% endif %}
+                                <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
+                                <a href="{% url 'users-register'%}" class="no_action"><i class="fas fa-plus-square"></i> Join</a>
                             </p>
+
+                            {% endif %}
                     </div>
                 </nav>
 
