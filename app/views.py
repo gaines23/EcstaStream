@@ -24,6 +24,15 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q, F
 from .filter import *
 from django.contrib.admin.views.decorators import staff_member_required
+from tmdbv3api import TMDb, Movie, TV
+
+
+#img = 'http://image.tmdb.org/t/p/original/{your image poster path}'
+#tmdb = TMDb()
+#tmdb.tmdb_key = tmdb_key
+#movie = Movie()
+#tv = TV()
+
 
 def home(request):
     assert isinstance(request, HttpRequest)
@@ -139,10 +148,12 @@ def profile(request, id, username):
 
 
 
-def TitlePage(request):
+def SingleMovie(request):
     assert isinstance(request, HttpRequest)
+
+
     return render(
         request,
-        'app/TitlePage.html'
+        'app/movie_singular.html'
     )
 

@@ -1,8 +1,10 @@
+from sql_queries import *
+
 import os
 import glob
 import psycopg2
 import pandas as pd
-from sql_queries import *
+
 
 
 def get_files(filepath):
@@ -35,14 +37,26 @@ def process_genre_file(cur, filepath):
 
 
 def process_providers_file(cur, filepath):
-    genre_files = get_files("data/provider")
-    filepath = genre_files[0]
+    providers_files = get_files("data/provider/provider")
+    filepath = providers_files[0]
     df = pd.read_json(filepath, lines=True)
 
-    genre_data = df[['display_priority', 'logo_path', 'provider_name', 'provider_id']].drop_duplicates()
+    provider_data = df[['display_priority', 'logo_path', 'provider_name', 'provider_id']].drop_duplicates()
 
-    for i, row in genre_data.iterrows():
-        cur.execute(providers_table_insert, row)
+    for i, row in provider_data.iterrows():
+        cur.execute(streaming_providers_insert, row)
+
+
+def process_provider_regions_file(cur, filepath):
+    region_files = get_files("data/provider/region")
+    filepath = region_files[0]
+    df = pd.read_json(filepath, lines=True)
+
+    region_data = df[['iso_3166_1', 'native_name']].drop_duplicates()
+
+    for i, row in region_data.iterrows():
+        cur.execute(streaming_regions_insert, row)
+
 
 
 def process_data(cur, conn, filepath, func):
@@ -77,7 +91,8 @@ def main():
     cur = conn.cursor()
 
     process_data(cur, conn, filepath='data/genre', func=process_genre_file)
-    process_data(cur, conn, filepath='data/provider', func=process_providers_file)
+    process_data(cur, conn, filepath='data/provider/provider', func=process_providers_file)
+    process_data(cur, conn, filepath='data/provider/region', func=process_provider_regions_file)
 
     conn.close()
 

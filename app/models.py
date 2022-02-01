@@ -35,30 +35,38 @@ class Genre(models.Model):
     id = models.IntegerField(primary_key=True)
     genre = models.CharField(max_length=50)
 
-class Providers(models.Model):
+## Lists all of Providers listed throughout the application ##
+class StreamingProviders(models.Model):
     display_priority = models.IntegerField()
     logo_path = models.CharField(max_length=150)
     provider_name = models.CharField(max_length=150)
     provider_id = models.IntegerField(primary_key=True)
 
+class StreamingRegion(models.Model):
+    id = models.AutoField(primary_key=True)
+    iso_3166_1 = models.CharField(max_length=20)
+    native_name = models.CharField(max_length=100)
 
 
 
+## Specific tv/movie id featured on streaming providers ##
+#class MovieStreamingProviders(models.Model):
+    
 
 
-
-
-
-
-
-
+class Collection(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=200)
+    summary = models.CharField(max_length=500)
+    #poster
+    #parts
 
 #class Movie(models.Model):
 #    movieid = models.IntegerField(primary_key=True) # id
-#    adult = models.BooleanField()
+#    adult = models.BooleanField() # Need to Query Only FALSE
 #    collection = models.OneToOneField(Collection, on_delete=models.CASCADE) ## Movie Series
 #    budget = models.IntegerField()
-#    #genres = models.Fo
+#    genres = models.ForeignKey(Genre)
 #    imdbid = models.IntegerField()
 #    orginal_language = models.CharField(max_length=10)
 #    title = models.CharField(max_length=100) # title NOT original title
@@ -67,6 +75,7 @@ class Providers(models.Model):
 #    revenue = models.IntegerField()
 #    runtime = models.IntegerField()
 #    tagline = models.CharField(max_length=200)
+
 
 
 
