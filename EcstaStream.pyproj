@@ -73,7 +73,6 @@
     <Compile Include=".gitignore">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\TMDB_Test_API_Request.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />

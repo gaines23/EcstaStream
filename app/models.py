@@ -30,6 +30,50 @@ class Profile(models.Model):
 
 
 
+
+class Genre(models.Model):
+    id = models.IntegerField(primary_key=True)
+    genre = models.CharField(max_length=50)
+
+class Providers(models.Model):
+    display_priority = models.IntegerField()
+    logo_path = models.CharField(max_length=150)
+    provider_name = models.CharField(max_length=150)
+    provider_id = models.IntegerField(primary_key=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+#class Movie(models.Model):
+#    movieid = models.IntegerField(primary_key=True) # id
+#    adult = models.BooleanField()
+#    collection = models.OneToOneField(Collection, on_delete=models.CASCADE) ## Movie Series
+#    budget = models.IntegerField()
+#    #genres = models.Fo
+#    imdbid = models.IntegerField()
+#    orginal_language = models.CharField(max_length=10)
+#    title = models.CharField(max_length=100) # title NOT original title
+#    summary = models.CharField(max_length=500) # overview
+#    release_date = models.DateField()
+#    revenue = models.IntegerField()
+#    runtime = models.IntegerField()
+#    tagline = models.CharField(max_length=200)
+
+
+
+
+    
+
+
 #class Movie(models.Model):
 #    movieid = models.IntegerField(primary_key=True)
 #    year = models.IntegerField()

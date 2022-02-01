@@ -20,80 +20,105 @@
 </head>
 <body>
 
-    <header class="SideNav">
+<div class="row Flex-Container">
 
-        <div class="NavContent-Box">
+    <div class="flex-grid">
 
-            <div class="NavContent">
+        <div class="col-2 SideNav">
 
-                <div class="Nav-Logo">        
-                    <a href="{% url 'home' %}">
-                        <img id="titleLogo" alt="titlelogo" src="{% static 'images\FinalLogos\LogoFinal3-removebg-preview.png' %}">
-                    </a>
-                </div>
+            <div class="NavContent-Box">
 
-                <nav class="Nav">
-                    <div class="Nav-Options">
-                        <a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
+                <div class="NavContent">
 
-                        {% if user.is_authenticated %}
-                        <a href="#"><i class="far fa-bell"></i> Notifications</a>
-                        <a href="#"><i class="fas fa-envelope-open-text"></i> DMs ;)</a>
-                        <a href="#"><i class="far fa-plus-square"></i> Create List</a>
-                        <a href="#"><i class="far fa-bookmark"></i> Bookmarks</a>
-                        <div class="UserLists">
-
-                        </div>
-                        {% endif %}
+                    <div class="Nav-Logo">        
+                        <a href="{% url 'home' %}">
+                            <img id="titleLogo" alt="titlelogo" src="{% static 'images\FinalLogos\LogoFinal3-removebg-preview.png' %}">
+                        </a>
                     </div>
 
-
-                    <div class="Nav-UserLogin">
-
-                        <p id="ellipsis"><i class="fas fa-circle"></i><i class="fas fa-circle"></i><i class="fas fa-circle"></i></p>
+                    <nav class="Nav">
+                        <div class="Nav-Options">
+                            <a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
 
                             {% if user.is_authenticated %}
+                            <a href="#"><i class="far fa-bell"></i> Notifications</a>
+                            <a href="#"><i class="fas fa-envelope-open-text"></i> DMs ;)</a>
+                            <a href="#"><i class="far fa-plus-square"></i> Create List</a>
+                            <a href="#"><i class="far fa-bookmark"></i> Bookmarks</a>
+                            <div class="UserLists">
 
-                            <img class="account-img" src="{{ user.profile.avatar.url }}"/>
-                            <p>
-                                <a href="{% url 'users-profile' user.id user.username %}"> {{request.user.username}}</a>
-                                <a href="{% url 'logout' %}">Logout</a>
-                            </p>
-
-                            {% else %}
-                            
-                            <p>    
-                                <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
-                                <a href="{% url 'users-register'%}" class="no_action"><i class="fas fa-plus-square"></i> Join</a>
-                            </p>
-
+                            </div>
                             {% endif %}
-                    </div>
-                </nav>
-
-            </div>
-
-        </div>        
-
-    </header>
+                        </div>
 
 
-    <div class="MainContainer">
+                        <div class="Nav-UserLogin">
 
-        <div class="Search">
-            <div class="SearchSection">
+                            <p id="ellipsis"><i class="fas fa-circle"></i><i class="fas fa-circle"></i><i class="fas fa-circle"></i></p>
 
+                                {% if user.is_authenticated %}
 
-            </div>
-    
+                                <img class="account-img" src="{{ user.profile.avatar.url }}"/>
+                                <p>
+                                    <a href="{% url 'users-profile' user.id user.username %}"> {{request.user.username}}</a>
+                                    <a href="{% url 'logout' %}">Logout</a>
+                                </p>
+
+                                {% else %}
+                                
+                                <p>    
+                                    <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
+                                    <a href="{% url 'users-register'%}" class="no_action"><i class="fas fa-plus-square"></i> Join</a>
+                                </p>
+
+                                {% endif %}
+                        </div>
+                    </nav>
+
+                </div>
+
+            </div>        
+
         </div>
 
 
-        {% block maincontent %}{% endblock %}
+        <div class="col-10 MainContainer">
+
+            <div class="row Search">    
+
+                <form class="SearchForm" id="search" method='POST'>
+                    
+                <!--    {% csrf_token %}
+                    {{ form }} -->
+                
+                <div class="MainSearch">
+                    <div class="SearchInput">
+                        <input id="search" type="text" placeholder="Search">
+                    </div>
+
+                    <div class="SearchIcon">
+                        <button type="submit" class="SearchButton"><i class="fas fa-search"></i></button>
+                    </div>
+
+
+                    {% block maincontent %}{% endblock %}
+
+                </div>
+                
+                </form>
+            </div>
+        </div>
+
+
+
     </div>
+</div>
+
+   
 
 
-    <footer>
+
+    <footer class="row">
         
         <p>A GainesMoney Design</p>
 
@@ -106,6 +131,8 @@
 
     <!-- A plugin for password show/hide  -->
     <script src="https://unpkg.com/bootstrap-show-password@1.2.1/dist/bootstrap-show-password.min.js"></script>
+
+
 
 </body>
 </html>
