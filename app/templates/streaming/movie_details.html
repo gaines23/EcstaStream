@@ -1,0 +1,44 @@
+{% extends "app/layout.html" %}
+
+{% block maincontent %}
+{% load static %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'content\streaming\movie-details.css' %}">
+</head>
+
+<div class="row TopInfoBar">
+    <div class="UserActions">
+        <h1 id="title">{{ movobj.title }}</h1>
+        <!-- Figure out Liking system: Boolean or 1-5 Stars? -->
+        <p> 
+            {{ movobj.release_date }} |
+            <i class="far fa-heart"></i> |
+            <i class="far fa-plus-square"></i>
+        </p>
+    </div>
+
+    <div class="ReviewScores">
+        SCORES IMDB RT etc
+    </div>
+
+</div>
+
+
+<div class="row MainSection">
+
+    <div class="col-5 PosterInfo">
+        {% for file_path in backdrops %}
+        {% endfor %}
+
+    </div>
+
+    <div class="col-7  MovieDetails">
+
+    </div>
+
+</div>
+
+
+
+{% endblock %}

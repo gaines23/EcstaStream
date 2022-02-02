@@ -175,9 +175,9 @@ body{
 
 
 
-
-.MainContainer{
-    height: 90%;
+/* Search Bar */
+.Search {
+    height: 15%;
     position: relative;
     display: flex;
     float: right;
@@ -185,17 +185,6 @@ body{
     flex-direction: column;
     z-index: 0;
     flex: 3;
-}
-
-
-
-
-
-/* Search Bar */
-.MainContainer .Search {
-    height: 15%; 
-    width: 100%;
-    position: absolute;
 }
 
 .Search .SearchForm {
@@ -221,7 +210,10 @@ body{
     width: 75%;
     height: 45px;
     float: left;
-    border: 3px solid #6d44a8;
+    border-left: 3px solid #6d44a8;
+    border-top: 3px solid #6d44a8;
+    border-bottom: 3px solid #6d44a8;
+    border-right: none;
     border-radius: 10px 0 0 10px;
     outline: none;
 }
@@ -268,14 +260,29 @@ body{
 
 
 
+.MainContainer{
+    height: 85%;
+    color: white;
+    position: relative;
+    display: flex;
+    float: right;
+    flex-basis: auto;
+    flex-direction: column;
+    z-index: 0;
+    flex: 3;
+}
+
+
+
 
 
 
 /* Footer */
 footer {
     height: 10%;
-    text-align: center;
+    float: right;
     margin: auto;
+    text-align: center;
 }
 
 footer p {

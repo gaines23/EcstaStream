@@ -12,6 +12,7 @@ from django.views import generic
 from django.http import HttpRequest
 from .models import *
 from .forms import *
+from django.forms.models import model_to_dict
 from django.urls import reverse_lazy
 from django.forms.widgets import *
 from django.db.models import Count
@@ -25,13 +26,19 @@ from django.db.models import Q, F
 from .filter import *
 from django.contrib.admin.views.decorators import staff_member_required
 from tmdbv3api import TMDb, Movie, TV
+import os
+import environ
+from django.core.serializers.json import *
 
 
-#img = 'http://image.tmdb.org/t/p/original/{your image poster path}'
-#tmdb = TMDb()
-#tmdb.tmdb_key = tmdb_key
-#movie = Movie()
-#tv = TV()
+env = environ.Env()
+environ.Env.read_env()
+tmdb_key = env('TMDB_API_KEY')
+
+tmdb = TMDb()
+tmdb.tmdb_key = tmdb_key
+movie = Movie()
+tv = TV()
 
 
 def home(request):
@@ -147,13 +154,25 @@ def profile(request, id, username):
 
 
 
-
-def SingleMovie(request):
+def MovieDetails(request, movieid):
     assert isinstance(request, HttpRequest)
+    movobj = movie.details(movieid)
+    movimg = movie.images(movieid)
 
+    similar = movie.similar(movieid)
+    smlrobj = []
+    for result in similar:
+        smlrobj.append(result)
+
+    context = {
+        'movobj': movobj,
+        'smlrobj': smlrobj,
+        'movimg': movimg,
+    }
 
     return render(
         request,
-        'app/movie_singular.html'
+        'streaming/movie_details.html',
+        context
     )
 

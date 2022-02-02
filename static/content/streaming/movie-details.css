@@ -1,0 +1,19 @@
+.TopInfoBar {
+	color: white;
+	font-size: 20px;
+	width: 100%;
+}
+
+.TopInfoBar .UserActions {
+	width: 50%;
+	float: left;
+}
+
+.UserActions #title {
+	margin-top: 0px;
+}
+
+.TopInfoBar .ReviewScores {
+	width: 50%;
+	float: right;
+}

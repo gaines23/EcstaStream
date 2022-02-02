@@ -82,9 +82,7 @@
         </div>
 
 
-        <div class="col-10 MainContainer">
-
-            <div class="row Search">    
+            <div class="row col-10 Search">    
 
                 <form class="SearchForm" id="search" method='POST'>
                     
@@ -98,15 +96,17 @@
 
                     <div class="SearchIcon">
                         <button type="submit" class="SearchButton"><i class="fas fa-search"></i></button>
-                    </div>
-
-
-                    {% block maincontent %}{% endblock %}
+                    </div>                    
 
                 </div>
                 
                 </form>
             </div>
+
+        <div class="row col-10 MainContainer">
+
+            {% block maincontent %}{% endblock %}
+
         </div>
 
 
@@ -118,7 +118,7 @@
 
 
 
-    <footer class="row">
+    <footer class="row col-10">
         
         <p>A GainesMoney Design</p>
 
