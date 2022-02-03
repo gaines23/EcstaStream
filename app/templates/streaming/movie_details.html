@@ -12,33 +12,59 @@
         <h1 id="title">{{ movobj.title }}</h1>
         <!-- Figure out Liking system: Boolean or 1-5 Stars? -->
         <p> 
-            {{ movobj.release_date }} |
-            <i class="far fa-heart"></i> |
-            <i class="far fa-plus-square"></i>
+            <div id="year">{{ movobj.release_date|slice:4 }} |</div> 
+
+            <div id="rating">
+                RATING
+            </div>
+
+            <div id="Bookmark">
+                <i class="far fa-plus-square"></i>
+            </div>
         </p>
     </div>
 
     <div class="ReviewScores">
         SCORES IMDB RT etc
+        <i class="far fa-heart"></i> |
+        <i class="far fa-plus-square"></i>
     </div>
 
 </div>
+
+
 
 
 <div class="row MainSection">
 
     <div class="col-5 PosterInfo">
-        {% for file_path in backdrops %}
-        {% endfor %}
+
+        <img src="https://image.tmdb.org/t/p/original/{{ movobj.poster_path }}">
 
     </div>
 
-    <div class="col-7  MovieDetails">
+    <div class="col-7 MovieDetails">
 
     </div>
 
 </div>
 
+
+
+<div class="row Cast">
+
+</div>
+
+
+<div class="row AddInfo">
+
+
+</div>
+
+
+<div class="row Recommendations">
+
+</div>
 
 
 {% endblock %}

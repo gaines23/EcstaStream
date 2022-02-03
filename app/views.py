@@ -25,10 +25,10 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q, F
 from .filter import *
 from django.contrib.admin.views.decorators import staff_member_required
-from tmdbv3api import TMDb, Movie, TV
+from tmdbv3api import *
 import os
 import environ
-from django.core.serializers.json import *
+from django.db.models.functions import ExtractYear
 
 
 env = environ.Env()
@@ -157,9 +157,9 @@ def profile(request, id, username):
 def MovieDetails(request, movieid):
     assert isinstance(request, HttpRequest)
     movobj = movie.details(movieid)
-    movimg = movie.images(movieid)
+    similar = movie.similar(movieid)    
 
-    similar = movie.similar(movieid)
+
     smlrobj = []
     for result in similar:
         smlrobj.append(result)
@@ -167,7 +167,7 @@ def MovieDetails(request, movieid):
     context = {
         'movobj': movobj,
         'smlrobj': smlrobj,
-        'movimg': movimg,
+        'movdis': movdis,
     }
 
     return render(

@@ -1,4 +1,5 @@
 .TopInfoBar {
+	height: ;
 	color: white;
 	font-size: 20px;
 	width: 100%;
@@ -13,7 +14,47 @@
 	margin-top: 0px;
 }
 
+.UserActions #year {
+	font-size: 13px;
+}
+
+
+
 .TopInfoBar .ReviewScores {
 	width: 50%;
 	float: right;
+}
+
+
+
+.MainSection {
+	height: 500px;
+	width: 100%;
+}
+
+
+.MainSection .PosterInfo {
+	height: 100%;
+}
+
+.MainSection .PosterInfo img {
+	height: inherit;
+	object-fit: cover;
+}
+
+
+
+.Cast {
+	height: 300px;
+	width: 100%;
+}
+
+.AddInfo {
+	height: 300px;
+	width: 100%;
+}
+
+.Recommendations {
+	height: 300px;
+	width: 100%;
 }

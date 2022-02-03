@@ -39,7 +39,7 @@ body{
 
 .SideNav {
     height: 90%;
-    float: left;
+    width: 15%;
     flex-direction: column;
     display: flex;
     position: fixed;
@@ -62,7 +62,7 @@ body{
 .SideNav .NavContent-Box .NavContent {
     height: 100%;
     width: 235px;
-    margin-left: 85px;
+    margin-left: 40px;
     align-items: stretch;
     flex-direction: column;
     display: flex;
@@ -71,6 +71,7 @@ body{
 
 .NavContent-Box .NavContent .Nav-Logo {
     height: 10%;
+    margin: auto;
 }
 
 .NavContent-Box .NavContent .Nav-Logo a {
@@ -80,7 +81,6 @@ body{
 .NavContent-Box .NavContent .Nav-Logo img {
     height: 70px;
     padding-top: 10px;
-    padding-left: 20px;
 }
 
 
@@ -91,14 +91,14 @@ body{
 }
 
 .NavContent .Nav-Options {
-    height: 75%;
+    height: 87%;
 }
 
 .NavContent .Nav-Options a {
-    padding: 12px 0px 10px 30px;
-    text-align: justify;
+    padding: 12px 10px 10px 0px;
+    text-align: center;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 18px;
     color: #6d44a8;
     display: block;
 }
@@ -110,7 +110,7 @@ body{
 }
 
 .NavContent nav a i {
-    width: 35px;
+    width: 30px;
 }
 
 .NavContent .Nav-Options .UserLists {
@@ -122,14 +122,22 @@ body{
 
 
 .NavContent-Box .NavContent .Nav-UserLogin {
-    height: 25%;
+    width: 100%;
+    height: 13%;
+    float: left;
     font-size: 18px;
 }
+
+.NavContent-Box .NavContent .Nav-UserLogin p {
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
 
 .NavContent-Box .NavContent .Nav-UserLogin #ellipsis {
     text-align: center;
     width: 100%;
-
+    margin-bottom: 0px;
 }
 
 .NavContent-Box .NavContent .Nav-UserLogin #ellipsis i {
@@ -137,18 +145,12 @@ body{
     font-size: 12px;
 }
 
-.NavContent-Box .NavContent .Nav-UserLogin {
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    float: left;
-}
 
 .NavContent-Box .NavContent .Nav-UserLogin a {
-    padding: 12px 0px 10px 30px;
-    text-align: justify;
+    padding: 10px 10px 10px 0px;
+    text-align: center;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 15px;
     color: #6d44a8;
     display: block;
 }
@@ -174,17 +176,31 @@ body{
 
 
 
+.MainContainer {
+    height: 100%;
+    width: 70%;
+    margin: auto;
+    color: white;
+    position: relative;
+    display: flex;
+    flex-basis: auto;
+    flex-direction: column;
+    z-index: 0;
+}
+
+
+
 
 /* Search Bar */
 .Search {
-    height: 15%;
+    width: 100%;
+    height: 135px;
     position: relative;
     display: flex;
     float: right;
     flex-basis: auto;
-    flex-direction: column;
+    flex-direction: row;
     z-index: 0;
-    flex: 3;
 }
 
 .Search .SearchForm {
@@ -207,7 +223,7 @@ body{
 }
 
 .SearchForm .MainSearch .SearchInput {
-    width: 75%;
+    width: 90%;
     height: 45px;
     float: left;
     border-left: 3px solid #6d44a8;
@@ -260,29 +276,46 @@ body{
 
 
 
-.MainContainer{
-    height: 85%;
-    color: white;
+
+.MainContainer .MainContent {
+    height: 100%;
+    width: 100%;
+    padding-left: 15px;
     position: relative;
-    display: flex;
-    float: right;
-    flex-basis: auto;
-    flex-direction: column;
-    z-index: 0;
-    flex: 3;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    border-right: 1px solid #6d44a8;
+    border-left: 1px solid #6d44a8;
 }
 
 
 
 
 
+.RightSideBar {
+    height: 90%;
+    width: 15%;
+    flex-direction: column;
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    overflow: hidden;
+}
+
 
 /* Footer */
 footer {
     height: 10%;
-    float: right;
-    margin: auto;
+    width: 100%;
+    margin: 0px;
     text-align: center;
+}
+
+footer.row {
+    margin: 0px;
 }
 
 footer p {

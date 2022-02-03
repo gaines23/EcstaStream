@@ -30,7 +30,6 @@ class Profile(models.Model):
 
 
 
-
 class Genre(models.Model):
     id = models.IntegerField(primary_key=True)
     genre = models.CharField(max_length=50)
@@ -75,7 +74,9 @@ class Movie(models.Model):
     revenue = models.IntegerField()
     runtime = models.IntegerField()
     tagline = models.CharField(max_length=200)
-
+    poster_path = models.CharField(max_length=200)
+    poster_img = models.ImageField(upload_to='poster_images', null=True)
+    rating = models.CharField(max_length=10)
 
 
 

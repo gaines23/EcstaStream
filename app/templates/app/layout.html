@@ -24,7 +24,7 @@
 
     <div class="flex-grid">
 
-        <div class="col-2 SideNav">
+        <div class="col SideNav">
 
             <div class="NavContent-Box">
 
@@ -82,7 +82,11 @@
         </div>
 
 
-            <div class="row col-10 Search">    
+
+
+        <div class="col MainContainer">
+
+            <div class="row Search">    
 
                 <form class="SearchForm" id="search" method='POST'>
                     
@@ -103,13 +107,19 @@
                 </form>
             </div>
 
-        <div class="row col-10 MainContainer">
-
-            {% block maincontent %}{% endblock %}
+            <div class="row MainContent">
+                {% block maincontent %}{% endblock %}
+            </div>
 
         </div>
 
 
+
+        <div class="col RightSideBar">
+
+            {% block sidecontent %}{% endblock %}
+        
+        </div>
 
     </div>
 </div>
@@ -118,7 +128,7 @@
 
 
 
-    <footer class="row col-10">
+    <footer class="row">
         
         <p>A GainesMoney Design</p>
 
