@@ -1,4 +1,24 @@
+# DROP TABLES FIRST #
 
+genre_table_drop = "DROP TABLE IF EXISTS app_genre"
+certs_table_drop = "DROP TABLE IF EXISTS app_certs"
+countries_table_drop = "DROP TABLE IF EXISTS app_countries"
+region_table_drop = "DROP TABLE IF EXISTS app_regions"
+services_table_drop = "DROP TABLE IF EXISTS app_services"
+
+
+genre_table_create = ("""
+    CREATE TABLE IF NOT EXISTS app_genre (
+        id INT PRIMARY KEY
+        , genre TEXT []
+    )
+""")
+
+certs_table_create = (""""
+    CREATE TABLE IF NOT EXISTS app_certs (
+        certifications 
+    )
+""")
 
 genre_table_insert = ("""
     INSERT INTO app_genre(id, genre)

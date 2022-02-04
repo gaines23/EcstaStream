@@ -14,8 +14,10 @@
 	margin-top: 0px;
 }
 
-.UserActions #year {
+.UserActions #year, #rating, #bookmark {
 	font-size: 13px;
+	width: 50px;
+	float: left;
 }
 
 

@@ -39,6 +39,7 @@ tmdb = TMDb()
 tmdb.tmdb_key = tmdb_key
 movie = Movie()
 tv = TV()
+discover = Discover()
 
 
 def home(request):
@@ -154,10 +155,15 @@ def profile(request, id, username):
 
 
 
+#Don’t forget to add <span class="pre">.env</span> in your 
+#<span class="pre">.gitignore</span> also, it’s advisable to create a 
+#.env.example with a template of all the variables required for the project.
+
 def MovieDetails(request, movieid):
     assert isinstance(request, HttpRequest)
     movobj = movie.details(movieid)
     similar = movie.similar(movieid)    
+    movdis = movie.discover(region='US')
 
 
     smlrobj = []
@@ -167,7 +173,7 @@ def MovieDetails(request, movieid):
     context = {
         'movobj': movobj,
         'smlrobj': smlrobj,
-        'movdis': movdis,
+        'dis':movdis,
     }
 
     return render(
@@ -176,3 +182,8 @@ def MovieDetails(request, movieid):
         context
     )
 
+
+
+
+# WATCH PROVIDER INFO
+#&language=en-US&region=US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&year=2022&with_watch_providers=HBO&watch_region=US
