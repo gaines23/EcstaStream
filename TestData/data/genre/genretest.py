@@ -11,10 +11,10 @@ genre = Genre()
 movies = genre.movie_list()
 shows = genre.tv_list()
 
-genreFile = open("genre.json", 'w')
+genreFile = open("data/genre/genre.json", 'w')
 for m in movies:
-    genreFile.write('{"id":%d,"name":"%s"}\n' %(m.id, m.name))
+    genreFile.write('{"id":%d,"genre":"%s"}\n' %(m.id, m.name))
 
 for s in shows:
-    genreFile.write('{"id":%d,"name":"%s"}\n' %(s.id, s.name))
+    genreFile.write('{"id":%d,"genre":"%s"}\n' %(s.id, s.name))
 genreFile.close()

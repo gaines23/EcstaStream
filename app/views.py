@@ -163,7 +163,7 @@ def MovieDetails(request, movieid):
     assert isinstance(request, HttpRequest)
     movobj = movie.details(movieid)
     similar = movie.similar(movieid)    
-    movdis = movie.discover(region='US')
+    movdis = discover.discover_movies
 
 
     smlrobj = []
@@ -183,7 +183,3 @@ def MovieDetails(request, movieid):
     )
 
 
-
-
-# WATCH PROVIDER INFO
-#&language=en-US&region=US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&year=2022&with_watch_providers=HBO&watch_region=US

@@ -1,4 +1,5 @@
 from sql_queries import *
+import configparser
 
 import os
 import glob
@@ -30,44 +31,43 @@ def process_genre_file(cur, filepath):
     df = pd.read_json(filepath, lines=True)
 
     # insert genre record
-    genre_data = df[['id', 'name']].drop_duplicates()
+    genre_data = df[['id', 'genre']].drop_duplicates()
 
     for i, row in genre_data.iterrows():
         cur.execute(genre_table_insert, row)
 
-
-def process_providers_file(cur, filepath):
-    providers_files = get_files("data/provider/provider")
-    filepath = providers_files[0]
+def process_services_file(cur, filepath):
+    services_files = get_files("data/streaming/services")
+    filepath = services_files[0]
     df = pd.read_json(filepath, lines=True)
 
-    provider_data = df[['display_priority', 'logo_path', 'provider_name', 'provider_id']].drop_duplicates()
+    services_data = df[['display_priority', 'logo_path', 'provider_name', 'provider_id']].drop_duplicates()
 
-    for i, row in provider_data.iterrows():
-        cur.execute(streaming_providers_insert, row)
-
+    for i, row in services_data.iterrows():
+        cur.execute(streaming_services_table_insert, row)
 
 def process_provider_regions_file(cur, filepath):
-    region_files = get_files("data/provider/region")
+    region_files = get_files("data/streaming/region")
     filepath = region_files[0]
     df = pd.read_json(filepath, lines=True)
 
     region_data = df[['iso_3166_1', 'native_name']].drop_duplicates()
 
     for i, row in region_data.iterrows():
-        cur.execute(streaming_regions_insert, row)
+        cur.execute(streaming_regions_table_insert, row)
 
+def process_us_certs_file(cur, filepath):
+    certs_files = get_files("data/certs")
+    filepath = certs_files[0]
+    df = pd.read_json(filepath, lines=True)
+
+    certs_data = df[['certification', 'meaning']].drop_duplicates()
+
+    for i, row in certs_data.iterrows():
+        cur.execute(us_certs_table_insert, row)
 
 
 def process_data(cur, conn, filepath, func):
-
-    """
-    The function below processes the data based on the cur, conn, filepath, and func
-    commands defined above. process_data reads and abstracts the information in the
-    files in the defined filepaths and iterates through the process until there 
-    is no more data to read over.  
-    """
-
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
@@ -87,12 +87,16 @@ def process_data(cur, conn, filepath, func):
 
 
 def main():
-    conn = psycopg2.connect("host=127.0.0.1 dbname=StreamingApp user=postgres password=Nala$2323")
+    config = configparser.ConfigParser()
+    config.read('ecst.cfg')
+
+    conn = psycopg2.connect("host={} dbname={} user={} password={} port={}".format(*config['CLUSTER'].values()))
     cur = conn.cursor()
 
     process_data(cur, conn, filepath='data/genre', func=process_genre_file)
-    process_data(cur, conn, filepath='data/provider/provider', func=process_providers_file)
-    process_data(cur, conn, filepath='data/provider/region', func=process_provider_regions_file)
+    process_data(cur, conn, filepath='data/streaming/services', func=process_services_file)
+    process_data(cur, conn, filepath='data/streaming/region', func=process_provider_regions_file)
+    process_data(cur, conn, filepath='data/certs', func=process_us_certs_file)
 
     conn.close()
 

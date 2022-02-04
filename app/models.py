@@ -27,36 +27,54 @@ class Profile(models.Model):
 
 
 
-
-class Genre(models.Model):
-    id = models.IntegerField(primary_key=True)
-    genre = models.CharField(max_length=50)
-
-## Lists all of Providers listed throughout the application ##
-class StreamingProviders(models.Model):
-    display_priority = models.IntegerField()
-    logo_path = models.CharField(max_length=150)
-    provider_name = models.CharField(max_length=150)
-    provider_id = models.IntegerField(primary_key=True)
-
-class StreamingRegion(models.Model):
-    id = models.AutoField(primary_key=True)
-    iso_3166_1 = models.CharField(max_length=20)
-    native_name = models.CharField(max_length=100)
-
-
-
-## Specific tv/movie id featured on streaming providers ##
-#class MovieStreamingProviders(models.Model):
-    
-
+## 
 
 class Collection(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=200)
     summary = models.CharField(max_length=500)
-    #poster
-    #parts
+
+    class Meta:
+        managed = False
+        db_table = 'app_collection'
+
+
+class Genre(models.Model):
+    id = models.IntegerField(primary_key=True)
+    genre = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'app_genre'
+
+class StreamingRegion(models.Model):
+    iso_3166_1 = models.CharField(primary_key=True, max_length=5)
+    native_name = models.CharField(max_length=20, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'app_streamingregion'
+
+
+class StreamingServices(models.Model):
+    provider_id = models.IntegerField(primary_key=True)
+    display_priority = models.IntegerField(blank=True, null=True)
+    logo_path = models.CharField(max_length=200, blank=True, null=True)
+    provider_name = models.CharField(max_length=150, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'app_streamingservices'
+
+## Age Ratings
+class UsCerts(models.Model):
+    us_certsid = models.AutoField(primary_key=True)
+    certification = models.CharField(max_length=10, blank=True, null=True)
+    meaning = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'app_uscerts'
 
 #class Movie(models.Model):
 #    movieid = models.IntegerField(primary_key=True) # id

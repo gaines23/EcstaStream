@@ -13,10 +13,9 @@ shows = cert.tv_list().certifications
 certFile = open("data/certs/certs.json", "w", encoding='utf-8')
 
 for us in movies["US"]:
-    certFile.write('{"certification":"%s","meaning":"%s","order":%d}\n' %(us.certification, us.meaning, us.order))
- 
+    certFile.write('{"certification":"%s","meaning":"%s"}\n' %(us.certification, us.meaning))
 
 for us in shows["US"]:
-    certFile.write('{"certification":"%s","meaning":"%s","order":%d}\n' %(us.certification, us.meaning, us.order))
+    certFile.write('{"certification":"%s","meaning":"%s"}\n' %(us.certification, us.meaning))
 
 certFile.close()
