@@ -29,6 +29,8 @@ from tmdbv3api import *
 import os
 import environ
 from django.db.models.functions import ExtractYear
+from tmdbv3api.tmdb import TMDb
+
 
 
 env = environ.Env()
@@ -161,10 +163,10 @@ def profile(request, id, username):
 
 def MovieDetails(request, movieid):
     assert isinstance(request, HttpRequest)
+    
     movobj = movie.details(movieid)
     similar = movie.similar(movieid)    
     movdis = discover.discover_movies
-
 
     smlrobj = []
     for result in similar:
