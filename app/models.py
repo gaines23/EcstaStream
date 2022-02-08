@@ -76,28 +76,25 @@ class UsCerts(models.Model):
         managed = False
         db_table = 'app_uscerts'
 
-
-
-
-class Movie(models.Model):
-    movieid = models.IntegerField(primary_key=True) # id
-    adult = models.BooleanField() # Need to Query Only FALSE
-    collection = models.OneToOneField(Collection, on_delete=models.CASCADE) ## Movie Series
-    budget = models.IntegerField()
-    genres = models.ForeignKey(Genre)
-    imdbid = models.IntegerField()
-    orginal_language = models.CharField(max_length=10)
-    title = models.CharField(max_length=100) # title NOT original title
-    summary = models.CharField(max_length=500) # overview
-    release_date = models.DateField()
-    revenue = models.IntegerField()
-    runtime = models.IntegerField()
-    tagline = models.CharField(max_length=200)
-    poster_path = models.CharField(max_length=200)
-    poster_img = models.ImageField(upload_to='poster_images', null=True)
-    age_rating = models.ForeignKey(UsCerts)
-    provider_id = models.ForeignKey(StreamingServices)
-
+#class Movie(models.Model):
+#    movieid = models.IntegerField(primary_key=True) # id
+#    adult = models.BooleanField() # Need to Query Only FALSE
+#    collection = models.OneToOneField(Collection, on_delete=models.CASCADE) ## Movie Series
+#    budget = models.IntegerField()
+#    genres = models.ForeignKey(Genre)
+#    imdbid = models.IntegerField()
+#    orginal_language = models.CharField(max_length=10)
+#    title = models.CharField(max_length=100) # title NOT original title
+#    summary = models.CharField(max_length=500) # overview
+#    release_date = models.DateField()
+#    revenue = models.IntegerField()
+#    runtime = models.IntegerField()
+#    tagline = models.CharField(max_length=200)
+#    poster_path = models.CharField(max_length=200)
+#    poster_img = models.ImageField(upload_to='poster_images', null=True)
+#    age_rating = models.ForeignKey(UsCerts)
+#    provider_id = models.ForeignKey(StreamingServices)
+#    trailer = models.
 
 
     

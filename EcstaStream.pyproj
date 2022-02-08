@@ -44,6 +44,9 @@
     <Compile Include="app\filter.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\rapidapi.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\signals.py">
       <SubType>Code</SubType>
     </Compile>

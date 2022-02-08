@@ -5,19 +5,32 @@
 	width: 100%;
 }
 
-.TopInfoBar .UserActions {
+.TopInfoBar .MovieInfo {
 	width: 50%;
+	font-size: 15px;
 	float: left;
 }
 
-.UserActions #title {
-	margin-top: 0px;
-}
-
-.UserActions #year, #rating, #bookmark {
+.MovieInfo #year, #rating, #genre, #bookmark {
 	font-size: 13px;
 	width: 50px;
 	float: left;
+	text-align: center;
+}
+
+.MovieInfo #title {
+	margin-top: 0px;
+}
+
+.MovieInfo #genre {
+	width: 170px;
+	text-align: center;
+}
+
+.MovieInfo #genre i {
+    text-align: center;
+    font-size: 5px;
+    margin-bottom: 0px;
 }
 
 
@@ -25,6 +38,15 @@
 .TopInfoBar .ReviewScores {
 	width: 50%;
 	float: right;
+	font-size: 15px;
+}
+
+.ReviewScores .Ratings {
+	float: right;
+}
+
+.ReviewScores .Ratings p {
+	margin-bottom: 5px;
 }
 
 
@@ -34,15 +56,79 @@
 	width: 100%;
 }
 
-
 .MainSection .PosterInfo {
 	height: 100%;
 }
 
-.MainSection .PosterInfo img {
-	height: inherit;
+.MainSection .DirWriters {
+	float: left;
+	width: 340px;
+	height: 100%;
+}
+
+.MainSection .DirWriters #moviePoster {
+	height: 400px;
+	width: 330px;
 	object-fit: cover;
 }
+
+.DirWriters #dir {
+	height: 100px;
+	width: 50%;
+	float: left;
+	text-align: center;
+}
+
+.DirWriters #writers {
+	height: 100px;
+	width: 50%;
+	float: right;
+}
+
+.MainSection .PosterInfo .TrailerDir {
+	float: right;
+	width: 160px;
+	height: 100%;
+}
+
+.PosterInfo .TrailerDir #trailer {
+	height: 60px;
+	width: 100%;
+}
+
+.PosterInfo .TrailerDir #trailer button {
+	height: 45px;
+	width: 100%;
+	border-radius: 25px;
+    background-image: url('bk-color.png');
+    background-size: contain;
+}
+
+.PosterInfo .TrailerDir #trailer h3 {
+	font-size: 20px;
+	width: 100px;
+	float: left;
+	color: white;
+	padding-top: 5px;
+	font-weight: bold;
+}
+
+.PosterInfo .TrailerDir #trailer button #playLogo {
+	float: right;
+	height: 35px;
+	width: 35px;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

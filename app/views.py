@@ -3,7 +3,7 @@ Definition of views.
 """
 
 from datetime import datetime
-import json
+import json, requests
 from django.contrib import messages
 from django.views import View
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect, reverse
@@ -30,15 +30,16 @@ import os
 import environ
 from django.db.models.functions import ExtractYear
 from tmdbv3api.tmdb import TMDb
+#from .rapidapi import ImdbRapiApi
 
 
 
 env = environ.Env()
 environ.Env.read_env()
 tmdb_key = env('TMDB_API_KEY')
-
 tmdb = TMDb()
 tmdb.tmdb_key = tmdb_key
+
 movie = Movie()
 tv = TV()
 discover = Discover()
@@ -165,8 +166,31 @@ def MovieDetails(request, movieid):
     assert isinstance(request, HttpRequest)
     
     movobj = movie.details(movieid)
-    similar = movie.similar(movieid)    
+    similar = movie.similar(movieid)
+    trailers = movie.videos(movieid)
+    providers = movie.watch_providers(movieid)
     movdis = discover.discover_movies
+    credits = movie.credits(movieid)
+
+    imdbid = movobj.imdb_id
+
+    class ImdbRapidApi(object):
+        url = "https://movie-database-imdb-alternative.p.rapidapi.com/"
+        querystring = {"i":{imdbid},"type":"movie","r":"json"}
+
+        Imdb_URL = "movie-database-imdb-alternative.p.rapidapi.com"
+        URL_API = "93f4b600aemshd9c2d876469f714p1c0cb3jsn18656827b06a"
+
+        headers = {
+            'x-rapidapi-host': Imdb_URL,
+            'x-rapidapi-key': URL_API
+            }
+
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        api = response.json()
+
+    rapidapi = ImdbRapidApi()
+    r = rapidapi.api
 
     smlrobj = []
     for result in similar:
@@ -176,6 +200,10 @@ def MovieDetails(request, movieid):
         'movobj': movobj,
         'smlrobj': smlrobj,
         'dis':movdis,
+        'r':r,
+        'trailers':trailers,
+        'providers':providers,
+        'credits':credits,
     }
 
     return render(

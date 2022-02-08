@@ -8,14 +8,20 @@
 </head>
 
 <div class="row TopInfoBar">
-    <div class="UserActions">
+    <div class="MovieInfo">
         <h1 id="title">{{ movobj.title }}</h1>
         <!-- Figure out Liking system: Boolean or 1-5 Stars? -->
         <p> 
-            <div id="year">{{ movobj.release_date|slice:4 }} |</div> 
+            <div id="year">{{ movobj.release_date|slice:4 }}</div>
 
-            <div id="rating">
-                RATING 
+            <div id="rating"> 
+                {{ r.Rated }}
+            </div>
+
+            <div id="genre">
+                {% for g in movobj.genres %}
+                    {{ g.name }} |  
+                {% endfor %}
             </div>
 
             <div id="bookmark">
@@ -25,9 +31,34 @@
     </div>
 
     <div class="ReviewScores">
-        SCORES IMDB RT etc
-        <i class="far fa-heart"></i> |
-        <i class="far fa-plus-square"></i>
+        <div class="Ratings">
+            {% for rating in r.Ratings %}
+                    {% if rating.Source == 'Internet Movie Database' %}
+                        <p>
+                            <img id="imbdLogo" alt="imbdLogo" src="{% static 'images\logos\Imdb.png' %}" style="height: 20px; width: 30px">
+                            {{ rating.Value }}
+                        </p>
+                    {% endif %}
+
+                    {% if rating.Source == 'Rotten Tomatoes' %} 
+                        <p>
+                            <img id="imbdLogo" alt="imbdLogo" src="{% static 'images\logos\RT.svg.png' %}" style="height: 35px; width: 30px">
+                            {{ rating.Value }}
+                        </p>
+                    {% endif %}
+
+                    {% if rating.Source == 'Metacritic' %}
+                        <p>
+                            <img id="imbdLogo" alt="imbdLogo" src="{% static 'images\logos\index.png' %}" style="height:35px; width: 30px;">
+                            {{ rating.Value }}
+                        </p>
+                    {% endif %}
+            {% endfor %}
+        </div>
+
+<!-- ADD USER RATINGS AND STUFF UNDER: AUTH_REQUIRED -->
+
+
     </div>
 
 </div>
@@ -39,13 +70,42 @@
 
     <div class="col-5 PosterInfo">
 
-        <img src="https://image.tmdb.org/t/p/original/{{ movobj.poster_path }}">
+        <div class="DirWriters">
+            <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ movobj.poster_path }}">
+            <br>
+            <div id="dir">
+                Director(s) <br>
+                {{ r.Director }}
+            </div>
+
+            <div id="writers">
+                Screenplay <br> 
+                {% for s in credits.crew %}
+                    {% if s.known_for_department == 'Writing' %}
+                        {{ s.name }} <br>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="TrailerDir">
+            <div id="trailer">
+               <button onclick="window.open('')">
+                <h3>Trailer</h3> 
+                <img id="playLogo" alt="playlogo" src="{% static 'images\FinalLogos\playbutton-removebg-preview.png' %}"></button>
+            </div>
+
+        </div>
 
     </div>
 
     <div class="col-7 MovieDetails">
 
+
+
     </div>
+
+
 
 </div>
 
