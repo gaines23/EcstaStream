@@ -4,7 +4,7 @@
 {% load static %}
 
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'content\streaming\movie-details.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'content\movies\movie-details.css' %}">
 </head>
 
 <div class="row TopInfoBar">
@@ -73,19 +73,23 @@
         <div class="DirWriters">
             <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ movobj.poster_path }}">
             <br>
-            <div id="dir">
-                Director(s) <br>
-                {{ r.Director }}
+
+            <div class="Info">
+                <div id="dir">
+                    Director(s) <br>
+                    {{ r.Director }}               
+                </div>
+
+                <div id="writers">
+                    Screenplay <br> 
+                    {% for s in credits.crew %}
+                        {% if s.known_for_department == 'Writing' %}
+                            {{ s.name }} <br>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
 
-            <div id="writers">
-                Screenplay <br> 
-                {% for s in credits.crew %}
-                    {% if s.known_for_department == 'Writing' %}
-                        {{ s.name }} <br>
-                    {% endif %}
-                {% endfor %}
-            </div>
         </div>
 
         <div class="TrailerDir">
@@ -99,8 +103,34 @@
 
     </div>
 
-    <div class="col-7 MovieDetails">
-
+    <div class="col-7 StreamingServices">
+        <div class="Free-Streaming">
+            <h3>Free</h3>
+            {% for free in us_streaming.flatrate %}
+                {% if free.display_priority <= 11 %}
+                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{  free.logo_path  }}">
+                    {{ free.provider_name }}
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="Rent-Streaming">
+            <h3>Rent</h3>
+            {% for rent in us_streaming.rent %}
+                {% if rent.display_priority <= 11 %}
+                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{  rent.logo_path  }}">
+                    {{ rent.provider_name }}
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="Buy-Streaming">
+            <h3>Purchase</h3>
+            {% for buy in us_streaming.buy %}
+                {% if buy.display_priority <= 11 %}
+                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{  buy.logo_path  }}">
+                    {{ buy.provider_name }}
+                {% endif %}
+            {% endfor %}
+        </div>
 
 
     </div>

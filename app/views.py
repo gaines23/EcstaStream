@@ -169,8 +169,9 @@ def MovieDetails(request, movieid):
     similar = movie.similar(movieid)
     trailers = movie.videos(movieid)
     providers = movie.watch_providers(movieid)
-    movdis = discover.discover_movies
+    #movdis = discover.discover_movies
     credits = movie.credits(movieid)
+    streaming = movie.watch_providers(movieid)
 
     imdbid = movobj.imdb_id
 
@@ -192,6 +193,8 @@ def MovieDetails(request, movieid):
     rapidapi = ImdbRapidApi()
     r = rapidapi.api
 
+    us_streaming = streaming.results['US']
+
     smlrobj = []
     for result in similar:
         smlrobj.append(result)
@@ -199,17 +202,18 @@ def MovieDetails(request, movieid):
     context = {
         'movobj': movobj,
         'smlrobj': smlrobj,
-        'dis':movdis,
+        #'dis':movdis,
         'r':r,
         'trailers':trailers,
         'providers':providers,
         'credits':credits,
+        'us_streaming':us_streaming,
     }
 
     return render(
         request,
-        'streaming/movie_details.html',
-        context
+        'movies/movie_details.html',
+        context,
     )
 
 

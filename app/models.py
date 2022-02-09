@@ -76,6 +76,15 @@ class UsCerts(models.Model):
         managed = False
         db_table = 'app_uscerts'
 
+class Streamingurls(models.Model):
+    provider_id = models.IntegerField(primary_key=True)
+    url_path = models.CharField(max_length=300, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'app_streamingurls'
+
+
 #class Movie(models.Model):
 #    movieid = models.IntegerField(primary_key=True) # id
 #    adult = models.BooleanField() # Need to Query Only FALSE

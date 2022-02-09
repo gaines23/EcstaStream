@@ -72,17 +72,29 @@
 	object-fit: cover;
 }
 
+.DirWriters .Info {
+	height: 100px;
+	font-size: 12px;
+	background-color: #1e1f1e;
+	border-radius: 10px;
+}
+
 .DirWriters #dir {
 	height: 100px;
 	width: 50%;
+	padding-left: 5px;
+	padding-top: 5px;
 	float: left;
-	text-align: center;
+	text-align: left;
 }
 
 .DirWriters #writers {
 	height: 100px;
 	width: 50%;
+	padding-right: 5px;
+	padding-top: 5px;
 	float: right;
+	text-align: right;
 }
 
 .MainSection .PosterInfo .TrailerDir {

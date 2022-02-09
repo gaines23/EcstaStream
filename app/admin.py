@@ -10,6 +10,7 @@ admin.site.register(StreamingServices)
 admin.site.register(StreamingRegion)
 admin.site.register(Collection)
 admin.site.register(UsCerts)
+admin.site.register(Streamingurls)
 #admin.site.register(Movie)
 
 #admin.site.register(Movie)
