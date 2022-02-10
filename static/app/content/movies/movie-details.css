@@ -70,13 +70,13 @@
 
 .MainSection .PosterInfo #moviePoster {
 	height: 400px;
-	width: 85%;
+	width: 80%;
 	object-fit: fill;
 }
 
 .PosterInfo .Info {
 	height: 100px;
-	width: 85%;
+	width: 80%;
 	font-size: 12px;
 	background-color: #1e1f1e;
 	border-radius: 10px;
@@ -154,47 +154,37 @@
     display: flex;
     min-height: 100%;
     max-height: 100%;
+    border-radius: 25px;
     margin: 0;
     padding: 0;
     overflow: hidden;
 	list-style-type: none;
 }
 
-.StreamingServices li {
-	flex: 1;
+.MainSection .StreamingServices li {
 	display: flex;
+	width: 14%;
 	align-items: stretch;
-	padding: 20px;
 	background-image: url('bk-color.png');
 	background-position: center;
 	cursor: pointer;
-	transition: all .5s ease;
+	transition: all .2s ease;
 }
 
-.StreamingServices li.active {
-	flex: 5;
-    background: #6D44A8;
+.MainSection .StreamingServices li.active {
+	flex: 1;
   	cursor: default;
+  	background: #6D44A8;
 }
 
-.StreamingServices li.active h2 {
-	width: 100px;
-	height: 100% ;
-    margin: 0;
-    transform: rotate(-90deg);
-    white-space: nowrap;
-	color: white;
-	padding-top: 5px;
-	font-weight: bold;
-}
-    
-.StreamingServices li.active .section-content {
+.MainSection .StreamingServices li.active .section-content {
     flex: 4;
     opacity: 1;
     transform: scaleX(1);
+    width: 90%;
  }
-  
-.StreamingServices .section-title {
+
+.MainSection .StreamingServices .section-title {
 	flex: 1;
     display: flex;
     align-items: center;
@@ -205,25 +195,20 @@
     color: white;
 }
 
-.StreamingServices .section-title h2 {
-	width: 100px;
-	height: 100% ;
+.MainSection .StreamingServices .section-title h2 {
     margin: 0;
     transform: rotate(-90deg);
     white-space: nowrap;
-	color: white;
-	padding-top: 5px;
 	font-weight: bold;
 }
 
-.StreamingServices .section-content {
+.MainSection .StreamingServices li .section-content {
     flex: 1;
     display: flex;
     align-items: center;
     margin: 0;
     padding: 0;
     opacity: 0;
-    transition: all .25s .1s ease-out;
 }
 
 
@@ -234,55 +219,23 @@
 
 
 
-
-
-.TrailerDir .TrailerContent #playlogo {
-	height: 20%;
-}
-
-.TrailerDir img {
-	height: 50px;
-	width: 50px;
+.StreamingServices #streaming .StreamingList {
 	float: right;
-	margin-right: 15px;
-}
-
-
-
-
-.TrailerDir .TrailerContent #Trailer h3 {
-	font-size: 20px;
-	width: 100px;
-	float: left;
-	color: white;
-	padding-top: 5px;
-	font-weight: bold;
-}
-
-
-
-
-
-.StreamingServices .StreamingList {
-	float: right;
-	width: 90%;
+	width: 100%;
 	height: 90%;
-	background-color: #6D44A8;
-	border-bottom-right-radius: 25px;
-	border-left: 2px solid white;
 }
 
-.StreamingServices .StreamingList .List-Cat {
+#streaming .StreamingList .List-Cat {
 	padding-left: 15px;
 	padding-right: 15px;
 	height: 100%;
 }
 
-.StreamingList .List-Cat h3 {
+#streaming .List-Cat h3 {
 	font-size: 20px;
 }
 
-.StreamingList .List-Cat img {
+#streaming .List-Cat img {
 	height: 40px;
 	width: 40px;
 	margin-left: 8px;
@@ -290,21 +243,21 @@
 	border-radius: 10px;
 }
 
-.StreamingList .List-Cat .Free-Streaming {
+#streaming .List-Cat .Free-Streaming {
 	height: 33%;
 	border-bottom: 1px solid white;
 	padding-top: 8px;
 	padding-bottom: 8px;
 }
 
-.StreamingList .List-Cat .Rent-Streaming {
+#streaming .List-Cat .Rent-Streaming {
 	height: 33%;
 	border-bottom: 1px solid white;
 	padding-top: 8px;
 	padding-bottom: 8px;
 }
 
-.StreamingList .List-Cat .Buy-Streaming {
+#streaming .List-Cat .Buy-Streaming {
 	height: 33%;
 	padding-top: 8px;
 	padding-bottom: 8px;

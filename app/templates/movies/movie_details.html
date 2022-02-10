@@ -109,54 +109,56 @@
 -->
 
             <ul>
-              <li>
-                <div class="TrailerSection">
+
+                <li>
                     <div class="section-title">
-                      <h2>Trailer</h2>
+                        <h2>Trailers</h2>
                     </div>
-                    <div class="section-content TrailerContent">
-                      
-
+                    <div class="section-content">
+                        <iframe width="1403" height="788" src="https://www.youtube.com/embed/{{ trailer.key }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-              </li>
+                </li>
 
-              <li class="active">
-                <div class="section-title">
-                  <h2>Where to Watch</h2>
-                </div>
-                <div class="section-content">
-                    <div class="StreamingList">
+                <li class="active" id="streaming">
 
-                        <div class="List-Cat">
-                            <div class="Free-Streaming">
-                                <h3>Free</h3>
-                                {% for free in us_streaming.flatrate %}
-                                    {% if free.display_priority <= 11 %}
-                                        <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ free.logo_path }}">
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                            <div class="Rent-Streaming">
-                                <h3>Rent</h3>
-                                {% for rent in us_streaming.rent %}
-                                    {% if rent.display_priority <= 11 %}
-                                        <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ rent.logo_path }}">
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                            <div class="Buy-Streaming">
-                                <h3>Purchase</h3>
-                                {% for buy in us_streaming.buy %}
-                                    {% if buy.display_priority <= 11 %}
-                                        <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ buy.logo_path }}">
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                        </div>    
-
+                    <div class="section-title">
+                        <h2>Streaming</h2>
                     </div>
-                </div>
-              </li>
+
+                    <div class="section-content">
+                        <div class="StreamingList">
+
+                            <div class="List-Cat">
+                                <div class="Free-Streaming">
+                                    <h3>Free</h3>
+                                    {% for free in us_streaming.flatrate %}
+                                        {% if free.display_priority <= 11 %}
+                                            <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ free.logo_path }}">
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="Rent-Streaming">
+                                    <h3>Rent</h3>
+                                    {% for rent in us_streaming.rent %}
+                                        {% if rent.display_priority <= 11 %}
+                                            <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ rent.logo_path }}">
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="Buy-Streaming">
+                                    <h3>Purchase</h3>
+                                    {% for buy in us_streaming.buy %}
+                                        {% if buy.display_priority <= 11 %}
+                                            <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ buy.logo_path }}">
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>    
+
+                        </div>
+                    </div>
+                </li>
+
             </ul>
 
         </div>
