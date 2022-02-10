@@ -68,20 +68,19 @@
 
 <div class="row MainSection">
 
-    <div class="col-5 PosterInfo">
+    <div class="col-4 PosterInfo">
 
-        <div class="DirWriters">
             <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ movobj.poster_path }}">
             <br>
 
             <div class="Info">
                 <div id="dir">
-                    Director(s) <br>
+                    <p id="title">Director(s)</p>
                     {{ r.Director }}               
                 </div>
 
                 <div id="writers">
-                    Screenplay <br> 
+                    <p id="title">Screenplay</p>
                     {% for s in credits.crew %}
                         {% if s.known_for_department == 'Writing' %}
                             {{ s.name }} <br>
@@ -90,58 +89,85 @@
                 </div>
             </div>
 
-        </div>
 
-        <div class="TrailerDir">
-            <div id="trailer">
-               <button onclick="window.open('')">
-                <h3>Trailer</h3> 
-                <img id="playLogo" alt="playlogo" src="{% static 'images\FinalLogos\playbutton-removebg-preview.png' %}"></button>
+    </div>
+
+
+    <div class="col-8 SummaryStreaming">
+
+        <div class="Summary">
+            <h2>Synopsis</h2>
+            <div id="text">
+                {{ movobj.overview }}
             </div>
-
         </div>
 
+        <div class="StreamingServices">
+<!--            <div class="Title">
+                <h2>Where to Watch</h2>
+            </div>
+-->
+
+            <ul>
+              <li>
+                <div class="TrailerSection">
+                    <div class="section-title">
+                      <h2>Trailer</h2>
+                    </div>
+                    <div class="section-content TrailerContent">
+                      
+
+                    </div>
+              </li>
+
+              <li class="active">
+                <div class="section-title">
+                  <h2>Where to Watch</h2>
+                </div>
+                <div class="section-content">
+                    <div class="StreamingList">
+
+                        <div class="List-Cat">
+                            <div class="Free-Streaming">
+                                <h3>Free</h3>
+                                {% for free in us_streaming.flatrate %}
+                                    {% if free.display_priority <= 11 %}
+                                        <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ free.logo_path }}">
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="Rent-Streaming">
+                                <h3>Rent</h3>
+                                {% for rent in us_streaming.rent %}
+                                    {% if rent.display_priority <= 11 %}
+                                        <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ rent.logo_path }}">
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="Buy-Streaming">
+                                <h3>Purchase</h3>
+                                {% for buy in us_streaming.buy %}
+                                    {% if buy.display_priority <= 11 %}
+                                        <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ buy.logo_path }}">
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>    
+
+                    </div>
+                </div>
+              </li>
+            </ul>
+
+        </div>
     </div>
-
-    <div class="col-7 StreamingServices">
-        <div class="Free-Streaming">
-            <h3>Free</h3>
-            {% for free in us_streaming.flatrate %}
-                {% if free.display_priority <= 11 %}
-                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{  free.logo_path  }}">
-                    {{ free.provider_name }}
-                {% endif %}
-            {% endfor %}
-        </div>
-        <div class="Rent-Streaming">
-            <h3>Rent</h3>
-            {% for rent in us_streaming.rent %}
-                {% if rent.display_priority <= 11 %}
-                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{  rent.logo_path  }}">
-                    {{ rent.provider_name }}
-                {% endif %}
-            {% endfor %}
-        </div>
-        <div class="Buy-Streaming">
-            <h3>Purchase</h3>
-            {% for buy in us_streaming.buy %}
-                {% if buy.display_priority <= 11 %}
-                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{  buy.logo_path  }}">
-                    {{ buy.provider_name }}
-                {% endif %}
-            {% endfor %}
-        </div>
-
-
-    </div>
-
-
 
 </div>
 
 
 
 <div class="row Cast">
+
 
 </div>
 
@@ -156,5 +182,7 @@
 
 </div>
 
+
+<script src="{% static 'scripts\moviedetails.js' %}"></script>
 
 {% endblock %}
