@@ -5,6 +5,7 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'content\movies\movie-details.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'content\movies\cast-slider.css' %}">
 </head>
 
 <div class="row TopInfoBar">
@@ -112,10 +113,10 @@
 
                 <li>
                     <div class="section-title">
-                        <h2>Trailers</h2>
+                        <h2>Trailer</h2>
                     </div>
                     <div class="section-content">
-                        <iframe width="1403" height="788" src="https://www.youtube.com/embed/{{ trailer.key }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="1403" height="788" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </li>
 
@@ -169,6 +170,61 @@
 
 
 <div class="row Cast">
+
+    <div class="Search">
+        <p>Cast & Crew</p>
+        
+        <div class="search-wrapper">
+            <div class="input-holder">
+                <input type="text" class="search-input" placeholder="Search..." />
+                <button class="search-icon" onclick="searchToggle(this, event);">
+                    <i class="fas fa-search" style="font-size: 25px; color: #f97c32"></i>
+                </button>
+            </div>
+            <span class="close" onclick="searchToggle(this, event);"></span>
+        </div>
+
+    </div>
+
+  <div class="container">
+
+    <div id="slide-left-container">
+      <div class="slide-left">
+      </div>
+    </div>
+
+    <div id="cards-container">
+    
+      <div class="cards">
+        {% for acting in credits.cast %}
+            {% if acting.known_for_department == 'Acting' %}
+
+            <div class="card">
+              <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ acting.profile_path }}" style="width:100%; height: 185px;">
+              <div class="container">
+                <h4>
+                  <b>{{ acting.name }}</b>
+                  <i style="font-size: 20px">{{ acting.character }}</i>
+                </h4>
+              </div>
+            </div>
+
+            {% endif %}
+        {% endfor %}
+      </div>
+
+        
+    </div>
+
+    <div id="slide-right-container">
+      <div class="slide-right">
+      </div>
+    </div>
+
+
+
+
+  </div>
 
 
 </div>

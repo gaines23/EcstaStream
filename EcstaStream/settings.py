@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'multiselectfield',
     'django_filters',
     'social_django',
+    'embed_video',
 ]
 
 # Middleware framework

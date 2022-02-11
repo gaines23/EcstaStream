@@ -195,6 +195,8 @@ def MovieDetails(request, movieid):
 
     us_streaming = streaming.results['US']
 
+    cast = credits.cast['known_for_department'=='Acting']
+
     smlrobj = []
     for result in similar:
         smlrobj.append(result)
@@ -207,6 +209,7 @@ def MovieDetails(request, movieid):
         'trailers':trailers,
         'providers':providers,
         'credits':credits,
+        'cast':cast,
         'us_streaming':us_streaming,
     }
 
