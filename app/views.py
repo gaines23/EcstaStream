@@ -43,6 +43,8 @@ tmdb.tmdb_key = tmdb_key
 movie = Movie()
 tv = TV()
 discover = Discover()
+series = Collection()
+
 
 
 def home(request):
@@ -172,6 +174,7 @@ def MovieDetails(request, movieid):
     #movdis = discover.discover_movies
     credits = movie.credits(movieid)
     streaming = movie.watch_providers(movieid)
+    
 
     imdbid = movobj.imdb_id
 
@@ -196,6 +199,10 @@ def MovieDetails(request, movieid):
     us_streaming = streaming.results['US']
 
     cast = credits.cast['known_for_department'=='Acting']
+    
+    mov_seriesID = movobj.belongs_to_collection['id']
+    seriesid = streaming.details(mov_seriesID)
+
 
     smlrobj = []
     for result in similar:
@@ -210,6 +217,7 @@ def MovieDetails(request, movieid):
         'providers':providers,
         'credits':credits,
         'cast':cast,
+        'seriesid':seriesid,
         'us_streaming':us_streaming,
     }
 

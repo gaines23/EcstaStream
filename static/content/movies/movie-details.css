@@ -279,7 +279,7 @@
 
 .Cast .Search {
 	height: 150px;
-	padding-top: 25px;
+	padding-top: 35px;
 }
 
 .Cast .Search p {
@@ -302,8 +302,8 @@
 .Cast .Search .search-wrapper.active {}
 
 .Cast .Search .search-wrapper .input-holder {    
-    height: 70px;
-    width: 70px;
+    height: 60px;
+    width: 65px;
     overflow: hidden;
     background: #6D44A8;
     border-radius: 30px;
@@ -331,7 +331,7 @@
     border: none;
     outline: none;
     font-family:"Open Sans", Arial, Verdana;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 400;
     line-height: 20px;
     color: white;
@@ -346,8 +346,8 @@
 }
 
 .Cast .Search .search-wrapper .input-holder .search-icon {
-    width: 70px;
-    height: 70px;
+    width: 65px;
+    height: 60px;
     border: none;
     border-radius: 30px;
     background: #FFF;
@@ -361,9 +361,8 @@
 }
 
 .Cast .Search .search-wrapper.active .input-holder .search-icon {
-    width: 50px;
-    height:50px;
-    margin: 10px;
+    width: 65;
+    height: 60px;
     border-radius: 30px;
 }
 
@@ -407,7 +406,7 @@
 .Cast .Search .search-wrapper .close {
     position: absolute;
     z-index: 1;
-    top: 24px;
+    top: 20px;
     right: 20px;
     width: 25px;
     height: 25px;
@@ -456,10 +455,18 @@
 
 
 
-.AddInfo {
+.SeriesInfo {
 	height: 300px;
 	width: 100%;
 }
+
+
+
+
+
+
+
+
 
 .Recommendations {
 	height: 300px;

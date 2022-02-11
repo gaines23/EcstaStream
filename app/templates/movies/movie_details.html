@@ -77,7 +77,11 @@
             <div class="Info">
                 <div id="dir">
                     <p id="title">Director(s)</p>
-                    {{ r.Director }}               
+                    {% for d in credits.crew|slice:":3" %}
+                        {% if d.known_for_department == 'Directing' %}
+                            {{ d.name }} <br>
+                        {% endif %}
+                    {% endfor %}               
                 </div>
 
                 <div id="writers">
@@ -222,15 +226,15 @@
     </div>
 
 
-
-
   </div>
 
 
 </div>
 
 
-<div class="row AddInfo">
+<div class="row SeriesInfo">
+
+    {{ seriesID.id }}
 
 
 </div>
