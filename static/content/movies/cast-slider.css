@@ -1,4 +1,6 @@
 .Cast .container {
+  height: 350px;
+  width: 90%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -9,7 +11,6 @@
   -ms-flex-pack: justify;
   justify-content: space-between;
   padding: 4px 16px;
-  height: 350px;
 }
 
 .Cast #cards-container {

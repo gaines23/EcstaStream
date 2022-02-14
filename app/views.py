@@ -201,7 +201,7 @@ def MovieDetails(request, movieid):
     cast = credits.cast['known_for_department'=='Acting']
     
     mov_seriesID = movobj.belongs_to_collection['id']
-    seriesid = streaming.details(mov_seriesID)
+    seriesid = series.details(mov_seriesID)
 
 
     smlrobj = []
