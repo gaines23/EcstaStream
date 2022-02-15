@@ -32,30 +32,30 @@
     </div>
 
     <div class="ReviewScores">
-        <div class="Ratings">
+        <ul class="Ratings">
             {% for rating in r.Ratings %}
                     {% if rating.Source == 'Internet Movie Database' %}
-                        <p>
-                            <img id="imbdLogo" alt="imbdLogo" src="{% static 'images\logos\Imdb.png' %}" style="height: 20px; width: 30px">
-                            {{ rating.Value }}
-                        </p>
+                        <li>
+                            <img id="imbdLogo" alt="imbdLogo" src="{% static 'images\logos\Imdb.png' %}"> <br>
+                            <p>{{ rating.Value }}</p>
+                        </li>
                     {% endif %}
 
                     {% if rating.Source == 'Rotten Tomatoes' %} 
-                        <p>
-                            <img id="imbdLogo" alt="imbdLogo" src="{% static 'images\logos\RT.svg.png' %}" style="height: 35px; width: 30px">
-                            {{ rating.Value }}
-                        </p>
+                        <li>
+                            <img id="imbdLogo" alt="imbdLogo" src="{% static 'images\logos\RT.svg.png' %}"> <br>
+                            <p>{{ rating.Value }}</p>
+                        </li>
                     {% endif %}
 
                     {% if rating.Source == 'Metacritic' %}
-                        <p>
-                            <img id="imbdLogo" alt="imbdLogo" src="{% static 'images\logos\index.png' %}" style="height:35px; width: 30px;">
-                            {{ rating.Value }}
-                        </p>
+                        <li>
+                            <img id="imbdLogo" alt="imbdLogo" src="{% static 'images\logos\index.png' %}"> <br>
+                            <p>{{ rating.Value }}</p>
+                        </li>
                     {% endif %}
             {% endfor %}
-        </div>
+        </ul>
 
 <!-- ADD USER RATINGS AND STUFF UNDER: AUTH_REQUIRED -->
 
@@ -108,9 +108,11 @@
         </div>
 
         <div class="StreamingServices">
-<!--            <div class="Title">
-                <h2>Where to Watch</h2>
-            </div>
+<!--            
+<iframe width="1403" height="788" src="https://www.youtube.com/watch?v={{t.key}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+https://youtu.be/zsrdBGr8NIk
+
 -->
 
             <ul>
@@ -120,7 +122,7 @@
                         <h2>Trailer</h2>
                     </div>
                     <div class="section-content">
-                        <iframe width="1403" height="788" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        
                     </div>
                 </li>
 
@@ -175,12 +177,12 @@
 
 <div class="row Cast">
 
-    <div class="Search">
+    <div class="CastSearch">
         <p>Cast & Crew</p>
         
         <div class="search-wrapper">
             <div class="input-holder">
-                <input type="text" class="search-input" placeholder="Search..." />
+                <input type="text" id="myInput" onkeyup="myFunction()" class="search-input" placeholder="Search..." />
                 <button class="search-icon" onclick="searchToggle(this, event);">
                     <i class="fas fa-search" style="font-size: 25px; color: #f97c32"></i>
                 </button>
@@ -199,11 +201,11 @@
 
     <div id="cards-container">
     
-      <div class="cards">
+      <div class="cards" id="cards">
         {% for acting in credits.cast %}
             {% if acting.known_for_department == 'Acting' %}
 
-            <div class="card">
+            <div class="card" id="card">
               <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ acting.profile_path }}" style="width:100%; height: 185px;">
               <div class="container">
                 <h4>
@@ -245,7 +247,13 @@
                 <div class="item" style="background-image: url(https://image.tmdb.org/t/p/original/{{ s.backdrop_path }}); background-position: center; background-size: cover;-">
                     <h2>{{ s.title }}</h2>
                     <div id="summary">
-                        <p>{{ s.overview }}</p>
+                        <p>
+                            {% if s.overview|length > 175 %}
+                                {{ s.overview|slice:175 }} ... 
+                            {% else %}
+                                {{ s.overview }}
+                            {% endif %}
+                        </p>
                     </div>
                 </div>
             {% endfor %}
@@ -257,11 +265,6 @@
 
 
 
-
-
-<div class="Similar">
-
-</div>
 
 
 

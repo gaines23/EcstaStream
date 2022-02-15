@@ -171,7 +171,6 @@ def MovieDetails(request, movieid):
     similar = movie.similar(movieid)
     trailers = movie.videos(movieid)
     providers = movie.watch_providers(movieid)
-    #movdis = discover.discover_movies
     credits = movie.credits(movieid)
     streaming = movie.watch_providers(movieid)
     

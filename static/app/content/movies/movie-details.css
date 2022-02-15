@@ -1,6 +1,6 @@
 
 .TopInfoBar {
-	height: 100px;
+	height: 125px;
 	color: white;
 	font-size: 20px;
 	width: 100%;
@@ -8,6 +8,7 @@
 
 .TopInfoBar .MovieInfo {
 	width: 50%;
+	height: 100%;
 	font-size: 15px;
 	float: left;
 }
@@ -38,18 +39,38 @@
 
 .TopInfoBar .ReviewScores {
 	width: 50%;
+	height: 100%;
 	float: right;
 	font-size: 15px;
 }
 
 .ReviewScores .Ratings {
+	width: 50%;
+	height: 90%;
 	float: right;
+	list-style: none;
+	margin: revert;
 }
 
-.ReviewScores .Ratings p {
+.ReviewScores ul li {
+	width: 100px;
+	height: 100px;
 	margin-bottom: 5px;
+	display: inline-block;
+	text-align: center;
 }
 
+.ReviewScores .Ratings li img {
+	height: 45px;
+	width: 45px;
+	margin: auto;
+}
+
+.ReviewScores .Ratings li p {
+	font-size: 15px;
+	margin-top: 5px;
+	margin-bottom: 0px;
+}
 
 
 .MainSection {
@@ -133,6 +154,7 @@
 .SummaryStreaming .Summary h2 {
 	font-size: 20px;
 	padding-left: 3%;
+	padding-top: 15px;
 	padding-top: 5px;
 	margin-bottom: 3px;
 }
@@ -270,49 +292,51 @@
 	width: 100%;
 }
 
-.Cast .Search {
+.Cast .CastSearch {
 	height: 150px;
 	padding-top: 35px;
 }
 
-.Cast .Search p {
+.Cast .CastSearch p {
+	width: 25%;
+	float: left;
 	margin: revert;
 	font-weight: bold;
 	color: white;
 	font-size: 25px;
+	text-align: center;
 }
 
-.Cast .Search ::selection {
+.Cast .CastSearch ::selection {
    background: #212129;
 }
 
-.Cast .Search .search-wrapper {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    margin-top: 20px;
+.Cast .CastSearch .search-wrapper {
+    position: inherit;
+    float: right;
+    transform: translate(-5%, 20%);
+    margin-right: 10%;
 }
-.Cast .Search .search-wrapper.active {}
+.Cast .CastSearch .search-wrapper.active {}
 
-.Cast .Search .search-wrapper .input-holder {    
+.Cast .CastSearch .search-wrapper .input-holder {    
     height: 60px;
-    width: 65px;
+    width: 60px;
     overflow: hidden;
     background: #6D44A8;
     border-radius: 30px;
     position: relative;
-    transition: transition: all 0.2s ease;
+    transition: all 0.3s ease-in-out;
 }
 
-.Cast .Search .search-wrapper.active .input-holder {
+.Cast .CastSearch .search-wrapper.active .input-holder {
     width: 450px;
     border-radius: 50px;
     background: #6D44A8;
-    transition: all .2s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+    transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
 }
 
-.Cast .Search .search-wrapper .input-holder .search-input {
+.Cast .CastSearch .search-wrapper .input-holder .search-input {
     width: 100%;
     height: 50px;
     padding: 0px 70px 0 20px;
@@ -330,17 +354,17 @@
     line-height: 20px;
     color: white;
     transform: translate(0, 60px);
-    transition: all .1s cubic-bezier(0.000, 0.105, 0.035, 1.570);
-    transition-delay: 0.1s;
+    transition: all .3s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+    transition-delay: 0.3s;
 }
 
-.Cast .Search .search-wrapper.active .input-holder .search-input {
+.Cast .CastSearch .search-wrapper.active .input-holder .search-input {
     opacity: 1;
     transform: translate(0, 10px);
 }
 
-.Cast .Search .search-wrapper .input-holder .search-icon {
-    width: 65px;
+.Cast .CastSearch .search-wrapper .input-holder .search-icon {
+    width: 60px;
     height: 60px;
     border: none;
     border-radius: 30px;
@@ -351,16 +375,16 @@
     z-index: 2;
     float: right;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
-.Cast .Search .search-wrapper.active .input-holder .search-icon {
-    width: 65;
+.Cast .CastSearch .search-wrapper.active .input-holder .search-icon {
+    width: 60;
     height: 60px;
     border-radius: 30px;
 }
 
-.Cast .Search .search-wrapper .input-holder .search-icon span {
+.Cast .CastSearch .search-wrapper .input-holder .search-icon span {
     width: 22px;
     height: 22px;
     display: inline-block;
@@ -370,16 +394,16 @@
     transition: all .4s cubic-bezier(0.650, -0.600, 0.240, 1.650);
 }
 
-.Cast .Search .search-wrapper.active .input-holder .search-icon span {
+.Cast .CastSearch .search-wrapper.active .input-holder .search-icon span {
     transform: rotate(-45deg);
 }
 
-.Cast .Search .search-wrapper .input-holder .search-icon span::before, .search-wrapper .input-holder .search-icon span::after {
+.Cast .CastSearch .search-wrapper .input-holder .search-icon span::before, .search-wrapper .input-holder .search-icon span::after {
     position: absolute; 
     content:'';
 }
 
-.Cast .Search .search-wrapper .input-holder .search-icon span::before {
+.Cast .CastSearch .search-wrapper .input-holder .search-icon span::before {
     width: 4px;
     height: 11px;
     left: 9px;
@@ -388,7 +412,7 @@
     background: #FE5F55;
 }
 
-.Cast .Search .search-wrapper .input-holder .search-icon span::after {
+.Cast .CastSearch .search-wrapper .input-holder .search-icon span::after {
 	width: 14px;
     height: 14px;
     left: 0px;
@@ -397,7 +421,7 @@
     border: 4px solid #FE5F55;
 }
 
-.Cast .Search .search-wrapper .close {
+.Cast .CastSearch .search-wrapper .close {
     position: absolute;
     z-index: 1;
     top: 20px;
@@ -410,28 +434,28 @@
     transition-delay: 0.2s;
 }
 
-.Cast .Search .search-wrapper.active .close {
+.Cast .CastSearch .search-wrapper.active .close {
     right: -50px;
     transform: rotate(45deg);
     transition: all .6s cubic-bezier(0.000, 0.105, 0.035, 1.570);
     transition-delay: 0.5s;
 }
 
-.Cast .Search .search-wrapper .close::before, .search-wrapper .close::after {
+.Cast .CastSearch .search-wrapper .close::before, .search-wrapper .close::after {
     position: absolute;
     content:'';
     background: #FE5F55;
     border-radius: 2px;
 }
 
-.Cast .Search .search-wrapper .close::before {
+.Cast .CastSearch .search-wrapper .close::before {
     width: 5px;
     height: 25px;
     left: 10px;
     top: 0px;
 }
 
-.Cast .Search .search-wrapper .close::after {
+.Cast .CastSearch .search-wrapper .close::after {
     width: 25px;
     height: 5px;
     left: 0px;
@@ -476,6 +500,7 @@
 .SeriesInfo .SeriesSummary p {
 	text-align: center;
 	top: 30%;
+	border-radius: 15px;
 	background: #6D44A8;
 	position: absolute;
 	font-weight: bold;
@@ -505,12 +530,7 @@
 }
 
 .SeriesInfo .SeriesContent .gallery-wrap .item h2 {
-	position: relative;
-	text-align: center;
-	height: ;
-	top: 30%;
-	background: #6D44A8; 
-	font-size: 30px;
+	display: none;
 }
 
 .SeriesInfo .SeriesContent .gallery-wrap .item #summary {
@@ -523,13 +543,18 @@
 }
 
 .SeriesInfo .SeriesContent .gallery-wrap .item:hover h2 {
-	top: 0%;
+	display: block;
+	width: 100%;
+	position: relative;
+	background: #6D44A8; 
+	font-size: 30px;
 	height: auto;
 	text-align: left;
 }
 
 .SeriesInfo .SeriesContent .gallery-wrap .item:hover #summary {
   	display: block;
+  	top: 20%;
   	transition: flex 0.3s ease-in-out;
   	background: #6D44A8;
   	height: auto;
@@ -538,8 +563,8 @@
 
 .SeriesInfo .SeriesContent .gallery-wrap .item:hover #summary p {
   	width: 90%;
+  	display: flex;
   	height: auto;
-  	padding-top: 20px;
   	padding-bottom: 20px;
   	text-align: justify;
   	font-size: 17px;
@@ -551,10 +576,3 @@
 
 
 
-
-
-
-.Similar {
-	height: 300px;
-	width: 100%;
-}
