@@ -11,22 +11,23 @@
 <div class="row TopInfoBar">
     <div class="MovieInfo">
         <h1 id="title">{{ movobj.title }}</h1>
+
         <!-- Figure out Liking system: Boolean or 1-5 Stars? -->
         <p> 
-            <div id="year">{{ movobj.release_date|slice:4 }}</div>
-
             <div id="rating"> 
                 {{ r.Rated }}
             </div>
+
+            <div id="runtime">
+                {{ hours_runtime }}
+            </div>
+
+            <div id="year">{{ movobj.release_date|slice:4 }}</div>
 
             <div id="genre">
                 {% for g in movobj.genres %}
                     {{ g.name }} |  
                 {% endfor %}
-            </div>
-
-            <div id="bookmark">
-                <i class="far fa-plus-square"> </i>
             </div>
         </p>
     </div>
@@ -71,7 +72,7 @@
 
     <div class="col-4 PosterInfo">
 
-            <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ movobj.poster_path }}">
+            <img id="moviePoster" src="{{ r.Poster }}">
             <br>
 
             <div class="Info">
@@ -100,10 +101,23 @@
 
     <div class="col-8 SummaryStreaming">
 
-        <div class="Summary">
-            <h2>Synopsis</h2>
-            <div id="text">
-                {{ movobj.overview }}
+        <div class="UserActions">
+            <div class="User">
+                <h3>You:</h3>
+                <ul id="actions">
+                    <li><i class="fa-regular fa-bookmark"></i></li>
+                    <li><i class="fa-regular fa-heart"></i></li>
+                    <li><i class="fa-regular fa-heart-crack"></i></li>
+                    <li><i class="fa-regular fa-star"></i></li>
+                </ul>
+            </div>
+
+            <div class="Friends">
+                Friends:
+                <i class="fa-regular fa-bookmark"></i>
+                <i class="fa-regular fa-heart"></i>
+                <i class="fa-regular fa-heart-crack"></i>
+                <i class="fa-regular fa-star"></i>
             </div>
         </div>
 
@@ -169,7 +183,16 @@ https://youtu.be/zsrdBGr8NIk
             </ul>
 
         </div>
+
+        <div class="Summary">
+            <h2>Synopsis</h2>
+            <div id="text">
+                {{ movobj.overview }}
+            </div>
+        </div>        
     </div>
+
+
 
 </div>
 
@@ -233,7 +256,8 @@ https://youtu.be/zsrdBGr8NIk
 
 </div>
 
-
+<!-- REDO query so that the collectionid = imdbapi id
+    for better data -->
 
 <div class="SeriesInfo">
 

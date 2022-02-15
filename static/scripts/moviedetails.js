@@ -127,8 +127,8 @@ function myFunction() {
     var input, filter, ul, li, a, i, txtValue;
     input = document.getElementById("myInput");
     filter = input.value.toUpperCase();
-    ul = document.getElementsByClassName("cards");
-    li = ul.getElementsByClassName("card");
+    ul = document.getElementById("cards");
+    li = ul.getElementsByTagName("div");
     for (i = 0; i < li.length; i++) {
         a = li[i].getElementsByTagName("h4")[0];
         txtValue = a.textContent || a.innerText;

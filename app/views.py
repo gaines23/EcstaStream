@@ -174,6 +174,11 @@ def MovieDetails(request, movieid):
     credits = movie.credits(movieid)
     streaming = movie.watch_providers(movieid)
     
+    runtime = movobj.runtime
+    hours = runtime // 60
+    minutes = runtime % 60
+    hours_runtime = "{} hr {} min".format(hours, minutes)
+    
 
     imdbid = movobj.imdb_id
 
@@ -203,6 +208,7 @@ def MovieDetails(request, movieid):
     seriesid = series.details(mov_seriesID)
 
 
+
     smlrobj = []
     for result in similar:
         smlrobj.append(result)
@@ -218,6 +224,7 @@ def MovieDetails(request, movieid):
         'cast':cast,
         'seriesid':seriesid,
         'us_streaming':us_streaming,
+        'hours_runtime':hours_runtime,
     }
 
     return render(

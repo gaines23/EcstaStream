@@ -13,20 +13,29 @@
 	float: left;
 }
 
-.MovieInfo #year, #rating, #genre, #bookmark {
-	font-size: 13px;
-	width: 50px;
+.MovieInfo #title {
+	width: 100%;
+	font-weight: 700;
+}
+
+.MovieInfo #year, #rating {
+	font-size: 18px;
+	width: 60px;
 	float: left;
 	text-align: center;
 }
 
-.MovieInfo #title {
-	margin-top: 0px;
+.MovieInfo #runtime {
+	float: left;
+	font-size: 18px;
+	text-align: center;
+	width: 130px;
 }
 
 .MovieInfo #genre {
-	width: 170px;
-	text-align: center;
+	font-size: 18px;
+	float: left;
+	width: 100%;
 }
 
 .MovieInfo #genre i {
@@ -93,6 +102,8 @@
 	height: 450px;
 	width: 80%;
 	object-fit: fill;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
 }
 
 .PosterInfo .Info {
@@ -100,7 +111,8 @@
 	width: 80%;
 	font-size: 12px;
 	background-color: #1e1f1e;
-	border-radius: 10px;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
 }
 
 .PosterInfo .section-title {
@@ -141,26 +153,67 @@
 	padding-left: 0px;
 }
 
+.SummaryStreaming .UserActions {
+	height: 15%;
+	width: 100%;
+	margin: auto;
+	background-color: #1e1f1e;
+	border-top-right-radius: 15px;
+	border-top-left-radius: 15px;
+}
+
+.SummaryStreaming .UserActions .User {
+	float: left;
+	width: 50%;
+	height: 100%;
+}
+
+.SummaryStreaming .UserActions .User h3 {
+	width: 	15%;
+	float: left;
+	margin-left: 20px;
+	padding-top: 10px;
+}
+
+.SummaryStreaming .UserActions .User #actions {
+	float: 	right;
+	width: 	75%;
+	height: 100%;
+}
+
+
+
+.SummaryStreaming .UserActions .Friends {
+	float: right;
+	width: 50%;
+	height: 100%;
+}
+
+
+
+
+
+
+
 
 .SummaryStreaming .Summary {
 	height: 25%;
 	width: 100%;
 	margin: auto;
 	background-color: #1e1f1e;
-	border-top-right-radius: 25px;
-	border-top-left-radius: 25px;
+	border-bottom-right-radius: 15px;
+	border-bottom-left-radius: 15px;
 }
 
 .SummaryStreaming .Summary h2 {
 	font-size: 20px;
 	padding-left: 3%;
 	padding-top: 15px;
-	padding-top: 5px;
 	margin-bottom: 3px;
 }
 
 .SummaryStreaming .Summary #text {
-	width: 90%;
+	width: 85%;
 	margin: auto;
 	padding: 3px;
 	font-size: 12px;
@@ -168,17 +221,14 @@
 
 
 .MainSection .StreamingServices {
-	height: 75%;
+	height: 60%;
 	padding-left: 0px;
-	padding-top: 15px;
 }
 
 .MainSection .StreamingServices ul {
     display: flex;
     min-height: 100%;
     max-height: 100%;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
     margin: 0;
     padding: 0;
     overflow: hidden;
