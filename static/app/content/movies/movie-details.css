@@ -1,21 +1,31 @@
 
 .TopInfoBar {
-	height: 125px;
-	color: white;
-	font-size: 20px;
+	height: 400px;
+	margin: 0;
+	padding: 0px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-radius: 20px;
+}
+
+.TopInfoBar #none-ya {
+	height: 65%;
 	width: 100%;
 }
 
 .TopInfoBar .MovieInfo {
 	width: 50%;
-	height: 100%;
+	height: 35%;
 	font-size: 15px;
 	float: left;
+	color: white;
 }
 
 .MovieInfo #title {
 	width: 100%;
 	font-weight: 700;
+	height: 60px;
+	font-size: 40px;
 }
 
 .MovieInfo #year, #rating {
@@ -48,30 +58,32 @@
 
 .TopInfoBar .ReviewScores {
 	width: 50%;
-	height: 100%;
+	height: 35%;
 	float: right;
 	font-size: 15px;
 }
 
 .ReviewScores .Ratings {
 	width: 50%;
-	height: 90%;
+	height: 90px;
 	float: right;
+	margin-top: 45px;
+	margin-bottom: 0px;
 	list-style: none;
-	margin: revert;
 }
 
 .ReviewScores ul li {
 	width: 100px;
-	height: 100px;
+	height: 90px;
 	margin-bottom: 5px;
+	padding-top: 10px;
 	display: inline-block;
 	text-align: center;
 }
 
 .ReviewScores .Ratings li img {
-	height: 45px;
-	width: 45px;
+	height: 40px;
+	width: 40px;
 	margin: auto;
 }
 
@@ -165,28 +177,64 @@
 .SummaryStreaming .UserActions .User {
 	float: left;
 	width: 50%;
-	height: 100%;
+	height: fit-content;
+	margin-top: 10px;
 }
 
 .SummaryStreaming .UserActions .User h3 {
-	width: 	15%;
+	width: 80px;
 	float: left;
 	margin-left: 20px;
-	padding-top: 10px;
+	padding-top: 5px;
 }
 
-.SummaryStreaming .UserActions .User #actions {
-	float: 	right;
-	width: 	75%;
-	height: 100%;
+.SummaryStreaming .UserActions .User ul {
+	float: left;
+    width: 320px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+	list-style-type: none;
 }
 
+
+.SummaryStreaming .UserActions .User ul li {
+	width: 50px;
+	text-align: center;
+	font-size: 35px;
+	display: inline-block;
+}
 
 
 .SummaryStreaming .UserActions .Friends {
 	float: right;
 	width: 50%;
-	height: 100%;
+	height: fit-content;
+	margin-top: 10px;
+}
+
+.SummaryStreaming .UserActions .Friends h3 {
+	width: 100px;
+	float: left;
+	margin-left: 20px;
+	padding-top: 5px;
+}
+
+.SummaryStreaming .UserActions .Friends ul {
+	float: right;
+    width: 320px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+	list-style-type: none;
+}
+
+
+.SummaryStreaming .UserActions .Friends ul li {
+	width: 50px;
+	text-align: center;
+	font-size: 35px;
+	display: inline-block;
 }
 
 

@@ -8,12 +8,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'content\movies\cast-slider.css' %}">
 </head>
 
-<div class="row TopInfoBar">
+<div class="row TopInfoBar" style="background-image: url(https://image.tmdb.org/t/p/original/{{ movobj.backdrop_path }});">
+    <div id="none-ya"></div>
     <div class="MovieInfo">
         <h1 id="title">{{ movobj.title }}</h1>
 
-        <!-- Figure out Liking system: Boolean or 1-5 Stars? -->
-        <p> 
             <div id="rating"> 
                 {{ r.Rated }}
             </div>
@@ -29,7 +28,7 @@
                     {{ g.name }} |  
                 {% endfor %}
             </div>
-        </p>
+
     </div>
 
     <div class="ReviewScores">
@@ -107,17 +106,19 @@
                 <ul id="actions">
                     <li><i class="fa-regular fa-bookmark"></i></li>
                     <li><i class="fa-regular fa-heart"></i></li>
-                    <li><i class="fa-regular fa-heart-crack"></i></li>
+                    <li><i class="fas fa-heart-broken"></i></li>
                     <li><i class="fa-regular fa-star"></i></li>
                 </ul>
             </div>
 
             <div class="Friends">
-                Friends:
-                <i class="fa-regular fa-bookmark"></i>
-                <i class="fa-regular fa-heart"></i>
-                <i class="fa-regular fa-heart-crack"></i>
-                <i class="fa-regular fa-star"></i>
+                <h3>Friends:</h3>
+                <ul id="actions">
+                    <li><i class="fa-regular fa-bookmark"></i></li>
+                    <li><i class="fa-regular fa-heart"></i></li>
+                    <li><i class="fas fa-heart-broken"></i></li>
+                    <li><i class="fa-regular fa-star"></i></li>
+                </ul>
             </div>
         </div>
 
