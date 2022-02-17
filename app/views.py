@@ -43,7 +43,7 @@ movie = Movie()
 tv = TV()
 discover = Discover()
 series = Collection()
-search = Search()
+search = Search({"include_adult":"False", "region":"US"})
 
 
 
@@ -58,19 +58,15 @@ class MainSearch(TemplateView):
     template_name = 'app/search_form.html'
 
 class SearchResults(ListView):
-    model = search
-    template_name = 'app/search_results'
+    multi_search = search.multi()
+    template_name = 'app/search_results.html'
 
-    def get_queryset(self, *args, **kwargs):
-        val = self.request.GET.get("q")
+    ## Filters as user types == Suggestions Dropdown 
+    def get_results(self, *args, **kwargs):
+        val = self.request.GET.get("search")
         if val:
-            queryset = search.objects.filter(
-                Q(original_title__icontains=val) & Q(adult=False) |
-                Q(name__icontains=val) & Q(adult=False)
-                ).order_by("media_type").values("id", "name", "original_title", "media_type", "overview", "backdrop_path")
-        else:
-            "Hmm seems like we can't find what you're looking for"
-        return queryset
+            results = multi_search.objects.filter(Q(original_title__icontains=val))
+    
 
 
 
@@ -206,8 +202,8 @@ def MovieDetails(request, movieid):
         url = "https://movie-database-imdb-alternative.p.rapidapi.com/"
         querystring = {"i":{imdbid},"type":"movie","r":"json"}
 
-        Imdb_URL = "movie-database-imdb-alternative.p.rapidapi.com"
-        URL_API = "93f4b600aemshd9c2d876469f714p1c0cb3jsn18656827b06a"
+        Imdb_URL = 'IMDB_URL'
+        URL_API = 'RAPID_API_KEY'
 
         headers = {
             'x-rapidapi-host': Imdb_URL,
