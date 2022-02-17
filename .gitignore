@@ -1,4 +1,4 @@
-.env
+.env.file
 /TestData.file
 .rapidapi.py
-env
+env.file
