@@ -30,7 +30,6 @@ import os
 import environ
 from django.db.models.functions import ExtractYear
 from tmdbv3api.tmdb import TMDb
-#from .rapidapi import ImdbRapiApi
 
 
 
@@ -44,6 +43,7 @@ movie = Movie()
 tv = TV()
 discover = Discover()
 series = Collection()
+search = Search()
 
 
 
@@ -53,6 +53,26 @@ def home(request):
         request,
         'app/index.html'
     )
+
+class MainSearch(TemplateView):
+    template_name = 'app/search_form.html'
+
+class SearchResults(ListView):
+    model = search
+    template_name = 'app/search_results'
+
+    def get_queryset(self, *args, **kwargs):
+        val = self.request.GET.get("q")
+        if val:
+            queryset = search.objects.filter(
+                Q(original_title__icontains=val) & Q(adult=False) |
+                Q(name__icontains=val) & Q(adult=False)
+                ).order_by("media_type").values("id", "name", "original_title", "media_type", "overview", "backdrop_path")
+        else:
+            "Hmm seems like we can't find what you're looking for"
+        return queryset
+
+
 
 
 
@@ -167,7 +187,7 @@ def profile(request, id, username):
 def MovieDetails(request, movieid):
     assert isinstance(request, HttpRequest)
     
-    movobj = movie.details(movieid)
+    movobj = us_streaming_movies.details(movieid)
     similar = movie.similar(movieid)
     trailers = movie.videos(movieid)
     providers = movie.watch_providers(movieid)

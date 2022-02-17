@@ -19,7 +19,7 @@
   margin: 20px;
   background-image: url('bk-color.png');
   background-position: center;
-  border-radius: 15px;
+  border-radius: 20px;
 }
 
 .Cast .cards {
@@ -40,8 +40,7 @@
   width: 175px;
   margin: 15px 7.5px;
   background: #6D44A8;
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
+  border-radius: 20px;
 }
 
 .Cast .card:hover {
@@ -50,9 +49,11 @@
   cursor: pointer;
 }
 
-.Cast .card .img {
+.Cast .card img {
   max-width: 220px;
   display: inline-block;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
 #slide-left-container,

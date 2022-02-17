@@ -609,8 +609,8 @@
 	height: 360px;
 	float: right;
 	position: relative;
-  	border-top-right-radius: 15px;
-  	border-bottom-right-radius: 15px;
+  	border-top-right-radius: 20px;
+  	border-bottom-right-radius: 20px;
 }
 
 .SeriesInfo .SeriesContent .gallery-wrap {
@@ -641,17 +641,16 @@
 
 .SeriesInfo .SeriesContent .gallery-wrap .item:hover h2 {
 	display: block;
-	width: 100%;
+	width: 90%;
+	height: 50px;
 	position: relative;
 	background: #6D44A8; 
 	font-size: 30px;
-	height: auto;
 	text-align: left;
 }
 
 .SeriesInfo .SeriesContent .gallery-wrap .item:hover #summary {
   	display: block;
-  	top: 20%;
   	transition: flex 0.3s ease-in-out;
   	background: #6D44A8;
   	height: auto;
@@ -659,9 +658,10 @@
 }
 
 .SeriesInfo .SeriesContent .gallery-wrap .item:hover #summary p {
-  	width: 90%;
+  	width: 85%;
   	display: flex;
   	height: auto;
+  	padding-top: 10px;
   	padding-bottom: 20px;
   	text-align: justify;
   	font-size: 17px;
