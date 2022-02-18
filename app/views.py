@@ -43,7 +43,9 @@ movie = Movie()
 tv = TV()
 discover = Discover()
 series = Collection()
-search = Search({"include_adult":"False", "region":"US"})
+#multi_search = Search.multi({"include_adult":"False", "region":"US"})
+search - Search()
+
 
 
 
@@ -63,9 +65,30 @@ class SearchResults(ListView):
 
     ## Filters as user types == Suggestions Dropdown 
     def get_results(self, *args, **kwargs):
+        multi_search = Search.multi({"include_adult":"False", "region":"US"})
         val = self.request.GET.get("search")
+
+        for m in multi_search:
+            if m.media_type == 'movie':
+                for m.id in movie.watch_providers(m.id).results['US']:
+                    break
+                print(m)
+            else:
+                break
+        for t in search:
+            if t.media_type == 'tv':
+                for t.id in tv.watch_providers(t.id).results['US']:
+                    break
+                print(t)
+            else:
+                break
+    
+        for p in search:
+            if p.media_type == 'person':
+                break
+
         if val:
-            results = multi_search.objects.filter(Q(original_title__icontains=val))
+            results = m.objects.filter(Q(original_title__icontains=val))
     
 
 
