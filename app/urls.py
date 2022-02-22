@@ -12,7 +12,9 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('MainSearchResults', views.MainSearchResults, name='search-results'),
     path('profile/<id>/<username>', views.profile, name='users-profile'),
     path('register/', RegisterView.as_view(), name='users-register'),
     path('MovieDetails/<movieid>', views.MovieDetails, name='MovieDetails'),
+    path('TvDetails/<tvid>', views.TvDetails, name='TvDetails'),
 ]

@@ -6,6 +6,7 @@ from datetime import datetime
 import json, requests
 from django.contrib import messages
 from django.views import View
+from django.views.generic import TemplateView, ListView
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect, reverse
 from django.template import loader, Context
 from django.views import generic
@@ -43,8 +44,7 @@ movie = Movie()
 tv = TV()
 discover = Discover()
 series = Collection()
-#multi_search = Search.multi({"include_adult":"False", "region":"US"})
-search - Search()
+#multi_search = Search.multi({"include_adult":"False", "region":"US
 
 
 
@@ -56,39 +56,55 @@ def home(request):
         'app/index.html'
     )
 
-class MainSearch(TemplateView):
-    template_name = 'app/search_form.html'
+#class MainSearch(TemplateView):
+#    template_name = 'app/search_form.html'
 
-class SearchResults(ListView):
-    multi_search = search.multi()
-    template_name = 'app/search_results.html'
-
-    ## Filters as user types == Suggestions Dropdown 
-    def get_results(self, *args, **kwargs):
-        multi_search = Search.multi({"include_adult":"False", "region":"US"})
-        val = self.request.GET.get("search")
-
-        for m in multi_search:
-            if m.media_type == 'movie':
-                for m.id in movie.watch_providers(m.id).results['US']:
-                    break
-                print(m)
-            else:
-                break
-        for t in search:
-            if t.media_type == 'tv':
-                for t.id in tv.watch_providers(t.id).results['US']:
-                    break
-                print(t)
-            else:
-                break
+def MainSearchResults(request):
+    assert isinstance(request, HttpRequest)
+    search = Search()
+    movie_stream = movie.watch_providers
     
-        for p in search:
-            if p.media_type == 'person':
-                break
+    search_request = request.GET.get("search")
+    multi_search = search.multi({"query":{search_request}, "include_adult":"False", "region":"US"})
 
-        if val:
-            results = m.objects.filter(Q(original_title__icontains=val))
+    movies = []
+    tv_shows = []
+    people = []
+
+    for m in multi_search:
+        if m.media_type == 'movie' and m.media_type != 'person' and m.media_type != 'tv':
+            if m.id == movie.watch_providers(m.id).results['US']:
+                break
+            movies.append(m)    
+        else:
+            break
+        continue
+
+    for t in multi_search:
+        if t.media_type == 'tv' and t.media_type != 'person' and t.media_type != 'movie':
+            if t.id == tv.watch_providers(t.id).results['US']:
+                break
+            tv_shows.append(t)
+        else:
+            break
+        continue
+
+    for p in multi_search:
+        if p.media_type == 'person':
+            people.append(p)
+
+    context = {
+        'people':people,
+        'tv_shows':tv_shows,
+        'movies':movies,
+    }
+
+    return render(
+        request,
+        'app/search_results.html',
+        context
+    )
+
     
 
 
@@ -206,7 +222,7 @@ def profile(request, id, username):
 def MovieDetails(request, movieid):
     assert isinstance(request, HttpRequest)
     
-    movobj = us_streaming_movies.details(movieid)
+    movobj = movie.details(movieid)
     similar = movie.similar(movieid)
     trailers = movie.videos(movieid)
     providers = movie.watch_providers(movieid)
@@ -225,7 +241,7 @@ def MovieDetails(request, movieid):
         url = "https://movie-database-imdb-alternative.p.rapidapi.com/"
         querystring = {"i":{imdbid},"type":"movie","r":"json"}
 
-        Imdb_URL = 'IMDB_URL'
+        Imdb_URL = 'movie-database-imdb-alternative.p.rapidapi.com'
         URL_API = 'RAPID_API_KEY'
 
         headers = {
@@ -273,3 +289,56 @@ def MovieDetails(request, movieid):
     )
 
 
+def TvDetails(request, tvid):
+    assert isinstance(request, HttpRequest)
+
+    details = tv.details(tvid)
+    similar = tv.similar(tvid)
+    trailers = tv.videos(tvid)
+    providers = tv.watch_providers(tvid)
+    credits = tv.credits(tvid)
+    external_id = tv.extexternal_id(tvid)
+
+    imdb_id = external_id.imdb_id
+    us_streaming = streaming.results['US']
+
+    class ImdbRapidAPI():
+        url = "https://movie-database-imdb-alternative.p.rapidapi.com/"
+
+        querystring = {"i":{imdb_id},"type":"series","r":"json"}
+
+        Imdb_URL = 'movie-database-imdb-alternative.p.rapidapi.com'
+        URL_API = 'RAPID_API_KEY'
+
+        headers = {
+            'x-rapidapi-host': Imdb_URL,
+            'x-rapidapi-key': URL_API
+            }
+
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        api = response.json()
+
+    rapidapi = ImdbRapidApi()
+    r = rapidapi.api
+
+    series = details.seasons
+
+    cast = credits.cast['known_for_department'=='Acting']
+    
+    context = {
+        'details': details,
+        'r':r,
+        'imdb_id':imdb_id,
+        'trailers':trailers,
+        'providers':providers,
+        'credits':credits,
+        'cast':cast,
+        'us_streaming':us_streaming,
+        'series':series,
+    }
+
+    return render(
+        request,
+        'tvshows/tvdetails.html',
+        context,
+    )

@@ -7,8 +7,25 @@
     <link rel="stylesheet" type="text/css" href="{% static 'content\search_results.css' %}">
 </head>
 
+<div class="MovieSection">
+    <p>Movies</p>
+    {% for movie in movies %}
+        {{ movie.title }}
+    {% endfor %}
+</div>
 
+<div class="TvSection">
+    <p>Tv Shows</p>
+    {% for tv in tv_shows %}
+        {{ tv.title }}
+    {% endfor %}
+</div>
 
-
+<div class="PeopleSection">
+    <p>Actors</p>
+    {% for p in people %}
+        {{ p.name }}
+    {% endfor %}
+</div>
 
 {% endblock %}

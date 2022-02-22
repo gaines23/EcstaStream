@@ -1,0 +1,298 @@
+{% extends "app/layout.html" %}
+
+{% block maincontent %}
+{% load static %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'content\tvshows\tvshows-details.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'content\movies\cast-slider.css' %}">
+</head>
+
+<div class="row TopInfoBar" style="background-image: url(https://image.tmdb.org/t/p/original/{{ movobj.backdrop_path }});">
+    <div id="none-ya"></div>
+    <div class="MovieInfo">
+        <h1 id="title">{{ details.title }}</h1>
+
+            <div id="rating"> 
+                {{ r.Rated }}
+            </div>
+
+            <div id="runtime">
+                ~ {{ r.Runtime }}
+            </div>
+
+            <div id="year">{{ r.Year }}</div>
+
+            <div id="genre">
+                {% for g in details.genres %}
+                    {{ g.name }} |  
+                {% endfor %}
+            </div>
+
+    </div>
+
+    <div class="ReviewScores">
+        <ul class="Ratings">
+            {% for rating in r.Ratings %}
+                    {% if rating.Source == 'Internet Movie Database' %}
+                        <li>
+                            <img id="imbdLogo" alt="imbdLogo" src="{% static 'images\logos\Imdb.png' %}"> <br>
+                            <p>{{ rating.Value }}</p>
+                        </li>
+                    {% endif %}
+
+                    {% if rating.Source == 'Rotten Tomatoes' %} 
+                        <li>
+                            <img id="imbdLogo" alt="imbdLogo" src="{% static 'images\logos\RT.svg.png' %}"> <br>
+                            <p>{{ rating.Value }}</p>
+                        </li>
+                    {% endif %}
+
+                    {% if rating.Source == 'Metacritic' %}
+                        <li>
+                            <img id="imbdLogo" alt="imbdLogo" src="{% static 'images\logos\index.png' %}"> <br>
+                            <p>{{ rating.Value }}</p>
+                        </li>
+                    {% endif %}
+            {% endfor %}
+        </ul>
+
+<!-- ADD USER RATINGS AND STUFF UNDER: AUTH_REQUIRED -->
+
+
+    </div>
+
+</div>
+
+
+
+
+<div class="row MainSection">
+
+    <div class="col-3 PosterInfo">
+
+            <img id="moviePoster" src="{{ r.Poster }}">
+            <br>
+
+            <div class="Info">
+            	<p>Creators:</p>
+                <div id="dir">
+                    {% for d in details.created_by|slice:":3" %}
+                        {{ d.name }} <br>
+                    {% endfor %}               
+                </div>
+
+                <div id="writers">
+                    {% for d in details.created_by|slice:"3:7" %}
+                        {{ d.name }} <br>
+                    {% endfor %} 
+                </div>
+            </div>
+
+
+    </div>
+
+
+    <div class="col-9 SummaryStreaming">
+
+        <div class="UserActions">
+            <div class="User">
+                <h3>You:</h3>
+                <ul id="actions">
+                    <li><i class="fa-regular fa-bookmark"></i></li>
+                    <li><i class="fa-regular fa-heart"></i></li>
+                    <li><i class="fas fa-heart-broken"></i></li>
+                    <li><i class="fa-regular fa-star"></i></li>
+                </ul>
+            </div>
+
+            <div class="Friends">
+                <h3>Friends:</h3>
+                <ul id="actions">
+                    <li><i class="fa-regular fa-bookmark"></i></li>
+                    <li><i class="fa-regular fa-heart"></i></li>
+                    <li><i class="fas fa-heart-broken"></i></li>
+                    <li><i class="fa-regular fa-star"></i></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="StreamingServices">
+<!--            
+<iframe width="1403" height="788" src="https://www.youtube.com/watch?v={{t.key}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+https://youtu.be/zsrdBGr8NIk
+
+-->
+
+            <ul>
+
+                <li>
+                    <div class="section-title">
+                        <h2>Trailer</h2>
+                    </div>
+                    <div class="section-content">
+                        
+                    </div>
+                </li>
+
+                <li class="active" id="streaming">
+
+                    <div class="section-title">
+                        <h2>Streaming</h2>
+                    </div>
+
+                    <div class="section-content">
+                        <div class="StreamingList">
+
+                            <div class="List-Cat">
+                                <div class="Free-Streaming">
+                                    <h3>Free</h3>
+                                    {% for free in us_streaming.flatrate %}
+                                        {% if free.display_priority <= 11 %}
+                                            <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ free.logo_path }}">
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="Rent-Streaming">
+                                    <h3>Rent</h3>
+                                    {% for rent in us_streaming.rent %}
+                                        {% if rent.display_priority <= 11 %}
+                                            <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ rent.logo_path }}">
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="Buy-Streaming">
+                                    <h3>Purchase</h3>
+                                    {% for buy in us_streaming.buy %}
+                                        {% if buy.display_priority <= 11 %}
+                                            <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ buy.logo_path }}">
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>    
+
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="Summary">
+            <h2>Synopsis</h2>
+            <div id="text">
+                {{ r.plot }}
+            </div>
+        </div>        
+    </div>
+
+
+
+</div>
+
+
+
+<div class="row Cast">
+
+    <div class="CastSearch">
+        <p>Cast & Crew</p>
+        
+        <div class="search-wrapper">
+            <div class="input-holder">
+                <input type="text" id="myInput" onkeyup="myFunction()" class="search-input" placeholder="Search..." />
+                <button class="search-icon" onclick="searchToggle(this, event);">
+                    <i class="fas fa-search" style="font-size: 25px; color: #f97c32"></i>
+                </button>
+            </div>
+            <span class="close" onclick="searchToggle(this, event);"></span>
+        </div>
+
+    </div>
+
+  <div class="container">
+
+    <div id="slide-left-container">
+      <div class="slide-left">
+      </div>
+    </div>
+
+    <div id="cards-container">
+    
+      <div class="cards" id="cards">
+        {% for acting in credits.cast %}
+            {% if acting.known_for_department == 'Acting' %}
+
+            <div class="card" id="card">
+              <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ acting.profile_path }}" style="width:100%; height: 185px;">
+              <div class="container">
+                <h4>
+                  <b style="font-size: 22px">{{ acting.name }}</b>
+                  <i style="font-size: 18px">{{ acting.character | slice: 20}} ... </i>
+                </h4>
+              </div>
+            </div>
+
+            {% endif %}
+        {% endfor %}
+      </div>
+
+        
+    </div>
+
+    <div id="slide-right-container">
+      <div class="slide-right">
+      </div>
+    </div>
+
+
+  </div>
+
+
+</div>
+
+<!-- REDO query so that the collectionid = imdbapi id
+    for better data -->
+
+<div class="SeriesInfo">
+
+    <div class="col-3 SeriesSummary">        
+            <div class="title"><p>Series:</p></div>
+    </div>
+
+    <div class="col-9 SeriesContent">
+        <div class="gallery-wrap">
+            {% for s in series %}
+                <div class="item" style="background-image: url(https://image.tmdb.org/t/p/original/{{ s.backdrop_path }}); background-position: center; background-size: cover;-">
+                    <h2>{{ s.name }}</h2><h3>({{ s.air_date|slice:4 }})</h3>
+                    <div id="summary">
+                        <p>
+                            {% if s.overview|length > 175 %}
+                                {{ s.overview|slice:175 }} ... 
+                            {% else %}
+                                {{ s.overview }}
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+<script src="{% static 'scripts\moviedetails.js' %}"></script>
+
+
+
+{% endblock %}

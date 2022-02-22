@@ -93,15 +93,15 @@
         <div class="col MainContainer">
 
             <div class="row Search">    
-
-                <form class="SearchForm" id="search" method='POST'>
+                    
+                <form class="SearchForm" id="search" method='GET' action="{% url 'search-results' %}">
                     
                 <!--    {% csrf_token %}
                     {{ form }} -->
                 
                 <div class="MainSearch">
                     <div class="SearchInput">
-                        <input id="search" type="text" placeholder="Search">
+                        <input class="form-control" id="search" type="text" placeholder="Search" name="search">
                     </div>
 
                     <div class="SearchIcon">
