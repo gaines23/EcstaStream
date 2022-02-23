@@ -17,4 +17,5 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='users-register'),
     path('MovieDetails/<movieid>', views.MovieDetails, name='MovieDetails'),
     path('TvDetails/<tvid>', views.TvDetails, name='TvDetails'),
+    path('CreditsDetails/<personid>', views.CreditsDetails, name='CreditsDetails'),
 ]

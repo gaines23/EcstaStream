@@ -8,27 +8,30 @@
     <link rel="stylesheet" type="text/css" href="{% static 'content\movies\cast-slider.css' %}">
 </head>
 
-<div class="row TopInfoBar" style="background-image: url(https://image.tmdb.org/t/p/original/{{ movobj.backdrop_path }});">
-    <div id="none-ya"></div>
-    <div class="MovieInfo">
-        <h1 id="title">{{ details.title }}</h1>
+<div class="row TopInfoBar" style="background-image: url(https://image.tmdb.org/t/p/original/{{ details.backdrop_path }});">
 
-            <div id="rating"> 
-                {{ r.Rated }}
-            </div>
+    <div class="Title">
+        <h1 id="title">{{ r.Title }}</h1>
+    </div>
+    
+    <div class="TvInfo">
+        <div id="rating"> 
+            {{ r.Rated }}
+        </div>
 
-            <div id="runtime">
-                ~ {{ r.Runtime }}
-            </div>
+        <div id="runtime">
+            ~ {{ r.Runtime }}
+        </div>
 
-            <div id="year">{{ r.Year }}</div>
+        <div id="year">{{ r.Year }}</div>
 
-            <div id="genre">
-                {% for g in details.genres %}
-                    {{ g.name }} |  
-                {% endfor %}
-            </div>
+        <br>
 
+        <div id="genre">
+            {% for g in details.genres %}
+                {{ g.name }} |  
+            {% endfor %}
+        </div>
     </div>
 
     <div class="ReviewScores">
@@ -65,8 +68,6 @@
 </div>
 
 
-
-
 <div class="row MainSection">
 
     <div class="col-3 PosterInfo">
@@ -76,19 +77,14 @@
 
             <div class="Info">
             	<p>Creators:</p>
-                <div id="dir">
-                    {% for d in details.created_by|slice:":3" %}
-                        {{ d.name }} <br>
+                <div id="creators">
+                    {% for cr in credits.crew|slice:":3" %}
+                    	{% if cr.known_for_department == 'Creator' %}	
+                        	{{ cr.name }} <br>
+                        {% endif %}
                     {% endfor %}               
                 </div>
-
-                <div id="writers">
-                    {% for d in details.created_by|slice:"3:7" %}
-                        {{ d.name }} <br>
-                    {% endfor %} 
-                </div>
             </div>
-
 
     </div>
 
@@ -183,7 +179,7 @@ https://youtu.be/zsrdBGr8NIk
         <div class="Summary">
             <h2>Synopsis</h2>
             <div id="text">
-                {{ r.plot }}
+                {{ r.Plot }}
             </div>
         </div>        
     </div>
@@ -221,24 +217,30 @@ https://youtu.be/zsrdBGr8NIk
     <div id="cards-container">
     
       <div class="cards" id="cards">
-        {% for acting in credits.cast %}
-            {% if acting.known_for_department == 'Acting' %}
-
+        {% for c in credits.cast %}
             <div class="card" id="card">
-              <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ acting.profile_path }}" style="width:100%; height: 185px;">
+              <img id="tvPoster" src="https://image.tmdb.org/t/p/original/{{ c.profile_path }}" style="width:100%; height: 185px;">
               <div class="container">
                 <h4>
-                  <b style="font-size: 22px">{{ acting.name }}</b>
-                  <i style="font-size: 18px">{{ acting.character | slice: 20}} ... </i>
+                  <b style="font-size: 20px">{{ c.name }}</b>
+                  <i style="font-size: 18px">{{ c.character|slice:20 }} ... </i>
                 </h4>
               </div>
             </div>
-
-            {% endif %}
+        {% endfor %}
+       	{% for cr in credits.crew %}
+            <div class="card" id="card">
+              <img id="tvPoster" src="https://image.tmdb.org/t/p/original/{{ cr.profile_path }}" style="width:100%; height: 185px;">
+              <div class="container">
+                <h4>
+                  <b style="font-size: 20px">{{ cr.name }}</b>
+                  <i style="font-size: 18px">{{ cr.job|slice:20 }} ... </i>
+                </h4>
+              </div>
+            </div>
         {% endfor %}
       </div>
 
-        
     </div>
 
     <div id="slide-right-container">
@@ -257,16 +259,21 @@ https://youtu.be/zsrdBGr8NIk
 
 <div class="SeriesInfo">
 
-    <div class="col-3 SeriesSummary">        
-            <div class="title"><p>Series:</p></div>
+    <div class="col-2 SeriesSummary">        
+        <h2>Series</h2>
+        <div class="Info">
+            <div id="seasons">{{ details.number_of_seasons }} Seasons</div>
+            <div id="episodes">{{ details.number_of_episodes }} Episodes</div>
+    	</div>
     </div>
 
-    <div class="col-9 SeriesContent">
+    <div class="col-10 SeriesContent">
         <div class="gallery-wrap">
             {% for s in series %}
-                <div class="item" style="background-image: url(https://image.tmdb.org/t/p/original/{{ s.backdrop_path }}); background-position: center; background-size: cover;-">
-                    <h2>{{ s.name }}</h2><h3>({{ s.air_date|slice:4 }})</h3>
+                <div class="item" style="background-image: url(https://image.tmdb.org/t/p/original/{{ s.poster_path }});">
                     <div id="summary">
+                    	<h2>{{ s.name }} ({{ s.air_date|slice:4 }})</h2>
+                    	<h3>{{ s.episode_count }} episodes</h3>
                         <p>
                             {% if s.overview|length > 175 %}
                                 {{ s.overview|slice:175 }} ... 

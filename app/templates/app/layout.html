@@ -96,9 +96,8 @@
                     
                 <form class="SearchForm" id="search" method='GET' action="{% url 'search-results' %}">
                     
-                <!--    {% csrf_token %}
-                    {{ form }} -->
-                
+                {% csrf_token %}
+                    
                 <div class="MainSearch">
                     <div class="SearchInput">
                         <input class="form-control" id="search" type="text" placeholder="Search" name="search">

@@ -8,27 +8,28 @@
     <link rel="stylesheet" type="text/css" href="{% static 'content\movies\cast-slider.css' %}">
 </head>
 
-<div class="row TopInfoBar" style="background-image: url(https://image.tmdb.org/t/p/original/{{ movobj.backdrop_path }});">
-    <div id="none-ya"></div>
-    <div class="MovieInfo">
-        <h1 id="title">{{ movobj.title }}</h1>
+<div class="row TopInfoBar" style="background-image: url(https://image.tmdb.org/t/p/original/{{ details.backdrop_path }});">
+    
+    <div class="Title">
+        <h1 id="title">{{ r.Title }}</h1>
+    </div>
+    
+    <div class="TvInfo">
+        <div id="rating"> 
+            {{ r.Rated }}
+        </div>
 
-            <div id="rating"> 
-                {{ r.Rated }}
-            </div>
+        <div id="runtime">
+            ~ {{ r.Runtime }}
+        </div>
 
-            <div id="runtime">
-                {{ hours_runtime }}
-            </div>
+        <div id="year">{{ r.Year }}</div>
 
-            <div id="year">{{ movobj.release_date|slice:4 }}</div>
-
-            <div id="genre">
-                {% for g in movobj.genres %}
-                    {{ g.name }} |  
-                {% endfor %}
-            </div>
-
+        <div id="genre">
+            {% for g in details.genres %}
+                {{ g.name }} |  
+            {% endfor %}
+        </div>
     </div>
 
     <div class="ReviewScores">
@@ -188,7 +189,7 @@ https://youtu.be/zsrdBGr8NIk
         <div class="Summary">
             <h2>Synopsis</h2>
             <div id="text">
-                {{ movobj.overview }}
+                {{ details.overview }}
             </div>
         </div>        
     </div>
@@ -226,20 +227,27 @@ https://youtu.be/zsrdBGr8NIk
     <div id="cards-container">
     
       <div class="cards" id="cards">
-        {% for acting in credits.cast %}
-            {% if acting.known_for_department == 'Acting' %}
-
+        {% for c in credits.cast %}
             <div class="card" id="card">
-              <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ acting.profile_path }}" style="width:100%; height: 185px;">
+              <img id="tvPoster" src="https://image.tmdb.org/t/p/original/{{ c.profile_path }}" style="width:100%; height: 185px;">
               <div class="container">
                 <h4>
-                  <b style="font-size: 22px">{{ acting.name }}</b>
-                  <i style="font-size: 18px">{{ acting.character }}</i>
+                  <b style="font-size: 20px">{{ c.name }}</b>
+                  <i style="font-size: 18px">{{ c.character|slice:20 }} ... </i>
                 </h4>
               </div>
             </div>
-
-            {% endif %}
+        {% endfor %}
+        {% for cr in credits.crew %}
+            <div class="card" id="card">
+              <img id="tvPoster" src="https://image.tmdb.org/t/p/original/{{ cr.profile_path }}" style="width:100%; height: 185px;">
+              <div class="container">
+                <h4>
+                  <b style="font-size: 20px">{{ cr.name }}</b>
+                  <i style="font-size: 18px">{{ cr.job|slice:20 }} ... </i>
+                </h4>
+              </div>
+            </div>
         {% endfor %}
       </div>
 
@@ -262,16 +270,16 @@ https://youtu.be/zsrdBGr8NIk
 
 <div class="SeriesInfo">
 
-    <div class="col-3 SeriesSummary">        
+    <div class="col-2 SeriesSummary">        
             <div class="title"><p>{{ seriesid.name }}</p></div>
     </div>
 
-    <div class="col-9 SeriesContent">
+    <div class="col-10 SeriesContent">
         <div class="gallery-wrap">
             {% for s in seriesid.parts %}
                 <div class="item" style="background-image: url(https://image.tmdb.org/t/p/original/{{ s.backdrop_path }}); background-position: center; background-size: cover;-">
-                    <h2>{{ s.title }}</h2>
                     <div id="summary">
+                        <h2>{{ s.title }}</h2>
                         <p>
                             {% if s.overview|length > 175 %}
                                 {{ s.overview|slice:175 }} ... 

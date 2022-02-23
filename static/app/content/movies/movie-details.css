@@ -8,47 +8,59 @@
 	border-radius: 20px;
 }
 
-.TopInfoBar #none-ya {
+.TopInfoBar .Title {
 	height: 65%;
 	width: 100%;
 }
 
-.TopInfoBar .MovieInfo {
+.TopInfoBar .Title #title {
+	padding-top: 25px;
+	padding-left: 15px;
+	font-weight: 800;
+	height: 120px;
+	font-size: 50px;
+	text-shadow: -2px 3px rebeccapurple;
+}
+
+.TopInfoBar .TvInfo {
 	width: 50%;
 	height: 35%;
-	font-size: 15px;
+	padding-top: 65px;
+	font-size: 25px;
+	font-weight: 700;
 	float: left;
 	color: white;
 }
 
-.MovieInfo #title {
-	width: 100%;
-	font-weight: 700;
-	height: 60px;
-	font-size: 40px;
-}
-
-.MovieInfo #year, #rating {
+.TvInfo #rating {
 	font-size: 18px;
-	width: 60px;
+	width: 100px;
 	float: left;
 	text-align: center;
 }
 
-.MovieInfo #runtime {
-	float: left;
+.TvInfo #year {
 	font-size: 18px;
-	text-align: center;
 	width: 130px;
+	float: left;
+	text-align: center;
 }
 
-.MovieInfo #genre {
+.TvInfo #runtime {
+	float: left;
+	font-size: 18px;
+	text-align: center;
+	width: 100px;
+}
+
+.TvInfo #genre {
 	font-size: 18px;
 	float: left;
 	width: 100%;
+	padding-left: 20px;
 }
 
-.MovieInfo #genre i {
+.TvInfo #genre i {
     text-align: center;
     font-size: 5px;
     margin-bottom: 0px;
@@ -60,7 +72,8 @@
 	width: 50%;
 	height: 35%;
 	float: right;
-	font-size: 15px;
+	font-size: 25px;
+	font-weight: 700;
 }
 
 .ReviewScores .Ratings {
@@ -103,11 +116,6 @@
 .MainSection .PosterInfo {
 	height: 100%;
 	padding-right: 0px;
-}
-
-.MainSection .DirWriters {
-	height: 100%;
-	width: 100%;
 }
 
 .MainSection .PosterInfo #moviePoster {
@@ -346,6 +354,7 @@
 
 #streaming .List-Cat h3 {
 	font-size: 20px;
+	color: white;
 }
 
 #streaming .List-Cat img {
@@ -385,7 +394,7 @@
 
 
 .Cast {
-	height: 500px;
+	height: 550px;
 	width: 100%;
 }
 
@@ -570,15 +579,14 @@
 
 .SeriesInfo {
 	height: 400px;
-	width: 90%;
+	width: 98%;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 40px;
 }
 
 .SeriesInfo .SeriesSummary {
-	width: 18%;
-	height: 360px;
+	height: 390px;
 	float: left;
 	background-image: url('bk-color.png');
   	background-position: center;
@@ -605,8 +613,7 @@
 }
 
 .SeriesInfo .SeriesContent {
-	width: 82%;
-	height: 360px;
+	height: 390px;
 	float: right;
 	position: relative;
   	border-top-right-radius: 20px;
@@ -641,19 +648,22 @@
 
 .SeriesInfo .SeriesContent .gallery-wrap .item:hover h2 {
 	display: block;
-	width: 90%;
-	height: 50px;
+	width: 100%;
+	height: 80px;
+	padding: 20px;
 	position: relative;
 	background: #6D44A8; 
 	font-size: 30px;
-	text-align: left;
+	text-align: center;
 }
 
 .SeriesInfo .SeriesContent .gallery-wrap .item:hover #summary {
   	display: block;
   	transition: flex 0.3s ease-in-out;
   	background: #6D44A8;
-  	height: auto;
+  	height: 100%;
+  	width: 70%;
+  	margin: auto;
   	opacity: .9;
 }
 
@@ -668,8 +678,6 @@
   	margin: auto;
   	color: white;
 }
-
-
 
 
 

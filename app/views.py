@@ -42,13 +42,13 @@ tmdb.tmdb_key = tmdb_key
 
 movie = Movie()
 tv = TV()
-discover = Discover()
 series = Collection()
-#multi_search = Search.multi({"include_adult":"False", "region":"US
+person = Person()
 
+Imdb_URL = env('IMDB_URL')
+URL_API = env('RAPID_API_KEY')
 
-
-
+    
 def home(request):
     assert isinstance(request, HttpRequest)
     return render(
@@ -222,61 +222,49 @@ def profile(request, id, username):
 def MovieDetails(request, movieid):
     assert isinstance(request, HttpRequest)
     
-    movobj = movie.details(movieid)
-    similar = movie.similar(movieid)
-    trailers = movie.videos(movieid)
-    providers = movie.watch_providers(movieid)
-    credits = movie.credits(movieid)
+    details = movie.details(movieid)
     streaming = movie.watch_providers(movieid)
+    us_streaming = streaming.results['US']
+    credits = details['credits']
+    trailers = details['videos']
     
-    runtime = movobj.runtime
+    mov_seriesID = details.belongs_to_collection['id']
+    seriesid = series.details(mov_seriesID)
+    
+    runtime = details.runtime
     hours = runtime // 60
     minutes = runtime % 60
     hours_runtime = "{} hr {} min".format(hours, minutes)
     
+    imdbid = details.imdb_id
 
-    imdbid = movobj.imdb_id
-
-    class ImdbRapidApi(object):
+    class ImdbAPI(object):
         url = "https://movie-database-imdb-alternative.p.rapidapi.com/"
-        querystring = {"i":{imdbid},"type":"movie","r":"json"}
 
-        Imdb_URL = 'movie-database-imdb-alternative.p.rapidapi.com'
-        URL_API = 'RAPID_API_KEY'
+        moviestring = {"i":{imdbid} ,"type":"movie", "r":"json"}
 
         headers = {
             'x-rapidapi-host': Imdb_URL,
             'x-rapidapi-key': URL_API
-            }
+        }
 
-        response = requests.request("GET", url, headers=headers, params=querystring)
-        api = response.json()
+        mov_response = requests.request("GET", url, headers=headers, params=moviestring)
+        movie_api = mov_response.json()
 
-    rapidapi = ImdbRapidApi()
-    r = rapidapi.api
-
-    us_streaming = streaming.results['US']
-
-    cast = credits.cast['known_for_department'=='Acting']
-    
-    mov_seriesID = movobj.belongs_to_collection['id']
-    seriesid = series.details(mov_seriesID)
-
-
+    r = ImdbAPI.movie_api
 
     smlrobj = []
-    for result in similar:
+    for result in details['similar']:
         smlrobj.append(result)
 
     context = {
-        'movobj': movobj,
+        'details': details,
         'smlrobj': smlrobj,
-        #'dis':movdis,
+        'imdbid':imdbid,
         'r':r,
         'trailers':trailers,
-        'providers':providers,
+        'streaming':streaming,
         'credits':credits,
-        'cast':cast,
         'seriesid':seriesid,
         'us_streaming':us_streaming,
         'hours_runtime':hours_runtime,
@@ -293,52 +281,60 @@ def TvDetails(request, tvid):
     assert isinstance(request, HttpRequest)
 
     details = tv.details(tvid)
-    similar = tv.similar(tvid)
-    trailers = tv.videos(tvid)
-    providers = tv.watch_providers(tvid)
-    credits = tv.credits(tvid)
-    external_id = tv.extexternal_id(tvid)
-
-    imdb_id = external_id.imdb_id
+    streaming = tv.watch_providers(tvid)
+    similar = details.similar
+    trailers = details.videos
+    credits = details.credits
+    external_id = details.external_ids
+    series = details.seasons
+    
+    imdbid = external_id.imdb_id
     us_streaming = streaming.results['US']
 
-    class ImdbRapidAPI():
+    class ShowImdbAPI(object):
         url = "https://movie-database-imdb-alternative.p.rapidapi.com/"
 
-        querystring = {"i":{imdb_id},"type":"series","r":"json"}
-
-        Imdb_URL = 'movie-database-imdb-alternative.p.rapidapi.com'
-        URL_API = 'RAPID_API_KEY'
+        tvstring = {"i":{imdbid},"type":"series","r":"json"}
 
         headers = {
             'x-rapidapi-host': Imdb_URL,
             'x-rapidapi-key': URL_API
-            }
+        }
 
-        response = requests.request("GET", url, headers=headers, params=querystring)
-        api = response.json()
+        tv_response = requests.request("GET", url, headers=headers, params=tvstring)
+        tv_api = tv_response.json()
 
-    rapidapi = ImdbRapidApi()
-    r = rapidapi.api
+    r = ShowImdbAPI.tv_api
 
-    series = details.seasons
-
-    cast = credits.cast['known_for_department'=='Acting']
-    
     context = {
         'details': details,
-        'r':r,
-        'imdb_id':imdb_id,
+        'imdbid':imdbid,
         'trailers':trailers,
-        'providers':providers,
+        'streaming':streaming,
         'credits':credits,
-        'cast':cast,
         'us_streaming':us_streaming,
         'series':series,
+        'r':r,
     }
 
     return render(
         request,
         'tvshows/tvdetails.html',
+        context,
+    )
+
+
+def CreditsDetails(request, personid):
+    assert isinstance(request, HttpRequest)
+    
+    details = person.details(personid)
+
+    context = {
+        'details':details,    
+    }
+
+    return render(
+        request,
+        'credits/creditsdetails.html',
         context,
     )

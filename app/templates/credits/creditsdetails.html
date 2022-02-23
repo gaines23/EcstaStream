@@ -1,0 +1,44 @@
+{% extends "app/layout.html" %}
+
+{% block maincontent %}
+{% load static %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'content\credits\creditsdetails.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'content\movies\cast-slider.css' %}">
+</head>
+
+<div class="TopInfoBar">
+
+</div>
+
+<div class="row MainSection">
+
+    <div class="col-3 PosterInfo">
+
+        <img id="profpic" src="https://image.tmdb.org/t/p/original/{{ details.profile_path }}">
+        <br>
+
+        <div class="Info">
+            <div id="left">
+                               
+            </div>
+
+            <div id="right">
+                
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-9 KnownForSummary">
+
+
+    </div>
+
+</div>
+
+
+
+
+{% endblock %}
