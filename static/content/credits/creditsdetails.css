@@ -1,9 +1,19 @@
 
+.TopInfoBar {
+	height: 120px;
+}
+
+.TopInfoBar #name {
+	padding-left: 15px;
+	font-weight: 800;
+	height: 70px;
+	font-size: 50px;
+}
+
 .MainSection {
 	height: 550px;
 	width: 98%;
 	margin: auto;
-	background-color: white;
 }
 
 .MainSection .PosterInfo {

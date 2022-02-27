@@ -328,9 +328,11 @@ def CreditsDetails(request, personid):
     assert isinstance(request, HttpRequest)
     
     details = person.details(personid)
-
+    credits = details.combined_credits
+    
     context = {
-        'details':details,    
+        'details':details,
+        'credits':credits,
     }
 
     return render(

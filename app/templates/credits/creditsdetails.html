@@ -9,7 +9,26 @@
 </head>
 
 <div class="TopInfoBar">
+    <div id=name>
+        {{ details.name }}
+    </div>
+    <div class="Depts">
+        <div id="acting">
+            {% if credits.cast %}
+                <p>Actor</p>
+            {% endif %}
+        </div>
+        <div id="prod">
+            {% if dept in credits.crew %}
+                {% if dept.job == 'Producer' %}
+                    {{ dept.job }}
+                {% endif %}
+            {% endif %}
+        </div>
+        <div id="writer">
 
+        </div>
+    </div>
 </div>
 
 <div class="row MainSection">
@@ -21,7 +40,7 @@
 
         <div class="Info">
             <div id="left">
-                               
+                
             </div>
 
             <div id="right">
