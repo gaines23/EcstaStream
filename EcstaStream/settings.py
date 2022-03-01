@@ -18,6 +18,7 @@ from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 import pprint
+from django.conf import settings
 
 env = environ.Env()
 environ.Env.read_env()
@@ -131,6 +132,8 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+DATE_FORMAT = '%m-%d-%Y'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_URL = '/static/app/'
@@ -158,3 +161,4 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = str(os.getenv('EMAIL_USER'))
 EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_PASSWORD'))
+

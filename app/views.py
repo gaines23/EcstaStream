@@ -2,7 +2,7 @@
 Definition of views.
 """
 
-from datetime import datetime
+from datetime import datetime, date, time
 import json, requests
 from django.contrib import messages
 from django.views import View
@@ -332,7 +332,21 @@ def CreditsDetails(request, personid):
 
     cast = credits.cast
     crew = credits.crew
-    
+
+    bday = details.birthday
+    bday_year = details.birthday[:4]
+    bday_month = details.birthday[5:7]
+    bday_day = details.birthday[8:]
+
+    def age(bday):
+        today = date.today()
+        one_or_zero = ((today.month, today.day) < (bday.bday_month, bday.bday_day))
+        year_difference = today.year - bday.year
+
+        age = year_difference - one_or_zero
+
+    age = age
+
     context = {
         'details':details,
         'credits':credits,
