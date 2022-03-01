@@ -329,10 +329,15 @@ def CreditsDetails(request, personid):
     
     details = person.details(personid)
     credits = details.combined_credits
+
+    cast = credits.cast
+    crew = credits.crew
     
     context = {
         'details':details,
         'credits':credits,
+        'cast':cast,
+        'crew':crew,
     }
 
     return render(

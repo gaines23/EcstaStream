@@ -10,6 +10,14 @@
 	font-size: 50px;
 }
 
+.TopInfoBar .Depts {
+	height: 50px;
+}
+
+.TopInfoBar .Depts #knownfor {
+	font-size: 18px;
+}
+
 .MainSection {
 	height: 550px;
 	width: 98%;
