@@ -23,6 +23,8 @@
             {% if details.known_for_department == 'Producing' %}
                 <p>Producer</p>
             {% endif %}
+
+            {{ crew.count }}
         </div>
     </div>
 </div>
@@ -36,13 +38,12 @@
 
         <div class="Info">
             <div id="left">
-                <div id="bday">
-                    DOB: {{ details.birthday }}
+                <div id="hometown">
+                    Hometown:<br>{{ details.place_of_birth }}
                 </div>
-            </div>
-
-            <div id="right">
-                
+                <div id="bday">
+                    DOB:<br>{{ bday }} ({{ age }})
+                </div>
             </div>
         </div>
     </div>

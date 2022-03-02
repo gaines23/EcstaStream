@@ -332,26 +332,22 @@ def CreditsDetails(request, personid):
 
     cast = credits.cast
     crew = credits.crew
+    bday = datetime.strptime(details.birthday, '%Y-%m-%d').date().strftime('%B %d, %Y')
+    
+    bday_date = datetime.strptime(details.birthday, '%Y-%m-%d').date()
+    today = date.today()
 
-    bday = details.birthday
-    bday_year = details.birthday[:4]
-    bday_month = details.birthday[5:7]
-    bday_day = details.birthday[8:]
-
-    def age(bday):
-        today = date.today()
-        one_or_zero = ((today.month, today.day) < (bday.bday_month, bday.bday_day))
-        year_difference = today.year - bday.year
-
-        age = year_difference - one_or_zero
-
-    age = age
+    one_or_zero = ((today.month, today.day) < (bday_date.month, bday_date.day))
+    year_difference = today.year - bday_date.year
+    age = year_difference - one_or_zero
 
     context = {
         'details':details,
         'credits':credits,
         'cast':cast,
         'crew':crew,
+        'bday':bday,
+        'age':age,
     }
 
     return render(
