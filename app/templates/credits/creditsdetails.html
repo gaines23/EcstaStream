@@ -15,16 +15,14 @@
     <div class="Depts">
         <div id="knownfor">
             {% if details.known_for_department == 'Acting' %}
-                <p>Actor</p>
+                <p>Actor ({{ castamt }} credits)</p>
             {% endif %}
             {% if details.known_for_department == 'Writing' %}
                 <p>Writer</p>
             {% endif %}
             {% if details.known_for_department == 'Producing' %}
-                <p>Producer</p>
+                <p>Producer </p>
             {% endif %}
-
-            {{ crew.count }}
         </div>
     </div>
 </div>
@@ -49,13 +47,25 @@
     </div>
 
 
-    <div class="col-9 KnownForSummary">
+    <div class="col-9 KnownForBio">
 
+        <div class="row KnowForCredits">
+            <div class="Credits-Container">
+                {% for credit in cast %}
+                    {%  %}
+                <div class="Card">
+                    <h3 class="Title">{{ cast.title }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row Bio">
+            {{ details.biography }}
+        </div>
 
     </div>
 
 </div>
-
 
 
 

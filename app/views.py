@@ -327,19 +327,25 @@ def TvDetails(request, tvid):
 def CreditsDetails(request, personid):
     assert isinstance(request, HttpRequest)
     
+# Post.objects.filter(Q(status=1) | Q(post_cat='Beginner')).order_by('-created_on')[0:3]
+
     details = person.details(personid)
     credits = details.combined_credits
 
     cast = credits.cast
     crew = credits.crew
+    cast_amt = len(cast)
+    crew_amt = len(crew)
+
     bday = datetime.strptime(details.birthday, '%Y-%m-%d').date().strftime('%B %d, %Y')
-    
     bday_date = datetime.strptime(details.birthday, '%Y-%m-%d').date()
     today = date.today()
 
     one_or_zero = ((today.month, today.day) < (bday_date.month, bday_date.day))
     year_difference = today.year - bday_date.year
     age = year_difference - one_or_zero
+
+    knownfor = cast.filter(Q()).order_by('popularity')[:10]
 
     context = {
         'details':details,
@@ -348,6 +354,9 @@ def CreditsDetails(request, personid):
         'crew':crew,
         'bday':bday,
         'age':age,
+        'castamt':cast_amt,
+        'crewamt':crew_amt,
+        'knownfor':knownfor,
     }
 
     return render(
