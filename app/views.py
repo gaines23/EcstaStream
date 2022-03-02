@@ -345,7 +345,10 @@ def CreditsDetails(request, personid):
     year_difference = today.year - bday_date.year
     age = year_difference - one_or_zero
 
-    knownfor = cast.filter(Q()).order_by('popularity')[:10]
+    def knownfor(popular):
+        return popular['popularity', 'vote_count']
+
+    knownfor = cast.sort(key=knownfor, reverse=True)
 
     context = {
         'details':details,
