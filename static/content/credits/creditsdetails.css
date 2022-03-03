@@ -20,11 +20,17 @@
 	font-weight: 500;
 }
 
+
+
+
 .MainSection {
 	height: 550px;
 	width: 98%;
 	margin: auto;
 }
+
+
+
 
 .MainSection .PosterInfo {
 	height: 100%;
@@ -57,3 +63,7 @@
 	padding-top: 5px;
 }
 
+
+.KnowForBio .KnowForCredits {
+	width: 100%;
+}

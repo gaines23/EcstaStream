@@ -276,7 +276,7 @@ https://youtu.be/zsrdBGr8NIk
                     	<h3>{{ s.episode_count }} episodes</h3>
                         <p>
                             {% if s.overview|length > 175 %}
-                                {{ s.overview|slice:175 }} ... 
+                                {{ s.overview|truncatewords:175 }} ... 
                             {% else %}
                                 {{ s.overview }}
                             {% endif %}

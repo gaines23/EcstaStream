@@ -5,7 +5,7 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'content\credits\creditsdetails.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'content\movies\cast-slider.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'content\slider.css' %}">
 </head>
 
 <div class="row TopInfoBar">
@@ -49,23 +49,40 @@
 
     <div class="col-9 KnownForBio">
 
-        <div class="row KnowForCredits">
+        <div class="row KnownForCredits">
             <div class="Credits-Container">
+                {% for c in knownfor %}
                 <div class="Card">
-                    <h3 class="Title"></h3>
+                    {% if c.character != 'Self' %}
+<!--                    <h3 class="Title">
+                        {% if c.media_type == 'movie' %}
+                            {{ c.title }}
+                        {% endif %}
+                        {% if c.media_type == 'tv' %}
+                            {{ c.name }}
+                        {% endif %}
+                    </h3>
+-->
+                    <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ c.poster_path }}">
+                    
+                    <div class="Bar">
+                        <div class="EmptyBar"></div>
+                        <div class="FilledBar"></div>
+                    </div>
+                    {% endif %}
                 </div>
+                {% endfor %}
             </div>
         </div>
 
         <div class="row Bio">
-            {{ details.biography }}
+        <!--   {{ details.biography }} -->
         </div>
 
     </div>
 
 </div>
 
-{{known_for}}
 
 
 {% endblock %}

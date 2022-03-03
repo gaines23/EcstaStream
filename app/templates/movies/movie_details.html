@@ -282,7 +282,7 @@ https://youtu.be/zsrdBGr8NIk
                         <h2>{{ s.title }}</h2>
                         <p>
                             {% if s.overview|length > 175 %}
-                                {{ s.overview|slice:175 }} ... 
+                                {{ s.overview|truncatewords:175 }} ... 
                             {% else %}
                                 {{ s.overview }}
                             {% endif %}
