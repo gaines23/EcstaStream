@@ -1,19 +1,17 @@
 .Credits-Container {
   position: inherit;
-  height: 300px;
-  width: 80%;
+  height: 290px;
+  width: 100%;
   top: 60px;
   display: flex;
 }
 
 .Card {
   display: flex;
-  height: 280px;
+  height: 285px;
   width: 200px;
-  background-color: #17141d;
   border-radius: 10px;
   box-shadow: -1rem 0 3rem #000;
-/*   margin-left: -50px; */
   transition: 0.4s ease-out;
   position: relative;
   left: 0px;
@@ -34,11 +32,29 @@
   transition: 0.4s ease-out;
 }
 
-.Title {
-  color: white;
-  font-weight: 300;
+.Bar {
   position: absolute;
-  left: 20px;
-  top: 15px;
+  margin: auto;
+  top: 230px;
+  left: 25px;
+  height: 60px;
+  font-size: 15px;
+  width: 115px;
+  text-align: center;
 }
 
+.FilledBar {
+  position: absolute;
+  top: 45px;
+  z-index: 3;
+  width: 0px;
+  height: 6px;
+  background: rgb(0,154,217);
+  background: linear-gradient(90deg, rgb(109 68 168) 0%, rgb(249 94 39) 65%, rgb(249 162 57) 100%);
+  transition: 0.6s ease-out;
+}
+
+.Card:hover .FilledBar {
+  width: 120px;
+  transition: 0.4s ease-out;
+}

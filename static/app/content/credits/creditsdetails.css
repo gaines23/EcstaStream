@@ -64,11 +64,22 @@
 }
 
 
+
 .KnownForBio .KnownForCredits {
 	width: 100%;
+	height: 300px;
 }
 
 .KnownForCredits #posterpic {
-	height: 200px;
+	height: 80%;
+	width: inherit;
 	object-fit: fill;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+}
+
+.KnownForBio .Bio {
+	overflow-y: scroll;
+  scrollbar-color: rebeccapurple green;
+  scrollbar-width: thin;
 }

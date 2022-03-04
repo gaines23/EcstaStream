@@ -54,19 +54,10 @@
                 {% for c in knownfor %}
                 <div class="Card">
                     {% if c.character != 'Self' %}
-<!--                    <h3 class="Title">
-                        {% if c.media_type == 'movie' %}
-                            {{ c.title }}
-                        {% endif %}
-                        {% if c.media_type == 'tv' %}
-                            {{ c.name }}
-                        {% endif %}
-                    </h3>
--->
                     <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ c.poster_path }}">
-                    
+
                     <div class="Bar">
-                        <div class="EmptyBar"></div>
+                        {{ c.character|truncatechars:25 }}
                         <div class="FilledBar"></div>
                     </div>
                     {% endif %}
@@ -76,7 +67,8 @@
         </div>
 
         <div class="row Bio">
-        <!--   {{ details.biography }} -->
+            <span id="bio">{{ details.biography|linebreaks }}</span>
+            <button onclick="readMoreBio()" id="myBtn">Read more</button>
         </div>
 
     </div>
@@ -84,5 +76,6 @@
 </div>
 
 
+<script src="{% static 'scripts\credits\creditsdetails.js' %}"></script>
 
 {% endblock %}
