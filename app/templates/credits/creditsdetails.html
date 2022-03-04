@@ -57,7 +57,7 @@
                     <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ c.poster_path }}">
 
                     <div class="Bar">
-                        {{ c.character|truncatechars:25 }}
+                        <p>{{ c.character|truncatechars:25 }}</p>
                         <div class="FilledBar"></div>
                     </div>
                     {% endif %}
@@ -67,8 +67,8 @@
         </div>
 
         <div class="row Bio">
+            Biography:
             <span id="bio">{{ details.biography|linebreaks }}</span>
-            <button onclick="readMoreBio()" id="myBtn">Read more</button>
         </div>
 
     </div>

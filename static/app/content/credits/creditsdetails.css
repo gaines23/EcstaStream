@@ -78,8 +78,36 @@
 	border-top-left-radius: 10px;
 }
 
-.KnownForBio .Bio {
-	overflow-y: scroll;
-  scrollbar-color: rebeccapurple green;
-  scrollbar-width: thin;
+.Card .Bar p {
+	display: none;
 }
+
+.Card:hover .Bar p {
+	display: inline-block;
+}
+
+.KnownForBio .Bio {
+	height: 220px;
+	overflow-y: scroll;
+  	scroll-behavior: smooth;
+}
+
+  /* Firefox */
+ .KnownForBio .Bio {
+    scrollbar-width: thin;
+    scrollbar-color: #f96d2d #000000;
+  }
+
+  /* Chrome, Edge, and Safari */
+.KnownForBio .Bio::-webkit-scrollbar {
+    width: 10px;
+  }
+
+.KnownForBio .Bio::-webkit-scrollbar-track {
+    background: #000000;
+  }
+
+.KnownForBio .Bio::-webkit-scrollbar-thumb {
+    background-color: #f96d2d;
+    border-radius: 5px;
+  }
