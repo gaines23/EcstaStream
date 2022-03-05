@@ -36,10 +36,9 @@
   position: absolute;
   margin: auto;
   top: 230px;
-  left: 25px;
   height: 60px;
   font-size: 15px;
-  width: 115px;
+  width: 100%;
   text-align: center;
 }
 
@@ -55,6 +54,6 @@
 }
 
 .Card:hover .FilledBar {
-  width: 120px;
+  width: 100%;
   transition: 0.4s ease-out;
 }

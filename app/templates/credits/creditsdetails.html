@@ -37,10 +37,12 @@
         <div class="Info">
             <div id="left">
                 <div id="hometown">
-                    Hometown:<br>{{ details.place_of_birth }}
+                    Hometown:<br>
+                    &#8195;{{ details.place_of_birth }}
                 </div>
                 <div id="bday">
-                    DOB:<br>{{ bday }} ({{ age }})
+                    DOB:<br>
+                    &#8195;{{ bday }} ({{ age }})
                 </div>
             </div>
         </div>
@@ -57,7 +59,7 @@
                     <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ c.poster_path }}">
 
                     <div class="Bar">
-                        <p>{{ c.character|truncatechars:25 }}</p>
+                        <p>{{ c.character|truncatechars:30 }}</p>
                         <div class="FilledBar"></div>
                     </div>
                     {% endif %}
@@ -75,6 +77,11 @@
 
 </div>
 
+
+<div class="CreditsSections">
+
+
+</div>
 
 <script src="{% static 'scripts\credits\creditsdetails.js' %}"></script>
 

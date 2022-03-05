@@ -35,11 +35,10 @@
 .Bar {
   position: absolute;
   margin: auto;
-  top: 230px;
-  left: 25px;
+  top: 227px;
   height: 60px;
   font-size: 15px;
-  width: 115px;
+  width: 100%;
   text-align: center;
 }
 
@@ -54,7 +53,24 @@
   transition: 0.6s ease-out;
 }
 
+.Card:hover .Bar {
+    background-color: #000000;
+    opacity: .9;
+}
+
 .Card:hover .FilledBar {
-  width: 120px;
+  width: 100%;
   transition: 0.4s ease-out;
+}
+
+
+.Card .Bar p {
+    display: none;
+}
+
+.Card:hover .Bar p {
+    width: 90%;
+    margin: auto;
+    display: inline-block;
+    transition: 0.4s ease-in;
 }
