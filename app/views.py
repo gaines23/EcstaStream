@@ -346,7 +346,7 @@ def CreditsDetails(request, personid):
     age = year_difference - one_or_zero
 
     def knownfor(popular):
-        return popular.get('vote_count', 'popularity')
+        return popular.get('vote_count', 'vote_average')
 
     castcred = credits.cast
     castcred.sort(key=knownfor, reverse=True)

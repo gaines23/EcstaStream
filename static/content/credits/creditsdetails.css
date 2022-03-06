@@ -78,15 +78,8 @@
 	border-top-left-radius: 10px;
 }
 
-.Card .Bar p {
-	display: none;
-}
 
-.Card:hover .Bar p {
-	display: inline-block;
-	transition: 0.4s ease-in;
 
-}
 
 .KnownForBio .Bio {
 	height: 220px;
