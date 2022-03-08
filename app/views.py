@@ -327,10 +327,9 @@ def TvDetails(request, tvid):
 def CreditsDetails(request, personid):
     assert isinstance(request, HttpRequest)
     
-# Post.objects.filter(Q(status=1) | Q(post_cat='Beginner')).order_by('-created_on')[0:3]
-
     details = person.details(personid)
     credits = details.combined_credits
+    movie_credits = details.movie_credits['cast'] 
 
     cast = credits.cast
     crew = credits.crew
@@ -345,13 +344,11 @@ def CreditsDetails(request, personid):
     year_difference = today.year - bday_date.year
     age = year_difference - one_or_zero
 
-    def knownfor(popular):
-        return popular.get('vote_count', 'vote_average')
+    knownfor = sorted(cast, key=lambda i:(i['vote_count'],i['vote_average'],i['popularity']), reverse=True)[:8]
+    
+    mc_filtered = list(filter(lambda x: (x['release_date'] != ''), movie_credits))
+    mc = sorted(mc_filtered, key = lambda x: x.release_date, reverse=True)
 
-    castcred = credits.cast
-    castcred.sort(key=knownfor, reverse=True)
-
-    knownfor = castcred[:8]
 
     context = {
         'details':details,
@@ -363,6 +360,7 @@ def CreditsDetails(request, personid):
         'castamt':cast_amt,
         'crewamt':crew_amt,
         'knownfor':knownfor,
+        'mc':mc,
     }
 
     return render(

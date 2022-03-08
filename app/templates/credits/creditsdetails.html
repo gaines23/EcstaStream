@@ -59,7 +59,7 @@
                     <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ c.poster_path }}">
 
                     <div class="Bar">
-                        <p>{{ c.character|truncatechars:30 }}</p>
+                        <p>{{ c.character|slice:30 }}</p>
                         <div class="FilledBar"></div>
                     </div>
                     {% endif %}
@@ -79,9 +79,26 @@
 
 
 <div class="CreditsSections">
-
+    
     <div class="Movies">
+        <h2>Acting</h2>
+            {% regroup mc by release_date|slice:4 as mc_list %}
 
+                <div class="MovieList">
+
+                    <div class="row ListRow">
+                        {% for release_date in mc_list %}
+                        <div class="col-2 GroupYear"> 
+                            {{ release_date.grouper }}
+                        </div>
+                        <div class="col-10 Info">
+                                {% for movie in release_date.list %}
+                                    <ul>{{movie.title}}</ul>
+                                {% endfor %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
 
     </div>
 
@@ -89,7 +106,6 @@
 
 
     </div>
-
 
     <div class="Other">
 

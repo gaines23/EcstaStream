@@ -91,12 +91,12 @@
  .KnownForBio .Bio {
     scrollbar-width: thin;
     scrollbar-color: #f96d2d #000000;
-  }
+}
 
   /* Chrome, Edge, and Safari */
 .KnownForBio .Bio::-webkit-scrollbar {
     width: 10px;
-  }
+}
 
 .KnownForBio .Bio::-webkit-scrollbar-track {
     background: #000000;
@@ -105,4 +105,23 @@
 .KnownForBio .Bio::-webkit-scrollbar-thumb {
     background-color: #f96d2d;
     border-radius: 5px;
-  }
+}
+
+
+
+
+.CreditsSections {
+  	height: 100%;
+  	width: 90%;
+  	margin: auto;
+}
+
+.CreditsSections .Movies {
+  	height: 100%;
+  	width: 80%;
+  	margin: auto;
+}
+
+.CreditsSections .Movies .GroupYear {
+  	height: 200px;
+}
