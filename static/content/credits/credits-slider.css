@@ -33,8 +33,6 @@
 
 .CreditsSections .Movies .card {
     background: rgba(255, 255, 255, .25);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px) saturate(200%);
     height: 190px;
     margin: 5px;
     display: inline-block;
@@ -55,37 +53,70 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    position: absolute;
     padding: 4px;
     border-radius: 20px;
     transition: flex 0.7s ease-in-out;
 }
 
-.CreditsSections .Movies .card .info-container, h1, h2 {
-    display: none;
-}
-
-.CreditsSections .Movies .card:hover .info-container img {
+.CreditsSections .Movies .card .info-container, h4 {
     display: none;
 }
 
 .CreditsSections .Movies .card:hover .info-container {
     display: block;
-    position: relative;
     transition: flex 0.3s ease-in-out;
-    background: #6D44A8;
-    height: 100%;
+    background: rgb(109 68 168 / 100%);
+    height: 90%;
     width: 90%;
-    margin: auto;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
     opacity: .9;
+    border-radius: 20px;
 }
 
-.CreditsSections .Movies .card:hover h1, h2 {
-    display: flex;
+.CreditsSections .Movies .card:hover h4 {
+    display: inline-block;
     height: auto;
     padding-top: 10px;
-    padding-bottom: 20px;
-    text-align: justify;
-    font-size: 17px;
+    font-size: 13px;
     margin: auto;
     color: white;
+    text-align: center;
+}
+
+#slide-left-container,
+#slide-right-container {
+  display: none;
+}
+
+#slide-left-container.active,
+#slide-right-container.active {
+  display: block;
+  cursor: pointer;
+}
+
+.slide-left,
+.slide-right {
+  border-color: #fff;
+  border-style: solid;
+  height: 20px;
+  width: 20px;
+  margin-top: 30%;
+}
+
+.slide-left {
+  border-width: 4px 0 0 4px;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  margin-left: 40%;
+}
+
+.slide-right {
+  border-width: 4px 4px 0 0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  margin-left: 22%;
 }

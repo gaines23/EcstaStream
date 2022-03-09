@@ -59,7 +59,7 @@
     transition: flex 0.7s ease-in-out;
 }
 
-.CreditsSections .Movies .card .info-container, h1, h2 {
+.CreditsSections .Movies .card .info-container, h4 {
     display: none;
 }
 
@@ -77,11 +77,10 @@
     border-radius: 20px;
 }
 
-.CreditsSections .Movies .card:hover h1, h2 {
+.CreditsSections .Movies .card:hover h4 {
     display: inline-block;
     height: auto;
     padding-top: 10px;
-    font-size: 15px;
     margin: auto;
     color: white;
     text-align: center;

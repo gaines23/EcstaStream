@@ -81,7 +81,7 @@
 
 <div class="CreditsSections">
 
-    <div class="CastSearch">
+    <div class="CreditSearch">
         <p>Cast & Crew</p>
         
         <div class="search-wrapper">
@@ -119,8 +119,11 @@
                     <div class="card">
                         <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}">
                             <div class="info-container">
-                                <h1><b>{{ movie.title }}</b></h1> <br>
-                                <h2><i>{{ movie.character }}</i></h2>
+                                <h4>
+                                    <b style="font-size: 15px; margin-bottom:10px">{{ movie.title|truncatechars:35 }}</b>
+                                    <br>
+                                    <i style="font-size: 13px;">{{ movie.character }}</i>
+                                </h4>
                             </div>
                     </div>
                     {% endfor %}
@@ -148,6 +151,6 @@
 
 </div>
 
-
+    <script src="{% static 'scripts\moviedetails.js' %}"></script>
 
 {% endblock %}
