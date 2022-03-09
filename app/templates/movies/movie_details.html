@@ -20,7 +20,7 @@
         </div>
 
         <div id="runtime">
-            ~ {{ r.Runtime }}
+            {{ hours_runtime }}
         </div>
 
         <div id="year">{{ r.Year }}</div>
@@ -217,52 +217,50 @@ https://youtu.be/zsrdBGr8NIk
 
     </div>
 
-  <div class="container">
+    <div class="container">
+        <div id="slide-left-container">
+          <div class="slide-left">
+          </div>
+        </div>
 
-    <div id="slide-left-container">
-      <div class="slide-left">
-      </div>
-    </div>
-
-    <div id="cards-container">
-    
-      <div class="cards" id="cards">
-        {% for c in credits.cast %}
-            <div class="card" id="card">
-              <img id="tvPoster" src="https://image.tmdb.org/t/p/original/{{ c.profile_path }}" style="width:100%; height: 185px;">
-              <div class="container">
-                <h4>
-                  <b style="font-size: 20px">{{ c.name }}</b>
-                  <i style="font-size: 18px">{{ c.character|slice:20 }} ... </i>
-                </h4>
-              </div>
-            </div>
-        {% endfor %}
-        {% for cr in credits.crew %}
-            <div class="card" id="card">
-              <img id="tvPoster" src="https://image.tmdb.org/t/p/original/{{ cr.profile_path }}" style="width:100%; height: 185px;">
-              <div class="container">
-                <h4>
-                  <b style="font-size: 20px">{{ cr.name }}</b>
-                  <i style="font-size: 18px">{{ cr.job|slice:20 }} ... </i>
-                </h4>
-              </div>
-            </div>
-        {% endfor %}
-      </div>
-
+        <div id="cards-container">
         
+          <div class="cards" id="cards">
+            {% for c in credits.cast %}
+                <div class="card" id="card">
+                  <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ c.profile_path }}">
+                  <div class="info-container">
+                    <h4>
+                      <b style="font-size: 20px">{{ c.name }}</b><br>
+                      <i style="font-size: 18px">{{ c.character|truncatechars:20 }}</i>
+                    </h4>
+                  </div>
+                </div>
+            {% endfor %}
+            {% for cr in credits.crew %}
+                <div class="card" id="card">
+                  <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ cr.profile_path }}">
+                  <div class="info-container">
+                    <h4>
+                      <b style="font-size: 20px">{{ cr.name }}</b><br>
+                      <i style="font-size: 18px">{{ cr.job|truncatechars:20 }}</i>
+                    </h4>
+                  </div>
+                </div>
+            {% endfor %}
+          </div>
+
+            
+        </div>
+
+        <div id="slide-right-container">
+          <div class="slide-right">
+          </div>
+        </div>
     </div>
 
-    <div id="slide-right-container">
-      <div class="slide-right">
-      </div>
-    </div>
 
-
-  </div>
-
-
+    
 </div>
 
 <!-- REDO query so that the collectionid = imdbapi id
@@ -282,7 +280,7 @@ https://youtu.be/zsrdBGr8NIk
                         <h2>{{ s.title }}</h2>
                         <p>
                             {% if s.overview|length > 175 %}
-                                {{ s.overview|truncatewords:175 }} ... 
+                                {{ s.overview|truncatewords:175 }} 
                             {% else %}
                                 {{ s.overview }}
                             {% endif %}

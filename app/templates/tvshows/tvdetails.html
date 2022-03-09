@@ -219,22 +219,22 @@ https://youtu.be/zsrdBGr8NIk
       <div class="cards" id="cards">
         {% for c in credits.cast %}
             <div class="card" id="card">
-              <img id="tvPoster" src="https://image.tmdb.org/t/p/original/{{ c.profile_path }}" style="width:100%; height: 185px;">
-              <div class="container">
+              <img id="tvPoster" src="https://image.tmdb.org/t/p/original/{{ c.profile_path }}">
+              <div class="info-container">
                 <h4>
                   <b style="font-size: 20px">{{ c.name }}</b>
-                  <i style="font-size: 18px">{{ c.character|slice:20 }} ... </i>
+                  <i style="font-size: 18px">{{ c.character|truncate:30 }}</i>
                 </h4>
               </div>
             </div>
         {% endfor %}
        	{% for cr in credits.crew %}
             <div class="card" id="card">
-              <img id="tvPoster" src="https://image.tmdb.org/t/p/original/{{ cr.profile_path }}" style="width:100%; height: 185px;">
-              <div class="container">
+              <img id="tvPoster" src="https://image.tmdb.org/t/p/original/{{ cr.profile_path }}">
+              <div class="info-container">
                 <h4>
                   <b style="font-size: 20px">{{ cr.name }}</b>
-                  <i style="font-size: 18px">{{ cr.job|slice:20 }} ... </i>
+                  <i style="font-size: 18px">{{ cr.job|truncate:30  }}</i>
                 </h4>
               </div>
             </div>

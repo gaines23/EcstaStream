@@ -5,7 +5,8 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'content\credits\creditsdetails.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'content\slider.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'content\series-knownfor-slider.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'content\credits\credits-slider.css' %}">
 </head>
 
 <div class="row TopInfoBar">
@@ -79,28 +80,62 @@
 
 
 <div class="CreditsSections">
+
+    <div class="CastSearch">
+        <p>Cast & Crew</p>
+        
+        <div class="search-wrapper">
+            <div class="input-holder">
+                <input type="text" id="myInput" onkeyup="myFunction()" class="search-input" placeholder="Search..." />
+                <button class="search-icon" onclick="searchToggle(this, event);">
+                    <i class="fas fa-search" style="font-size: 25px; color: #f97c32"></i>
+                </button>
+            </div>
+            <span class="close" onclick="searchToggle(this, event);"></span>
+        </div>
+
+    </div>
     
     <div class="Movies">
-        <h2>Acting</h2>
-            {% regroup mc by release_date|slice:4 as mc_list %}
+        {% regroup mc by release_date|slice:4 as mc_list %}
 
-                <div class="MovieList">
+        <div class="row ListRow">
+            {% for release_date in mc_list %}
+            <div class="container">
+            
+                <div class="col-1 GroupYear">        
+                    <div class="title">
+                        <p>{{ release_date.grouper }}</p>
+                    </div>
+                </div>
+        <div id="slide-left-container">
+          <div class="slide-left">
+          </div>
+        </div>
 
-                    <div class="row ListRow">
-                        {% for release_date in mc_list %}
-                        <div class="col-2 GroupYear"> 
-                            {{ release_date.grouper }}
-                        </div>
-                        <div class="col-10 Info">
-                                {% for movie in release_date.list %}
-                                    <ul>{{movie.title}}</ul>
-                                {% endfor %}
-                        </div>
-                        {% endfor %}
+                <div class="cards-container">
+                    <div class="cards" id="cards">
+                    {% for movie in release_date.list %}
+                    <div class="card">
+                        <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}">
+                            <div class="info-container">
+                                <h1><b>{{ movie.title }}</b></h1> <br>
+                                <h2><i>{{ movie.character }}</i></h2>
+                            </div>
+                    </div>
+                    {% endfor %}
                     </div>
                 </div>
 
+            <div id="slide-right-container">
+              <div class="slide-right">
+              </div>
+            </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
+
 
     <div class="TV">
 
@@ -113,6 +148,6 @@
 
 </div>
 
-<script src="{% static 'scripts\credits\creditsdetails.js' %}"></script>
+
 
 {% endblock %}

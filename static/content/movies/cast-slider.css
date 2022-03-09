@@ -1,6 +1,8 @@
 .Cast .container {
-  height: 400px;
-  width: 85%;
+  height: 330px;
+  width: 95%;
+  background-image: linear-gradient(to bottom right, #f02811, #F9A647);
+  border-radius: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -15,11 +17,8 @@
 
 .Cast #cards-container {
   overflow: hidden;
-  height: 385px;
+  height: 330px;
   margin: 20px;
-  background-image: url('bk-color.png');
-  background-position: center;
-  border-radius: 20px;
 }
 
 .Cast .cards {
@@ -27,33 +26,43 @@
   display: -ms-flexbox;
   display: flex;
   width: 99999px;
-  height: 385px;
+  height: 330px;
 }
 
 .Cast .card {
-  /* Add shadows to create the "card" effect */
-  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  background: #fff;
+  background: rgba(255, 255, 255, .25);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px) saturate(200%);
+  height: 300px;
+  border: 1px solid rgb(255 255 255 / 35%);
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  width: 165px;
+  width: 180px;
   margin: 15px 7.5px;
-  background: #6D44A8;
   border-radius: 20px;
 }
 
 .Cast .card:hover {
-  -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 35%);
+  box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 35%);
   cursor: pointer;
 }
 
 .Cast .card img {
-  max-width: 220px;
+  width: 90%;
+  height: 65%;
+  object-fit: cover;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 8px;
   display: inline-block;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-radius: 20px;
+}
+
+.Cast .card .info-container {
+  text-align: center;
+  height: 35%;
+  padding-top: 5px;
 }
 
 #slide-left-container,

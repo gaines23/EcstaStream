@@ -110,6 +110,9 @@
 
 
 
+
+
+
 .CreditsSections {
   	height: 100%;
   	width: 90%;
@@ -122,6 +125,26 @@
   	margin: auto;
 }
 
-.CreditsSections .Movies .GroupYear {
-  	height: 200px;
+
+.CreditsSections .Movies .container .GroupYear {
+	height: 200px;
+	text-align: center;
+	float: left;
+	background-image: linear-gradient(to bottom right, #f02811, #F9A647);
+  	border-top-left-radius: 15px;
+}
+
+.CreditsSections .Movies .container .GroupYear .title {
+	height: inherit;
+	position: relative;
+	width: 100%;
+}
+
+.CreditsSections .Movies .container .GroupYear p {
+	text-align: center;
+	top: 30%;
+	border-radius: 15px;
+	position: absolute;
+	font-weight: bold;
+	font-size: 35px;
 }
