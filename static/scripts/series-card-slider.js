@@ -27,7 +27,7 @@ $(function() {
     .children(".Series-Card").length;
   let speed = 1000;
   let seriescontainerWidth = $(".SeriesCards").width();
-  let seriescardWidth = 250;
+  let seriescardWidth = 220;
 
   updateSeriesSliderArrowsStatus(div, seriescontainerWidth, seriescardCount, seriescardWidth);
 

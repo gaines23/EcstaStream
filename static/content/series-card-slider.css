@@ -1,15 +1,53 @@
+.SeriesSection {
+  width: 84%;
+  float: right;
+  margin-left: 2px;
+}
+
 .Series-Container {
   position: inherit;
   height: 290px;
   width: 100%;
   top: 60px;
   display: flex;
+  overflow: hidden;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+}
+
+.Series-Container {
+  scrollbar-width: thin;
+  scrollbar-color: #f96d2d #000000;
+}
+
+  /* Chrome, Edge, and Safari */
+.Series-Container::-webkit-scrollbar {
+  width: 15px;
+  height: 10px;
+}
+
+.Series-Container::-webkit-scrollbar-track {
+  background: #000000;
+  }
+
+.Series-Container::-webkit-scrollbar-thumb {
+  background-color: #f96d2d;
+  border-radius: 5px;
+}
+
+
+.Series-Cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 99999px;
+  height: 290px;
 }
 
 .Series-Card {
   display: flex;
   height: 290px;
-  width: 220px;
+  width: 200px;
   border-radius: 10px;
   box-shadow: -1rem 0 3rem #000;
   transition: 0.4s ease-out;
@@ -24,6 +62,7 @@
 .Series-Card:hover {
   transform: translateY(-20px);
   transition: 0.4s ease-out;
+  cursor: pointer;
 }
 
 .Series-Card:hover ~ .Series-Card {
@@ -64,7 +103,7 @@
 }
 
 
-.Series-Cards .Bar h2 {
+.Series-Card .Bar h2 {
     display: none;
 }
 
@@ -73,39 +112,6 @@
     margin: auto;
     display: inline-block;
     transition: 0.4s ease-in;
-    font-size: 20px;
+    font-size: 18px;
 }
 
-#series-slide-left,
-#series-slide-right {
-  display: none;
-}
-
-#series-slide-left.active,
-#series-slide-right.active {
-  display: block;
-  cursor: pointer;
-}
-
-.Slide-Left,
-.Slide-Right {
-  border-color: #fff;
-  border-style: solid;
-  height: 20px;
-  width: 20px;
-  margin-top: 30%;
-}
-
-.Slide-Left {
-  border-width: 4px 0 0 4px;
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  margin-left: 40%;
-}
-
-.Slide-Right {
-  border-width: 4px 4px 0 0;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  margin-left: 22%;
-}

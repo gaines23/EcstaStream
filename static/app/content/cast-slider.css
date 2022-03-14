@@ -1,7 +1,7 @@
 .Cast .container {
   height: 330px;
   width: 95%;
-  background-image: linear-gradient(to bottom right, #f02811, #F9A647);
+  /*background-image: linear-gradient(to bottom right, #f02811, #F9A647); */
   border-radius: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -15,17 +15,38 @@
   padding: 4px 16px;
 }
 
+
 .Cast #cards-container {
   overflow: hidden;
   height: 330px;
-  margin: 20px;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
 }
+
+.Cast #cards-container {
+  scrollbar-width: thin;
+  scrollbar-color: #f96d2d #000000;
+}
+
+  /* Chrome, Edge, and Safari */
+.Cast #cards-container::-webkit-scrollbar {
+  width: 15px;
+  height: 10px;
+}
+
+.Cast #cards-container::-webkit-scrollbar-track {
+  background: #000000;
+  }
+
+.Cast #cards-container::-webkit-scrollbar-thumb {
+  background-color: #f96d2d;
+  border-radius: 5px;
+}
+
 
 .Cast .cards {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
-  width: 99999px;
   height: 330px;
 }
 
@@ -44,8 +65,11 @@
 
 .Cast .card:hover {
   -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 35%);
-  box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 35%);
+  box-shadow: 0px 0px 2px 3px #6d44a8;
   cursor: pointer;
+  -webkit-backdrop-filter: revert;
+  backdrop-filter: revert;
+  background-image: linear-gradient(to bottom right, #f02811, #F9A647);
 }
 
 .Cast .card img {
@@ -63,38 +87,4 @@
   text-align: center;
   height: 35%;
   padding-top: 5px;
-}
-
-#slide-left-container,
-#slide-right-container {
-  display: none;
-}
-
-#slide-left-container.active,
-#slide-right-container.active {
-  display: block;
-  cursor: pointer;
-}
-
-.slide-left,
-.slide-right {
-  border-color: #fff;
-  border-style: solid;
-  height: 20px;
-  width: 20px;
-  margin-top: 30%;
-}
-
-.slide-left {
-  border-width: 4px 0 0 4px;
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  margin-left: 40%;
-}
-
-.slide-right {
-  border-width: 4px 4px 0 0;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  margin-left: 22%;
 }

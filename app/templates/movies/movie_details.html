@@ -192,9 +192,9 @@ https://youtu.be/zsrdBGr8NIk
 
         <div class="Summary">
             <h2>Synopsis</h2>
-            <div id="text">
+            <span id="text">
                 {{ details.overview }}
-            </div>
+            </span>
         </div>        
     </div>
 
@@ -227,11 +227,7 @@ https://youtu.be/zsrdBGr8NIk
 
     </div>
 
-    <div class="container">
-        <div id="slide-left-container">
-          <div class="slide-left">
-          </div>
-        </div>
+    <span class="container">
 
         <div id="cards-container">
         
@@ -259,33 +255,22 @@ https://youtu.be/zsrdBGr8NIk
                 </div>
             {% endfor %}
           </div>
-
             
         </div>
 
-        <div id="slide-right-container">
-          <div class="slide-right">
-          </div>
-        </div>
-    </div>
+    </span>
 
-
-    
 </div>
 
 
 
-<div class="row SeriesInfo">
+<div class="SeriesInfo">
 
-    <div class="col-2 SeriesSummary">        
+    <div class="SeriesSummary">        
         <div class="title"><p><b>{{ seriesid.name }}</b></p></div>
     </div>
 
-    <div class="col-10 SeriesSection">
-        <div id="series-slide-left">
-          <div class="Slide-Left">
-          </div>
-        </div>
+    <span class="SeriesSection">
 
         <div class="Series-Container" id="series-cards-container">
         
@@ -295,7 +280,7 @@ https://youtu.be/zsrdBGr8NIk
                     <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ s.backdrop_path }}">
 
                     <div class="Bar">
-                        <h2>{{ s.title }} ({{ r.Year}})</h2>
+                        <h2>{{ s.title }} ({{ s.release_date|slice:":4" }})</h2>
                         <div class="FilledBar"></div>
                     </div>
                 </div>
@@ -305,17 +290,12 @@ https://youtu.be/zsrdBGr8NIk
             
         </div>
 
-        <div id="series-slide-right">
-          <div class="Slide-Right">
-          </div>
-        </div>
 
-    </div>
+    </span>
+
 </div>
 
 
-
-<script src="{% static 'scripts\series-card-slider.js' %}"></script>
 <script src="{% static 'scripts\moviedetails.js' %}"></script>
 
 
