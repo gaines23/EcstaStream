@@ -5,16 +5,22 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'content\movies\movie-details.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'content\movies\cast-slider.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'content\cast-slider.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'content\series-card-slider.css' %}">
+
 </head>
 
-<div class="row TopInfoBar" style="background-image: url(https://image.tmdb.org/t/p/original/{{ details.backdrop_path }});">
+
+
+<div class="MovieImg-Wrapper" style="background-image: linear-gradient(transparent, black 100%), url(https://image.tmdb.org/t/p/original/{{ details.backdrop_path }})">
+
+<div class="row TopInfoBar">
     
     <div class="Title">
         <h1 id="title">{{ r.Title }}</h1>
     </div>
     
-    <div class="TvInfo">
+    <div class="MovieInfo">
         <div id="rating"> 
             {{ r.Rated }}
         </div>
@@ -64,8 +70,6 @@
     </div>
 
 </div>
-
-
 
 
 <div class="row MainSection">
@@ -199,15 +203,21 @@ https://youtu.be/zsrdBGr8NIk
 </div>
 
 
+</div>
 
-<div class="row Cast">
+
+<div id="section-break">
+
+</div>
+
+<div class="Cast">
 
     <div class="CastSearch">
         <p>Cast & Crew</p>
         
         <div class="search-wrapper">
             <div class="input-holder">
-                <input type="text" id="myInput" onkeyup="myFunction()" class="search-input" placeholder="Search..." />
+                <input type="text" id="searchInput" onkeyup="searchCast()" class="search-input" placeholder="Search..." />
                 <button class="search-icon" onclick="searchToggle(this, event);">
                     <i class="fas fa-search" style="font-size: 25px; color: #f97c32"></i>
                 </button>
@@ -263,46 +273,51 @@ https://youtu.be/zsrdBGr8NIk
     
 </div>
 
-<!-- REDO query so that the collectionid = imdbapi id
-    for better data -->
 
-<div class="SeriesInfo">
+
+<div class="row SeriesInfo">
 
     <div class="col-2 SeriesSummary">        
-            <div class="title"><p>{{ seriesid.name }}</p></div>
+        <div class="title"><p><b>{{ seriesid.name }}</b></p></div>
     </div>
 
-    <div class="col-10 SeriesContent">
-        <div class="gallery-wrap">
+    <div class="col-10 SeriesSection">
+        <div id="series-slide-left">
+          <div class="Slide-Left">
+          </div>
+        </div>
+
+        <div class="Series-Container" id="series-cards-container">
+        
+          <div class="Series-Cards" id="series-cards">
             {% for s in seriesid.parts %}
-                <div class="item" style="background-image: url(https://image.tmdb.org/t/p/original/{{ s.backdrop_path }}); background-position: center; background-size: cover;-">
-                    <div id="summary">
-                        <h2>{{ s.title }}</h2>
-                        <p>
-                            {% if s.overview|length > 175 %}
-                                {{ s.overview|truncatewords:175 }} 
-                            {% else %}
-                                {{ s.overview }}
-                            {% endif %}
-                        </p>
+                <div class="Series-Card" id="series-card">
+                    <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ s.backdrop_path }}">
+
+                    <div class="Bar">
+                        <h2>{{ s.title }} ({{ r.Year}})</h2>
+                        <div class="FilledBar"></div>
                     </div>
                 </div>
             {% endfor %}
+          </div>
+
+            
+        </div>
+
+        <div id="series-slide-right">
+          <div class="Slide-Right">
+          </div>
         </div>
 
     </div>
-
 </div>
 
 
 
-
-
-
-
-
-
+<script src="{% static 'scripts\series-card-slider.js' %}"></script>
 <script src="{% static 'scripts\moviedetails.js' %}"></script>
+
 
 
 

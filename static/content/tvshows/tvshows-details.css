@@ -391,14 +391,14 @@
 
 
 .Cast {
-	height: 550px;
+	height: 480px;
 	width: 100%;
 }
 
 /* Cast Searchbar */
 
 .Cast .CastSearch {
-	height: 150px;
+	height: 130px;
 	padding-top: 35px;
 }
 

@@ -1,4 +1,4 @@
-.Credits-Container {
+.Series-Container {
   position: inherit;
   height: 290px;
   width: 100%;
@@ -6,10 +6,10 @@
   display: flex;
 }
 
-.Card {
+.Series-Card {
   display: flex;
-  height: 285px;
-  width: 200px;
+  height: 290px;
+  width: 220px;
   border-radius: 10px;
   box-shadow: -1rem 0 3rem #000;
   transition: 0.4s ease-out;
@@ -17,16 +17,16 @@
   left: 0px;
 }
 
-.Card:not(:first-child) {
+.Series-Card:not(:first-child) {
     margin-left: -50px;
 }
 
-.Card:hover {
+.Series-Card:hover {
   transform: translateY(-20px);
   transition: 0.4s ease-out;
 }
 
-.Card:hover ~ .Card {
+.Series-Card:hover ~ .Series-Card {
   position: relative;
   left: 50px;
   transition: 0.4s ease-out;
@@ -35,7 +35,7 @@
 .Bar {
   position: absolute;
   margin: auto;
-  top: 227px;
+  top: 230px;
   height: 60px;
   font-size: 15px;
   width: 100%;
@@ -53,24 +53,59 @@
   transition: 0.6s ease-out;
 }
 
-.Card:hover .Bar {
+.Series-Card:hover .Bar {
     background-color: #000000;
     opacity: .9;
 }
 
-.Card:hover .FilledBar {
+.Series-Card:hover .FilledBar {
   width: 100%;
   transition: 0.4s ease-out;
 }
 
 
-.Card .Bar p {
+.Series-Cards .Bar h2 {
     display: none;
 }
 
-.Card:hover .Bar p {
+.Series-Card:hover .Bar h2 {
     width: 90%;
     margin: auto;
     display: inline-block;
     transition: 0.4s ease-in;
+    font-size: 20px;
+}
+
+#series-slide-left,
+#series-slide-right {
+  display: none;
+}
+
+#series-slide-left.active,
+#series-slide-right.active {
+  display: block;
+  cursor: pointer;
+}
+
+.Slide-Left,
+.Slide-Right {
+  border-color: #fff;
+  border-style: solid;
+  height: 20px;
+  width: 20px;
+  margin-top: 30%;
+}
+
+.Slide-Left {
+  border-width: 4px 0 0 4px;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  margin-left: 40%;
+}
+
+.Slide-Right {
+  border-width: 4px 4px 0 0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  margin-left: 22%;
 }

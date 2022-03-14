@@ -2,7 +2,7 @@
     height: 200px;
     width: 95%;
     float: right;
-    background-image: linear-gradient(to bottom right, #f02811, #F9A647);
+    /*background-image: linear-gradient(to bottom right, #f02811, #F9A647);*/
     border-radius: 20px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -81,7 +81,6 @@
     display: inline-block;
     height: auto;
     padding-top: 10px;
-    font-size: 13px;
     margin: auto;
     color: white;
     text-align: center;

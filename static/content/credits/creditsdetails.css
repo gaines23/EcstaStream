@@ -293,32 +293,32 @@
 
 
 
+
+
 .CreditsSections .Movies {
   	height: 100%;
   	width: 80%;
   	margin: auto;
 }
 
-
 .CreditsSections .Movies .container .GroupYear {
 	height: 200px;
 	text-align: center;
-	float: left;
-	background-image: linear-gradient(to bottom right, #f02811, #F9A647);
-  	border-top-left-radius: 15px;
+	writing-mode: vertical-rl;
+    text-orientation: upright;
+	border-right: white 1px solid;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
 }
 
 .CreditsSections .Movies .container .GroupYear .title {
 	height: inherit;
+	float: left;
 	position: relative;
 	width: 100%;
 }
 
 .CreditsSections .Movies .container .GroupYear p {
-	text-align: center;
-	top: 30%;
-	border-radius: 15px;
-	position: absolute;
 	font-weight: bold;
 	font-size: 35px;
 }
