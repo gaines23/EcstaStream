@@ -1,5 +1,5 @@
-.MovieImg-Wrapper {
-	height: 45%;
+.Img-Wrapper {
+	height: 58%;
 	bottom: 0; 
 	width: 100%;
 	background-size: cover;
@@ -111,15 +111,28 @@
 }
 
 
+
+
+
+
+
+
+
 .MainSection {
-	height: 550px;
+	height: 570px;
 	width: 98%;
 	margin: auto;
+	border-radius: 20px;
+	border: 4px solid rgba(255, 255, 255, 0.125);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
 }
 
 .MainSection .PosterInfo {
 	height: 100%;
-	padding-right: 0px;
+	padding-top: .5px;
+	padding-left: .5px;
+	padding-right: 8px;
 }
 
 .MainSection .PosterInfo #moviePoster {
@@ -133,10 +146,7 @@
 	height: 100px;
 	width: 100%;
 	font-size: 12px;
-	background-color: #1e1f1e;
 	border-bottom-left-radius: 15px;
-    background-color: rgba(17, 25, 40, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.125);
 }
 
 .PosterInfo .section-title {
@@ -173,19 +183,14 @@
 
 .MainSection .SummaryStreaming {
 	height: 100%;
-	padding-left: 0px;
+	padding-right: 0px;
 }
 
 .SummaryStreaming .UserActions {
-	height: 15%;
+	height: 20%;
 	width: 100%;
 	margin: auto;
-	background-color: #1e1f1e;
-	border-top-right-radius: 15px;
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background-color: rgba(17, 25, 40, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.125);
+    border-top-right-radius: 12px;
 }
 
 .SummaryStreaming .UserActions .User {
@@ -257,7 +262,7 @@
 
 
 .MainSection .StreamingServices {
-	height: 67%;
+	height: 80%;
 	padding-left: 0px;
 }
 
@@ -275,10 +280,12 @@
 	display: flex;
 	width: 14%;
 	align-items: stretch;
-	background-image: linear-gradient(to bottom right, #f02811, #F9A647);
 	background-position: center;
 	cursor: pointer;
+	border-radius: 12px;
 	transition: all .2s ease;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
 }
 
 .MainSection .StreamingServices li.active {
@@ -367,75 +374,16 @@
 }
 
 
-
-.SummaryStreaming .Summary {
-	height: 18%;
-	width: 100%;
-	margin: auto;
-	background-color: #1e1f1e;
-	border-bottom-right-radius: 15px;
-    background-color: rgba(17, 25, 40, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.125);
+.StreamingServices #summary {
+	border-bottom-right-radius: 20px;
 }
-
-.SummaryStreaming .Summary h2 {
-	font-size: 20px;
-	padding-left: 3%;
-	padding-top: 15px;
-	margin-bottom: 10px;
-}
-
-.SummaryStreaming .Summary #text {
-	width: 80%;
-	margin: auto;
-	padding: 3px;
-	font-size: 17px;
-	overflow-y: scroll;
-  	scroll-behavior: smooth;
-}
-
-  /* Firefox */
-.Summary #text {
-    scrollbar-width: thin;
-    scrollbar-color: #f96d2d #000000;
-}
-
-  /* Chrome, Edge, and Safari */
-.Summary #text::-webkit-scrollbar {
-    width: 10px;
-    height: 25px;
-}
-
-.Summary #text::-webkit-scrollbar-track {
-    background: #000000;
-  }
-
-.Summary #text::-webkit-scrollbar-thumb {
-    background-color: #f96d2d;
-    border-radius: 5px;
-}
-
-
-
-
-
-
-
-
-
-
-#section-break {
-	height: 120px;
-}
-
-
-
 
 
 
 .Cast {
 	height: 450px;
 	width: 100%;
+	margin-top: 15px;
 }
 
 .Cast .CastSearch {

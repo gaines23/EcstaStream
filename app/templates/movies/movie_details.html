@@ -12,7 +12,7 @@
 
 
 
-<div class="MovieImg-Wrapper" style="background-image: linear-gradient(transparent, black 100%), url(https://image.tmdb.org/t/p/original/{{ details.backdrop_path }})">
+<div class="Img-Wrapper" style="background-image: linear-gradient(transparent, black 100%), url(https://image.tmdb.org/t/p/original/{{ details.backdrop_path }})">
 
 <div class="row TopInfoBar">
     
@@ -186,27 +186,25 @@ https://youtu.be/zsrdBGr8NIk
                     </div>
                 </li>
 
+                <li id="summary">
+                    <div class="section-title">
+                        <h2>Summary</h2>
+                    </div>
+
+                    <div class="section-content">
+                        <div class="text">
+                            {{ details.overview }}
+                        </div>
+                    </div>
+                </li>
+
             </ul>
 
         </div>
 
-        <div class="Summary">
-            <h2>Synopsis</h2>
-            <span id="text">
-                {{ details.overview }}
-            </span>
-        </div>        
     </div>
 
-
-
 </div>
-
-
-</div>
-
-
-<div id="section-break">
 
 </div>
 
@@ -277,7 +275,7 @@ https://youtu.be/zsrdBGr8NIk
           <div class="Series-Cards" id="series-cards">
             {% for s in seriesid.parts %}
                 <div class="Series-Card" id="series-card">
-                    <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ s.backdrop_path }}">
+                    <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ s.poster_path }}">
 
                     <div class="Bar">
                         <h2>{{ s.title }} ({{ s.release_date|slice:":4" }})</h2>
@@ -298,7 +296,22 @@ https://youtu.be/zsrdBGr8NIk
 
 <script src="{% static 'scripts\moviedetails.js' %}"></script>
 
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
 
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
 
 
 {% endblock %}

@@ -1,15 +1,21 @@
+.Img-Wrapper {
+	height: 56%;
+	bottom: 0; 
+	width: 100%;
+	background-size: cover;
+	background-position: center;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+}
 
 .TopInfoBar {
-	height: 400px;
+	height: 500px;
 	margin: 0;
 	padding: 0px;
-	background-repeat: no-repeat;
-	background-size: cover;
-	border-radius: 20px;
 }
 
 .TopInfoBar .Title {
-	height: 65%;
+	height: 75%;
 	width: 100%;
 }
 
@@ -22,45 +28,44 @@
 	text-shadow: -2px 3px rebeccapurple;
 }
 
-.TopInfoBar .TvInfo {
+.TopInfoBar .MovieInfo {
 	width: 50%;
-	height: 35%;
-	padding-top: 65px;
+	height: 15%;
 	font-size: 25px;
 	font-weight: 700;
 	float: left;
 	color: white;
 }
 
-.TvInfo #rating {
+.MovieInfo #rating {
 	font-size: 18px;
 	width: 100px;
 	float: left;
 	text-align: center;
 }
 
-.TvInfo #year {
+.MovieInfo #year {
 	font-size: 18px;
-	width: 130px;
+	width: 85px;
 	float: left;
 	text-align: center;
 }
 
-.TvInfo #runtime {
+.MovieInfo #runtime {
 	float: left;
 	font-size: 18px;
 	text-align: center;
 	width: 100px;
 }
 
-.TvInfo #genre {
+.MovieInfo #genre {
 	font-size: 18px;
 	float: left;
 	width: 100%;
 	padding-left: 20px;
 }
 
-.TvInfo #genre i {
+.MovieInfo #genre i {
     text-align: center;
     font-size: 5px;
     margin-bottom: 0px;
@@ -70,7 +75,7 @@
 
 .TopInfoBar .ReviewScores {
 	width: 50%;
-	height: 35%;
+	height: 15%;
 	float: right;
 	font-size: 25px;
 	font-weight: 700;
@@ -80,7 +85,6 @@
 	width: 50%;
 	height: 90px;
 	float: right;
-	margin-top: 45px;
 	margin-bottom: 0px;
 	list-style: none;
 }
@@ -88,7 +92,6 @@
 .ReviewScores ul li {
 	width: 75px;
 	height: 90px;
-	float: right;
 	margin-bottom: 5px;
 	padding-top: 10px;
 	display: inline-block;
@@ -108,37 +111,44 @@
 }
 
 
+
+
+
+
+
+
+
 .MainSection {
-	height: 550px;
+	height: 570px;
 	width: 98%;
 	margin: auto;
+	border-radius: 20px;
+	border: 4px solid rgba(255, 255, 255, 0.125);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
 }
 
 .MainSection .PosterInfo {
 	height: 100%;
-	padding-right: 0px;
+	padding-top: .5px;
+	padding-left: .5px;
+	padding-right: 8px;
 }
 
-.MainSection .DirWriters {
-	height: 100%;
-	width: 100%;
-}
-
-.MainSection .PosterInfo #moviePoster {
-	height: 450px;
+.MainSection .PosterInfo #tvPoster {
+	height: 80%;
 	width: 95%;
+	margin-top: 3px;
+	margin-bottom: 3px;
 	object-fit: fill;
 	border-top-left-radius: 15px;
-	border-top-right-radius: 15px;
 }
 
 .PosterInfo .Info {
-	height: 100px;
+	height: 20%;
 	width: 95%;
 	font-size: 12px;
-	background-color: #1e1f1e;
 	border-bottom-left-radius: 15px;
-	border-bottom-right-radius: 15px;
 }
 
 .PosterInfo .section-title {
@@ -147,18 +157,15 @@
 	text-align: center;
 }
 
+
 .PosterInfo #creators {
-	height: 100px;
-	width: 50%;
-	padding-left: 20px;
-	padding-top: 5px;
-	float: left;
-	text-align: left;
+  height: 75px;
+  width: 80%;
+  padding-left: auto;
+  padding-right: auto;
+  float: left;
+  text-align: left;
 }
-
-
-
-
 
 
 
@@ -167,16 +174,14 @@
 
 .MainSection .SummaryStreaming {
 	height: 100%;
-	padding-left: 0px;
+	padding-right: 0px;
 }
 
 .SummaryStreaming .UserActions {
-	height: 15%;
+	height: 20%;
 	width: 100%;
 	margin: auto;
-	background-color: #1e1f1e;
-	border-top-right-radius: 15px;
-	border-top-left-radius: 15px;
+    border-top-right-radius: 12px;
 }
 
 .SummaryStreaming .UserActions .User {
@@ -247,40 +252,15 @@
 
 
 
-
-
-.SummaryStreaming .Summary {
-	height: 20%;
-	width: 100%;
-	margin: auto;
-	background-color: #1e1f1e;
-	border-bottom-right-radius: 15px;
-	border-bottom-left-radius: 15px;
-}
-
-.SummaryStreaming .Summary h2 {
-	font-size: 20px;
-	padding-left: 3%;
-	padding-top: 15px;
-	margin-bottom: 3px;
-}
-
-.SummaryStreaming .Summary #text {
-	width: 80%;
-	margin: auto;
-	padding: 3px;
-	font-size: 12px;
-}
-
 .MainSection .StreamingServices {
-	height: 65%;
+	height: 80%;
 	padding-left: 0px;
 }
 
 .MainSection .StreamingServices ul {
     display: flex;
-    min-height: 100%;
-    max-height: 100%;
+    min-height: 95%;
+    max-height: 95%;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -291,10 +271,12 @@
 	display: flex;
 	width: 14%;
 	align-items: stretch;
-	background-image: url('bk-color.png');
 	background-position: center;
 	cursor: pointer;
+	border-radius: 12px;
 	transition: all .2s ease;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
 }
 
 .MainSection .StreamingServices li.active {
@@ -383,6 +365,15 @@
 }
 
 
+.StreamingServices #summary {
+	border-bottom-right-radius: 20px;
+}
+
+.StreamingServices #summary .text {
+	width: 90%;
+}
+
+
 
 
 
@@ -391,15 +382,14 @@
 
 
 .Cast {
-	height: 480px;
+	height: 450px;
 	width: 100%;
+	margin-top: 15px;
+	margin-bottom: 34px;
 }
 
-/* Cast Searchbar */
-
 .Cast .CastSearch {
-	height: 130px;
-	padding-top: 35px;
+	height: 90px;
 }
 
 .Cast .CastSearch p {
@@ -574,146 +564,52 @@
 
 
 
-
-
 .SeriesInfo {
-	height: 400px;
-	width: 98%;
+	height: 300px;
+	width: 95%;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 40px;
 }
 
 .SeriesInfo .SeriesSummary {
-	height: 390px;
-	padding-top: 20px;
+	height: 261px;
+	width: 15%;
 	float: left;
-	background-image: url('bk-color.png');
+	background-image: linear-gradient(to bottom right, #f02811, #F9A647);
   	background-position: center;
   	border-top-left-radius: 15px;
   	border-bottom-left-radius: 15px;
 }
 
-.SeriesInfo .SeriesSummary h2 {
-	width: 100%;
-	height: 105px;
-	font-size: 50px;
-	text-align: center;
+.SeriesInfo .SeriesSummary .title {
+    height: 90%;
+    margin-left: 5%;
+    width: 95%;
+    margin-top: 5%;
+    display: inline-block;
 }
 
-.SeriesInfo .SeriesSummary .Info {
-	background: #6D44A8;
-	position: relative;
-	width: 95%;
-	margin: auto;
-	border-radius: 10px;
-  	background-position: center;
- 	background-size: cover;
+.SeriesInfo .SeriesSummary p {
+    font-size: 35px;
+    text-align: left;
+    height: 100%;
+    margin-top: auto;
 }
 
-.SeriesInfo .SeriesSummary .Info #seasons {
-	text-align: center;
-	height: 85px;
-	width: 100%;
-	padding: 15px;
-	border-radius: 15px;;
-	font-weight: bold;
-	font-size: 35px;
-}
-
-.SeriesInfo .SeriesSummary .Info #episodes {
-	text-align: center;
-	height: 85px;
-	width: 100%;
-	border-radius: 15px;;
-	font-weight: bold;
-	font-size: 35px;
-}
-
-
-.SeriesInfo .SeriesContent {
-	height: 390px;
-	float: right;
-	position: relative;
+.SeriesInfo .Series-Cards {
+	height: 290px;
   	border-top-right-radius: 20px;
   	border-bottom-right-radius: 20px;
 }
 
-.SeriesInfo .SeriesContent .gallery-wrap {
-	position: absolute;
-  	display: flex;
-  	flex-direction: row;
-  	width: 100%;
-  	height: 100%;
+.Series-Container #posterpic {
+	height: 90%;
+	width: inherit;
+	object-fit: cover;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
 }
 
-.SeriesInfo .SeriesContent .gallery-wrap .item {
-  	flex: 1;
-  	height: 100%;
-	background-position: center; 
-	background-size: cover;
-}
-
-.SeriesInfo .SeriesContent .gallery-wrap .item h2 {
-	display: none;
-}
-
-.SeriesInfo .SeriesContent .gallery-wrap .item h3 {
-	display: none;
-}
-
-.SeriesInfo .SeriesContent .gallery-wrap .item #summary {
-	display: none;
-	transition: flex 0.9s;
-}
-
-.SeriesInfo .SeriesContent .gallery-wrap .item:hover {
-  	flex: 8;
-	transition: flex 0.7s ease-in-out;
-}
-
-.SeriesInfo .SeriesContent .gallery-wrap .item:hover h2 {
-	display: block;
-	width: 100%;
-	height: 80px;
-	padding: 20px;
-	position: relative;
-	background: #6D44A8; 
-	font-size: 30px;
-	text-align: center;
-}
-
-.SeriesInfo .SeriesContent .gallery-wrap .item:hover h3 {
-	display: block;
-	width: 100%;
-	height: 35px;
-	position: relative;
-	background: #6D44A8; 
-	font-size: 25px;
-	text-align: center;
-}
-
-.SeriesInfo .SeriesContent .gallery-wrap .item:hover #summary {
-  	display: block;
-  	transition: flex 0.3s ease-in-out;
-  	background: #6D44A8;
-  	height: 100%;
-  	width: 70%;
-  	margin: auto;
-  	opacity: .9;
-}
-
-.SeriesInfo .SeriesContent .gallery-wrap .item:hover #summary p {
-  	width: 85%;
-  	display: flex;
-  	height: auto;
-  	padding-top: 10px;
-  	padding-bottom: 20px;
-  	text-align: justify;
-  	font-size: 17px;
-  	margin: auto;
-  	color: white;
-}
 
 
 

@@ -5,27 +5,28 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'content\tvshows\tvshows-details.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'content\movies\cast-slider.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'content\cast-slider.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'content\series-card-slider.css' %}">
 </head>
 
-<div class="row TopInfoBar" style="background-image: url(https://image.tmdb.org/t/p/original/{{ details.backdrop_path }});">
+<div class="Img-Wrapper" style="background-image: linear-gradient(transparent, black 100%), url(https://image.tmdb.org/t/p/original/{{ details.backdrop_path }})">
 
+<div class="row TopInfoBar">
+    
     <div class="Title">
         <h1 id="title">{{ r.Title }}</h1>
     </div>
-     
-    <div class="TvInfo">
+    
+    <div class="MovieInfo">
         <div id="rating"> 
             {{ r.Rated }}
         </div>
 
         <div id="runtime">
-            ~ {{ r.Runtime }}
+            {{ hours_runtime }}
         </div>
 
         <div id="year">{{ r.Year }}</div>
-
-        <br>
 
         <div id="genre">
             {% for g in details.genres %}
@@ -72,7 +73,7 @@
 
     <div class="col-3 PosterInfo">
 
-            <img id="moviePoster" src="{{ r.Poster }}">
+            <img id="tvPoster" src="{{ r.Poster }}">
             <br>
 
             <div class="Info">
@@ -172,19 +173,25 @@ https://youtu.be/zsrdBGr8NIk
                     </div>
                 </li>
 
+                <li id="summary">
+                    <div class="section-title">
+                        <h2>Summary</h2>
+                    </div>
+
+                    <div class="section-content">
+                        <div class="text">
+                            {{ details.overview }}
+                        </div>
+                    </div>
+                </li>
+
             </ul>
 
         </div>
 
-        <div class="Summary">
-            <h2>Synopsis</h2>
-            <div id="text">
-                {{ r.Plot }}
-            </div>
-        </div>        
     </div>
 
-
+</div>
 
 </div>
 
@@ -223,7 +230,7 @@ https://youtu.be/zsrdBGr8NIk
               <div class="info-container">
                 <h4>
                   <b style="font-size: 20px">{{ c.name }}</b>
-                  <i style="font-size: 18px">{{ c.character|truncate:30 }}</i>
+                  <i style="font-size: 18px">{{ c.character|truncatechars:30 }}</i>
                 </h4>
               </div>
             </div>
@@ -234,7 +241,7 @@ https://youtu.be/zsrdBGr8NIk
               <div class="info-container">
                 <h4>
                   <b style="font-size: 20px">{{ cr.name }}</b>
-                  <i style="font-size: 18px">{{ cr.job|truncate:30  }}</i>
+                  <i style="font-size: 18px">{{ cr.job|truncatechars:30  }}</i>
                 </h4>
               </div>
             </div>
@@ -254,39 +261,42 @@ https://youtu.be/zsrdBGr8NIk
 
 </div>
 
-<!-- REDO query so that the collectionid = imdbapi id
-    for better data -->
+
 
 <div class="SeriesInfo">
 
-    <div class="col-2 SeriesSummary">        
-        <h2>Series</h2>
-        <div class="Info">
-            <div id="seasons">{{ details.number_of_seasons }} Seasons</div>
-            <div id="episodes">{{ details.number_of_episodes }} Episodes</div>
-    	</div>
+    <div class="SeriesSummary">        
+        <div class="title">
+            <p>
+                <b>{{ details.number_of_seasons }} Seasons</b>
+                <b>{{ details.number_of_episodes }} Eps</b>
+            </p>
+        </div>
     </div>
 
-    <div class="col-10 SeriesContent">
-        <div class="gallery-wrap">
+    <span class="SeriesSection">
+
+        <div class="Series-Container" id="series-cards-container">
+        
+          <div class="Series-Cards" id="series-cards">
             {% for s in series %}
-                <div class="item" style="background-image: url(https://image.tmdb.org/t/p/original/{{ s.poster_path }});">
-                    <div id="summary">
-                    	<h2>{{ s.name }} ({{ s.air_date|slice:4 }})</h2>
-                    	<h3>{{ s.episode_count }} episodes</h3>
-                        <p>
-                            {% if s.overview|length > 175 %}
-                                {{ s.overview|truncatewords:175 }} ... 
-                            {% else %}
-                                {{ s.overview }}
-                            {% endif %}
-                        </p>
+                <div class="Series-Card" id="series-card">
+                    <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ s.poster_path }}">
+
+                    <div class="Bar">
+                        <h2>{{ s.name }} ({{ s.air_date|slice:4 }})</h2>
+                        <h2>{{ s.episode_count }} episodes</h2>
+                        <div class="FilledBar"></div>
                     </div>
                 </div>
             {% endfor %}
+          </div>
+
+            
         </div>
 
-    </div>
+
+    </span>
 
 </div>
 
@@ -297,9 +307,24 @@ https://youtu.be/zsrdBGr8NIk
 
 
 
-
 <script src="{% static 'scripts\moviedetails.js' %}"></script>
 
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
 
 
 {% endblock %}
