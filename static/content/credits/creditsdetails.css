@@ -309,13 +309,13 @@
 }
 
 .CreditsSections .Movies .ListRow {
-	height: 220px;
+	height: 100%;
 	width: 100%;
-	display: inline-flex;
 }
 
 .CreditsSections .Movies .GroupYear {
 	height: 220px;
+	display: inline-flex;
 }
 
 .CreditsSections .Movies .GroupYear .title {

@@ -1,29 +1,9 @@
-/*.CreditsSections .Movies .container {
-    height: 200px;
-    width: 95%;
-    float: right;
-    background-image: linear-gradient(to bottom right, #f02811, #F9A647);
-    border-radius: 20px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    position: relative;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    padding: 4px 16px;
-}
 
-.CreditsSections .Movies .cards-container {
-    height: 200px;width: 100%;
-}
-*/
 .CreditsSections .Movies .cards {
     height: 200px;
+    margin: auto;
     display: inline-block;
+    padding-right: 10px;
 }
 
 .CreditsSections .Movies .card {
@@ -76,6 +56,8 @@
     display: inline-block;
     height: auto;
     padding-top: 10px;
+    font-size: 20px;
+    width: 95%;
     margin: auto;
     color: white;
     text-align: center;

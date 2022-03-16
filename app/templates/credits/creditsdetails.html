@@ -95,8 +95,8 @@
                         <div class="card">
                             <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}">
                                 <div class="info-container">
-                                    <h4><b>{{ movie.title }}</b></h4> <br>
-                                    <h4><i>{{ movie.character }}</i></h4>
+                                    <h4><b>{{ movie.title|truncatechars:35 }}</b></h4> <br>
+                                    <h4><i>{{ movie.character|truncatechars:20 }}</i></h4>
                                 </div>
                         </div>
                     </div>  
