@@ -1,5 +1,5 @@
 .Img-Wrapper {
-	height: 58%;
+	height: 56%;
 	bottom: 0; 
 	width: 100%;
 	background-size: cover;
@@ -135,16 +135,18 @@
 	padding-right: 8px;
 }
 
-.MainSection .PosterInfo #moviePoster {
-	height: 450px;
-	width: 100%;
+.MainSection .PosterInfo #tvPoster {
+	height: 80%;
+	width: 95%;
+	margin-top: 3px;
+	margin-bottom: 3px;
 	object-fit: fill;
 	border-top-left-radius: 15px;
 }
 
 .PosterInfo .Info {
-	height: 100px;
-	width: 100%;
+	height: 20%;
+	width: 95%;
 	font-size: 12px;
 	border-bottom-left-radius: 15px;
 }
@@ -268,8 +270,8 @@
 
 .MainSection .StreamingServices ul {
     display: flex;
-    min-height: 100%;
-    max-height: 100%;
+    min-height: 95%;
+    max-height: 95%;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -378,12 +380,23 @@
 	border-bottom-right-radius: 20px;
 }
 
+.StreamingServices #summary .text {
+	width: 90%;
+}
+
+
+
+
+
+
+
 
 
 .Cast {
 	height: 450px;
 	width: 100%;
 	margin-top: 15px;
+	margin-bottom: 34px;
 }
 
 .Cast .CastSearch {

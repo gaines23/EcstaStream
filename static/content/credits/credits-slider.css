@@ -1,8 +1,8 @@
-.CreditsSections .Movies .container {
+/*.CreditsSections .Movies .container {
     height: 200px;
     width: 95%;
     float: right;
-    /*background-image: linear-gradient(to bottom right, #f02811, #F9A647);*/
+    background-image: linear-gradient(to bottom right, #f02811, #F9A647);
     border-radius: 20px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -17,17 +17,11 @@
     padding: 4px 16px;
 }
 
-.CreditsSections .Movies  #cards-container {
-    overflow: hidden;
-    height: 200px;
-    margin: 20px;
+.CreditsSections .Movies .cards-container {
+    height: 200px;width: 100%;
 }
-
+*/
 .CreditsSections .Movies .cards {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    width: 99999px;
     height: 200px;
 }
 
@@ -35,7 +29,7 @@
     background: rgba(255, 255, 255, .25);
     height: 190px;
     margin: 5px;
-    display: inline-block;
+    display: inline-flex;
     border: 1px solid rgb(255 255 255 / 35%);
     -webkit-transition: 0.3s;
     transition: 0.3s;
@@ -84,38 +78,4 @@
     margin: auto;
     color: white;
     text-align: center;
-}
-
-#slide-left-container,
-#slide-right-container {
-  display: none;
-}
-
-#slide-left-container.active,
-#slide-right-container.active {
-  display: block;
-  cursor: pointer;
-}
-
-.slide-left,
-.slide-right {
-  border-color: #fff;
-  border-style: solid;
-  height: 20px;
-  width: 20px;
-  margin-top: 30%;
-}
-
-.slide-left {
-  border-width: 4px 0 0 4px;
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  margin-left: 40%;
-}
-
-.slide-right {
-  border-width: 4px 4px 0 0;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  margin-left: 22%;
 }

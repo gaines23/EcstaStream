@@ -80,64 +80,33 @@
 
 
 <div class="CreditsSections">
-
-    <div class="CreditSearch">
-        <p>Cast & Crew</p>
-        
-        <div class="search-wrapper">
-            <div class="input-holder">
-                <input type="text" id="myInput" onkeyup="myFunction()" class="search-input" placeholder="Search..." />
-                <button class="search-icon" onclick="searchToggle(this, event);">
-                    <i class="fas fa-search" style="font-size: 25px; color: #f97c32"></i>
-                </button>
-            </div>
-            <span class="close" onclick="searchToggle(this, event);"></span>
-        </div>
-
-    </div>
     
-    <div class="Movies">
+    <div class="Movies"> 
         {% regroup mc by release_date|slice:4 as mc_list %}
-
-        <div class="row ListRow">
-            {% for release_date in mc_list %}
-            <div class="container">
-            
-                <div class="col-1 GroupYear">        
+           <ul class="ListRow">
+                {% for release_date in mc_list %}
+                <li class="GroupYear">       
                     <div class="title">
                         <p>{{ release_date.grouper }}</p>
                     </div>
-                </div>
-        <div id="slide-left-container">
-          <div class="slide-left">
-          </div>
-        </div>
 
-                <div class="cards-container">
-                    <div class="cards" id="cards">
                     {% for movie in release_date.list %}
-                    <div class="card">
-                        <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}">
-                            <div class="info-container">
-                                <h4>
-                                    <b style="font-size: 15px; margin-bottom:10px">{{ movie.title|truncatechars:35 }}</b>
-                                    <br>
-                                    <i style="font-size: 13px;">{{ movie.character }}</i>
-                                </h4>
-                            </div>
-                    </div>
+                    <div class="cards" id="cards">
+                        <div class="card">
+                            <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}">
+                                <div class="info-container">
+                                    <h4><b>{{ movie.title }}</b></h4> <br>
+                                    <h4><i>{{ movie.character }}</i></h4>
+                                </div>
+                        </div>
+                    </div>  
                     {% endfor %}
-                    </div>
-                </div>
+                </li>
+                 {% endfor %}
+            </ul>
+    </div>   
 
-            <div id="slide-right-container">
-              <div class="slide-right">
-              </div>
-            </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+
 
 
     <div class="TV">
@@ -151,6 +120,6 @@
 
 </div>
 
-    <script src="{% static 'scripts\moviedetails.js' %}"></script>
+
 
 {% endblock %}
