@@ -7,25 +7,83 @@
     <link rel="stylesheet" type="text/css" href="{% static 'content\search_results.css' %}">
 </head>
 
-<div class="MovieSection">
-    <p>Movies</p>
-    {% for movie in movies %}
-        {{ movie.title }}
-    {% endfor %}
-</div>
 
-<div class="TvSection">
-    <p>Tv Shows</p>
-    {% for tv in tv_shows %}
-        {{ tv.title }}
-    {% endfor %}
-</div>
 
-<div class="PeopleSection">
-    <p>Actors</p>
-    {% for p in people %}
-        {{ p.name }}
-    {% endfor %}
-</div>
+<ul class="SearchContents">
+    <ul class="MovieSection">
+        <p>Movies</p>
+        {% for movie in movies %}
+            <li>
+                <div class="PosterInfo">
+                    <div id="title">{{ movie.title }}</div> 
+                    <div id="year">({{ movie.release_date|slice:":4"}})</div>
+
+                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}">
+
+                </div>
+                <div class="StreamingInfo" id="streaming">
+                    
+                    <div class="section-title">
+                        <h2>Streaming</h2>
+                    </div>
+
+                    {{ movie }}
+<!--
+                    <div class="section-content">
+                        <div class="StreamingList">
+                            <div class="List-Cat">
+                                {% for ms in movie_stream %}
+                                <div class="Free-Streaming">
+                                    <h3>Free</h3>
+                                    {% for free in ms.flatrate %}
+                                        {% if free.display_priority <= 11 %}
+                                            <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ free.logo_path }}">
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="Rent-Streaming">
+                                    <h3>Rent</h3>
+                                    {% for rent in ms.rent %}
+                                        {% if rent.display_priority <= 11 %}
+                                            <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ rent.logo_path }}">
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="Buy-Streaming">
+                                    <h3>Purchase</h3>
+                                    {% for buy in ms.buy %}
+                                        {% if buy.display_priority <= 11 %}
+                                            <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ buy.logo_path }}">
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>{% endfor %}
+                            </div>    
+                        
+                        </div>
+                    </div>
+                    -->
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <ul class="TvSection">
+        <p>Tv Shows</p>
+        {% for tv in tv_shows %}
+        <li>
+            {{ tv.title }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <ul class="PeopleSection">
+        <p>Actors</p>
+        {% for p in people %}
+        <li>
+            {{ p.name }}
+        </li>
+        {% endfor %}
+    </ul>
+</ul>
 
 {% endblock %}

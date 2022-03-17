@@ -305,7 +305,6 @@
 	background-color: black;
   	border-top-left-radius: 15px;
   	border-top-right-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.125);
   	width: 95%;
   	height: 100px;
   	margin: auto;
@@ -314,15 +313,13 @@
 
 .CreditsSections .tabs button {
   	display: inline-flex;
-  	background-color: inherit;
-  	color: black;
+  	background-color: black;
   	padding: 22px 16px;
   	width: 100%;
   	border: none;
   	outline: none;
   	text-align: left;
   	cursor: pointer;
-  	transition: 0.3s;
     color: white;
     font-size: 23px;
     font-weight: bold;
@@ -343,7 +340,7 @@
   	background-color: #ddd;
   	border-top-left-radius: 15px;
   	border-top-right-radius: 15px;
-  	  backdrop-filter: blur(10px) saturate(130%);
+  	backdrop-filter: blur(10px) saturate(130%);
     -webkit-backdrop-filter: blur(10px) saturate(130%);
     background-color: rgb(73 6 203 / 20%);
 }
@@ -355,12 +352,15 @@
   	backdrop-filter: blur(10px) saturate(130%);
     -webkit-backdrop-filter: blur(10px) saturate(130%);
     background-color: rgb(73 6 203 / 20%);
+    border-top: 2px solid rgba(255, 255, 255, 0.3);
+    border-right: 2px solid rgba(255, 255, 255, 0.3);
+    border-left: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .CreditsSections .tabcontent {
   	height: 100%;
   	width: 95%;
-  	margin: auto;
+  	padding-top: 15px;
   	backdrop-filter: blur(10px) saturate(130%);
     -webkit-backdrop-filter: blur(10px) saturate(130%);
     background-color: rgb(73 6 203 / 20%);
@@ -376,7 +376,6 @@
 	display: inline-flex;
 	border-radius: 15px;
 	margin: 5px;
-    border: 2px solid rgba(255, 255, 255, 0.125);
 }
 
 

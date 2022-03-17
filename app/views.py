@@ -62,7 +62,6 @@ def home(request):
 def MainSearchResults(request):
     assert isinstance(request, HttpRequest)
     search = Search()
-    movie_stream = movie.watch_providers
     
     search_request = request.GET.get("search")
     multi_search = search.multi({"query":{search_request}, "include_adult":"False", "region":"US"})
@@ -70,12 +69,15 @@ def MainSearchResults(request):
     movies = []
     tv_shows = []
     people = []
+    movie_stream = []
+    tv_stream = []
 
     for m in multi_search:
         if m.media_type == 'movie' and m.media_type != 'person' and m.media_type != 'tv':
             if m.id == movie.watch_providers(m.id).results['US']:
                 break
-            movies.append(m)    
+            movies.append(m + movie.watch_providers(m.id).results['US'])
+            movie_stream.append(movie.watch_providers(m.id).results['US'])
         else:
             break
         continue
@@ -84,7 +86,8 @@ def MainSearchResults(request):
         if t.media_type == 'tv' and t.media_type != 'person' and t.media_type != 'movie':
             if t.id == tv.watch_providers(t.id).results['US']:
                 break
-            tv_shows.append(t)
+            tv_shows.append(t, tv.watch_providers(t.id).results['US'])
+            tv_stream.append(tv.watch_providers(t.id).results['US'])
         else:
             break
         continue
@@ -92,11 +95,13 @@ def MainSearchResults(request):
     for p in multi_search:
         if p.media_type == 'person':
             people.append(p)
-
+    
     context = {
         'people':people,
         'tv_shows':tv_shows,
         'movies':movies,
+        'movie_stream':movie_stream,
+        'tv_stream':tv_stream,
     }
 
     return render(
