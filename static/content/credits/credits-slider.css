@@ -1,7 +1,10 @@
 
 .CreditsSections .Movies .cards {
     height: 200px;
+    margin: auto;
     display: inline-block;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 
 .CreditsSections .Movies .card {
@@ -54,6 +57,8 @@
     display: inline-block;
     height: auto;
     padding-top: 10px;
+    font-size: 20px;
+    width: 95%;
     margin: auto;
     color: white;
     text-align: center;

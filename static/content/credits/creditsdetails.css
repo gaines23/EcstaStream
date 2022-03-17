@@ -24,7 +24,7 @@
 
 
 .MainSection {
-	height: 550px;
+	height: 585px;
 	width: 98%;
 	margin: auto;
 }
@@ -122,7 +122,7 @@
 
 .CreditsSections {
   	height: 100%;
-  	width: 90%;
+  	width: 95%;
   	margin: auto;
 }
 
@@ -314,21 +314,27 @@
 }
 
 .CreditsSections .Movies .GroupYear {
-	height: 220px;
+	height: 240px;
 	display: inline-flex;
+	border-radius: 15px;
+	margin: 5px;
+    backdrop-filter: blur(10px) saturate(130%);
+    -webkit-backdrop-filter: blur(10px) saturate(130%);
+    background-color: rgb(73 6 203 / 20%);
+    border: 2px solid rgba(255, 255, 255, 0.125);
 }
 
+
 .CreditsSections .Movies .GroupYear .title {
-	height: inherit;
 	float: left;
-	width: 100%;
-	height: 200px;
+	width: 110px;
+	height: 230px;
+	padding-left: 10px;
 	text-align: center;
 	writing-mode: vertical-rl;
     text-orientation: upright;
-	border-right: white 1px solid;
-	border-top-right-radius: 20px;
-	border-bottom-right-radius: 20px;
+    border-right: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
 }
 
 .CreditsSections .Movies .GroupYear p {

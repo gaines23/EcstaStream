@@ -330,6 +330,7 @@ def CreditsDetails(request, personid):
     details = person.details(personid)
     credits = details.combined_credits
     movie_credits = details.movie_credits['cast'] 
+    tv_credits = details.tv_credits['cast']
 
     cast = credits.cast
     crew = credits.crew
@@ -345,9 +346,12 @@ def CreditsDetails(request, personid):
     age = year_difference - one_or_zero
 
     knownfor = sorted(cast, key=lambda i:(i['vote_count'],i['vote_average'],i['popularity']), reverse=True)[:8]
-    
+
     mc_filtered = list(filter(lambda x: (x['release_date'] != ''), movie_credits))
-    mc = sorted(mc_filtered, key = lambda x: x.release_date, reverse=True)
+    mc = sorted(mc_filtered, key = lambda x: x.release_date[:4], reverse=True)
+
+    tv_filtered = list(filter(lambda x: (x['first_air_date'] != ''), tv_credits))
+    tv = sorted(tv_filtered, key = lambda x: x.first_air_date[:4], reverse=True)
 
 
     context = {
@@ -361,6 +365,7 @@ def CreditsDetails(request, personid):
         'crewamt':crew_amt,
         'knownfor':knownfor,
         'mc':mc,
+        'tv':tv,
     }
 
     return render(
