@@ -80,8 +80,16 @@
 
 
 <div class="CreditsSections">
+
+    <div class="tabs">
+      <button class="tablinks" id="movie" onclick="openTab(event, 'Movies')" id="defaultOpen"><p><img id="titleLogo" alt="titlelogo" src="{% static 'images\movieticket.png' %}"> Movies</p></button>
+
+      <button class="tablinks" id="tv" onclick="openTab(event, 'TV')"><p><img id="titleLogo" alt="titlelogo" src="{% static 'images\tv.png' %}"> TV</p></button>
+
+      <button class="tablinks" id="dir" onclick="openTab(event, 'Crew')"><p><img id="titleLogo" alt="titlelogo" src="{% static 'images\director.png' %}"> Crew</p></button>
+    </div>
     
-    <div class="Movies"> 
+    <div class="Movies tabcontent" id="Movies"> 
         {% regroup mc by release_date|slice:4 as mc_list %}
            <ul class="ListRow">
                 {% for release_date in mc_list %}
@@ -107,19 +115,61 @@
     </div>   
 
 
+    <div class="TV tabcontent" id="TV">
+        {% regroup tv by first_air_date|slice:4 as tv_list %}
+           <ul class="ListRow">
+                {% for first_air_date in tv_list %}
+                <li class="GroupYear">       
+                    <div class="title">
+                        <p>{{ first_air_date.grouper }}</p>
+                    </div>
 
-
-    <div class="TV">
-
+                    {% for tv in first_air_date.list %}
+                    <div class="cards" id="cards">
+                        <div class="card">
+                            <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ tv.poster_path }}">
+                                <div class="info-container">
+                                    <h4><b>{{ tv.title|truncatechars:35 }}</b></h4> <br>
+                                    <h4><i>{{ tv.character|truncatechars:20 }}</i></h4>
+                                </div>
+                        </div>
+                    </div>  
+                    {% endfor %}
+                </li>
+                 {% endfor %}
+            </ul>
 
     </div>
 
-    <div class="Other">
+
+    <div class="Crew tabcontent" id="Crew">
 
     </div>
 
 </div>
 
+
+
+
+
+<script>
+function openTab(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "inline-block";
+  evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
 
 
 {% endblock %}
