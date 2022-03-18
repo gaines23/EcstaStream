@@ -76,8 +76,10 @@ def MainSearchResults(request):
         if m.media_type == 'movie' and m.media_type != 'person' and m.media_type != 'tv':
             if m.id == movie.watch_providers(m.id).results['US']:
                 break
-            movies.append(m + movie.watch_providers(m.id).results['US'])
+            movies.append(m)
             movie_stream.append(movie.watch_providers(m.id).results['US'])
+            movies.extend(list(map(lambda x,y: y if x.get('id') != y.get('id') else x.update(y), movies, movie_stream)))
+            movies = list(filter(None, movies))
         else:
             break
         continue
@@ -88,6 +90,8 @@ def MainSearchResults(request):
                 break
             tv_shows.append(t, tv.watch_providers(t.id).results['US'])
             tv_stream.append(tv.watch_providers(t.id).results['US'])
+            tv_shows.extend(list(map(lambda x,y: y if x.get('id') != y.get('id') else x.update(y), movies, movie_stream)))
+            tv_shows = list(filter(None, movies))
         else:
             break
         continue
