@@ -77,9 +77,7 @@ def MainSearchResults(request):
             if m.id == movie.watch_providers(m.id).results['US']:
                 break
             movies.append(m)
-            movie_stream.append(movie.watch_providers(m.id).results['US'])
-            movies.extend(list(map(lambda x,y: y if x.get('id') != y.get('id') else x.update(y), movies, movie_stream)))
-            movies = list(filter(None, movies))
+            movies.append(movie.watch_providers(m.id).results['US'])
         else:
             break
         continue
