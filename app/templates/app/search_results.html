@@ -8,7 +8,6 @@
 </head>
 
 
-
 <ul class="SearchContents">
     <ul class="MovieSection">
         <p>Movies</p>
@@ -19,9 +18,8 @@
                     <div id="year">({{ movie.release_date|slice:":4"}})</div>
 
                     <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}">
-
                 </div>
-                
+
                 <div class="StreamingInfo" id="streaming">
                     <div class="section-title">
                         <h2>Streaming</h2>
@@ -34,17 +32,16 @@
                                 
                                 <div class="Free-Streaming">
                                     <h3>Free</h3>
-                                    {% for free in movie.flatrate %}
+                                    {% for free in x.flatrate %}
                                         {% if free.display_priority <= 11 %}
                                             <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ free.logo_path }}">
                                         {% endif %}
                                     {% endfor%}
                                 </div>
-
                                 <!--
                                 <div class="Rent-Streaming">
                                     <h3>Rent</h3>
-                                    {% for rent in movie.rent %}
+                                    {% for rent in movie_stream.rent %}
                                         {% if rent.display_priority <= 11 %}
                                             <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ rent.logo_path }}">
                                         {% endif %}
@@ -66,6 +63,7 @@
                     </div>
                    
                 </div>
+            
                 {% endfor %}
             </li>
          

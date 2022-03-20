@@ -71,13 +71,14 @@ def MainSearchResults(request):
     people = []
     movie_stream = []
     tv_stream = []
+    merged = []
 
     for m in multi_search:
+        mid = m.id
         if m.media_type == 'movie' and m.media_type != 'person' and m.media_type != 'tv':
             if m.id == movie.watch_providers(m.id).results['US']:
                 break
-            movies.append(m)
-            movies.append(movie.watch_providers(m.id).results['US'])
+            movies.append({m, movie.watch_providers(m.id).results['US']})
         else:
             break
         continue
@@ -104,6 +105,8 @@ def MainSearchResults(request):
         'movies':movies,
         'movie_stream':movie_stream,
         'tv_stream':tv_stream,
+        'merged':merged,
+        'movie_stream':movie_stream,
     }
 
     return render(
