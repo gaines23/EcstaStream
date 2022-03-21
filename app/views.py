@@ -65,32 +65,29 @@ def MainSearchResults(request):
     
     search_request = request.GET.get("search")
     multi_search = search.multi({"query":{search_request}, "include_adult":"False", "region":"US"})
-
+    streaming_mov = movie.watch_providers
+    streaming_tv = tv.watch_providers
+    
     movies = []
     tv_shows = []
     people = []
     movie_stream = []
-    tv_stream = []
-    merged = []
 
     for m in multi_search:
-        mid = m.id
         if m.media_type == 'movie' and m.media_type != 'person' and m.media_type != 'tv':
-            if m.id == movie.watch_providers(m.id).results['US']:
+            if m.id == streaming_mov(m.id).results['US']:
                 break
-            movies.append({m, movie.watch_providers(m.id).results['US']})
+            movie_stream.append([m, streaming_mov(m.id).results['US']])
         else:
             break
         continue
 
     for t in multi_search:
         if t.media_type == 'tv' and t.media_type != 'person' and t.media_type != 'movie':
-            if t.id == tv.watch_providers(t.id).results['US']:
+            if t.id == streaming_tv(t.id).results['US']:
                 break
-            tv_shows.append(t, tv.watch_providers(t.id).results['US'])
-            tv_stream.append(tv.watch_providers(t.id).results['US'])
-            tv_shows.extend(list(map(lambda x,y: y if x.get('id') != y.get('id') else x.update(y), movies, movie_stream)))
-            tv_shows = list(filter(None, movies))
+            tv_shows.append(t)
+            tv_stream.append([t.id, streaming_tv(t.id).results['US']])
         else:
             break
         continue
@@ -98,14 +95,15 @@ def MainSearchResults(request):
     for p in multi_search:
         if p.media_type == 'person':
             people.append(p)
+
+    for x in movie_stream:
+        for ugh in x:
+            movies.append(ugh)
     
     context = {
         'people':people,
         'tv_shows':tv_shows,
         'movies':movies,
-        'movie_stream':movie_stream,
-        'tv_stream':tv_stream,
-        'merged':merged,
         'movie_stream':movie_stream,
     }
 
