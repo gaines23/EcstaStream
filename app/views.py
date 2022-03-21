@@ -77,9 +77,11 @@ def MainSearchResults(request):
         if m.media_type == 'movie' and m.media_type != 'person' and m.media_type != 'tv':
             if m.id == streaming_mov(m.id).results['US']:
                 break
-            movie_stream.append([m, streaming_mov(m.id).results['US']])
+            #movies.append(m)
+            #movie_stream.append([m, streaming_mov(m.id).results['US']])
         else:
             break
+        movies.append([m, streaming_mov(m.id).results['US']])
         continue
 
     for t in multi_search:
@@ -96,15 +98,15 @@ def MainSearchResults(request):
         if p.media_type == 'person':
             people.append(p)
 
-    for x in movie_stream:
-        for ugh in x:
-            movies.append(ugh)
-    
+    #for x in movie_stream:
+    #    for y in x:
+    #        movies.append(y)
+
     context = {
         'people':people,
         'tv_shows':tv_shows,
-        'movies':movies,
         'movie_stream':movie_stream,
+        'movies':movies,
     }
 
     return render(

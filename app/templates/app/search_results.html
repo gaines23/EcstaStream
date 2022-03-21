@@ -13,14 +13,15 @@
         <p>Movies</p>
             <li class="MovInfo">
                 {% for m in movies %}
-
                 <div class="PosterInfo">
-                    <div id="title">{{ m.title }}</div> 
-                    <div id="year">({{ m.release_date|slice:":4"}})</div>
+                    {% for x in m %}
+                    <div id="title">{{ x.title }}</div> 
+                    <div id="year">({{ x.release_date|slice:":4"}})</div>
 
-                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
+                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ x.poster_path }}">
+                    {% endfor %}
                 </div>
-                            
+                    
                 <div class="StreamingInfo" id="streaming">
                     <div class="section-title">
                         <h2>Streaming</h2>
