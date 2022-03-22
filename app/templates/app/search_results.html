@@ -5,6 +5,7 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'content\search_results.css' %}">
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 </head>
 
 <div class="SearchContents">
@@ -12,14 +13,15 @@
     <div class="ListSection">
         <p>Movies</p>
 
-            <ul class="container Info">
+            <ul class="accordion Info" id="accordion">
                 {% for d in movies %}
-                <li class="PosterInfo" id="accordion">
+
+                <li class="accordion-box PosterInfo">
                     {% for m in d %}
 
                     {% if forloop.counter|divisibleby:2 %}
 
-                    <div class="card" id="card">
+                    <div class="card accordion-header" id="card">
                         <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
                       <div class="card-header collapsed card-link info-container" data-toggle="collapse" data_target="col">
                         <h4>
@@ -27,17 +29,14 @@
                           <i style="font-size: 12px">({{ m.release_date | slice:':4' }})</i>
                         </h4>
                       </div>
-                    </div> 
-
-                    {% else %}
-                    
-                    <div class="StreamingInfo" id="streaming">
+                                        
+                    <div class="StreamingInfo accordion-box" id="streaming">
+                        <div class="section-content accordion-content">
+                        
                         <div class="section-title">
                             <h2>Streaming</h2>
                         </div>
                         
-                        <div class="section-content">
-
                             <div class="StreamingList">
                                 
                                 <div class="List-Cat">
@@ -72,8 +71,14 @@
                             
                         </div>
                         
+                        </div> 
                     </div>
+
+                    {% else %}
+                        <div class="none" style="display: none;"></div>
+
                     {% endif %}
+
                     {% endfor %}
                 </li>
              {% endfor %}
@@ -100,5 +105,24 @@
     </ul>
 -->
 </div>
+
+<script>
+$(function() {
+    $(".accordion-header").click(function(event) {
+        event.preventDefault();
+        var dis = $(this);
+        var acr_box = dis.closest(".accordion");
+        if(!dis.hasClass("active-accordion")){
+            acr_box.find(".accordion-header").removeClass("active-accordion");
+            dis.addClass("active-accordion");
+            acr_box.find(".accordion-content").slideUp();
+            dis.next().stop(true,true).slideToggle();
+        }else{
+            dis.removeClass("active-accordion");
+            dis.next().stop(true,true).slideUp();
+        }
+    });
+});
+</script>
 
 {% endblock %}

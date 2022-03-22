@@ -79,7 +79,6 @@ def MainSearchResults(request):
             movies.append([streaming_mov(m.id).results['US'], m])
         else:
             break
-        
         continue
 
     for t in multi_search:

@@ -75,6 +75,40 @@
 
 
 
+.accordion-header.active-accordion {
+    background-color: #ff0057;
+    background-image: linear-gradient(180deg, #ff0057, #b70041);
+}
+.accordion-content {
+    height: 150px;
+    overflow: auto;
+    display: none;
+    position: relative;
+    border: solid 2px #b80041;
+    margin-top: -2px;
+    border-top: none;
+    margin-bottom: 2px;
+    text-align: left;
+    font-size: 14px;
+}
+.accordion-content-flex {
+    height: 100%;
+    padding: 10px;
+}
+a.accordion-header:after {
+    content: '\002b';
+    color: #fff;
+    font-weight: bold;
+    float: right;
+    margin-left: 10px;
+    font-size: 15px;
+}
+a.accordion-header.active-accordion:after {
+    content: '\2212';
+}
+
+
+
 
 
 
@@ -106,6 +140,8 @@
     width: 100%;
     height: 90%;
 }
+
+.StreamingInfo #
 
 #streaming .StreamingList .List-Cat {
     padding-left: 15px;
@@ -145,3 +181,4 @@
     padding-top: 8px;
     padding-bottom: 8px;
 }
+
