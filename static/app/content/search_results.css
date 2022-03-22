@@ -6,123 +6,93 @@
 .SearchContents .ListSection {
     height: 100%;
     width: 100%;
+    margin-bottom: 70px;
 }
 
-.SearchContents .ListSection p {
+.SearchContents .ListSection .ListTitle {
     width: 20%;
-    height: 100%;
     float: left;
 }
 
-.SearchContents ul {
+.ListSection .Info {
     height: 100%;
     width: 80%;
     list-style: none;
-    display: flex;
+    display: inline-flex;
     flex-wrap: wrap;
     padding-left: 0;
 }
 
-.SearchContents ul li {
+.ListSection .Info .PosterInfo {
     width: 33%;
     height: 100%;
-    display: -webkit-box;
-    isplay: -ms-flexbox;
-}
-
-.SearchContents ul li .card {
-  background: rgba(255, 255, 255, .25);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px) saturate(200%);
-  height: 230px;
-  border: 1px solid rgb(255 255 255 / 35%);
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-  width: 180px;
-  margin: 10px auto 10px auto;
-  border-radius: 20px;
-}
-
-.SearchContents ul li .card:hover {
-  -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 35%);
-  box-shadow: 0px 0px 2px 3px #6d44a8;
-  cursor: pointer;
-  -webkit-backdrop-filter: revert;
-  backdrop-filter: revert;
-  background-image: linear-gradient(to bottom right, #f02811, #F9A647);
-}
-
-.SearchContents ul li .card img {
-  width: 70%;
-  height: 68%;
-  object-fit: cover;
-  margin-right: auto;
-  margin-left: auto;
-  padding-top: 8px;
-  display: inline-block;
-  border-radius: 20px;
-}
-
-.SearchContents ul li .card .info-container {
-  text-align: center;
-  height: 35%;
-  padding-top: 5px;
-}
-
-
-
-
-
-
-
-.accordion-header.active-accordion {
-    background-color: #ff0057;
-    background-image: linear-gradient(180deg, #ff0057, #b70041);
-}
-.accordion-content {
-    height: 150px;
-    overflow: auto;
-    display: none;
+    margin-bottom: 20px;
     position: relative;
-    border: solid 2px #b80041;
-    margin-top: -2px;
-    border-top: none;
-    margin-bottom: 2px;
-    text-align: left;
-    font-size: 14px;
-}
-.accordion-content-flex {
-    height: 100%;
-    padding: 10px;
-}
-a.accordion-header:after {
-    content: '\002b';
-    color: #fff;
-    font-weight: bold;
-    float: right;
-    margin-left: 10px;
-    font-size: 15px;
-}
-a.accordion-header.active-accordion:after {
-    content: '\2212';
+    transition-duration: 0.5s;
+    display: inline-grid;
 }
 
+.Info .PosterInfo > .StreamingInfo {
+    display: none;
+    position: absolute;
+}
+
+.ListSection .Info .PosterInfo .card {
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    height: 230px;
+    border: 1px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    width: 180px;
+    margin: 10px auto 10px auto;
+    border-radius: 20px;
+}
+
+.ListSection .Info .PosterInfo .card:hover {
+    -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 35%);
+    box-shadow: 0px 0px 2px 3px #6d44a8;
+    cursor: pointer;
+    -webkit-backdrop-filter: revert;
+    backdrop-filter: revert;
+    background-image: linear-gradient(to bottom right, #f02811, #F9A647);
+}
+
+.ListSection .Info .PosterInfo .card img {
+    width: 75%;
+    height: 68%;
+    object-fit: cover;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 8px;
+    display: inline-block;
+    border-radius: 20px;
+}
+
+.ListSection .Info .PosterInfo .card .info-container {
+    text-align: center;
+    height: 35%;
+    padding-top: 5px;
+}
 
 
 
+.ListSection .Info .PosterInfo:hover > .StreamingInfo {
+    display: contents;
+    margin-top: 255px;
+    margin-right: auto;
+    margin-left: auto;
+}
 
-
-
-.SearchContents ul .StreamingInfo {
-    width: 70%;
-    float: right;
+.StreamingInfo .section-content {
+    width: 130%;
 }
 
 .StreamingInfo .section-title {
     flex: 1;
-    display: flex;
     align-items: center;
-    width: 100%;
+    width: 75%;
     margin: 0;
     padding: 0;
     text-align: center;
@@ -132,6 +102,7 @@ a.accordion-header.active-accordion:after {
 .StreamingInfo .section-title h2 {
     margin: 0;
     font-weight: bold;
+    text-align: center;
 }
 
 
@@ -140,8 +111,6 @@ a.accordion-header.active-accordion:after {
     width: 100%;
     height: 90%;
 }
-
-.StreamingInfo #
 
 #streaming .StreamingList .List-Cat {
     padding-left: 15px;
@@ -152,14 +121,37 @@ a.accordion-header.active-accordion:after {
 #streaming .List-Cat h3 {
     font-size: 20px;
     color: white;
+    margin-left: 5px;
 }
 
 #streaming .List-Cat img {
     height: 40px;
     width: 40px;
+    margin-bottom: 5px;
     margin-left: 8px;
     margin-right: 8px;
     border-radius: 10px;
+}
+
+#streaming .List-Cat .Free-Streaming:hover {
+    cursor: pointer;
+    -webkit-backdrop-filter: revert;
+    backdrop-filter: revert;
+    background-image: linear-gradient(to bottom right, #f02811, #F9A647);
+}
+
+#streaming .List-Cat .Rent-Streaming:hover {
+    cursor: pointer;
+    -webkit-backdrop-filter: revert;
+    backdrop-filter: revert;
+    background-image: linear-gradient(to bottom right, #f02811, #F9A647);
+}
+
+#streaming .List-Cat .Buy-Streaming:hover {
+    cursor: pointer;
+    -webkit-backdrop-filter: revert;
+    backdrop-filter: revert;
+    background-image: linear-gradient(to bottom right, #f02811, #F9A647);
 }
 
 #streaming .List-Cat .Free-Streaming {

@@ -76,7 +76,7 @@ def MainSearchResults(request):
         if m.media_type == 'movie' and m.media_type != 'person' and m.media_type != 'tv':
             if m.id == streaming_mov(m.id).results['US']:
                 break
-            movies.append([streaming_mov(m.id).results['US'], m])
+            movies.append([m, streaming_mov(m.id).results['US']])
         else:
             break
         continue
@@ -85,7 +85,7 @@ def MainSearchResults(request):
         if t.media_type == 'tv' and t.media_type != 'person' and t.media_type != 'movie':
             if t.id == streaming_tv(t.id).results['US']:
                 break
-            tv_shows.append([streaming_mov(t.id).results['US'], t])
+            tv_shows.append([t, streaming_tv(t.id).results['US']])
         else:
             break
         continue

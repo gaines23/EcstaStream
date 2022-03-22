@@ -5,64 +5,74 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'content\search_results.css' %}">
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 </head>
 
 <div class="SearchContents">
 
-    <div class="ListSection">
-        <p>Movies</p>
+    <div class="row ListSection">
 
-            <ul class="accordion Info" id="accordion">
-                {% for d in movies %}
-
-                <li class="accordion-box PosterInfo">
-                    {% for m in d %}
+        <div class="ListTitle">
+            <p>Movies</p>
+        </div>
+        
+        <div class="Info">
+            {% for d in movies %}
+            
+            <div class="PosterInfo" id="posterinfo">
+                {% for m in d %}
 
                     {% if forloop.counter|divisibleby:2 %}
-
-                    <div class="card accordion-header" id="card">
-                        <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
-                      <div class="card-header collapsed card-link info-container" data-toggle="collapse" data_target="col">
-                        <h4>
-                          <b style="font-size: 15px">{{ m.title }}</b><br>
-                          <i style="font-size: 12px">({{ m.release_date | slice:':4' }})</i>
-                        </h4>
-                      </div>
-                                        
-                    <div class="StreamingInfo accordion-box" id="streaming">
-                        <div class="section-content accordion-content">
+                 
+                    <div class="StreamingInfo" id="streaming">
+                        <div class="section-content">
                         
-                        <div class="section-title">
-                            <h2>Streaming</h2>
-                        </div>
-                        
+                            <div class="section-title">
+                                <h2>Streaming</h2>
+                            </div>
+                            
                             <div class="StreamingList">
                                 
                                 <div class="List-Cat">
-                                    
+                                    {% if m.flatrate == '' %}
+                                        <div class="none" style="display: none;"></div>
+                                    {% else %}
                                     <div class="Free-Streaming">
                                         <h3>Free</h3>
                                         {% for free in m.flatrate %}
-                                            {% if free.display_priority <= 11 %}
+                                            {% if free.display_priority <= 20 %}
                                                 <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ free.logo_path }}">
                                             {% endif %}
                                         {% endfor %} 
+    
+                                        {% endif %}                                    
                                     </div>                                    
                                     <div class="Rent-Streaming">
+                                        {% if m.rent == '' %}
+                                            <div class="none" style="display: none;"></div>
+                                        {% else %}
+    
+                                        <h3>Rent</h3>
                                         {% for rent in m.rent %}
-                                            {% if rent.display_priority <= 11 %}
+                                            {% if rent.display_priority <= 20 %}
                                                 <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ rent.logo_path }}">
-                                            {% endif %}
+                                            {% endif %}    
                                         {% endfor %}
+
+                                        {% endif %}
                                     </div>
                                     <div class="Buy-Streaming">
+                                        {% if m.buy == '' %}
+                                            <div class="none" style="display: none;"></div>
+                                        {% else %}
                                         <h3>Purchase</h3>
                                         {% for buy in m.buy %}
-                                            {% if buy.display_priority <= 11 %}
+                                            {% if buy.display_priority <= 20 %}
                                                 <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ buy.logo_path }}">
                                             {% endif %}
+                                            
                                         {% endfor %}
+
+                                        {% endif %}
                                     </div> 
                                    
                                 </div>   
@@ -71,58 +81,156 @@
                             
                         </div>
                         
-                        </div> 
-                    </div>
-
+                    </div> 
+    
                     {% else %}
-                        <div class="none" style="display: none;"></div>
 
+                    <div class="card" id="card">
+                        <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
+                      <div class="info-container">
+                        <h4>
+                          <b style="font-size: 15px">{{ m.title }}</b><br>
+                          <i style="font-size: 12px">({{ m.release_date | slice:':4' }})</i>
+                        </h4>
+                      </div>
+                    </div>
+                        
                     {% endif %}
 
                     {% endfor %}
-                </li>
+                </div>
              {% endfor %}
-            </ul>
+            </div>
              
     </div>
-<!--
-    <ul class="TvSection">
-        <p>Tv Shows</p>
-        {% for tv in tv_shows %}
-        <li>
-            {{ tv.title }}
-        </li>
-        {% endfor %}
-    </ul>
 
-    <ul class="PeopleSection">
-        <p>Actors</p>
-        {% for p in people %}
-        <li>
-            {{ p.name }}
-        </li>
-        {% endfor %}
-    </ul>
--->
+    <div class="row ListSection">
+        <div class="ListTitle">
+            <p>TV Shows</p>
+        </div>
+        
+        <div class="Info">
+            {% for x in tv_shows %}
+
+            <div class="PosterInfo" id="posterinfo">
+                {% for t in x %}
+
+                    {% if forloop.counter|divisibleby:2 %}
+             
+                    <div class="StreamingInfo" id="streaming">
+                        <div class="section-content">
+                        
+                            <div class="section-title">
+                                <h2>Streaming</h2>
+                            </div>
+                            
+                            <div class="StreamingList">
+                                
+                                <div class="List-Cat">
+                                    {% if t.flatrate == '' %}
+                                        <div class="none" style="display: none;"></div>
+                                    {% else %}
+                                    <div class="Free-Streaming">
+                                        <h3>Free</h3>
+                                        {% for free in t.flatrate %}
+                                            {% if free.display_priority <= 20 %}
+                                                <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ free.logo_path }}">
+                                            {% endif %}
+                                        {% endfor %} 
+    
+                                        {% endif %}                                    
+                                    </div>                                    
+                                    <div class="Rent-Streaming">
+                                        {% if t.rent == '' %}
+                                            <div class="none" style="display: none;"></div>
+                                        {% else %}
+    
+                                        <h3>Rent</h3>
+                                        {% for rent in t.rent %}
+                                            {% if rent.display_priority <= 20 %}
+                                                <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ rent.logo_path }}">
+                                            {% endif %}    
+                                        {% endfor %}
+
+                                        {% endif %}
+                                    </div>
+                                    <div class="Buy-Streaming">
+                                        {% if t.buy == '' %}
+                                            <div class="none" style="display: none;"></div>
+                                        {% else %}
+                                        <h3>Purchase</h3>
+                                        {% for buy in t.buy %}
+                                            {% if buy.display_priority <= 20 %}
+                                                <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ buy.logo_path }}">
+                                            {% endif %}
+                                            
+                                        {% endfor %}
+
+                                        {% endif %}
+                                    </div> 
+                                   
+                                </div>   
+                                
+                            </div>
+                            
+                        </div>
+                        
+                    </div> 
+    
+                    {% else %}
+
+                    <div class="card" id="card">
+                        <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ t.poster_path }}">
+                      <div class="info-container">
+                        <h4>
+                          <b style="font-size: 15px">{{ t.name }}</b><br>
+                          <i style="font-size: 12px">({{ t.first_air_date | slice:':4' }})</i>
+                        </h4>
+                      </div>
+                    </div>
+                        
+                    {% endif %}
+
+                    {% endfor %}
+                </div>
+             {% endfor %}
+            </div>
+             
+    </div>
+
+
+
+    <div class="row ListSection">
+        
+        <div class="ListTitle">
+            <p>People</p>
+        </div>
+
+        <div class="Info">
+            {% for p in people %}
+            <div class="PosterInfo" id="posterinfo">
+            
+                <div class="card" id="card">
+                    <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ p.profile_path }}">
+                    <div class="info-container">
+                        <h4>
+                            <b style="font-size: 15px">{{ p.name }}</b>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+
+
 </div>
 
-<script>
-$(function() {
-    $(".accordion-header").click(function(event) {
-        event.preventDefault();
-        var dis = $(this);
-        var acr_box = dis.closest(".accordion");
-        if(!dis.hasClass("active-accordion")){
-            acr_box.find(".accordion-header").removeClass("active-accordion");
-            dis.addClass("active-accordion");
-            acr_box.find(".accordion-content").slideUp();
-            dis.next().stop(true,true).slideToggle();
-        }else{
-            dis.removeClass("active-accordion");
-            dis.next().stop(true,true).slideUp();
-        }
-    });
-});
-</script>
+
+
+
 
 {% endblock %}
