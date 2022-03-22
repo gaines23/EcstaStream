@@ -3,48 +3,81 @@
     margin: auto;
 }
 
-.SearchContents .MovieSection, .TvSection, .PeopleSection {
-    width: 100%;
+.SearchContents .ListSection {
     height: 100%;
-    list-style: none;
+    width: 100%;
 }
 
-.SearchContents ul p {
+.SearchContents .ListSection p {
     width: 20%;
     height: 100%;
     float: left;
 }
 
-.SearchContents ul li {
+.SearchContents ul {
+    height: 100%;
     width: 80%;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+}
+
+.SearchContents ul li {
+    width: 33%;
     height: 100%;
-    float: right;
-    margin-bottom: 10px;
+    display: -webkit-box;
+    isplay: -ms-flexbox;
 }
 
-.SearchContents ul .PosterInfo {
-    width: 30%;
-    height: 100%;
-    float: left;
+.SearchContents ul li .card {
+  background: rgba(255, 255, 255, .25);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px) saturate(200%);
+  height: 230px;
+  border: 1px solid rgb(255 255 255 / 35%);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  width: 180px;
+  margin: 10px auto 10px auto;
+  border-radius: 20px;
 }
 
-.SearchContents ul .PosterInfo #title {
-    font-size: 15px;
-    color: white;
+.SearchContents ul li .card:hover {
+  -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 35%);
+  box-shadow: 0px 0px 2px 3px #6d44a8;
+  cursor: pointer;
+  -webkit-backdrop-filter: revert;
+  backdrop-filter: revert;
+  background-image: linear-gradient(to bottom right, #f02811, #F9A647);
 }
 
-.SearchContents ul .PosterInfo #year {
-    width: 50px;
-    font-size: 12px;
-    color: white;
+.SearchContents ul li .card img {
+  width: 70%;
+  height: 68%;
+  object-fit: cover;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 8px;
+  display: inline-block;
+  border-radius: 20px;
 }
 
-.SearchContents ul .PosterInfo img {
-    height: 150px;
-    width: 120px;
-    border-radius: 15px;
-
+.SearchContents ul li .card .info-container {
+  text-align: center;
+  height: 35%;
+  padding-top: 5px;
 }
+
+
+
+
+
+
+
+
+
+
 
 .SearchContents ul .StreamingInfo {
     width: 70%;
