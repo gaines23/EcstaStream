@@ -55,6 +55,20 @@
         <div class="row KnownForCredits">
             <div class="Credits-Container">
                 {% for c in knownfor %}
+                
+                {% if c. %}
+                <div class="Card">
+                    {% if c.character != 'Self' %}
+                    <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ c.poster_path }}">
+
+                    <div class="Bar">
+                        <p>{{ c.character|slice:30 }}</p>
+                        <div class="FilledBar"></div>
+                    </div>
+                    {% endif %}
+                </div>
+
+
                 <div class="Card">
                     {% if c.character != 'Self' %}
                     <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ c.poster_path }}">

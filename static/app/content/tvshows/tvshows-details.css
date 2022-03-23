@@ -1,5 +1,5 @@
 .Img-Wrapper {
-	height: 55%;
+	height: 59%;
 	bottom: 0; 
 	width: 100%;
 	background-size: cover;
@@ -28,7 +28,7 @@
 	text-shadow: -2px 3px rebeccapurple;
 }
 
-.TopInfoBar .MovieInfo {
+.TopInfoBar .TvInfo {
 	width: 50%;
 	height: 15%;
 	font-size: 25px;
@@ -37,35 +37,35 @@
 	color: white;
 }
 
-.MovieInfo #rating {
+.TvInfo #rating {
 	font-size: 18px;
 	width: 100px;
 	float: left;
 	text-align: center;
 }
 
-.MovieInfo #year {
+.TvInfo #year {
 	font-size: 18px;
-	width: 85px;
+	width: 100px;
 	float: left;
 	text-align: center;
 }
 
-.MovieInfo #runtime {
+.TvInfo #runtime {
 	float: left;
 	font-size: 18px;
 	text-align: center;
 	width: 100px;
 }
 
-.MovieInfo #genre {
+.TvInfo #genre {
 	font-size: 18px;
 	float: left;
 	width: 100%;
 	padding-left: 20px;
 }
 
-.MovieInfo #genre i {
+.TvInfo #genre i {
     text-align: center;
     font-size: 5px;
     margin-bottom: 0px;
@@ -282,7 +282,11 @@
 .MainSection .StreamingServices li.active {
 	flex: 1;
   	cursor: default;
-  	background: #6D44A8;
+    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
+
 }
 
 .MainSection .StreamingServices li.active .section-content {
@@ -291,6 +295,15 @@
     transform: scaleX(1);
     width: 90%;
  }
+
+.MainSection .StreamingServices li .section-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+}
 
 .MainSection .StreamingServices .section-title {
 	flex: 1;
@@ -308,15 +321,6 @@
     transform: rotate(-90deg);
     white-space: nowrap;
 	font-weight: bold;
-}
-
-.MainSection .StreamingServices li .section-content {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    opacity: 0;
 }
 
 .StreamingServices #streaming .StreamingList {
@@ -378,14 +382,16 @@
 
 
 
-
-
-
 .Cast {
-	height: 450px;
+	height: 400px;
 	width: 100%;
 	margin-top: 15px;
 	margin-bottom: 34px;
+}
+
+.Cast a {
+	text-decoration: none;
+	color: white;
 }
 
 .Cast .CastSearch {
@@ -564,40 +570,51 @@
 
 
 
+
+
 .SeriesInfo {
-	height: 300px;
-	width: 95%;
+	height: 230px;
+	width: 90%;
 	margin-left: auto;
 	margin-right: auto;
 }
 
+.SeriesInfo a {
+	text-decoration: none;
+	color: white;
+}
+
+.SeriesInfo .SeriesContainer {
+	width: 90%;
+	height: 100%;
+	margin: auto;
+}
+
 .SeriesInfo .SeriesSummary {
-	height: 261px;
-	width: 15%;
+	height: 220px;
+	width: 12%;
 	float: left;
-	background-image: linear-gradient(to bottom right, #f02811, #F9A647);
-  	background-position: center;
+    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
   	border-top-left-radius: 15px;
   	border-bottom-left-radius: 15px;
 }
 
 .SeriesInfo .SeriesSummary .title {
-    height: 90%;
-    margin-left: 5%;
-    width: 95%;
-    margin-top: 5%;
+    height: 100%;
+    width: 100%;
+    text-align: center;
     display: inline-block;
 }
 
 .SeriesInfo .SeriesSummary p {
-    font-size: 35px;
-    text-align: left;
-    height: 100%;
-    margin-top: auto;
+    font-size: 25px;
 }
 
 .SeriesInfo .Series-Cards {
-	height: 290px;
+	height: 220px;
   	border-top-right-radius: 20px;
   	border-bottom-right-radius: 20px;
 }
@@ -609,7 +626,6 @@
 	border-top-right-radius: 10px;
 	border-top-left-radius: 10px;
 }
-
 
 
 

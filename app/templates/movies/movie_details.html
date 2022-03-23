@@ -84,7 +84,7 @@
                     <p id="title">Director(s)</p>
                     {% for d in credits.crew|slice:":3" %}
                         {% if d.known_for_department == 'Directing' %}
-                            {{ d.name }} <br>
+                            <a href="/CreditsDetails/{{d.name}}">{{ d.name }}</a><br>
                         {% endif %}
                     {% endfor %}               
                 </div>
@@ -93,7 +93,7 @@
                     <p id="title">Screenplay</p>
                     {% for s in credits.crew %}
                         {% if s.known_for_department == 'Writing' %}
-                            {{ s.name }} <br>
+                            <a href="/CreditsDetails/{{s.name}}">{{ s.name }}</a> <br>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -154,34 +154,52 @@ https://youtu.be/zsrdBGr8NIk
 
                     <div class="section-content">
                         <div class="StreamingList">
-
+                            
                             <div class="List-Cat">
+                                {% if us_streaming.flatrate == '' %}
+                                    <div class="none" style="display: none;"></div>
+                                {% else %}
                                 <div class="Free-Streaming">
                                     <h3>Free</h3>
                                     {% for free in us_streaming.flatrate %}
-                                        {% if free.display_priority <= 11 %}
+                                        {% if free.display_priority%}
                                             <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ free.logo_path }}">
                                         {% endif %}
-                                    {% endfor %}
-                                </div>
+                                    {% endfor %} 
+    
+                                    {% endif %}                                    
+                                </div>                                    
                                 <div class="Rent-Streaming">
+                                    {% if us_streaming.rent == '' %}
+                                        <div class="none" style="display: none;"></div>
+                                    {% else %}
+    
                                     <h3>Rent</h3>
                                     {% for rent in us_streaming.rent %}
-                                        {% if rent.display_priority <= 11 %}
+                                        {% if rent.display_priority %}
                                             <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ rent.logo_path }}">
-                                        {% endif %}
+                                        {% endif %}    
                                     {% endfor %}
+
+                                    {% endif %}
                                 </div>
                                 <div class="Buy-Streaming">
+                                    {% if us_streaming.buy == '' %}
+                                        <div class="none" style="display: none;"></div>
+                                    {% else %}
                                     <h3>Purchase</h3>
                                     {% for buy in us_streaming.buy %}
-                                        {% if buy.display_priority <= 11 %}
+                                        {% if buy.display_priority %}
                                             <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ buy.logo_path }}">
                                         {% endif %}
+                                        
                                     {% endfor %}
-                                </div>
-                            </div>    
 
+                                    {% endif %}
+                                </div> 
+                                   
+                            </div>   
+                                
                         </div>
                     </div>
                 </li>
@@ -229,28 +247,42 @@ https://youtu.be/zsrdBGr8NIk
 
         <div id="cards-container">
         
-          <div class="cards" id="cards">
+        <div class="cards" id="cards">
             {% for c in credits.cast %}
+            
+            <div class="PosterInfo" id="posterinfo">
+                <a href="/CreditsDetails/{{c.id}}">
                 <div class="card" id="card">
-                  <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ c.profile_path }}">
-                  <div class="info-container">
-                    <h4>
-                      <b style="font-size: 20px">{{ c.name }}</b><br>
-                      <i style="font-size: 18px">{{ c.character|truncatechars:20 }}</i>
-                    </h4>
-                  </div>
+                    <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ c.profile_path }}">
+                    <div class="info-container">
+                        <h4>
+                            <b style="font-size: 15px">{{ c.name }}</b>
+                        </h4>
+                        <h4>
+                            <i style="font-size: 12px">{{ c.character|truncatewords:3 }}</i>
+                        </h4>
+                    </div>
                 </div>
+                </a>
+            </div>
+            
             {% endfor %}
             {% for cr in credits.crew %}
+            
+            <div class="PosterInfo" id="posterinfo">
+                <a href="/CreditsDetails/{{cr.id}}">
                 <div class="card" id="card">
-                  <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ cr.profile_path }}">
-                  <div class="info-container">
-                    <h4>
-                      <b style="font-size: 20px">{{ cr.name }}</b><br>
-                      <i style="font-size: 18px">{{ cr.job|truncatechars:20 }}</i>
-                    </h4>
-                  </div>
+                    <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ cr.profile_path }}">
+                    <div class="info-container">
+                        <h4>
+                            <b style="font-size: 15px">{{ cr.name }}</b></h4>
+                            <h4><i style="font-size: 12px">{{ cr.department }}</i></h4>
+                        
+                    </div>
                 </div>
+                </a>
+            </div>
+            
             {% endfor %}
           </div>
             
@@ -263,34 +295,38 @@ https://youtu.be/zsrdBGr8NIk
 
 
 <div class="SeriesInfo">
-
-    <div class="SeriesSummary">        
-        <div class="title"><p><b>{{ seriesid.name }}</b></p></div>
-    </div>
-
-    <span class="SeriesSection">
-
-        <div class="Series-Container" id="series-cards-container">
-        
-          <div class="Series-Cards" id="series-cards">
-            {% for s in seriesid.parts %}
-                <div class="Series-Card" id="series-card">
-                    <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ s.poster_path }}">
-
-                    <div class="Bar">
-                        <h2>{{ s.title }} ({{ s.release_date|slice:":4" }})</h2>
-                        <div class="FilledBar"></div>
-                    </div>
-                </div>
-            {% endfor %}
-          </div>
-
-            
+    <div class="SeriesContainer">
+        <div class="SeriesSummary">        
+            <div class="title"><p><b>{{ seriesid.name }}</b></p></div>
         </div>
 
+        <span class="SeriesSection">
 
-    </span>
+            <div class="Series-Container" id="series-cards-container">
+            
+              <div class="Series-Cards" id="series-cards">
+                {% for s in seriesid.parts %}
+                <a href="MovieDetails/{{s.id}}">    
+                    <div class="Series-Card" id="series-card">
+                    
+                        <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ s.poster_path }}">
 
+                        <div class="Bar">
+                            <h2>{{ s.title }} ({{ s.release_date|slice:":4" }})</h2>
+                            <div class="FilledBar"></div>
+                        </div>
+                       
+                    </div>
+                </a>
+                {% endfor %}
+              </div>
+
+                
+            </div>
+
+
+        </span>
+    </div>
 </div>
 
 

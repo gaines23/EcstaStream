@@ -1,17 +1,33 @@
 .SearchContents {
     width: 70%;
     margin: auto;
+    background-color: rgb(73 6 203 / 20%);
+    border-radius: 15px;
+/*    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
+*/
+}
+
+.SearchContents a {
+    text-decoration: none;
+    color: white;
 }
 
 .SearchContents .ListSection {
     height: 100%;
     width: 100%;
-    margin-bottom: 70px;
 }
 
 .SearchContents .ListSection .ListTitle {
     width: 20%;
     float: left;
+    font-size: 25px;
+}
+
+.ListTitle p {
+    margin-top: 10px;
 }
 
 .ListSection .Info {
@@ -39,28 +55,32 @@
 
 .ListSection .Info .PosterInfo .card {
     background: rgba(255, 255, 255, .25);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px) saturate(200%);
     height: 230px;
     border: 1px solid rgb(255 255 255 / 35%);
     -webkit-transition: 0.3s;
     transition: 0.3s;
     width: 180px;
+    text-decoration: none;
     margin: 10px auto 10px auto;
     border-radius: 20px;
+    -webkit-backdrop-filter: revert;
+    backdrop-filter: revert;
 }
 
 .ListSection .Info .PosterInfo .card:hover {
-    -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 35%);
-    box-shadow: 0px 0px 2px 3px #6d44a8;
+    -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 25%);
+    box-shadow: 0px 0px 2px 3px #f8f9fa73;
     cursor: pointer;
-    -webkit-backdrop-filter: revert;
-    backdrop-filter: revert;
-    background-image: linear-gradient(to bottom right, #f02811, #F9A647);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
 }
 
 .ListSection .Info .PosterInfo .card img {
-    width: 75%;
+    width: 85%;
     height: 68%;
     object-fit: cover;
     margin-right: auto;
@@ -86,13 +106,12 @@
 }
 
 .StreamingInfo .section-content {
-    width: 130%;
+    width: 120%;
 }
 
 .StreamingInfo .section-title {
     flex: 1;
     align-items: center;
-    width: 75%;
     margin: 0;
     padding: 0;
     text-align: center;
@@ -113,9 +132,12 @@
 }
 
 #streaming .StreamingList .List-Cat {
-    padding-left: 15px;
-    padding-right: 15px;
     height: 100%;
+    text-align: center;
+    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
 }
 
 #streaming .List-Cat h3 {
@@ -135,23 +157,20 @@
 
 #streaming .List-Cat .Free-Streaming:hover {
     cursor: pointer;
-    -webkit-backdrop-filter: revert;
-    backdrop-filter: revert;
-    background-image: linear-gradient(to bottom right, #f02811, #F9A647);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
 }
 
 #streaming .List-Cat .Rent-Streaming:hover {
     cursor: pointer;
-    -webkit-backdrop-filter: revert;
-    backdrop-filter: revert;
-    background-image: linear-gradient(to bottom right, #f02811, #F9A647);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
 }
 
 #streaming .List-Cat .Buy-Streaming:hover {
     cursor: pointer;
-    -webkit-backdrop-filter: revert;
-    backdrop-filter: revert;
-    background-image: linear-gradient(to bottom right, #f02811, #F9A647);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
 }
 
 #streaming .List-Cat .Free-Streaming {
@@ -159,6 +178,13 @@
     border-bottom: 1px solid white;
     padding-top: 8px;
     padding-bottom: 8px;
+    background: rgba(255, 255, 255, .25);
+    border: 1px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    text-decoration: none;
+    -webkit-backdrop-filter: revert;
+    backdrop-filter: revert;
 }
 
 #streaming .List-Cat .Rent-Streaming {
@@ -166,11 +192,26 @@
     border-bottom: 1px solid white;
     padding-top: 8px;
     padding-bottom: 8px;
+    background: rgba(255, 255, 255, .25);
+    border: 1px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    text-decoration: none;
+    -webkit-backdrop-filter: revert;
+    backdrop-filter: revert;
 }
 
 #streaming .List-Cat .Buy-Streaming {
     height: 33%;
+    border-bottom: 1px solid white;
     padding-top: 8px;
     padding-bottom: 8px;
+    background: rgba(255, 255, 255, .25);
+    border: 1px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    text-decoration: none;
+    -webkit-backdrop-filter: revert;
+    backdrop-filter: revert;
 }
 

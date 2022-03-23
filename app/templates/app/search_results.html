@@ -85,6 +85,7 @@
     
                     {% else %}
 
+                    <a href="/MovieDetails/{{m.id}}">
                     <div class="card" id="card">
                         <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
                       <div class="info-container">
@@ -94,6 +95,7 @@
                         </h4>
                       </div>
                     </div>
+                    </a>
                         
                     {% endif %}
 
@@ -104,7 +106,12 @@
              
     </div>
 
+
+
     <div class="row ListSection">
+    {% if tv_shows == '' %}
+        <div class="none" style="display: none;"></div>
+    {% else %}
         <div class="ListTitle">
             <p>TV Shows</p>
         </div>
@@ -179,6 +186,7 @@
     
                     {% else %}
 
+                    <a href="/TvDetails/{{t.id}}">
                     <div class="card" id="card">
                         <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ t.poster_path }}">
                       <div class="info-container">
@@ -188,6 +196,7 @@
                         </h4>
                       </div>
                     </div>
+                    </a>
                         
                     {% endif %}
 
@@ -195,9 +204,9 @@
                 </div>
              {% endfor %}
             </div>
-             
+        {% endif %}   
     </div>
-
+      
 
 
     <div class="row ListSection">
@@ -209,7 +218,7 @@
         <div class="Info">
             {% for p in people %}
             <div class="PosterInfo" id="posterinfo">
-            
+                <a href="/CreditsDetails/{{p.id}}">
                 <div class="card" id="card">
                     <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ p.profile_path }}">
                     <div class="info-container">
@@ -218,6 +227,7 @@
                         </h4>
                     </div>
                 </div>
+                </a>
             </div>
             {% endfor %}
         </div>
