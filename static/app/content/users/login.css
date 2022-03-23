@@ -1,15 +1,91 @@
+.Search {
+	display: none;
+}
+
+.form-content {
+	height: 650px;
+    background-color: #580e6c;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(24.82, 100%, 49%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(18.91, 89%, 33%) 0, transparent 55%);
+}
+
+.form-content .container {
+	height: 100%;
+}
 
 .container .AuthLogin {
 	text-align: center;
 }
 
-.container .NamePass {
-	text-align: center;
-	margin-bottom: 20px;
+.container .card-body {
+	height: 100%;
+}
+
+form {
+    height: 600px;
+    width: 400px;
+    margin-top: auto;
+    top: 50%;
+    left: 50%;
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(25, 25, 25, 0.75);
+    border-radius: 12px;
+}
+
+form *{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+form h3 {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .container .NamePass input {
-	margin-left: 70px;
+	margin-left: 20px;
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+::placeholder{
+    color: #e5e5e5;
+}
+
+button#login {
+    margin-top: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .container .Remember {
@@ -26,4 +102,31 @@
 
 .container .card-footer {
 	margin-left: 15px;
+}
+
+.social {
+  margin-top: 30px;
+  display: flex;
+}
+
+.social div {
+  background: red;
+  width: 150px;
+  border-radius: 3px;
+  padding: 5px 10px 10px 5px;
+  background-color: rgba(255,255,255,0.27);
+  color: #eaf0fb;
+  text-align: center;
+}
+
+.social div:hover {
+  background-color: rgba(255,255,255,0.47);
+}
+
+.social .fb {
+  margin-left: 25px;
+}
+
+.social i {
+  margin-right: 4px;
 }
