@@ -56,8 +56,9 @@
             <div class="Credits-Container">
                 {% for c in knownfor %}
                 
-                {% if c. %}
+                {% if c.media_type == 'movie' %}
                 <div class="Card">
+                    <a href="MovieDetails/{{c.id}}">
                     {% if c.character != 'Self' %}
                     <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ c.poster_path }}">
 
@@ -66,10 +67,13 @@
                         <div class="FilledBar"></div>
                     </div>
                     {% endif %}
+                    </a>
                 </div>
 
+                {% else %}
 
                 <div class="Card">
+                    <a href="TvDetails/{{c.id}}">
                     {% if c.character != 'Self' %}
                     <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ c.poster_path }}">
 
@@ -78,7 +82,10 @@
                         <div class="FilledBar"></div>
                     </div>
                     {% endif %}
+                    </a>
                 </div>
+                {% endif %}
+
                 {% endfor %}
             </div>
         </div>
@@ -115,11 +122,13 @@
                     {% for movie in release_date.list %}
                     <div class="cards" id="cards">
                         <div class="card">
+                            <a href="MovieDetails/{{movie.id}}">
                             <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}">
                                 <div class="info-container">
                                     <h4><b>{{ movie.title|truncatechars:35 }}</b></h4> <br>
                                     <h4><i>{{ movie.character|truncatechars:20 }}</i></h4>
                                 </div>
+                            </a>
                         </div>
                     </div>  
                     {% endfor %}
@@ -141,11 +150,13 @@
                     {% for tv in first_air_date.list %}
                     <div class="cards" id="cards">
                         <div class="card">
+                            <a href="TvDetails/{{tv.id}}">
                             <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ tv.poster_path }}">
                                 <div class="info-container">
                                     <h4><b>{{ tv.title|truncatechars:35 }}</b></h4> <br>
                                     <h4><i>{{ tv.character|truncatechars:20 }}</i></h4>
                                 </div>
+                            </a>
                         </div>
                     </div>  
                     {% endfor %}

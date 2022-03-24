@@ -16,13 +16,30 @@
         </div>
         
         <div class="Info">
-            {% for d in movies %}
+            {% for m in movies %}
             
             <div class="PosterInfo" id="posterinfo">
-                {% for m in d %}
-
+                
+                
                     {% if forloop.counter|divisibleby:2 %}
                  
+                        <div class="none" style="display:none;"></div>
+    
+                    {% else %}
+
+                    <a href="/MovieDetails/{{m.id}}">
+                        <div class="card" id="card">
+                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
+                          <div class="info-container">
+                            <h4>
+                              <b style="font-size: 15px">{{ m.title }}</b><br>
+                              <i style="font-size: 12px">({{ m.release_date | slice:':4' }})</i>
+                            </h4>
+                          </div>
+                        </div>
+                    </a>
+
+
                     <div class="StreamingInfo" id="streaming">
                         <div class="section-content">
                         
@@ -82,26 +99,11 @@
                         </div>
                         
                     </div> 
-    
-                    {% else %}
 
-                    <a href="/MovieDetails/{{m.id}}">
-                    <div class="card" id="card">
-                        <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
-                      <div class="info-container">
-                        <h4>
-                          <b style="font-size: 15px">{{ m.title }}</b><br>
-                          <i style="font-size: 12px">({{ m.release_date | slice:':4' }})</i>
-                        </h4>
-                      </div>
-                    </div>
-                    </a>
-                        
                     {% endif %}
-
-                    {% endfor %}
+                {% endfor %}
                 </div>
-             {% endfor %}
+             
             </div>
              
     </div>
@@ -109,19 +111,16 @@
 
 
     <div class="row ListSection">
-    {% if tv_shows == '' %}
-        <div class="none" style="display: none;"></div>
-    {% else %}
+
         <div class="ListTitle">
             <p>TV Shows</p>
         </div>
         
         <div class="Info">
-            {% for x in tv_shows %}
+            
 
             <div class="PosterInfo" id="posterinfo">
-                {% for t in x %}
-
+                {% for t in tv_shows %}
                     {% if forloop.counter|divisibleby:2 %}
              
                     <div class="StreamingInfo" id="streaming">
@@ -187,24 +186,22 @@
                     {% else %}
 
                     <a href="/TvDetails/{{t.id}}">
-                    <div class="card" id="card">
-                        <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ t.poster_path }}">
-                      <div class="info-container">
-                        <h4>
-                          <b style="font-size: 15px">{{ t.name }}</b><br>
-                          <i style="font-size: 12px">({{ t.first_air_date | slice:':4' }})</i>
-                        </h4>
-                      </div>
-                    </div>
+                        <div class="card" id="card">
+                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ t.poster_path }}">
+                          <div class="info-container">
+                            <h4>
+                              <b style="font-size: 15px">{{ t.name }}</b><br>
+                              <i style="font-size: 12px">({{ t.first_air_date | slice:':4' }})</i>
+                            </h4>
+                          </div>
+                        </div>
                     </a>
                         
                     {% endif %}
 
                     {% endfor %}
                 </div>
-             {% endfor %}
             </div>
-        {% endif %}   
     </div>
       
 

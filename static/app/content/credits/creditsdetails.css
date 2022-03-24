@@ -74,6 +74,11 @@
 	height: 300px;
 }
 
+.KnownForCredits a {
+    text-decoration: none;
+    color: white;
+}
+
 .KnownForCredits #posterpic {
 	height: 80%;
 	width: inherit;
@@ -81,11 +86,6 @@
 	border-top-right-radius: 10px;
 	border-top-left-radius: 10px;
 }
-
-
-
-
-
 
 
 .KnownForBio .Bio {
@@ -127,7 +127,11 @@
   	margin-top: 25px;
 }
 
-
+.CreditsSections a {
+    text-decoration: none;
+    color: white;
+    height: 100%;
+}
 
 .CreditsSections .CreditSearch {
 	height: 150px;

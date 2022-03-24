@@ -56,8 +56,6 @@ def home(request):
         'app/index.html'
     )
 
-#class MainSearch(TemplateView):
-#    template_name = 'app/search_form.html'
 
 def MainSearchResults(request):
     assert isinstance(request, HttpRequest)
@@ -72,23 +70,29 @@ def MainSearchResults(request):
     tv_shows = []
     people = []
  
-    for m in multi_search:
-        if m.media_type == 'movie' and m.media_type != 'person' and m.media_type != 'tv':
-            if m.id == streaming_mov(m.id).results['US']:
+    try:
+        for m in multi_search:
+            if m.media_type == 'movie' and m.media_type != 'person' and m.media_type != 'tv':
+                if m.id == streaming_mov(m.id).results['US']:
+                    break
+                movies.extend([m, streaming_mov(m.id).results['US']])
+            else:
                 break
-            movies.append([m, streaming_mov(m.id).results['US']])
-        else:
-            break
-        continue
+            continue
+    except Exception as e:
+        print(e)
 
-    for t in multi_search:
-        if t.media_type == 'tv' and t.media_type != 'person' and t.media_type != 'movie':
-            if t.id == streaming_tv(t.id).results['US']:
+    try:
+        for t in multi_search:
+            if t.media_type == 'tv' and t.media_type != 'person' and t.media_type != 'movie':
+                if t.id == streaming_tv(t.id).results['US']:
+                    break    
+                tv_shows.extend([t, streaming_tv(t.id).results['US']])
+            else:
                 break
-            tv_shows.append([t, streaming_tv(t.id).results['US']])
-        else:
-            break
-        continue
+            continue
+    except Exception as e:
+        print(e)
 
     for p in multi_search:
         if p.media_type == 'person':
