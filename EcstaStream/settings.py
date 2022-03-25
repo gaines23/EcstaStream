@@ -49,9 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'EcstaStream',
     'multiselectfield',
-    'django_filters',
     'social_django',
-    'embed_video',
 ]
 
 # Middleware framework

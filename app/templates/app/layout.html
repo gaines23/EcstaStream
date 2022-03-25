@@ -43,20 +43,26 @@
                     </div>
 
                     <nav class="Nav">
-                        <div class="Nav-Options">
+                        <div class="Nav-Options justify-content-center">
                             <a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
 
                             {% if user.is_authenticated %}
                             <a href="#"><i class="far fa-bell"></i> Notifications</a>
                             <a href="#"><i class="fas fa-envelope-open-text"></i> DMs ;)</a>
-                            <a href="#"><i class="far fa-plus-square"></i> Create List</a>
-                            <a href="#"><i class="far fa-bookmark"></i> Bookmarks</a>
-                            <div class="UserLists">
-
-                            </div>
+                            <a href="#"><i class="far fa-plus-square"></i> New List</a>
                             {% endif %}
                         </div>
+                            
+                        <div class="UserLists">
+                            <div id="watchlist">
+                                <a href="#" ><i class="fa-regular fa-star"></i> Watchlist</a>
+                            </div>
 
+                            <div class="Playlists">
+
+                            </div>
+
+                        </div>
 
                         <div class="Nav-UserLogin">
 
@@ -64,7 +70,7 @@
 
                                 {% if user.is_authenticated %}
 
-                                <img class="account-img" src="{{ user.profile.avatar.url }}"/>
+                                <img class="account-img" src="{{ user.profile.profpic.url }}"/>
                                 <p>
                                     <a href="{% url 'users-profile' user.id user.username %}"> {{request.user.username}}</a>
                                     <a href="{% url 'logout' %}">Logout</a>

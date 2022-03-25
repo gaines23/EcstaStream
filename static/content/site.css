@@ -90,31 +90,53 @@ body{
 }
 
 .NavContent .Nav-Options {
-    height: 87%;
+    height: 25%;
+    width: 150px;
+    margin: auto;
 }
 
 .NavContent .Nav-Options a {
+    width: fit-content;
     padding: 12px 10px 10px 0px;
     text-align: center;
     text-decoration: none;
     font-size: 18px;
     color: #6d44a8;
     display: block;
-}
-
-.NavContent .Nav-Options a:hover {
-    color: #f96b2e;
-    border: .5px solid #f96b2e;
-    border-radius: 20px;
+    font-weight: 600;
 }
 
 .NavContent nav a i {
     width: 30px;
 }
 
-.NavContent .Nav-Options .UserLists {
-    height: 58%;
+nav .UserLists {
+    height: 60%;
 }
+
+.UserLists #watchlist {
+    width: 190px;
+    margin: auto;
+    border-top: 1px solid #ff5e00;
+    padding-left: 20px;
+}
+
+.UserLists .Playlists {
+    width: 150px;
+    margin: auto;
+}
+
+.NavContent .UserLists a {
+    width: fit-content;
+    padding: 12px 10px 10px 0px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    color: #6d44a8;
+    display: block;
+    font-weight: 600;
+}
+
 
 
 
@@ -122,7 +144,7 @@ body{
 
 .NavContent-Box .NavContent .Nav-UserLogin {
     width: 100%;
-    height: 13%;
+    height: 15%;
     float: left;
     font-size: 18px;
 }
@@ -153,11 +175,9 @@ body{
     font-size: 15px;
     color: #6d44a8;
     display: block;
+    font-weight: 600;
 }
 
-.NavContent-Box .NavContent .Nav-UserLogin a:hover {
-    color: #f96b2e;
-}
 
 
 .NavContent-Box .NavContent .Nav-UserLogin img {
@@ -233,6 +253,7 @@ body{
     border-right: none;
     border-radius: 15px 0 0 15px;
     outline: none;
+
 }
 
 .SearchInput input {
@@ -247,6 +268,7 @@ body{
     border-right: none;
     background-color: initial;
     overflow: visible;
+    font-weight: 600;
 }
 
 .SearchInput input:focus{

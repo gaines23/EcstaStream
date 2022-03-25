@@ -10,7 +10,7 @@
 <div class="col-4 ProfileForm">
 
     <div class="ProfPic" id="profpic">
-       	<img class="rounded-circle account-img" src="{{ user.profile.avatar.url }} " height="50px" width="50px" style="cursor: pointer;"/>
+       	<img class="rounded-circle account-img" src="{{ user.profile.profpic.url }} " height="50px" width="50px" style="cursor: pointer;"/>
     </div>
 
     {% if user_form.errors %}
@@ -32,8 +32,9 @@
 
             {{ user_form }}
 
-            {{ profile_form }}
-
+            {% for x in profile_form.streaming_services %}
+            {{ x }}
+            {% endfor %}
 
             <br><br>
             

@@ -4,10 +4,6 @@
 
 .form-content {
 	height: 650px;
-    background-color: #530881;
-    background-image: 
-        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
-        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
 }
 
 .form-content .container {
@@ -31,7 +27,10 @@ form {
     margin-top: auto;
     top: 50%;
     left: 50%;
-    background-color: rgba(17, 25, 40, 0.1);
+    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
     border: 2px solid rgba(255,255,255,0.1);
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
     padding: 15px 30px;
@@ -84,15 +83,23 @@ label {
 }
 
 
-button#login {
+#login {
     width: 100%;
-    background-color: #ffffff;
-    color: #080710;
+    background-color: rgba(255,255,255,0.27);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 15px 30px;
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-radius: 12px;
     padding: 15px 0;
     font-size: 18px;
     font-weight: 600;
-    border-radius: 12px;
     cursor: pointer;
+}
+
+#login:hover {
+    background-color: rgba(255,255,255,0.47);
 }
 
 .container .Remember {

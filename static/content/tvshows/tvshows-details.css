@@ -28,7 +28,7 @@
 	text-shadow: -2px 3px rebeccapurple;
 }
 
-.TopInfoBar .MovieInfo {
+.TopInfoBar .TvInfo {
 	width: 50%;
 	height: 15%;
 	font-size: 25px;
@@ -37,35 +37,35 @@
 	color: white;
 }
 
-.MovieInfo #rating {
+.TvInfo #rating {
 	font-size: 18px;
 	width: 100px;
 	float: left;
 	text-align: center;
 }
 
-.MovieInfo #year {
+.TvInfo #year {
 	font-size: 18px;
-	width: 85px;
+	width: 100px;
 	float: left;
 	text-align: center;
 }
 
-.MovieInfo #runtime {
+.TvInfo #runtime {
 	float: left;
 	font-size: 18px;
 	text-align: center;
 	width: 100px;
 }
 
-.MovieInfo #genre {
+.TvInfo #genre {
 	font-size: 18px;
 	float: left;
 	width: 100%;
 	padding-left: 20px;
 }
 
-.MovieInfo #genre i {
+.TvInfo #genre i {
     text-align: center;
     font-size: 5px;
     margin-bottom: 0px;

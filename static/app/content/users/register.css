@@ -1,10 +1,17 @@
+.container .card {
+ 	background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
+    border-radius: 15px;
+}
 
 .container .card-body {
 	height: 345px;
 }
 
 .card-body .form-row {
-	height: 80px;
+	height: 85px;
 }
 
 .card-body .form-row .First {
@@ -15,3 +22,63 @@
 	float: right;
 }
 
+label {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.container input {
+    display: block;
+    height: 39px;
+    width: 90%;
+    background-color: rgba(255,255,255,0.57);
+    color: #eaf0fb;    
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+::placeholder{
+    color: #e5e5e5;
+}
+
+.container .input-group-append button {
+	border-color: transparent;
+}
+
+.container .input-group-append button:hover {
+	border-color: transparent;
+	background-color: rgba(255,255,255,0.47);
+}
+
+#signup {
+    width: 100%;
+    background-color: rgba(255,255,255,0.27);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 15px 30px;
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-radius: 12px;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#signup:hover {
+    background-color: rgba(255,255,255,0.47);
+}
+
+
+.card-footer {
+    text-align: center;
+    margin-top: 30px;
+    text-decoration: none; 
+}
+
+.card-footer a {
+	text-decoration: none;
+	color: white;
+}

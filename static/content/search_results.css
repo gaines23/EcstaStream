@@ -23,7 +23,6 @@
 .SearchContents .ListSection .ListTitle {
     width: 20%;
     float: left;
-    background-color: black;
     font-size: 25px;
 }
 
@@ -133,9 +132,8 @@
 }
 
 #streaming .StreamingList .List-Cat {
-    padding-left: 15px;
-    padding-right: 15px;
     height: 100%;
+    text-align: center;
     background-color: #530881;
     background-image: 
         radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 

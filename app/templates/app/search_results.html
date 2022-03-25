@@ -16,30 +16,13 @@
         </div>
         
         <div class="Info">
-            {% for m in movies %}
+            {% for x in movies %}
             
             <div class="PosterInfo" id="posterinfo">
-                
+                    {% for m in x %}
                 
                     {% if forloop.counter|divisibleby:2 %}
                  
-                        <div class="none" style="display:none;"></div>
-    
-                    {% else %}
-
-                    <a href="/MovieDetails/{{m.id}}">
-                        <div class="card" id="card">
-                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
-                          <div class="info-container">
-                            <h4>
-                              <b style="font-size: 15px">{{ m.title }}</b><br>
-                              <i style="font-size: 12px">({{ m.release_date | slice:':4' }})</i>
-                            </h4>
-                          </div>
-                        </div>
-                    </a>
-
-
                     <div class="StreamingInfo" id="streaming">
                         <div class="section-content">
                         
@@ -99,11 +82,25 @@
                         </div>
                         
                     </div> 
+    
+                    {% else %}
+
+                    <a href="/MovieDetails/{{m.id}}">
+                        <div class="card" id="card">
+                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
+                          <div class="info-container">
+                            <h4>
+                              <b style="font-size: 15px">{{ m.title }}</b><br>
+                              <i style="font-size: 12px">({{ m.release_date | slice:':4' }})</i>
+                            </h4>
+                          </div>
+                        </div>
+                    </a>
 
                     {% endif %}
                 {% endfor %}
                 </div>
-             
+             {% endfor %}
             </div>
              
     </div>
@@ -117,10 +114,11 @@
         </div>
         
         <div class="Info">
-            
+            {% for x in tv_shows %}
 
             <div class="PosterInfo" id="posterinfo">
-                {% for t in tv_shows %}
+                    {% for t in x %}
+
                     {% if forloop.counter|divisibleby:2 %}
              
                     <div class="StreamingInfo" id="streaming">
@@ -198,9 +196,10 @@
                     </a>
                         
                     {% endif %}
-
                     {% endfor %}
+
                 </div>
+                {% endfor %}
             </div>
     </div>
       

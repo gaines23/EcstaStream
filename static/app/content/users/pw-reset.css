@@ -1,0 +1,57 @@
+.card {
+	margin: auto;
+	height: 330px;
+    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.container input {
+    display: block;
+    height: 40px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.57);
+    color: #eaf0fb;    
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.input-group-append {
+    display: none;
+}
+
+::placeholder{
+    color: #e5e5e5;
+}
+
+#submit {
+    width: 100%;
+    background-color: rgba(255,255,255,0.27);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#submit:hover {
+    background-color: rgba(255,255,255,0.47);
+}
+
+
+.card a {
+	color: white;
+	text-decoration: none;
+}
