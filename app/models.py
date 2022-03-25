@@ -3,8 +3,7 @@ from django.contrib.auth.models import User
 from datetime import date, time, datetime
 from PIL import Image
 from multiselectfield import MultiSelectField
-
-
+import jsonfield
 
 ## 
 
@@ -21,6 +20,9 @@ class Collection(models.Model):
 class Genre(models.Model):
     id = models.IntegerField(primary_key=True)
     genre = models.CharField(max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        return self.genre
 
     class Meta:
         managed = False
@@ -40,6 +42,9 @@ class StreamingServices(models.Model):
     display_priority = models.IntegerField(blank=True, null=True)
     logo_path = models.CharField(max_length=200, blank=True, null=True)
     provider_name = models.CharField(max_length=150, blank=True, null=True)
+
+    def __str__(self):
+        return self.provider_name
 
     class Meta:
         managed = False
@@ -71,6 +76,8 @@ class Profile(models.Model):
     bio = models.TextField(null=True)
     streaming_services = models.ForeignKey(StreamingServices, on_delete=models.CASCADE, null=True)
     fav_genres = models.ForeignKey(Genre, on_delete=models.CASCADE, null=True)
+    date_created = models.DateTimeField(default=timezone.now)
+    last_modified = models.DateTimeField(auto_now=True)
     #friends
 
     def __str__(self):
@@ -79,12 +86,49 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         super().save()
 
-        img = Image.open(self.avatar.path)
+        img = Image.open(self.profpic.path)
     
         if img.height > 100 or img.width > 100:
             new_img = (100, 100)
             img.thumbnail(new_img)
-            img.save(self.avatar.path)
+            img.save(self.profpic.path)
+    
+class WatchLists(models.Model):
+    play_list_name = models.TextField(max_length=50)
+    id = models.AutoField(primary_key=True)
+    created_by_user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(default=timezone.now)
+    last_modified = models.DateTimeField(auto_now=True)
+    share = models.BooleanField()
+    private = models.BooleanField()
+
+class FavoriteLists(models.Model):
+    play_list_name = models.TextField(max_length=50)
+    id = models.AutoField(primary_key=True)
+    created_by_user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(default=timezone.now)
+    last_modified = models.DateTimeField(auto_now=True)
+    share = models.BooleanField()
+    private = models.BooleanField()
+
+class PlayLists(models.Model):
+    play_list_name = models.TextField(max_length=50)
+    id = models.AutoField(primary_key=True)
+    created_by_user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(default=timezone.now)
+    last_modified = models.DateTimeField(auto_now=True)
+    share = models.BooleanField()
+    private = models.BooleanField()
+
+
+
+
+
+
+
+
+
+
 
 
 

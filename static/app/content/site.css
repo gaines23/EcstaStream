@@ -90,7 +90,7 @@ body{
 }
 
 .NavContent .Nav-Options {
-    height: 25%;
+    height: 20%;
     width: 150px;
     margin: auto;
 }
@@ -111,7 +111,7 @@ body{
 }
 
 nav .UserLists {
-    height: 60%;
+    height: 65%;
 }
 
 .UserLists #watchlist {

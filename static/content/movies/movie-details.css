@@ -1,5 +1,5 @@
 .Img-Wrapper {
-	height: 59%;
+	height: 61%;
 	bottom: 0; 
 	width: 100%;
 	background-size: cover;
@@ -17,6 +17,10 @@
 .TopInfoBar .Title {
 	height: 75%;
 	width: 100%;
+}
+
+.TopInfoBar .Title .TitleTab {
+	margin-top: 20px;
 }
 
 .TopInfoBar .Title #title {
