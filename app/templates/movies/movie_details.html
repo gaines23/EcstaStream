@@ -111,20 +111,45 @@
             <div class="User">
                 <h3>You:</h3>
                 <ul id="actions">
+                    {% if request.user.is_authenticated %}
+                    {% csrf_token %}
+
+                    
                     <li><i class="far fa-plus-square"></i></li>
                     <li><i class="fa-regular fa-star"></i></li>
-                    <li><i class="fa-regular fa-heart"></i></li>
+
+                    {% if fav %}
+                    <div class="fav">
+                        <a href="{% url 'favourite_list' %}" class=""><li><i class="fa-regular fa-heart"></i></li></a>
+                      </div>
+                      {% else %}
+                    <div class="fav">
+                        <a href="{% url 'favourite_add' post.id %}" class="">Add to
+                          Favourties</a>
+                    </div>
+                    {% endif %}
+                                    
                     <li><i class="fa-regular fa-bookmark"></i></li>
+                    
+                    {% else %}
+
+                    <a href="{% url 'register' %}" class="Register">
+                        <li><i class="far fa-plus-square"></i></li>
+                        <li><i class="fa-regular fa-star"></i></li>
+                        <li><i class="fa-regular fa-heart"></i></li>
+                        <li><i class="fa-regular fa-bookmark"></i></li>
+                    </a>
+                    {% endif %}
                 </ul>
             </div>
 
             <div class="Friends">
                 <h3>Friends:</h3>
                 <ul id="actions">
-                    <li><i class="fa-regular fa-bookmark"></i></li>
-                    <li><i class="fa-regular fa-heart"></i></li>
-                    <li><i class="fas fa-heart-broken"></i></li>
+                    <li><i class="far fa-plus-square"></i></li>
                     <li><i class="fa-regular fa-star"></i></li>
+                    <li><i class="fa-regular fa-heart"></i></li>
+                    <li><i class="fa-regular fa-bookmark"></i></li>
                 </ul>
             </div>
         </div>

@@ -219,6 +219,50 @@ def profile(request, id, username):
     )
 
 
+@login_required
+def favorite_add(request, id):
+    fav_show_movie = get_object_or_404(FavoriteList, id=id)
+    
+    if fav_show_movie.favorites.filter(id=request.user.id).exists():
+        fav_show_movie.favorites.remove(request.user)
+    else:
+        fav_show_movie.favorites.add(request.user)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+@login_required
+def favorites_list(request):
+    new = FavoriteList.objects.filter(favorites=request.user)
+    context = {'new':new,}
+
+    return render(request,
+                  'playlists/favorites_list.html',
+                  context
+)
+
+
+## RATINGS Not Likes 
+
+#@login_required
+#def like(request):
+#    if request.POST.get('action') == 'movie_show':
+#        result = ''
+#        id = int(request.POST.get('pl_movie_show_id'))
+#        playlist = get_object_or_404(Post, id=id)
+
+#        if playlist.likes.filter(id=request.user.id).exists():
+#            playlist.likes.remove(request.user)
+#            playlist.like_count -= 1
+#            result = playlist.like_count
+#            playlist.save()
+#        else:
+#            playlist.likes.add(request.user)
+#            playlist.like_count += 1
+#            result = playlist.like_count
+#            playlist.save()
+
+#        return JsonResponse({'result': result, })
+
+
 
 #Don’t forget to add <span class="pre">.env</span> in your 
 #<span class="pre">.gitignore</span> also, it’s advisable to create a 
@@ -226,6 +270,8 @@ def profile(request, id, username):
 
 def MovieDetails(request, movieid):
     assert isinstance(request, HttpRequest)
+
+    fav = get_object_or_404(FavoriteList, movieid=movie_show_id)
     
     details = movie.details(movieid)
     streaming = movie.watch_providers(movieid)
@@ -273,6 +319,7 @@ def MovieDetails(request, movieid):
         'seriesid':seriesid,
         'us_streaming':us_streaming,
         'hours_runtime':hours_runtime,
+        'fav':fav,
     }
 
     return render(
