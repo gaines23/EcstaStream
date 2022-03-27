@@ -14,12 +14,13 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('MainSearchResults', views.MainSearchResults, name='search-results'),
     path('profile/<id>/<username>', views.profile, name='users-profile'),
-    path('bookmarks/<int:id>/', views.favorite_add, name='fav-add'),
-    #path('watchlist/', views.watchlist_list, name='watch-list'),
-    path('favorites/', views.favorites_list, name='fav-list'),
-    #path('like/', views.like, name='like'),
-    path('register/', RegisterView.as_view(), name='users-register'),
     path('MovieDetails/<movieid>', views.MovieDetails, name='MovieDetails'),
+    path('fav/<int:movieid>/', views.favorite_add, name='fav-add'),
+    path('favorites', views.favorites_list, name='fav-list'),
     path('TvDetails/<tvid>', views.TvDetails, name='TvDetails'),
     path('CreditsDetails/<personid>', views.CreditsDetails, name='CreditsDetails'),
+    
+    #path('watchlist/', views.watchlist_list, name='watch-list'),
+    #path('like/', views.like, name='like'),
+    path('register/', RegisterView.as_view(), name='users-register'),
 ]

@@ -119,17 +119,16 @@
                     <li><i class="fa-regular fa-star"></i></li>
 
                     {% if fav %}
-                    <div class="fav">
-                        <a href="{% url 'favourite_list' %}" class=""><li><i class="fa-regular fa-heart"></i></li></a>
-                      </div>
-                      {% else %}
-                    <div class="fav">
-                        <a href="{% url 'favourite_add' post.id %}" class="">Add to
-                          Favourties</a>
-                    </div>
+                    <a href="{% url 'fav-list' %}" class="text-dark">
+                        <li><i class="fa-regular fa-heart"></i></li>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'fav-add' fav.movieid %}" class="text-dark">
+                        <li><i class="fa-regular fa-heart"></i></li>
+                    </a>
                     {% endif %}
                                     
-                    <li><i class="fa-regular fa-bookmark"></i></li>
+                    
                     
                     {% else %}
 

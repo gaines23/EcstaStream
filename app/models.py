@@ -3,8 +3,7 @@ from django.contrib.auth.models import User
 from datetime import date, time, datetime
 from PIL import Image
 from multiselectfield import MultiSelectField
-import jsonfield
-
+from django.contrib.postgres.fields import JSONField
 
 class Collection(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -98,12 +97,13 @@ class Watchlist(models.Model):
     watch_movie_show_id = models.BigIntegerField()
     share = models.BooleanField()
     private = models.BooleanField()
+    date_added = models.DateTimeField(auto_now=True)
     add_watch = models.ManyToManyField(User, related_name="addwatch", default=None)
-    watch_likes = models.ManyToManyField(User, related_name='watchlike', default=None)
+    watch_like = models.ManyToManyField(User, related_name='watchlike', default=None)
     watch_like_count = models.BigIntegerField(default='0')
 
     class Meta:
-        ordering = ['-created_on']
+        ordering = ['-date_added']
 
     def __str__(self):
        return 'WatchList'
@@ -111,35 +111,41 @@ class Watchlist(models.Model):
 class FavoriteList(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    fav_movie_show_id = models.BigIntegerField()
-    share = models.BooleanField()
-    private = models.BooleanField()
-    favorites = models.ManyToManyField(User, related_name="favorite", default=None)
-    fav_likes = models.ManyToManyField(User, related_name='like', default=None)
-    fav_like_count = models.BigIntegerField(default='0')
+    favorites = JSONField(null=True, blank=True)
 
-    class Meta:
-        ordering = ['-created_on']
+#class FavoriteList(models.Model):
+#    id = models.AutoField(primary_key=True)
+#    user = models.OneToOneField(User, on_delete=models.CASCADE)
+#    #movie_show_id = models.BigIntegerField()
+#    share = models.BooleanField()
+#    private = models.BooleanField()
+#    date_added = models.DateTimeField(auto_now=True)
+#    favorites = JSONField(related_name="favorite", default=None)
+#    user_likes = models.ManyToManyField(User, related_name='like', default=None)
+#    user_fav_like_count = models.BigIntegerField(default='0')
+
+#    class Meta:
+#        ordering = ['-date_added']
     
-    def __str__(self):
-        return 'Favorites List'
+#    def __str__(self):
+#        return 'Favorites List'
 
-class Playlists(models.Model):
-    play_list_name = models.TextField(max_length=50)
-    id = models.AutoField(primary_key=True)
-    pl_movie_show_id = models.BigIntegerField()
-    created_by_user = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    share = models.BooleanField()
-    private = models.BooleanField()
-    created_on = models.DateTimeField(auto_now=True)
-    updated_on = models.DateTimeField(auto_now=True)
-    pl_favorites = models.ManyToManyField(User, related_name="favorite", default=None)
-    image_caption = models.CharField(max_length=100),
-    pl_likes = models.ManyToManyField(User, related_name='like', default=None)
-    pl_like_count = models.BigIntegerField(default='0')
+#class Playlists(models.Model):
+#    play_list_name = models.TextField(max_length=50)
+#    id = models.AutoField(primary_key=True)
+#    pl_movie_show_id = models.BigIntegerField()
+#    created_by_user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+#    share = models.BooleanField()
+#    private = models.BooleanField()
+#    created_on = models.DateTimeField(auto_now=True)
+#    updated_on = models.DateTimeField(auto_now=True)
+#    playlist_favorites = models.ManyToManyField(User, related_name="favorite", default=None)
+#    image_caption = models.CharField(max_length=100),
+#    friends_like_playlist = models.ManyToManyField(User, related_name='like', default=None)
+#    playlist_like_count = models.BigIntegerField(default='0')
 
-    def __str__(self):
-        return self.play_list_name + self.id
+#    def __str__(self):
+#        return self.play_list_name + self.id
 
 
 

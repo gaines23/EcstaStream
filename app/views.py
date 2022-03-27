@@ -113,6 +113,26 @@ def MainSearchResults(request):
     
 
 
+@login_required
+def favorites_list(request):
+    new = FavoriteList.objects.filter(favorites=request.user)
+    context = {'new':new,}
+
+    return render(request,
+                  'playlists/favorite_list.html',
+                  context
+)
+
+
+@login_required
+def favorite_add(request, id):
+    fav_show_movie = get_object_or_404(FavoriteList, id=id)
+    
+    if fav_show_movie.favorites.filter(user=request.user.id).exists():
+        fav_show_movie.favorites.remove(request.user)
+    else:
+        fav_show_movie.favorites.add(request.user)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 
@@ -219,27 +239,6 @@ def profile(request, id, username):
     )
 
 
-@login_required
-def favorite_add(request, id):
-    fav_show_movie = get_object_or_404(FavoriteList, id=id)
-    
-    if fav_show_movie.favorites.filter(id=request.user.id).exists():
-        fav_show_movie.favorites.remove(request.user)
-    else:
-        fav_show_movie.favorites.add(request.user)
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])
-
-@login_required
-def favorites_list(request):
-    new = FavoriteList.objects.filter(favorites=request.user)
-    context = {'new':new,}
-
-    return render(request,
-                  'playlists/favorites_list.html',
-                  context
-)
-
-
 ## RATINGS Not Likes 
 
 #@login_required
@@ -271,8 +270,8 @@ def favorites_list(request):
 def MovieDetails(request, movieid):
     assert isinstance(request, HttpRequest)
 
-    fav = get_object_or_404(FavoriteList, movieid=movie_show_id)
-    
+    fav = FavoriteList(movieid)    
+
     details = movie.details(movieid)
     streaming = movie.watch_providers(movieid)
     us_streaming = streaming.results['US']
@@ -425,3 +424,6 @@ def CreditsDetails(request, personid):
         'credits/creditsdetails.html',
         context,
     )
+
+
+
