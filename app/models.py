@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from datetime import date, time, datetime
 from PIL import Image
 from multiselectfield import MultiSelectField
-from django.contrib.postgres.fields import JSONField
+import jsonfield
+from django.contrib.postgres.fields import ArrayField
 
 class Collection(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -76,7 +77,8 @@ class Profile(models.Model):
     fav_genres = models.ForeignKey(Genre, on_delete=models.CASCADE, null=True)
     date_created = models.DateTimeField(auto_now=True)
     last_modified = models.DateTimeField(auto_now=True)
-    #friends
+    #favorite_list = models.JSONField(null=False, default=list)
+    favorite_list = ArrayField(models.IntegerField())
 
     def __str__(self):
         return self.user.username
@@ -90,28 +92,58 @@ class Profile(models.Model):
             new_img = (100, 100)
             img.thumbnail(new_img)
             img.save(self.profpic.path)
+
+
+
+
+
+
+#class FavoriteList(models.Model):
+#    user = models.OneToOneField(User, on_delete=models.CASCADE)
+#    favorites = jsonfield.JSONField(null=True, blank=True, default={})
+
+#    def __str__(self):
+#        return self.user
+
+
+
+
+
+
     
-class Watchlist(models.Model):
-    id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    watch_movie_show_id = models.BigIntegerField()
-    share = models.BooleanField()
-    private = models.BooleanField()
-    date_added = models.DateTimeField(auto_now=True)
-    add_watch = models.ManyToManyField(User, related_name="addwatch", default=None)
-    watch_like = models.ManyToManyField(User, related_name='watchlike', default=None)
-    watch_like_count = models.BigIntegerField(default='0')
+#     favorites = ArrayField(models.IntegerField(),null=True, blank=True, default=list)
 
-    class Meta:
-        ordering = ['-date_added']
 
-    def __str__(self):
-       return 'WatchList'
 
-class FavoriteList(models.Model):
-    id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    favorites = JSONField(null=True, blank=True)
+
+
+#class Watchlist(models.Model):
+#    id = models.AutoField(primary_key=True)
+#    user = models.OneToOneField(User, on_delete=models.CASCADE)
+#    watch_movie_show_id = models.BigIntegerField()
+#    share = models.BooleanField()
+#    private = models.BooleanField()
+#    date_added = models.DateTimeField(auto_now=True)
+#    add_watch = models.ManyToManyField(User, related_name="addwatch", default=None)
+#    watch_like = models.ManyToManyField(User, related_name='watchlike', default=None)
+#    watch_like_count = models.BigIntegerField(default='0')
+
+#    class Meta:
+#        ordering = ['-date_added']
+
+#    def __str__(self):
+#       return 'WatchList'
+
+#class FavoriteList(models.Model):
+#    user = models.OneToOneField(User, on_delete=models.CASCADE)
+#    favorites = jsonfield.JSONField(null=True, blank=True, default={})
+
+#    def __str__(self):
+#        return self.user + 'favorite list'
+
+
+
+
 
 #class FavoriteList(models.Model):
 #    id = models.AutoField(primary_key=True)

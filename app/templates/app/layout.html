@@ -53,17 +53,18 @@
                         </div>
                             
                         <div class="UserLists">
+                            {% if user.is_authenticated %}
                             <div id="watchlist">
                                 <a href="#"><i class="far fa-plus-square"></i> New List</a>
                                 <a href="#" ><i class="fa-regular fa-star"></i> Watchlist</a>
-                                <a href="#" ><i class="fa-regular fa-heart"></i></i> Favorites</a>
+                                <a href="{% url 'fav-list' %}" ><i class="fa-regular fa-heart"></i> Favorites</a>
                                 
                             </div>
 
                             <div class="Playlists">
 
                             </div>
-
+                            {% endif %}
                         </div>
 
                         <div class="Nav-UserLogin">

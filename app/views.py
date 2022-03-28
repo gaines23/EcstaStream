@@ -112,27 +112,35 @@ def MainSearchResults(request):
 
     
 
-
 @login_required
 def favorites_list(request):
-    new = FavoriteList.objects.filter(favorites=request.user)
-    context = {'new':new,}
+    favorite_list = Profile.favorite_list
+
+    for favs in favorite_list:
+        return favs
+
+    context = {'favs':favs,}
 
     return render(request,
                   'playlists/favorite_list.html',
                   context
 )
 
-
 @login_required
-def favorite_add(request, id):
-    fav_show_movie = get_object_or_404(FavoriteList, id=id)
-    
-    if fav_show_movie.favorites.filter(user=request.user.id).exists():
-        fav_show_movie.favorites.remove(request.user)
+def favorite_add(request, movieid):
+    details = movie.details(movieid)
+    movieid = details['movieid']
+
+    add_fav = Profile.objects.filter(favorites__in=[movieid])
+
+    if add_fav.exists():
+        add_fav.remove(movieid)
     else:
-        fav_show_movie.favorites.add(request.user)
+        add_fav.add(movieid)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+
 
 
 
@@ -205,9 +213,7 @@ def profile(request, id, username):
     userid = User.objects.get(id=id)
 
     model = Profile
-    profid = Profile.objects.get(id=id)
-
-    #new = Post.objects.filter(favorites=request.user)
+    profid = Profile.objects.get(user=id)
 
     if request.method == 'POST' and 'edit' in request.POST:
         user_form = UpdateUserForm(request.POST, instance=userid)
@@ -230,7 +236,6 @@ def profile(request, id, username):
             'profid': profid,
             'user_form': user_form, 
             'profile_form': profile_form,
-            #'new': new,
         }
 
     return render(request, 
@@ -270,14 +275,20 @@ def profile(request, id, username):
 def MovieDetails(request, movieid):
     assert isinstance(request, HttpRequest)
 
-    fav = FavoriteList(movieid)    
-
     details = movie.details(movieid)
     streaming = movie.watch_providers(movieid)
     us_streaming = streaming.results['US']
     credits = details['credits']
     trailers = details['videos']
+
+    favorites = Profile.favorite_list
+
+    fav = bool
     
+
+    if movieid in favorites:
+        fav = True
+
     mov_seriesID = details.belongs_to_collection['id']
     seriesid = series.details(mov_seriesID)
     

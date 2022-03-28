@@ -104,10 +104,11 @@ class UpdateProfileForm(forms.ModelForm):
     bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
     streaming_services = forms.ModelMultipleChoiceField(queryset=StreamingServices.objects.all(), required=False, widget=forms.CheckboxSelectMultiple)
     fav_genres = forms.ModelMultipleChoiceField(queryset=Genre.objects.all(), required=False, widget=forms.CheckboxSelectMultiple)
+    
 
     class Meta:
         model = Profile
-        fields = ['profpic', 'bio', 'id', 'streaming_services', 'fav_genres']
+        fields = ['profpic', 'bio', 'id', 'streaming_services', 'fav_genres', 'favorite_list']
 
 #class FavoritePlaylist(forms.ModelForm):
 #     share = forms.BooleanField()
