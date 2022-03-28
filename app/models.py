@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from datetime import date, time, datetime
 from PIL import Image
 from multiselectfield import MultiSelectField
-import jsonfield
+#import jsonfield
 from django.contrib.postgres.fields import ArrayField
 
 class Collection(models.Model):
@@ -78,7 +78,7 @@ class Profile(models.Model):
     date_created = models.DateTimeField(auto_now=True)
     last_modified = models.DateTimeField(auto_now=True)
     #favorite_list = models.JSONField(null=False, default=list)
-    favorite_list = ArrayField(models.IntegerField())
+    favorite_list = ArrayField(models.IntegerField(), null=True, blank=True, default=list)
 
     def __str__(self):
         return self.user.username

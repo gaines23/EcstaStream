@@ -112,37 +112,6 @@ def MainSearchResults(request):
 
     
 
-@login_required
-def favorites_list(request):
-    favorite_list = Profile.favorite_list
-
-    for favs in favorite_list:
-        return favs
-
-    context = {'favs':favs,}
-
-    return render(request,
-                  'playlists/favorite_list.html',
-                  context
-)
-
-@login_required
-def favorite_add(request, movieid):
-    details = movie.details(movieid)
-    movieid = details['movieid']
-
-    add_fav = Profile.objects.filter(favorites__in=[movieid])
-
-    if add_fav.exists():
-        add_fav.remove(movieid)
-    else:
-        add_fav.add(movieid)
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])
-
-
-
-
-
 
 
 ## LOGIN/LOGOUT ##
@@ -244,6 +213,38 @@ def profile(request, id, username):
     )
 
 
+@login_required
+def favorites_list(request):
+    model = Profile
+    favs = Profile.favorite_list
+    
+    context = {'favs':favs,}
+
+    return render(request,
+                  'playlists/favorite_list.html',
+                  context
+)
+
+@login_required
+def favorite_add(request, movieid):
+    details = movie.details(movieid)
+    movieid = details['id']
+
+    fav_list = Profile.objects.all()
+
+    if fav_list.filter(favorite_list__icontains={movieid}):
+        fav_list.remove(movieid)
+    else:
+        fav_list.update(favorite_list=[movieid])
+
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+
+
+
+
+
 ## RATINGS Not Likes 
 
 #@login_required
@@ -281,12 +282,11 @@ def MovieDetails(request, movieid):
     credits = details['credits']
     trailers = details['videos']
 
-    favorites = Profile.favorite_list
+    favorites = Profile.objects.all()
 
     fav = bool
-    
 
-    if movieid in favorites:
+    if favorites.filter(favorite_list__icontains={movieid}):
         fav = True
 
     mov_seriesID = details.belongs_to_collection['id']
