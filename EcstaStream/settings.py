@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'EcstaStream',
     'multiselectfield',
     'social_django',
+    'rest_framework',
 ]
 
 # Middleware framework

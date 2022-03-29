@@ -108,7 +108,17 @@ class UpdateProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['profpic', 'bio', 'id', 'streaming_services', 'fav_genres', 'favorite_list']
+        fields = ['profpic', 'bio', 'id', 'streaming_services', 'fav_genres', ]
+
+
+class FavoritePlaylistForm(forms.ModelForm):
+
+    class Meta:
+        model = FavoriteList
+        fields = ['user', 'favorites', ]
+
+
+
 
 #class FavoritePlaylist(forms.ModelForm):
 #     share = forms.BooleanField()

@@ -31,7 +31,7 @@ import os
 import environ
 from django.db.models.functions import ExtractYear
 from tmdbv3api.tmdb import TMDb
-
+from .serializers import *
 
 
 env = environ.Env()
@@ -215,27 +215,37 @@ def profile(request, id, username):
 
 @login_required
 def favorites_list(request):
-    model = Profile
-    favs = Profile.favorite_list
+    favs = FavoriteList.objects.all()
+    fav_form = FavoritePlaylistForm()
     
     context = {'favs':favs,}
 
     return render(request,
                   'playlists/favorite_list.html',
                   context
-)
+    )
 
 @login_required
 def favorite_add(request, movieid):
     details = movie.details(movieid)
     movieid = details['id']
+    title = details['title']
+    genres = details['genres']
+    release_date = details['release_date'] 
+    poster_path = details['poster_path']
+    tagline = details['tagline']
 
-    fav_list = Profile.objects.all()
-
-    if fav_list.filter(favorite_list__icontains={movieid}):
+    favmodel = FavoriteList.objects.all()
+    fav_list = FavoriteList.favorites
+    #fav_dict = {movieid:{title, genres, release_date, poster_path, tagline}}
+    
+    if favmodel.filter(favorites__icontains={movieid}):
         fav_list.remove(movieid)
     else:
-        fav_list.update(favorite_list=[movieid])
+        favmodel.update(favorites=[movieid, title, genres, release_date, poster_path, tagline])
+        
+        #
+#        fav_list.favorites.update([movieid].append(details['title']))
 
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
@@ -282,12 +292,15 @@ def MovieDetails(request, movieid):
     credits = details['credits']
     trailers = details['videos']
 
-    favorites = Profile.objects.all()
-
+    favorited = FavoriteList.objects.all()
     fav = bool
-
-    if favorites.filter(favorite_list__icontains={movieid}):
+    if favorited.filter(favorites__icontains={movieid}):
         fav = True
+
+    #seriesid = []
+    #if mov in details.belongs_to_collection['id']:
+    #    for x in mov:
+    #        seriesid.append(series.details(x))
 
     mov_seriesID = details.belongs_to_collection['id']
     seriesid = series.details(mov_seriesID)
@@ -326,7 +339,7 @@ def MovieDetails(request, movieid):
         'trailers':trailers,
         'streaming':streaming,
         'credits':credits,
-        'seriesid':seriesid,
+        #'seriesid':seriesid,
         'us_streaming':us_streaming,
         'hours_runtime':hours_runtime,
         'fav':fav,
