@@ -110,8 +110,16 @@ class FavoriteList(models.Model):
         return self.user
 
 
+class MoviesList(models.Model):
+    movieid = models.BigIntegerField(primary_key=True)
+    title = models.CharField(max_length=30)
+    genre_list = JSONField(max_length=100)
+    release_date = models.DateTimeField()
+    poster_path = models.CharField(max_length=100)
+    tagline = models.TextField()
 
-
+    def __str__(self):
+        return self.movieid + self.title
 
 
     

@@ -105,17 +105,21 @@ class UpdateProfileForm(forms.ModelForm):
     streaming_services = forms.ModelMultipleChoiceField(queryset=StreamingServices.objects.all(), required=False, widget=forms.CheckboxSelectMultiple)
     fav_genres = forms.ModelMultipleChoiceField(queryset=Genre.objects.all(), required=False, widget=forms.CheckboxSelectMultiple)
     
-
     class Meta:
         model = Profile
         fields = ['profpic', 'bio', 'id', 'streaming_services', 'fav_genres', ]
 
 
 class FavoritePlaylistForm(forms.ModelForm):
-
     class Meta:
         model = FavoriteList
         fields = ['user', 'favorites', ]
+
+class MovieListForm(forms.ModelForm):
+    class Meta:
+        model = MoviesList
+        fields = ['movieid', 'title', 'genre_list', 'release_date', 'poster_path', 'tagline',]
+
 
 
 
