@@ -226,21 +226,23 @@ def favorites_list(request):
     )
 
 @login_required
-#@api_view(['GET'])
 def favorite_add(request, movieid):
     details = movie.details(movieid)
     movieid = details['id']
-    favs = FavoriteList.objects.get(request.user.id)
-    favlist = favs.favorites
 
-    if favs.filter(movieid=favlist):
-        favs.remove(favorites=movieid)
+    favmodel = FavoriteList.objects.all()
+    #fav_list = FavoriteList.favorites
+    #fav_dict = {movieid:{title, genres, release_date, poster_path, tagline}}
+    
+    if favmodel.filter(favorites__icontains={movieid}):
+         FavoriteList.objects.remove({movieid})
     else:
-        favs.objects.add(favorites=movieid)
+        favmodel.update(favorites=movie.details(movieid))
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])   
 
 
 
-
+#@api_view(['GET'])
     #model = User
     #userid = User.objects.get(id=id)
 

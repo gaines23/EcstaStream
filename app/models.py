@@ -104,7 +104,8 @@ class Profile(models.Model):
 
 class FavoriteList(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    favorites = ArrayField(models.IntegerField(), null=True, blank=True, default=list)
+    #favorites = JSONField(blank=True, default=list)
+    favorites = ArrayField(models.JSONField(default=list), null=True, blank=True, default=list)
 
     def __str__(self):
         return self.user
