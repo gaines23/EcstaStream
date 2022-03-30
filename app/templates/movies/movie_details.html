@@ -333,6 +333,12 @@ https://youtu.be/zsrdBGr8NIk
 
 <div class="SeriesInfo">
     <div class="SeriesContainer">
+        {% if m in mov_seriesID == '' %}
+
+            <div class="none" style="display: none";></div>
+
+        {% else %}
+
         <div class="SeriesSummary">        
             <div class="title"><p><b>{{ seriesid.name }}</b></p></div>
         </div>
@@ -342,6 +348,7 @@ https://youtu.be/zsrdBGr8NIk
             <div class="Series-Container" id="series-cards-container">
             
               <div class="Series-Cards" id="series-cards">
+
                 {% for s in seriesid.parts %}
                 <a href="/MovieDetails/{{s.id}}">    
                     <div class="Series-Card" id="series-card">
@@ -363,6 +370,8 @@ https://youtu.be/zsrdBGr8NIk
 
 
         </span>
+
+        {% endif %}
     </div>
 </div>
 

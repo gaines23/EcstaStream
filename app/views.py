@@ -214,7 +214,6 @@ def profile(request, id, username):
 
 
 @login_required
-#@api_view(['GET'])
 def favorites_list(request):
     favs = FavoriteList.objects.all()
     fav_form = MovieListForm()
@@ -227,19 +226,36 @@ def favorites_list(request):
     )
 
 @login_required
+#@api_view(['GET'])
 def favorite_add(request, movieid):
     details = movie.details(movieid)
     movieid = details['id']
+    favs = FavoriteList.objects.get(request.user.id)
+    favlist = favs.favorites
 
-    favmodel = FavoriteList.objects.all()
-    fav_list = FavoriteList.favorites
-    #fav_dict = {movieid:{title, genres, release_date, poster_path, tagline}}
-    
-    if favmodel.filter(favorites__icontains={movieid}):
-        fav_list.remove(movieid)
+    if favs.filter(movieid=favlist):
+        favs.remove(favorites=movieid)
     else:
-        favmodel.update(favorites=movieid)
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])        
+        favs.objects.add(favorites=movieid)
+
+
+
+
+    #model = User
+    #userid = User.objects.get(id=id)
+
+
+    #favmodel = FavoriteList.objects.all()
+    #fav_list = FavoriteList.favorites
+    ##fav_dict = {movieid:{title, genres, release_date, poster_path, tagline}}
+    
+    #if favmodel.filter(favorites__icontains={movieid}):
+    #    fav_list.remove(movieid)
+    #else:
+    #    FavoriteList.objects.add(user=userid)
+    #return HttpResponseRedirect(request.META['HTTP_REFERER'])   
+
+
         #favmodel.update(favorites=[movieid, title, genres, release_date, poster_path, tagline])
 #        fav_list.favorites.update([movieid].append(details['title']))
 
@@ -279,6 +295,7 @@ def favorite_add(request, movieid):
 #<span class="pre">.gitignore</span> also, it’s advisable to create a 
 #.env.example with a template of all the variables required for the project.
 
+
 def MovieDetails(request, movieid):
     assert isinstance(request, HttpRequest)
 
@@ -287,20 +304,11 @@ def MovieDetails(request, movieid):
     us_streaming = streaming.results['US']
     credits = details['credits']
     trailers = details['videos']
-
-    mov_seriesID = details.belongs_to_collection['id']
-    seriesid = series.details(mov_seriesID)
     
     favorited = FavoriteList.objects.all()
     fav = bool
     if favorited.filter(favorites__icontains={movieid}):
         fav = True
-
-    #seriesid = []
-    #if mov in details.belongs_to_collection['id']:
-    #    for x in mov:
-    #        seriesid.append(series.details(x))
-
 
     runtime = details.runtime
     hours = runtime // 60
@@ -327,6 +335,16 @@ def MovieDetails(request, movieid):
     smlrobj = []
     for result in details['similar']:
         smlrobj.append(result)
+
+    mov_seriesID = []
+    seriesid = []
+
+    try:
+        mov_seriesID.append(details.belongs_to_collection['id'])
+        x = series.details(mov_seriesID)
+        seriesid.append(x)
+    except Exception as e:
+        pass
 
     context = {
         'details': details,
@@ -358,7 +376,13 @@ def TvDetails(request, tvid):
     trailers = details.videos
     credits = details.credits
     external_id = details.external_ids
-    series = details.seasons
+
+    series = []
+
+    try:
+        series.append(details.seasons)
+    except Exception as e:
+        pass
     
     imdbid = external_id.imdb_id
     us_streaming = streaming.results['US']

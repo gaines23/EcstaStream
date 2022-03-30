@@ -104,7 +104,7 @@ class Profile(models.Model):
 
 class FavoriteList(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    favorites = JSONField()
+    favorites = ArrayField(models.IntegerField(), null=True, blank=True, default=list)
 
     def __str__(self):
         return self.user
@@ -120,6 +120,13 @@ class MoviesList(models.Model):
 
     def __str__(self):
         return self.movieid + self.title
+
+
+
+
+
+
+
 
 
     
