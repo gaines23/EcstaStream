@@ -215,18 +215,18 @@ def profile(request, id, username):
 
 @login_required
 def favorite_add(request, movieid):
-    fav_user = FavoriteListData.objects.get(Q(user=request.user))
-    fav_model = FavoriteListData.objects.get(Q(user=request.user))
+    fav_model = FavoriteListData.objects.all()
 
-    if fav_model.objects.get(Q(favorites=movieid)).exists():
-        FavoriteListData.objects.get(Q(user=request.user) & Q(favorites=movieid)).remove()
+    if fav_model.filter(Q(user=request.user)).get(Q(favorites=movieid)).exists():
+        fav_model.filter(Q(user=request.user)).get(Q(favorites=movieid)).delete()
     else:
-        fav_user.create(user=request.user, favorites=movieid)
+        fav_model.create(user=request.user, favorites=movieid)
     return HttpResponseRedirect(request.META['HTTP_REFERER']) 
 
 @login_required
 def favorites_list(request):
-    favs = FavoriteListData.objects.get(Q(user=request.user))
+    favs = FavoriteListData.objects.filter(Q(user=request.user))
+    form = FavoritePlaylistForm
     #mov_details = movie.details({movieid})
     
     context = {'favs':favs,}
