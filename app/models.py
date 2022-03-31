@@ -103,18 +103,25 @@ class Profile(models.Model):
 
 
 class FavoriteListData(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    class NewManager(models.Manager):
+        def get_queryset(self):
+            return super().get_queryset()
+
+    favid = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     favorites = models.IntegerField()
     date_added = models.DateTimeField(auto_now=True)
+    objects = models.Manager()  # default manager
+    newmanager = NewManager()  # custom manager
 
     def __str__(self):
-        return self.user
+        return self.user.username
 
     #favorites = models.IntegerField()
     #date_added = models.DateTimeField(auto_now=True)
 
 class UserFavoritesList(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     favorites = JSONField(default=list, null=True, blank=True)
 ### add user settings/preferences 
 

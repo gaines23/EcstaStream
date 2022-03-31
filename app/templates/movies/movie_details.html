@@ -119,7 +119,7 @@
                     <li><i class="fa-regular fa-star"></i></li>
 
                     {% if fav %}
-                        <a href="{% url 'favorite_list' %}" class="text-dark">
+                        <a href="{% url 'fav-list' %}" class="text-dark">
                             <li><i class="fa-regular fa-heart"></i></li>
                         </a>
                     {% else %}
@@ -329,12 +329,13 @@ https://youtu.be/zsrdBGr8NIk
 
 
 <div class="SeriesInfo">
+    {% if m in mov_seriesID == '' %}
+
+        <div class="none" style="display: none";></div>
+
+    {% else %}    
     <div class="SeriesContainer">
-        {% if m in mov_seriesID == '' %}
 
-            <div class="none" style="display: none";></div>
-
-        {% else %}
 
         <div class="SeriesSummary">        
             <div class="title"><p><b>{{ seriesid.name }}</b></p></div>
@@ -359,17 +360,14 @@ https://youtu.be/zsrdBGr8NIk
                        
                     </div>
                 </a>
-                {% endfor %}
+                
               </div>
 
-                
+                {% endfor %}
             </div>
-
-
         </span>
-
-        {% endif %}
     </div>
+    {% endif %}
 </div>
 
 

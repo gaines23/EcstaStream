@@ -215,21 +215,21 @@ def profile(request, id, username):
 
 @login_required
 def favorite_add(request, movieid):
-    #details = list([movie.details(movieid)])
-    favmodel = FavoriteListData.objects.all()
+    fav_user = FavoriteListData.objects.get(Q(user=request.user))
+    fav_model = FavoriteListData.objects.get(Q(user=request.user))
 
-    if favmodel.filter(favorites=movieid).exists():
-        favmodel.remove(favorites=movieid)
+    if fav_model.objects.get(Q(favorites=movieid)).exists():
+        FavoriteListData.objects.get(Q(user=request.user) & Q(favorites=movieid)).remove()
     else:
-        favmodel.create(user=request.user, favorites=movieid)
+        fav_user.create(user=request.user, favorites=movieid)
     return HttpResponseRedirect(request.META['HTTP_REFERER']) 
 
 @login_required
 def favorites_list(request):
-    favs = FavoriteListData.objects.all()
-    fav_form = FavoritePlaylistForm()
+    favs = FavoriteListData.objects.get(Q(user=request.user))
+    #mov_details = movie.details({movieid})
     
-    context = {'favs':favs,'fav_form':fav_form}
+    context = {'favs':favs,}
 
     return render(request,
                   'playlists/favorite_list.html',
@@ -237,40 +237,7 @@ def favorites_list(request):
     )
 
 
-  
-            #fav_list = FavoriteList.favorites
-    #fav_dict = {movieid:{title, genres, release_date, poster_path, tagline}}
-        #if favmodel.filter(favorites__icontains={movieid}):
-        #     favmodel.objects.remove({movieid})
-        #else:   userid=request.user.id, 
-        #    FavoritePlaylistForm.save()
-        #return HttpResponseRedirect(request.META['HTTP_REFERER'])   
-#favmodel.update(favorites=[detailsid])
-
-
-#@api_view(['GET'])
-    #model = User
-    #userid = User.objects.get(id=id)
-
-
-    #favmodel = FavoriteList.objects.all()
-    #fav_list = FavoriteList.favorites
-    ##fav_dict = {movieid:{title, genres, release_date, poster_path, tagline}}
-    
-    #if favmodel.filter(favorites__icontains={movieid}):
-    #    fav_list.remove(movieid)
-    #else:
-    #    FavoriteList.objects.add(user=userid)
-    #return HttpResponseRedirect(request.META['HTTP_REFERER'])   
-
-
-        #favmodel.update(favorites=[movieid, title, genres, release_date, poster_path, tagline])
-#        fav_list.favorites.update([movieid].append(details['title']))
-
-
-
-
-
+#     if favmodel.filter(user__icontains={'user':request.user}, favorites__icontains={ 'favorites':movieid}).exists():
 
 
 
