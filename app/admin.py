@@ -4,7 +4,8 @@ from django.contrib.admin import AdminSite
 from .models import *
 
 admin.site.register(Profile)
-admin.site.register(FavoriteList)
+admin.site.register(FavoriteListData)
+admin.site.register(UserFavoritesList)
 admin.site.register(MoviesList)
 admin.site.register(Genre)
 admin.site.register(StreamingServices)

@@ -102,13 +102,21 @@ class Profile(models.Model):
 
 
 
-class FavoriteList(models.Model):
+class FavoriteListData(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    #favorites = JSONField(blank=True, default=list)
-    favorites = ArrayField(models.JSONField(default=list), null=True, blank=True, default=list)
+    favorites = models.IntegerField()
+    date_added = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.user
+
+    #favorites = models.IntegerField()
+    #date_added = models.DateTimeField(auto_now=True)
+
+class UserFavoritesList(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    favorites = JSONField(default=list, null=True, blank=True)
+### add user settings/preferences 
 
 
 class MoviesList(models.Model):

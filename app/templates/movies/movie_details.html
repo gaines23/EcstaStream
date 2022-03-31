@@ -119,16 +119,13 @@
                     <li><i class="fa-regular fa-star"></i></li>
 
                     {% if fav %}
-                      <a href="{% url 'favorite_list' %}" class="text-dark">
-                        <li><i class="fa-regular fa-heart"></i></li>
-                      </a>
-
+                        <a href="{% url 'favorite_list' %}" class="text-dark">
+                            <li><i class="fa-regular fa-heart"></i></li>
+                        </a>
                     {% else %}
-
-                    <a class="Fav" href="{% url 'fav-add' details.id %}" class="text-dark">
-                        <li><i class="fa-regular fa-heart"></i></li>
-                    </a>
-                    
+                        <a class="Fav" href="{% url 'fav-add' details.id %}" class="text-dark">
+                            <li><i class="fa-regular fa-heart"></i></li>
+                        </a>
                     {% endif %}
                                     
                     <a href="{% url 'users-register' %}" class="Register">

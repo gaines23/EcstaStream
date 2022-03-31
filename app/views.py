@@ -214,32 +214,38 @@ def profile(request, id, username):
 
 
 @login_required
+def favorite_add(request, movieid):
+    #details = list([movie.details(movieid)])
+    favmodel = FavoriteListData.objects.all()
+
+    if favmodel.filter(favorites=movieid).exists():
+        favmodel.remove(favorites=movieid)
+    else:
+        favmodel.create(user=request.user, favorites=movieid)
+    return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+
+@login_required
 def favorites_list(request):
-    favs = FavoriteList.objects.all()
-    fav_form = MovieListForm()
+    favs = FavoriteListData.objects.all()
+    fav_form = FavoritePlaylistForm()
     
-    context = {'favs':favs,}
+    context = {'favs':favs,'fav_form':fav_form}
 
     return render(request,
                   'playlists/favorite_list.html',
                   context
     )
 
-@login_required
-def favorite_add(request, movieid):
-    details = movie.details(movieid)
-    movieid = details['id']
 
-    favmodel = FavoriteList.objects.all()
-    #fav_list = FavoriteList.favorites
+  
+            #fav_list = FavoriteList.favorites
     #fav_dict = {movieid:{title, genres, release_date, poster_path, tagline}}
-    
-    if favmodel.filter(favorites__icontains={movieid}):
-         FavoriteList.objects.remove({movieid})
-    else:
-        favmodel.update(favorites=movie.details(movieid))
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])   
-
+        #if favmodel.filter(favorites__icontains={movieid}):
+        #     favmodel.objects.remove({movieid})
+        #else:   userid=request.user.id, 
+        #    FavoritePlaylistForm.save()
+        #return HttpResponseRedirect(request.META['HTTP_REFERER'])   
+#favmodel.update(favorites=[detailsid])
 
 
 #@api_view(['GET'])
@@ -307,10 +313,11 @@ def MovieDetails(request, movieid):
     credits = details['credits']
     trailers = details['videos']
     
-    favorited = FavoriteList.objects.all()
+    favorited = FavoriteListData.objects.all()
     fav = bool
-    if favorited.filter(favorites__icontains={movieid}):
+    if favorited.filter(favorites=movieid).exists():
         fav = True
+
 
     runtime = details.runtime
     hours = runtime // 60
