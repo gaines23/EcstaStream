@@ -84,8 +84,6 @@ class Profile(models.Model):
     fav_genres = models.ForeignKey(Genre, on_delete=models.CASCADE, null=True)
     date_created = models.DateTimeField(auto_now=True)
     last_modified = models.DateTimeField(auto_now=True)
-    #favorite_list = models.JSONField(null=False, default=list)
-    #favorite_list = ArrayField(models.IntegerField(), null=True, blank=True, default=list)
 
     def __str__(self):
         return self.user.username
@@ -103,22 +101,20 @@ class Profile(models.Model):
 
 
 class FavoriteListData(models.Model):
-    class NewManager(models.Manager):
-        def get_queryset(self):
-            return super().get_queryset()
+    favChoices = (
+        (1,'Movie'),
+        (2, 'TV')
+    )
 
     favid = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    favorites = models.IntegerField()
+    mov_show_id = models.IntegerField()
     date_added = models.DateTimeField(auto_now=True)
-    objects = models.Manager()  # default manager
-    newmanager = NewManager()  # custom manager
+    fav_type = models.IntegerField(null=True, blank=True, choices=favChoices)
 
     def __str__(self):
         return self.user.username
 
-    #favorites = models.IntegerField()
-    #date_added = models.DateTimeField(auto_now=True)
 
 class UserFavoritesList(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

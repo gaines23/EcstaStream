@@ -10,13 +10,44 @@
 
 <header>
 
-	<h1>Watchlist</h1>
+	<h1>Favorites List</h1>
 </header>
+
+<div class="FavSearch">
+
+	<form class="FavFind" id="favfind">
+
+
+	</form>
+
+</div>
 
 
 <div class="PlaylistSection">
+            
+   <div class="PosterInfo" id="posterinfo">
+    {% if fav.fav_type == 'Movie' %}  
+    	{% for fav in favs %}              
+		<!-- {% for fav.mov_show_id in movieid.movieid %} {% endfor %}-->
 
-	{{}}
+
+	    <a href="/MovieDetails/{{fav.mov_show_id}}">
+	        <div class="card" id="card">
+	            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
+		        <div class="info-container">
+		            <h4>
+		        <b style="font-size: 15px">{{ fav.title }}</b><br>
+		            <i style="font-size: 12px">({{ fav.release_date | slice:':4' }})</i>
+		        	</h4>
+		        </div>
+	        </div>
+	    </a>
+	    
+		{% endfor %}
+	{% endif %}
+
+	</div>
+
 </div>
 
 

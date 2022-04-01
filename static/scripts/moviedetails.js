@@ -1,4 +1,4 @@
-var section = $('li');
+var section = $('.StreamingServices li');
 
 function toggleAccordion() {
   section.removeClass('active');

@@ -24,7 +24,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q, F
-from .filter import *
+from .filters import *
 from django.contrib.admin.views.decorators import staff_member_required
 from tmdbv3api import *
 import os
@@ -215,27 +215,45 @@ def profile(request, id, username):
 
 @login_required
 def favorite_add(request, movieid):
+    assert isinstance(request, HttpRequest)
+
     fav_model = FavoriteListData.objects.all()
 
-    if fav_model.filter(Q(user=request.user)).get(Q(favorites=movieid)).exists():
-        fav_model.filter(Q(user=request.user)).get(Q(favorites=movieid)).delete()
+    if fav_model.filter(Q(user=request.user) & Q(mov_show_id=movieid)).exists():
+        fav_model.filter(Q(mov_show_id=movieid) & Q(user=request.user)).delete()
+        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
     else:
-        fav_model.create(user=request.user, favorites=movieid)
-    return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+        fav_model.create(user=request.user, mov_show_id=movieid, fav_type=1)
+        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+ 
 
 @login_required
 def favorites_list(request):
-    favs = FavoriteListData.objects.filter(Q(user=request.user))
-    form = FavoritePlaylistForm
+    assert isinstance(request, HttpRequest)
+
+    fav_list = list(FavoriteListData.objects.filter(Q(user=request.user)))
+    favs = list(sorted(fav_list, key = lambda x: x.date_added, reverse=True))
+
+    movieid = movie.details
+    
+    form = FavoritePlaylistForm(request.GET)
     #mov_details = movie.details({movieid})
     
-    context = {'favs':favs,}
+    context = {'favs':favs,
+               'fav_list':fav_list,
+               'form':form,
+               'movieid':movieid,
+    }
 
     return render(request,
                   'playlists/favorite_list.html',
                   context
     )
 
+
+    #fav_list = FavoriteListData.objects.filter(user=request.user)
+    #favs_filtered = list(filter(lambda x: (x.user, x.favorites), fav_list))
+    #favs = sorted(favs_filtered, key = lambda x: x.date_added, reverse=True)
 
 #     if favmodel.filter(user__icontains={'user':request.user}, favorites__icontains={ 'favorites':movieid}).exists():
 
@@ -282,9 +300,9 @@ def MovieDetails(request, movieid):
     
     favorited = FavoriteListData.objects.all()
     fav = bool
-    if favorited.filter(favorites=movieid).exists():
-        fav = True
 
+    if favorited.filter(Q(mov_show_id=movieid)).exists():
+        fav = True
 
     runtime = details.runtime
     hours = runtime // 60

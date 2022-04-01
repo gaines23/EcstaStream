@@ -42,7 +42,7 @@
     <Compile Include="app\apps.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\filter.py">
+    <Compile Include="app\filters.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\serializers.py">
