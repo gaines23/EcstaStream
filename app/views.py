@@ -214,7 +214,7 @@ def profile(request, id, username):
 
 
 @login_required
-def favorite_add(request, movieid):
+def favorite_add_movie(request, movieid):
     assert isinstance(request, HttpRequest)
 
     fav_model = FavoriteListData.objects.all()
@@ -225,6 +225,20 @@ def favorite_add(request, movieid):
     else:
         fav_model.create(user=request.user, mov_show_id=movieid, fav_type=1)
         return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+
+
+@login_required
+def favorite_add_tv(request, tvid):
+    assert isinstance(request, HttpRequest)
+
+    fav_model = FavoriteListData.objects.all()
+
+    if fav_model.filter(Q(user=request.user) & Q(mov_show_id=tvid)).exists():
+        fav_model.filter(Q(mov_show_id=tvid) & Q(user=request.user)).delete()
+        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+    else:
+        fav_model.create(user=request.user, mov_show_id=tvid, fav_type=2)
+        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
  
 
 @login_required
@@ -234,15 +248,26 @@ def favorites_list(request):
     fav_list = list(FavoriteListData.objects.filter(Q(user=request.user)))
     favs = list(sorted(fav_list, key = lambda x: x.date_added, reverse=True))
 
-    movieid = movie.details
-    
-    form = FavoritePlaylistForm(request.GET)
-    #mov_details = movie.details({movieid})
+    mov_details = []
+    tv_details = []
+    details = []
+    try:
+        for x in favs:
+            id = x.mov_show_id
+            if x.fav_type == 1:
+                mov_details.append([movie.details(id), movie.watch_providers(id).results['US']])
+            else:
+                tv_details.append([tv.details(id), tv.watch_providers(id).results['US']])
+
+            details.append(mov_details, tv_details)
+    except Exception as e:
+        pass
     
     context = {'favs':favs,
                'fav_list':fav_list,
-               'form':form,
-               'movieid':movieid,
+               'mov_details':mov_details,
+               'tv_details':tv_details,
+               'details':details,
     }
 
     return render(request,
@@ -370,6 +395,12 @@ def TvDetails(request, tvid):
     trailers = details.videos
     credits = details.credits
     external_id = details.external_ids
+
+    favorited = FavoriteListData.objects.all()
+    fav = bool
+
+    if favorited.filter(Q(mov_show_id=tvid)).exists():
+        fav = True
 
     series = []
 

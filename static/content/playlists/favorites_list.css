@@ -1,4 +1,30 @@
-.PlaylistSection .PosterInfo {
+.PlaylistSection {
+    width: 70%;
+    margin: auto;
+    background-color: rgb(73 6 203 / 20%);
+    border-radius: 15px;
+/*    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
+*/
+}
+
+.PlaylistSection a {
+    text-decoration: none;
+    color: white;
+}
+
+.PlaylistSection .Info {
+    height: 100%;
+    width: 80%;
+    list-style: none;
+    display: inline-flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+}
+
+.PlaylistSection .Info .PosterInfo {
     width: 33%;
     height: 100%;
     margin-bottom: 20px;
@@ -7,12 +33,12 @@
     display: inline-grid;
 }
 
-.PlaylistSection .PosterInfo > .StreamingInfo {
+.Info .PosterInfo > .StreamingInfo {
     display: none;
     position: absolute;
 }
 
-.PlaylistSection .PosterInfo .card {
+.PlaylistSection .Info .PosterInfo .card {
     background: rgba(255, 255, 255, .25);
     height: 230px;
     border: 1px solid rgb(255 255 255 / 35%);
@@ -26,7 +52,7 @@
     backdrop-filter: revert;
 }
 
-.PlaylistSection .PosterInfo .card:hover {
+.PlaylistSection .Info .PosterInfo .card:hover {
     -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 25%);
     box-shadow: 0px 0px 2px 3px #f8f9fa73;
     cursor: pointer;
@@ -38,7 +64,7 @@
         radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
 }
 
-.ListSection .PosterInfo .card img {
+.PlaylistSection .Info .PosterInfo .card img {
     width: 85%;
     height: 68%;
     object-fit: cover;
@@ -49,13 +75,15 @@
     border-radius: 20px;
 }
 
-.PlaylistSection .PosterInfo .card .info-container {
+.PlaylistSection .Info .PosterInfo .card .info-container {
     text-align: center;
     height: 35%;
     padding-top: 5px;
 }
 
-.PlaylistSection .PosterInfo:hover > .StreamingInfo {
+
+
+.PlaylistSection .Info .PosterInfo:hover > .StreamingInfo {
     display: contents;
     margin-top: 255px;
     margin-right: auto;
@@ -171,4 +199,3 @@
     -webkit-backdrop-filter: revert;
     backdrop-filter: revert;
 }
-

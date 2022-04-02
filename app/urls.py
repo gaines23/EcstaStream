@@ -15,9 +15,10 @@ urlpatterns = [
     path('MainSearchResults', views.MainSearchResults, name='search-results'),
     path('profile/<id>/<username>', views.profile, name='users-profile'),
     path('MovieDetails/<movieid>', views.MovieDetails, name='MovieDetails'),
-    path('fav/<int:movieid>/', views.favorite_add, name='fav-add'),
-    path('favorites', views.favorites_list, name='fav-list'),
     path('TvDetails/<tvid>', views.TvDetails, name='TvDetails'),
+    path('fav/<int:movieid>/', views.favorite_add_movie, name='fav-add-movie'),
+    path('fav/<int:tvid>/', views.favorite_add_tv, name='fav-add-tv'),
+    path('favorites', views.favorites_list, name='fav-list'),
     path('CreditsDetails/<personid>', views.CreditsDetails, name='CreditsDetails'),
     
     #path('watchlist/', views.watchlist_list, name='watch-list'),
