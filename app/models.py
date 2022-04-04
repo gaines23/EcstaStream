@@ -109,6 +109,7 @@ class FavoriteListData(models.Model):
     favid = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     mov_show_id = models.IntegerField()
+    title = models.CharField(max_length=100)
     date_added = models.DateTimeField(auto_now=True)
     fav_type = models.IntegerField(null=True, blank=True, choices=favChoices)
 

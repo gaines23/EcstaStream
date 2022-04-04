@@ -216,28 +216,32 @@ def profile(request, id, username):
 @login_required
 def favorite_add_movie(request, movieid):
     assert isinstance(request, HttpRequest)
+    details = movie.details(movieid)
+    mov_title = details.title
 
     fav_model = FavoriteListData.objects.all()
 
-    if fav_model.filter(Q(user=request.user) & Q(mov_show_id=movieid)).exists():
+    if fav_model.filter(Q(user=request.user) & Q(mov_show_id=movieid) & Q(title=mov_title)).exists():
         fav_model.filter(Q(mov_show_id=movieid) & Q(user=request.user)).delete()
         return HttpResponseRedirect(request.META['HTTP_REFERER']) 
     else:
-        fav_model.create(user=request.user, mov_show_id=movieid, fav_type=1)
+        fav_model.create(user=request.user, mov_show_id=movieid, title=mov_title, fav_type=1)
         return HttpResponseRedirect(request.META['HTTP_REFERER']) 
 
 
 @login_required
 def favorite_add_tv(request, tvid):
     assert isinstance(request, HttpRequest)
+    details = tv.details(tvid)
+    tv_title = details.name
 
     fav_model = FavoriteListData.objects.all()
 
-    if fav_model.filter(Q(user=request.user) & Q(mov_show_id=tvid)).exists():
+    if fav_model.filter(Q(user=request.user) & Q(mov_show_id=tvid) & Q(title=tv_title)).exists():
         fav_model.filter(Q(mov_show_id=tvid) & Q(user=request.user)).delete()
         return HttpResponseRedirect(request.META['HTTP_REFERER']) 
     else:
-        fav_model.create(user=request.user, mov_show_id=tvid, fav_type=2)
+        fav_model.create(user=request.user, mov_show_id=tvid, title=tv_title, fav_type=2)
         return HttpResponseRedirect(request.META['HTTP_REFERER']) 
  
 
@@ -269,14 +273,6 @@ def favorites_list(request):
                   'playlists/favorite_list.html',
                   context
     )
-
-
-    #fav_list = FavoriteListData.objects.filter(user=request.user)
-    #favs_filtered = list(filter(lambda x: (x.user, x.favorites), fav_list))
-    #favs = sorted(favs_filtered, key = lambda x: x.date_added, reverse=True)
-
-#     if favmodel.filter(user__icontains={'user':request.user}, favorites__icontains={ 'favorites':movieid}).exists():
-
 
 
 
@@ -313,6 +309,7 @@ def MovieDetails(request, movieid):
     assert isinstance(request, HttpRequest)
 
     details = movie.details(movieid)
+    mov_title = details.title
     streaming = movie.watch_providers(movieid)
     us_streaming = streaming.results['US']
     credits = details['credits']
@@ -321,7 +318,7 @@ def MovieDetails(request, movieid):
     favorited = FavoriteListData.objects.all()
     fav = bool
 
-    if favorited.filter(Q(mov_show_id=movieid)).exists():
+    if favorited.filter(Q(mov_show_id=movieid) & Q(title=mov_title)).exists():
         fav = True
 
     runtime = details.runtime
@@ -385,6 +382,7 @@ def TvDetails(request, tvid):
     assert isinstance(request, HttpRequest)
 
     details = tv.details(tvid)
+    tv_title = details.name
     streaming = tv.watch_providers(tvid)
     similar = details.similar
     trailers = details.videos
@@ -394,7 +392,7 @@ def TvDetails(request, tvid):
     favorited = FavoriteListData.objects.all()
     fav = bool
 
-    if favorited.filter(Q(mov_show_id=tvid)).exists():
+    if favorited.filter(Q(mov_show_id=tvid) & Q(title=tv_title)).exists():
         fav = True
 
     series = []
