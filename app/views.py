@@ -247,26 +247,21 @@ def favorites_list(request):
 
     fav_list = list(FavoriteListData.objects.filter(Q(user=request.user)))
     favs = list(sorted(fav_list, key = lambda x: x.date_added, reverse=True))
-
-    mov_details = []
-    tv_details = []
+    
     details = []
+
     try:
         for x in favs:
             id = x.mov_show_id
             if x.fav_type == 1:
-                mov_details.append([movie.details(id), movie.watch_providers(id).results['US']])
+                details.append([movie.details(id), movie.watch_providers(id).results['US']])
             else:
-                tv_details.append([tv.details(id), tv.watch_providers(id).results['US']])
-
-            details.append(mov_details, tv_details)
+                details.append([tv.details(id), tv.watch_providers(id).results['US']])
     except Exception as e:
         pass
     
     context = {'favs':favs,
                'fav_list':fav_list,
-               'mov_details':mov_details,
-               'tv_details':tv_details,
                'details':details,
     }
 
