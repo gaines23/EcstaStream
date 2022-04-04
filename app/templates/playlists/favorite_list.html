@@ -22,17 +22,15 @@
 
 </div>
 
-
 <div class="PlaylistSection">
         <div class="Info">
             {% for x in details %}
-           	
-           	
+           	           	
             <div class="PosterInfo" id="posterinfo">
             	{% for m in x %}
-                    
+            	
                     {% if forloop.counter|divisibleby:2 %}
-                 
+                 	
                     <div class="StreamingInfo" id="streaming">
                         <div class="section-content">
                         
@@ -95,35 +93,42 @@
     
                     {% else %}
 
-					{% if m.type == 'tv' %}
-                    <a href="/TvDetails/{{m.id}}">
-                        <div class="card" id="card">
-                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
-                          <div class="info-container">
-                            <h4>
-                              <b style="font-size: 15px">{{ m.name }}</b><br>
-                              <i style="font-size: 12px">({{ m.first_air_date | slice:':4' }})</i>
-                            </h4>
-                          </div>
-                        </div>
-                    </a>
+						{% if m.tv %}
 
-                    {% else %}
-					<a href="/MovieDetails/{{m.id}}">
-                        <div class="card" id="card">
-                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
-                          <div class="info-container">
-                            <h4>
-                              <b style="font-size: 15px">{{ m.title }}</b><br>
-                              <i style="font-size: 12px">Added: {{ m.date_added }}</i>
-                            </h4>
-                          </div>
-                        </div>
-                    </a>
+	                    <a href="/TvDetails/{{m.tv.id}}/2">
+	                        <div class="card" id="card">
+	                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
+	                          <div class="info-container">
+	                            <h4>
+	                              	<b style="font-size: 15px">{{ m.tv.name }}</b><br>
+	                              	<i style="font-size: 12px">Added:
+	                              		
+	                              		{{ favs.{m.tv.id}.date_added }}
+	                          			
+	                          		</i>
+	                            </h4>
+	                          </div>
+	                        </div>
+	                    </a>                	
 
-                    {% endif %}
+	                    {% else %}
+
+						<a href="/MovieDetails/{{m.movie.id}}/1">
+	                        <div class="card" id="card">
+	                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.movie.poster_path }}">
+	                          <div class="info-container">
+	                            <h4>
+	                              <b style="font-size: 15px">{{ m.movie.title }}</b><br>
+	                              <i style="font-size: 12px">Added:{{ m.movie.date_added }}</i>
+	                            </h4>
+	                          </div>
+	                        </div>
+	                    </a>	                    
+
+	                	{% endif %}
 
 					{% endif %}
+
 				{% endfor %}
                 </div>
                 
@@ -134,16 +139,18 @@
 
 
 <!--
-                    <a href="/TvDetails/{{m.id}}">
-                        <div class="card" id="card">
-                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
-                          <div class="info-container">
-                            <h4>
-                              <b style="font-size: 15px">{{ m.name }}</b><br>
-                              <i style="font-size: 12px">({{ m.first_air_date | slice:':4' }})</i>
-                            </h4>
-                          </div>
-                        </div>
-                    </a>
+						
+
+						<a href="/MovieDetails/{{m.id}}/1">
+	                        <div class="card" id="card">
+	                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
+	                          <div class="info-container">
+	                            <h4>
+	                              <b style="font-size: 15px">{{ m.title }}</b><br>
+	                              <i style="font-size: 12px">Added:{{ m.date_added }}</i>
+	                            </h4>
+	                          </div>
+	                        </div>
+	                    </a>
 -->
 {% endblock %}

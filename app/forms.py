@@ -113,7 +113,7 @@ class UpdateProfileForm(forms.ModelForm):
 class FavoritePlaylistForm(forms.ModelForm):
     class Meta:
         model = FavoriteListData
-        fields = ['user', 'mov_show_id', 'title']
+        fields = ['user', 'mov_show_id',]
 
 #class UserFavoriteListForm(forms.ModelForm):
 #    class Meta:

@@ -99,9 +99,8 @@ class Profile(models.Model):
             img.save(self.profpic.path)
 
 
-
 class FavoriteListData(models.Model):
-    favChoices = (
+    mediaChoices = (
         (1,'Movie'),
         (2, 'TV')
     )
@@ -109,13 +108,16 @@ class FavoriteListData(models.Model):
     favid = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     mov_show_id = models.IntegerField()
-    title = models.CharField(max_length=100)
     date_added = models.DateTimeField(auto_now=True)
-    fav_type = models.IntegerField(null=True, blank=True, choices=favChoices)
+    media_type = models.IntegerField(null=True, blank=True, choices=mediaChoices)
 
     def __str__(self):
         return self.user.username
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["user", "mov_show_id", "media_type"], name='mov_show_id_media')    
+        ]
 
 class UserFavoritesList(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

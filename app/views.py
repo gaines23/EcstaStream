@@ -214,34 +214,30 @@ def profile(request, id, username):
 
 
 @login_required
-def favorite_add_movie(request, movieid):
+def favorite_add_movie(request, movieid, media_type=1):
     assert isinstance(request, HttpRequest)
-    details = movie.details(movieid)
-    mov_title = details.title
 
     fav_model = FavoriteListData.objects.all()
 
-    if fav_model.filter(Q(user=request.user) & Q(mov_show_id=movieid) & Q(title=mov_title)).exists():
-        fav_model.filter(Q(mov_show_id=movieid) & Q(user=request.user)).delete()
+    if fav_model.filter(Q(user=request.user) & Q(mov_show_id=movieid) & Q(media_type=1)).exists():
+        fav_model.filter(Q(mov_show_id=movieid) & Q(user=request.user) & Q(media_type=1)).delete()
         return HttpResponseRedirect(request.META['HTTP_REFERER']) 
     else:
-        fav_model.create(user=request.user, mov_show_id=movieid, title=mov_title, fav_type=1)
+        fav_model.create(user=request.user, mov_show_id=movieid, media_type=1)
         return HttpResponseRedirect(request.META['HTTP_REFERER']) 
 
 
 @login_required
-def favorite_add_tv(request, tvid):
+def favorite_add_tv(request, tvid, media_type=2):
     assert isinstance(request, HttpRequest)
-    details = tv.details(tvid)
-    tv_title = details.name
 
     fav_model = FavoriteListData.objects.all()
 
-    if fav_model.filter(Q(user=request.user) & Q(mov_show_id=tvid) & Q(title=tv_title)).exists():
-        fav_model.filter(Q(mov_show_id=tvid) & Q(user=request.user)).delete()
+    if fav_model.filter(Q(user=request.user) & Q(mov_show_id=tvid) & Q(media_type=2)).exists():
+        fav_model.filter(Q(mov_show_id=tvid) & Q(user=request.user) & Q(media_type=2)).delete()
         return HttpResponseRedirect(request.META['HTTP_REFERER']) 
     else:
-        fav_model.create(user=request.user, mov_show_id=tvid, title=tv_title, fav_type=2)
+        fav_model.create(user=request.user, mov_show_id=tvid, media_type=2)
         return HttpResponseRedirect(request.META['HTTP_REFERER']) 
  
 
@@ -251,16 +247,18 @@ def favorites_list(request):
 
     fav_list = list(FavoriteListData.objects.filter(Q(user=request.user)))
     favs = list(sorted(fav_list, key = lambda x: x.date_added, reverse=True))
-    
+    date_added = list(FavoriteListData.objects.filter(Q(user=request.user)))
+
     details = []
 
     try:
         for x in favs:
             id = x.mov_show_id
-            if x.fav_type == 1:
-                details.append([movie.details(id), movie.watch_providers(id).results['US']])
+            media = x.media_type
+            if x.media_type == 1:
+                details.append([{'movie': movie.details(id)}, movie.watch_providers(id).results['US']])
             else:
-                details.append([tv.details(id), tv.watch_providers(id).results['US']])
+                details.append([{'tv': tv.details(id)}, tv.watch_providers(id).results['US']])
     except Exception as e:
         pass
     
@@ -305,11 +303,10 @@ def favorites_list(request):
 #.env.example with a template of all the variables required for the project.
 
 
-def MovieDetails(request, movieid):
+def MovieDetails(request, movieid, media_type=1):
     assert isinstance(request, HttpRequest)
 
     details = movie.details(movieid)
-    mov_title = details.title
     streaming = movie.watch_providers(movieid)
     us_streaming = streaming.results['US']
     credits = details['credits']
@@ -318,7 +315,7 @@ def MovieDetails(request, movieid):
     favorited = FavoriteListData.objects.all()
     fav = bool
 
-    if favorited.filter(Q(mov_show_id=movieid) & Q(title=mov_title)).exists():
+    if favorited.filter(Q(mov_show_id=movieid) & Q(media_type=1)).exists():
         fav = True
 
     runtime = details.runtime
@@ -378,7 +375,7 @@ def MovieDetails(request, movieid):
     )
 
 
-def TvDetails(request, tvid):
+def TvDetails(request, tvid, media_type=2):
     assert isinstance(request, HttpRequest)
 
     details = tv.details(tvid)
@@ -392,8 +389,9 @@ def TvDetails(request, tvid):
     favorited = FavoriteListData.objects.all()
     fav = bool
 
-    if favorited.filter(Q(mov_show_id=tvid) & Q(title=tv_title)).exists():
+    if favorited.filter(Q(mov_show_id=tvid) & Q(media_type=2)).exists():
         fav = True
+
 
     series = []
 
