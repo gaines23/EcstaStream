@@ -247,7 +247,7 @@ def favorites_list(request):
 
     fav_list = list(FavoriteListData.objects.filter(Q(user=request.user)))
     favs = list(sorted(fav_list, key = lambda x: x.date_added, reverse=True))
-    date_added = list(FavoriteListData.objects.filter(Q(user=request.user)))
+    all_favs = FavoriteListData.objects.all()
 
     details = []
 
@@ -265,6 +265,7 @@ def favorites_list(request):
     context = {'favs':favs,
                'fav_list':fav_list,
                'details':details,
+               'all_favs':all_favs,
     }
 
     return render(request,
