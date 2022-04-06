@@ -116,12 +116,42 @@ class FavoriteListData(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=["user", "mov_show_id", "media_type"], name='mov_show_id_media')    
+            models.UniqueConstraint(fields=["user", "mov_show_id", "media_type"], name='fav_constraint')    
         ]
+
+class WatchListData(models.Model):
+    mediaChoices = (
+        (1,'Movie'),
+        (2, 'TV')
+    )
+
+    watchid = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    mov_show_id = models.IntegerField()
+    date_added = models.DateTimeField(auto_now=True)
+    media_type = models.IntegerField(null=True, blank=True, choices=mediaChoices)
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["user", "mov_show_id", "media_type"], name='watchlist_constraint')    
+        ]
+
+
+
+
+
 
 class UserFavoritesList(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    favorites = JSONField(default=list, null=True, blank=True)
+    favs_list = JSONField(default=list, null=True, blank=True)
+### add user settings/preferences 
+
+class UserWatchList(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    watch_list = JSONField(default=list, null=True, blank=True)
 ### add user settings/preferences 
 
 

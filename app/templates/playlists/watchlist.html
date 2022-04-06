@@ -1,0 +1,160 @@
+{% extends "app/layout.html" %}
+
+{% block maincontent %}
+{% load static %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'content\playlists\watchlist.css' %}">
+</head>
+
+
+<header>
+
+	<h1>Watchlist</h1>
+</header>
+
+<div class="FavSearch">
+
+	<form class="FavFind" id="favfind">
+
+
+	</form>
+
+</div>
+
+
+
+<div class="PlaylistSection">
+        <div class="Info">
+            {% for x in details %}
+           	           	
+            <div class="PosterInfo" id="posterinfo">
+            	{% for m in x %}
+            	
+                    {% if forloop.counter|divisibleby:2 %}
+                 	
+                    <div class="StreamingInfo" id="streaming">
+                        <div class="section-content">
+                        
+                            <div class="section-title">
+                                <h2>Streaming</h2>
+                            </div>
+                            
+                            <div class="StreamingList">
+                                
+                                <div class="List-Cat">
+                                    {% if m.flatrate == '' %}
+                                        <div class="none" style="display: none;"></div>
+                                    {% else %}
+                                    <div class="Free-Streaming">
+                                        <h3>Free</h3>
+                                        {% for free in m.flatrate %}
+                                            {% if free.display_priority <= 20 %}
+                                                <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ free.logo_path }}">
+                                            {% endif %}
+                                        {% endfor %} 
+    
+                                        {% endif %}                                    
+                                    </div>                                    
+                                    <div class="Rent-Streaming">
+                                        {% if m.rent == '' %}
+                                            <div class="none" style="display: none;"></div>
+                                        {% else %}
+    
+                                        <h3>Rent</h3>
+                                        {% for rent in m.rent %}
+                                            {% if rent.display_priority <= 20 %}
+                                                <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ rent.logo_path }}">
+                                            {% endif %}    
+                                        {% endfor %}
+
+                                        {% endif %}
+                                    </div>
+                                    <div class="Buy-Streaming">
+                                        {% if m.buy == '' %}
+                                            <div class="none" style="display: none;"></div>
+                                        {% else %}
+                                        <h3>Purchase</h3>
+                                        {% for buy in m.buy %}
+                                            {% if buy.display_priority <= 20 %}
+                                                <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ buy.logo_path }}">
+                                            {% endif %}
+                                            
+                                        {% endfor %}
+
+                                        {% endif %}
+                                    </div> 
+                                   
+                                </div>   
+                                
+                            </div>
+                            
+                        </div>
+                        
+                    </div> 
+    
+                    {% else %}
+
+						{% if m.tv %}
+
+	                    <a href="/TvDetails/{{m.tv.id}}/2">
+	                        <div class="card" id="card">
+	                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
+	                          <div class="info-container">
+	                            <h4>
+	                              	<b style="font-size: 15px">{{ m.tv.name }}</b><br>
+	                              	<i style="font-size: 12px">Added:
+	                              		
+	                              			{% for all_favs in m %}
+	                              				{{ all_favs.date_added }}
+	                              			{% endfor %}
+										
+	                          		</i>
+	                            </h4>
+	                          </div>
+	                        </div>
+	                    </a>                	
+
+	                    {% else %}
+
+						<a href="/MovieDetails/{{m.movie.id}}/1">
+	                        <div class="card" id="card">
+	                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.movie.poster_path }}">
+	                          <div class="info-container">
+	                            <h4>
+	                              <b style="font-size: 15px">{{ m.movie.title }}</b><br>
+	                              <i style="font-size: 12px">Added:</i>
+	                            </h4>
+	                          </div>
+	                        </div>
+	                    </a>	                    
+
+	                	{% endif %}
+
+					{% endif %}
+
+				{% endfor %}
+                </div>
+                
+             {% endfor %}
+            </div>
+</div>
+
+
+
+<!--
+						
+
+						<a href="/MovieDetails/{{m.id}}/1">
+	                        <div class="card" id="card">
+	                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
+	                          <div class="info-container">
+	                            <h4>
+	                              <b style="font-size: 15px">{{ m.title }}</b><br>
+	                              <i style="font-size: 12px">Added:{{ m.date_added }}</i>
+	                            </h4>
+	                          </div>
+	                        </div>
+	                    </a>
+-->
+{% endblock %}

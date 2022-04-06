@@ -16,9 +16,12 @@ urlpatterns = [
     path('profile/<id>/<username>', views.profile, name='users-profile'),
     path('MovieDetails/<movieid>/<media_type>', views.MovieDetails, name='MovieDetails'),
     path('fav/<int:movieid>/<media_type>', views.favorite_add_movie, name='fav-add-movie'),
+     path('watchlist/<int:movieid>/<media_type>', views.watchlist_add_movie, name='watchlist-add-movie'),
     path('TvDetails/<tvid>/<media_type>', views.TvDetails, name='TvDetails'),
     path('fav/<int:tvid>/<media_type>', views.favorite_add_tv, name='fav-add-tv'),
+    path('watchlist/<int:tvid>/<media_type>', views.watchlist_add_tv, name='watchlist-add-tv'),
     path('favorites', views.favorites_list, name='fav-list'),
+    path('watchlist', views.watch_list, name='watch-list'),
     path('CreditsDetails/<personid>', views.CreditsDetails, name='CreditsDetails'),
     
     #path('watchlist/', views.watchlist_list, name='watch-list'),
