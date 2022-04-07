@@ -111,6 +111,16 @@
                             </a>
                         {% endif %}
                     
+                        {% if watch %}
+                            <a href="/watchlist-show/{{details.id}}/2" class="Fav">
+                                <li><i class="fa-solid fa-tv"></i></li>
+                            </a>
+                        {% else %}
+                            <a href="/watchlist-show/{{details.id}}/2" class="Fav">
+                                <li><i class="fa-solid fa-tv"></i></li>
+                            </a>
+                        {% endif %}
+
                     {% else %}
 
                     <a href="{% url 'users-register' %}" class="Register">

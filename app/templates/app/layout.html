@@ -56,7 +56,7 @@
                             {% if user.is_authenticated %}
                             <div id="watchlist">
                                 <a href="#"><i class="far fa-plus-square"></i> New List</a>
-                                <a href="#" ><i class="fa-regular fa-star"></i> Watchlist</a>
+                                <a href="{% url 'watchlist' %}"><i class="fa-solid fa-tv"></i></i> Watchlist</a>
                                 <a href="{% url 'fav-list' %}" ><i class="fa-solid fa-heart"></i> Favorites</a>
                                 
                             </div>

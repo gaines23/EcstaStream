@@ -126,9 +126,15 @@
                             </a>
                         {% endif %}
                                         
-                        <a href="{% url 'users-register' %}" class="Register">
-                            <li><i class="fa-regular fa-bookmark"></i></li>
-                        </a>
+                        {% if watch %}
+                            <a href="/watchlist-movie/{{details.id}}/1" class="Watch">
+                                <li><i class="fa-solid fa-tv"></i></li>
+                            </a>
+                        {% else %}
+                            <a href="/watchlist-movie/{{details.id}}/1" class="Watch">
+                                <li><i class="fa-solid fa-tv"></i></li>
+                            </a>
+                        {% endif %}
                     
                     {% else %}
 

@@ -115,10 +115,10 @@ class FavoritePlaylistForm(forms.ModelForm):
         model = FavoriteListData
         fields = ['user', 'fav_mov_show_id',]
 
-#class WatchlistForm(forms.ModelForm):
-#    class Meta:
-#        model = WatchListData
-#        fields = ['user', 'watch_mov_show_id',]
+class WatchlistForm(forms.ModelForm):
+    class Meta:
+        model = WatchListData
+        fields = ['user', 'watch_mov_show_id',]
 
 class MovieListForm(forms.ModelForm):
     class Meta:

@@ -288,65 +288,65 @@ def favorites_list(request):
 
 
 
-#@login_required
-#def watchlist_add_movie(request, movieid, media_type=1):
-#    assert isinstance(request, HttpRequest)
+@login_required
+def watchlist_add_movie(request, movieid, media_type=1):
+    assert isinstance(request, HttpRequest)
 
-#    fav_model = WatchListData.objects.all()
+    fav_model = WatchListData.objects.all()
 
-#    if fav_model.filter(Q(user=request.user) & Q(mov_show_id=movieid) & Q(media_type=1)).exists():
-#        fav_model.filter(Q(mov_show_id=movieid) & Q(user=request.user) & Q(media_type=1)).delete()
-#        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
-#    else:
-#        fav_model.create(user=request.user, mov_show_id=movieid, media_type=1)
-#        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+    if fav_model.filter(Q(user=request.user) & Q(watch_mov_show_id=movieid) & Q(media_type=1)).exists():
+        fav_model.filter(Q(watch_mov_show_id=movieid) & Q(user=request.user) & Q(media_type=1)).delete()
+        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+    else:
+        fav_model.create(user=request.user, watch_mov_show_id=movieid, media_type=1)
+        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
 
 
-#@login_required
-#def watchlist_add_tv(request, tvid, media_type=2):
-#    assert isinstance(request, HttpRequest)
+@login_required
+def watchlist_add_tv(request, tvid, media_type=2):
+    assert isinstance(request, HttpRequest)
 
-#    fav_model = WatchListData.objects.all()
+    fav_model = WatchListData.objects.all()
 
-#    if fav_model.filter(Q(user=request.user) & Q(mov_show_id=tvid) & Q(media_type=2)).exists():
-#        fav_model.filter(Q(mov_show_id=tvid) & Q(user=request.user) & Q(media_type=2)).delete()
-#        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
-#    else:
-#        fav_model.create(user=request.user, mov_show_id=tvid, media_type=2)
-#        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+    if fav_model.filter(Q(user=request.user) & Q(watch_mov_show_id=tvid) & Q(media_type=2)).exists():
+        fav_model.filter(Q(watch_mov_show_id=tvid) & Q(user=request.user) & Q(media_type=2)).delete()
+        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+    else:
+        fav_model.create(user=request.user, watch_mov_show_id=tvid, media_type=2)
+        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
  
 
-#@login_required
-#def watch_list(request):
-#    assert isinstance(request, HttpRequest)
+@login_required
+def watch_list(request):
+    assert isinstance(request, HttpRequest)
 
-#    watch_list = list(WatchListData.objects.filter(Q(user=request.user)))
-#    watch = list(sorted(watch_list, key = lambda x: x.date_added, reverse=True))
-#    all_watch = WatchListData.objects.all()
+    watch_list = list(WatchListData.objects.filter(Q(user=request.user)))
+    watch = list(sorted(watch_list, key = lambda x: x.watch_date_added, reverse=True))
+    all_watch = WatchListData.objects.all()
 
-#    details = []
+    details = []
 
-#    try:
-#        for x in watch:
-#            id = x.mov_show_id
-#            media = x.media_type
-#            if x.media_type == 1:
-#                details.append([{'movie': movie.details(id)}, movie.watch_providers(id).results['US']])
-#            else:
-#                details.append([{'tv': tv.details(id)}, tv.watch_providers(id).results['US']])
-#    except Exception as e:
-#        pass
+    try:
+        for x in watch:
+            id = x.watch_mov_show_id
+            media = x.media_type
+            if x.media_type == 1:
+                details.append([{'movie': movie.details(id)}, movie.watch_providers(id).results['US']])
+            else:
+                details.append([{'tv': tv.details(id)}, tv.watch_providers(id).results['US']])
+    except Exception as e:
+        pass
     
-#    context = {'watch':watch,
-#               'watch_list':watch_list,
-#               'details':details,
-#               'all_watch':all_watch,
-#    }
+    context = {'watch':watch,
+               'watch_list':watch_list,
+               'details':details,
+               'all_watch':all_watch,
+    }
 
-#    return render(request,
-#                  'playlists/watchlist.html',
-#                  context
-#    )
+    return render(request,
+                  'playlists/watchlist.html',
+                  context
+    )
 
 
 
@@ -399,11 +399,11 @@ def MovieDetails(request, movieid):
         fav = True
 
 
-    #watchlist = WatchListData.objects.all()
-    #watch = bool
+    watchlist = WatchListData.objects.all()
+    watch = bool
 
-    #if watchlist.filter(Q(mov_show_id=movieid) & Q(media_type=1)).exists():
-    #    watch = True
+    if watchlist.filter(Q(watch_mov_show_id=movieid) & Q(media_type=1)).exists():
+        watch = True
 
     runtime = details.runtime
     hours = runtime // 60
@@ -453,6 +453,7 @@ def MovieDetails(request, movieid):
         'us_streaming':us_streaming,
         'hours_runtime':hours_runtime,
         'fav':fav,
+        'watch':watch,
     }
 
     return render(
@@ -479,11 +480,11 @@ def TvDetails(request, tvid):
     if favorited.filter(Q(fav_mov_show_id=tvid) & Q(media_type=2)).exists():
         fav = True
 
-    #watchlist = WatchListData.objects.all()
-    #watch = bool
+    watchlist = WatchListData.objects.all()
+    watch = bool
 
-    #if watchlist.filter(Q(mov_show_id=tvid) & Q(media_type=2)).exists():
-    #    watch = True
+    if watchlist.filter(Q(watch_mov_show_id=tvid) & Q(media_type=2)).exists():
+        watch = True
 
     series = []
 
@@ -520,6 +521,7 @@ def TvDetails(request, tvid):
         'series':series,
         'r':r,
         'fav':fav,
+        'watch':watch,
     }
 
     return render(
