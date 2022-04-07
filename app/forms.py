@@ -113,12 +113,12 @@ class UpdateProfileForm(forms.ModelForm):
 class FavoritePlaylistForm(forms.ModelForm):
     class Meta:
         model = FavoriteListData
-        fields = ['user', 'mov_show_id',]
+        fields = ['user', 'fav_mov_show_id',]
 
-class WatchlistForm(forms.ModelForm):
-    class Meta:
-        model = WatchListData
-        fields = ['user', 'mov_show_id',]
+#class WatchlistForm(forms.ModelForm):
+#    class Meta:
+#        model = WatchListData
+#        fields = ['user', 'watch_mov_show_id',]
 
 class MovieListForm(forms.ModelForm):
     class Meta:
