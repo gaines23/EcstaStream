@@ -383,7 +383,7 @@ def watch_list(request):
 #.env.example with a template of all the variables required for the project.
 
 
-def MovieDetails(request, movieid):
+def MovieDetails(request, movieid, media_type=1):
     assert isinstance(request, HttpRequest)
 
     details = movie.details(movieid)
@@ -463,7 +463,7 @@ def MovieDetails(request, movieid):
     )
 
 
-def TvDetails(request, tvid):
+def TvDetails(request, tvid, media_type=2):
     assert isinstance(request, HttpRequest)
 
     details = tv.details(tvid)

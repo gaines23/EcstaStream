@@ -84,7 +84,7 @@
             <div class="Info">
                 <div id="dir">
                     <p id="title">Director(s)</p>
-                    {% for d in credits.crew|slice:":3" %}
+                    {% for d in credits.crew|slice:":5" %}
                         {% if d.known_for_department == 'Directing' %}
                             <a href="/CreditsDetails/{{d.name}}">{{ d.name }}</a><br>
                         {% endif %}
@@ -93,7 +93,7 @@
 
                 <div id="writers">
                     <p id="title">Screenplay</p>
-                    {% for s in credits.crew %}
+                    {% for s in credits.crew|slice:":5" %}
                         {% if s.known_for_department == 'Writing' %}
                             <a href="/CreditsDetails/{{s.name}}">{{ s.name }}</a> <br>
                         {% endif %}
@@ -113,31 +113,42 @@
                 <ul id="actions">
                     {% if request.user.is_authenticated %}
                         {% csrf_token %}
+                    <div class="Actions">
                         <li><i class="far fa-plus-square"></i></li>
-                        <li><i class="fa-solid fa-dumpster-fire"></i></li>
 
                         {% if fav %}
                             <a href="/fav-movie/{{details.id}}/1" class="Fav">
-                                <li><i class="fa-solid fa-heart"></i></li>
+                                <li><i class="fa-solid fa-heart" style="color: #6d44a8;"></i></li>
                             </a>
                         {% else %}
                             <a href="/fav-movie/{{details.id}}/1" class="Fav">
-                                <li><i class="fa-regular fa-heart"></i></li>
+                                <li><i class="fa-regular fa-heart" style="color: white;"></i></li>
                             </a>
                         {% endif %}
                                         
                         {% if watch %}
                             <a href="/watchlist-movie/{{details.id}}/1" class="Watch">
-                                <li><i class="fa-solid fa-tv"></i></li>
+                                <li><i class="fa-solid fa-tv" style="color: #6d44a8;"></i></li>
                             </a>
                         {% else %}
                             <a href="/watchlist-movie/{{details.id}}/1" class="Watch">
-                                <li><i class="fa-solid fa-tv"></i></li>
+                                <li><i class="fa-solid fa-tv" style="color: white;"></i></li>
                             </a>
                         {% endif %}
                     
-                    {% else %}
+                    </div>
+                
+                    <div class="LikeDislike">
+                        <a href="#">
+                            <li><i class="fa-solid fa-fire" style="color: white;"></i></li>
+                        </a>
+                        <a href="#">
+                            <li><i class="fa-solid fa-dumpster-fire" style="color: white;"></i></li>
+                        </a>
+                    </div>
 
+                    {% else %}
+                <div class="Actions">
                     <a href="{% url 'users-register' %}" class="Register">
                         <li><i class="far fa-plus-square"></i></li>
                     </a>
@@ -150,7 +161,20 @@
                     <a href="{% url 'users-register' %}" class="Register">
                         <li><i class="fa-regular fa-bookmark"></i></li>
                     </a>
+
+
+                    <div class="LikeDislike">
+                        <a href="{% url 'users-register' %}" class="Register">
+                            <li><i class="fa-solid fa-fire"></i></li>
+                        </a>
+                        <a href="{% url 'users-register' %}" class="Register">
+                            <li><i class="fa-solid fa-fire"></i></li>
+                        </a>
+                    </div>
+                </div>
+
                     {% endif %}
+
                 </ul>
             </div>
 
@@ -333,13 +357,14 @@ https://youtu.be/zsrdBGr8NIk
 
 
 <div class="SeriesInfo">
-    {% if m in mov_seriesID == '' %}
 
-        <div class="none" style="display: none";></div>
-
-    {% else %}    
     <div class="SeriesContainer">
 
+{% for x in seriesid %}
+    {% for m in x %}
+        {{m}}
+    {% endfor %}
+{% endfor %}
 
         <div class="SeriesSummary">        
             <div class="title"><p><b>{{ seriesid.name }}</b></p></div>
@@ -371,7 +396,6 @@ https://youtu.be/zsrdBGr8NIk
             </div>
         </span>
     </div>
-    {% endif %}
 </div>
 
 

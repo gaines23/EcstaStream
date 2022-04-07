@@ -79,7 +79,7 @@
             <div class="Info">
             	<p>Creators:</p>
                 <div id="creators">
-                    {% for cr in credits.crew|slice:":3" %}
+                    {% for cr in credits.crew|slice:":5" %}
                     	{% if cr.known_for_department == 'Creator' %}	
                         	{{ cr.name }} <br>
                         {% endif %}
@@ -98,31 +98,42 @@
                 <ul id="actions">
                     {% if request.user.is_authenticated %}
                         {% csrf_token %}
+                    <div class="Actions">
                         <li><i class="far fa-plus-square"></i></li>
-                        <li><i class="fa-solid fa-dumpster-fire"></i></li>
 
                         {% if fav %}
                             <a href="/fav-show/{{details.id}}/2" class="Fav">
-                                <li><i class="fa-solid fa-heart"></i></li>
+                                <li><i class="fa-solid fa-heart" style="color: #6d44a8;"></i></li>
                             </a>
                         {% else %}
                             <a href="/fav-show/{{details.id}}/2" class="Fav">
-                                <li><i class="fa-regular fa-heart"></i></li>
+                                <li><i class="fa-regular fa-heart" style="color:white;"></i></li>
                             </a>
                         {% endif %}
                     
                         {% if watch %}
                             <a href="/watchlist-show/{{details.id}}/2" class="Fav">
-                                <li><i class="fa-solid fa-tv"></i></li>
+                                <li><i class="fa-solid fa-tv" style="color: #6d44a8;"></i></li>
                             </a>
                         {% else %}
                             <a href="/watchlist-show/{{details.id}}/2" class="Fav">
-                                <li><i class="fa-solid fa-tv"></i></li>
+                                <li><i class="fa-solid fa-tv" style="color:white;"></i></li>
                             </a>
                         {% endif %}
+                    </div>
+                
+                    <div class="LikeDislike">
+                        <a href="#">
+                            <li><i class="fa-solid fa-fire" style="color: white;"></i></li>
+                        </a>
+                        <a href="#">
+                            <li><i class="fa-solid fa-dumpster-fire" style="color: white;"></i></li>
+                        </a>
+                    </div>
 
                     {% else %}
 
+                <div class="Actions">
                     <a href="{% url 'users-register' %}" class="Register">
                         <li><i class="far fa-plus-square"></i></li>
                     </a>
@@ -135,10 +146,23 @@
                     <a href="{% url 'users-register' %}" class="Register">
                         <li><i class="fa-regular fa-bookmark"></i></li>
                     </a>
-                    
+
+
+                    <div class="LikeDislike">
+                        <a href="{% url 'users-register' %}" class="Register">
+                            <li><i class="fa-solid fa-fire"></i></li>
+                        </a>
+                        <a href="{% url 'users-register' %}" class="Register">
+                            <li><i class="fa-solid fa-fire"></i></li>
+                        </a>
+                    </div>
+                </div>
+
                     {% endif %}
+
                 </ul>
             </div>
+
 
             <div class="Friends">
                 <h3>Friends:</h3>

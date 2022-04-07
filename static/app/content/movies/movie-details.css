@@ -28,7 +28,7 @@
 	padding-left: 15px;
 	font-weight: 800;
 	height: 120px;
-	font-size: 50px;
+	font-size: 90px;
 	text-shadow: -2px 3px rebeccapurple;
 }
 
@@ -220,7 +220,7 @@
 
 .SummaryStreaming .UserActions .User ul {
 	float: left;
-    width: 320px;
+    width: 75%;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -236,8 +236,19 @@
 
 .SummaryStreaming .UserActions .User ul a {
 	text-decoration: none;
-	color: white;
+	color: none;
 }
+
+.SummaryStreaming .UserActions .User .Actions {
+	float: left;
+}
+
+.SummaryStreaming .UserActions .User .LikeDislike {
+	float: right;
+}
+
+
+
 
 
 
