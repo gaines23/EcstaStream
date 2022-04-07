@@ -99,21 +99,17 @@
                     {% if request.user.is_authenticated %}
                         {% csrf_token %}
                         <li><i class="far fa-plus-square"></i></li>
-                        <li><i class="fa-regular fa-star"></i></li>
+                        <li><i class="fa-solid fa-dumpster-fire"></i></li>
 
                         {% if fav %}
-                            <a href="{% url 'fav-add-tv' details.id 2 %}" class="text-dark">
-                                <li><i class="fa-regular fa-heart"></i></li>
+                            <a href="{% url 'fav-add-tv' details.id 2 %}" class="Fav">
+                                <li><i class="fa-solid fa-heart"></i></li>
                             </a>
                         {% else %}
-                            <a class="Fav" href="{% url 'fav-add-tv' details.id 2 %}" class="text-dark">
+                            <a href="{% url 'fav-add-tv' details.id 2 %}" class="Fav">
                                 <li><i class="fa-regular fa-heart"></i></li>
                             </a>
                         {% endif %}
-                                        
-                        <a href="{% url 'users-register' %}" class="Register">
-                            <li><i class="fa-regular fa-bookmark"></i></li>
-                        </a>
                     
                     {% else %}
 
@@ -121,7 +117,7 @@
                         <li><i class="far fa-plus-square"></i></li>
                     </a>
                     <a href="{% url 'users-register' %}" class="Register">
-                        <li><i class="fa-regular fa-star"></i></li>
+                        <li><i class="fa-solid fa-fire"></i></li>
                     </a>
                     <a href="{% url 'users-register' %}" class="Register">
                         <li><i class="fa-regular fa-heart"></i></li>

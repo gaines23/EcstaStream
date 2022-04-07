@@ -227,13 +227,19 @@
 	list-style-type: none;
 }
 
-
 .SummaryStreaming .UserActions .User ul li {
 	width: 50px;
 	text-align: center;
 	font-size: 35px;
 	display: inline-block;
 }
+
+.SummaryStreaming .UserActions .User ul a {
+	text-decoration: none;
+	color: white;
+}
+
+
 
 
 .SummaryStreaming .UserActions .Friends {
