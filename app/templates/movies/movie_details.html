@@ -355,19 +355,16 @@ https://youtu.be/zsrdBGr8NIk
 </div>
 
 
+{% for x in mov_series %}
+
+{% if mov_series != '' %}
 
 <div class="SeriesInfo">
 
     <div class="SeriesContainer">
 
-{% for x in seriesid %}
-    {% for m in x %}
-        {{m}}
-    {% endfor %}
-{% endfor %}
-
         <div class="SeriesSummary">        
-            <div class="title"><p><b>{{ seriesid.name }}</b></p></div>
+            <div class="title"><p><b>Series</b></p></div>
         </div>
 
         <span class="SeriesSection">
@@ -376,7 +373,7 @@ https://youtu.be/zsrdBGr8NIk
             
               <div class="Series-Cards" id="series-cards">
 
-                {% for s in seriesid.parts %}
+                {% for s in x.parts %}
                 <a href="/MovieDetails/{{s.id}}">    
                     <div class="Series-Card" id="series-card">
                     
@@ -389,14 +386,25 @@ https://youtu.be/zsrdBGr8NIk
                        
                     </div>
                 </a>
-                
+                {% endfor %}
               </div>
 
-                {% endfor %}
             </div>
         </span>
+         
     </div>
+
+
 </div>
+
+{% else %}
+
+    <div class="none" style="display:none;"></div>
+
+{% endif %}
+
+{% endfor %}    
+
 
 
 <script src="{% static 'scripts\moviedetails.js' %}"></script>

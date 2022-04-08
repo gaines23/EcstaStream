@@ -398,7 +398,6 @@ def MovieDetails(request, movieid, media_type=1):
     if favorited.filter(Q(fav_mov_show_id=movieid) & Q(media_type=1)).exists():
         fav = True
 
-
     watchlist = WatchListData.objects.all()
     watch = bool
 
@@ -431,13 +430,13 @@ def MovieDetails(request, movieid, media_type=1):
     for result in details['similar']:
         smlrobj.append(result)
 
-    mov_seriesID = []
     seriesid = []
+    mov_series = []
 
     try:
-        mov_seriesID.append(details.belongs_to_collection['id'])
-        x = series.details(mov_seriesID)
-        seriesid.append(x)
+        sid = details.belongs_to_collection['id']
+        seriesid.append(details.belong_to_collection)
+        mov_series.append(series.details(sd))
     except Exception as e:
         pass
 
@@ -449,6 +448,7 @@ def MovieDetails(request, movieid, media_type=1):
         'trailers':trailers,
         'streaming':streaming,
         'credits':credits,
+        'mov_series':mov_series,
         'seriesid':seriesid,
         'us_streaming':us_streaming,
         'hours_runtime':hours_runtime,
