@@ -83,8 +83,8 @@
 
             <div class="Info">
                 <div id="dir">
-                    <p id="title">Director(s)</p>
-                    {% for d in credits.crew|slice:":5" %}
+                    <p id="title">Director(s):</p>
+                    {% for d in credits.crew|slice:":3" %}
                         {% if d.known_for_department == 'Directing' %}
                             <a href="/CreditsDetails/{{d.name}}">{{ d.name }}</a><br>
                         {% endif %}
@@ -92,8 +92,8 @@
                 </div>
 
                 <div id="writers">
-                    <p id="title">Screenplay</p>
-                    {% for s in credits.crew|slice:":5" %}
+                    <p id="title">Screenplay:</p>
+                    {% for s in credits.crew|slice:":3" %}
                         {% if s.known_for_department == 'Writing' %}
                             <a href="/CreditsDetails/{{s.name}}">{{ s.name }}</a> <br>
                         {% endif %}
@@ -355,55 +355,57 @@ https://youtu.be/zsrdBGr8NIk
 </div>
 
 
-{% for x in mov_series %}
-
-{% if mov_series != '' %}
 
 <div class="SeriesInfo">
 
-    <div class="SeriesContainer">
-
-        <div class="SeriesSummary">        
-            <div class="title"><p><b>Series</b></p></div>
-        </div>
-
-        <span class="SeriesSection">
-
-            <div class="Series-Container" id="series-cards-container">
-            
-              <div class="Series-Cards" id="series-cards">
-
-                {% for s in x.parts %}
-                <a href="/MovieDetails/{{s.id}}">    
-                    <div class="Series-Card" id="series-card">
-                    
-                        <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ s.poster_path }}">
-
-                        <div class="Bar">
-                            <h2>{{ s.title }} ({{ s.release_date|slice:":4" }})</h2>
-                            <div class="FilledBar"></div>
-                        </div>
-                       
-                    </div>
-                </a>
-                {% endfor %}
-              </div>
-
-            </div>
-        </span>
-         
-    </div>
-
-
-</div>
-
-{% else %}
+{% if mov_series == '' %}
 
     <div class="none" style="display:none;"></div>
 
-{% endif %}
+{% else %}
+    
+    {% for x in mov_series %}    
+        <div class="SeriesContainer">
+            
+            <div class="SeriesSummary">        
+                <div class="title"><p><b>Series</b></p></div>
+            </div>
 
-{% endfor %}    
+            <span class="SeriesSection">
+                
+                <div class="Series-Container" id="series-cards-container">
+                
+                  <div class="Series-Cards" id="series-cards">
+                    {% for s in x %}
+                    <a href="/MovieDetails/{{s.id}}">    
+                        <div class="Series-Card" id="series-card">
+                        
+                            <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ s.poster_path }}">
+
+                            <div class="Bar">
+                                <h2>{{ s.title }} ({{ s.release_date|slice:":4" }})</h2>
+                                <div class="FilledBar"></div>
+                            </div>
+                           
+                        </div>
+                    </a>
+                    {% endfor %}
+                  </div>
+                
+                </div>
+                
+            </span>
+        </div>
+
+    {% endfor %}
+
+{% endif %}
+            
+</div>
+
+
+
+
 
 
 

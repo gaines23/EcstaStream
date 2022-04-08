@@ -26,7 +26,7 @@
             {{ hours_runtime }}
         </div>
 
-        <div id="year">{{ r.Year }}</div>
+        <div id="year">{{ r.Year }}</div><br>
 
         <div id="genre">
             {% for g in details.genres %}
@@ -79,10 +79,8 @@
             <div class="Info">
             	<p>Creators:</p>
                 <div id="creators">
-                    {% for cr in credits.crew|slice:":5" %}
-                    	{% if cr.known_for_department == 'Creator' %}	
-                        	{{ cr.name }} <br>
-                        {% endif %}
+                    {% for cr in details.created_by|slice:":5" %}
+                    	{{ cr.name }} <br>
                     {% endfor %}               
                 </div>
             </div>
@@ -343,6 +341,11 @@ https://youtu.be/zsrdBGr8NIk
 
 
 <div class="SeriesInfo">
+{% if tv_series == '' %}
+
+    <div class="none" style="display:none;"></div>
+
+{% else %}
 
     <div class="SeriesContainer">
         <div class="SeriesSummary">        
@@ -356,12 +359,12 @@ https://youtu.be/zsrdBGr8NIk
         </div>
 
         <span class="SeriesSection">
-
+        {% for x in tv_series %}
             <div class="Series-Container" id="series-cards-container">
             
               <div class="Series-Cards" id="series-cards">
-                {% for s in series %}
-                <a href="/MovieDetails/{{s.id}}">    
+                {% for s in x %}
+                <a href="#">    
                     <div class="Series-Card" id="series-card">
                     
                         <img id="posterpic" src="https://image.tmdb.org/t/p/original/{{ s.poster_path }}">
@@ -378,9 +381,10 @@ https://youtu.be/zsrdBGr8NIk
               </div>
                 
             </div>
-
+        {% endfor %}
         </span>
     </div>
+{% endif %}
 </div>
 
 

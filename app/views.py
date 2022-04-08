@@ -430,15 +430,13 @@ def MovieDetails(request, movieid, media_type=1):
     for result in details['similar']:
         smlrobj.append(result)
 
-    seriesid = []
     mov_series = []
 
     try:
-        sid = details.belongs_to_collection['id']
-        seriesid.append(details.belong_to_collection)
-        mov_series.append(series.details(sd))
+        mov_series.append(series.details(details.belongs_to_collection['id'])['parts'])
     except Exception as e:
         pass
+
 
     context = {
         'details': details,
@@ -449,7 +447,6 @@ def MovieDetails(request, movieid, media_type=1):
         'streaming':streaming,
         'credits':credits,
         'mov_series':mov_series,
-        'seriesid':seriesid,
         'us_streaming':us_streaming,
         'hours_runtime':hours_runtime,
         'fav':fav,
@@ -486,10 +483,10 @@ def TvDetails(request, tvid, media_type=2):
     if watchlist.filter(Q(watch_mov_show_id=tvid) & Q(media_type=2)).exists():
         watch = True
 
-    series = []
+    tv_series = []
 
     try:
-        series.append(details.seasons)
+        tv_series.append(details.seasons)
     except Exception as e:
         pass
     
@@ -518,7 +515,7 @@ def TvDetails(request, tvid, media_type=2):
         'streaming':streaming,
         'credits':credits,
         'us_streaming':us_streaming,
-        'series':series,
+        'tv_series':tv_series,
         'r':r,
         'fav':fav,
         'watch':watch,
@@ -554,11 +551,22 @@ def CreditsDetails(request, personid):
 
     knownfor = sorted(cast, key=lambda i:(i['vote_count'],i['vote_average'],i['popularity']), reverse=True)[:8]
 
-    mc_filtered = list(filter(lambda x: (x['release_date'] != ''), movie_credits))
-    mc = sorted(mc_filtered, key = lambda x: x.release_date[:4], reverse=True)
+    mov_cred = []
+    tv_cred = []
 
-    tv_filtered = list(filter(lambda x: (x['first_air_date'] != ''), tv_credits))
-    tv = sorted(tv_filtered, key = lambda x: x.first_air_date[:4], reverse=True)
+    try:
+        mc_filtered = list(filter(lambda x: (x['release_date'] != ''), movie_credits))
+        mc = sorted(mc_filtered, key = lambda x: x.release_date[:4], reverse=True)
+        mov_cred.append(mc)
+    except Exception as e:
+        pass
+
+    try:
+        tv_filtered = list(filter(lambda x: (x['first_air_date'] != ''), tv_credits))
+        tv = sorted(tv_filtered, key = lambda x: x.first_air_date[:4], reverse=True)
+        tv_cred.append(tv)
+    except Exception as e:
+        pass
 
 
     context = {
@@ -571,8 +579,8 @@ def CreditsDetails(request, personid):
         'castamt':cast_amt,
         'crewamt':crew_amt,
         'knownfor':knownfor,
-        'mc':mc,
-        'tv':tv,
+        'mov_cred':mov_cred,
+        'tv_cred':tv_cred,
     }
 
     return render(

@@ -111,7 +111,7 @@
     </div>
     
     <div class="Movies tabcontent" id="Movies"> 
-        {% regroup mc by release_date|slice:4 as mc_list %}
+        {% regroup mov_cred by release_date|slice:4 as mc_list %}
            <ul class="ListRow">
                 {% for release_date in mc_list %}
                 <li class="GroupYear">       
@@ -139,7 +139,7 @@
 
 
     <div class="TV tabcontent" id="TV">
-        {% regroup tv by first_air_date|slice:4 as tv_list %}
+        {% regroup tv_cred by first_air_date|slice:4 as tv_list %}
            <ul class="ListRow">
                 {% for first_air_date in tv_list %}
                 <li class="GroupYear">       
