@@ -15,6 +15,7 @@ from app.forms import *
 
 
 urlpatterns = [
+    path('friendship/', include('friendship.urls')),
     path('admin/', admin.site.urls),
     path('', include('app.urls'), name="home"),
     path('login/', NewLoginView.as_view(redirect_authenticated_user=True, 

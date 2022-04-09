@@ -6,7 +6,6 @@ from multiselectfield import MultiSelectField
 from django.contrib.postgres.fields import ArrayField
 
 
-
 try:
     from django.db.models import JSONField
 except ImportError:
@@ -75,6 +74,7 @@ class Streamingurls(models.Model):
         db_table = 'app_streamingurls'
 
 
+
 class Profile(models.Model):
     id = models.BigAutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -138,6 +138,8 @@ class WatchListData(models.Model):
         constraints = [
             models.UniqueConstraint(fields=["user", "watch_mov_show_id", "media_type"], name='watchlist_constraint')    
         ]
+
+
 
 
 

@@ -31,7 +31,10 @@ import os
 import environ
 from django.db.models.functions import ExtractYear
 from tmdbv3api.tmdb import TMDb
-#from migrations.serializers import *
+from django.contrib.auth.models import User
+from friendship.models import Friend, Follow, Block
+
+
 
 
 env = environ.Env()
@@ -44,6 +47,7 @@ movie = Movie()
 tv = TV()
 series = Collection()
 person = Person()
+search = Search()
 
 Imdb_URL = env('IMDB_URL')
 URL_API = env('RAPID_API_KEY')
@@ -51,6 +55,7 @@ URL_API = env('RAPID_API_KEY')
     
 def home(request):
     assert isinstance(request, HttpRequest)
+
     return render(
         request,
         'app/index.html'
@@ -59,7 +64,6 @@ def home(request):
 
 def MainSearchResults(request):
     assert isinstance(request, HttpRequest)
-    search = Search()
     
     search_request = request.GET.get("search")
     multi_search = search.multi({"query":{search_request}, "include_adult":"False", "region":"US"})
@@ -211,6 +215,7 @@ def profile(request, id, username):
                   'users/UserProfile.html',
                   context,
     )
+
 
 
 
