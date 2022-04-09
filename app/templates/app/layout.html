@@ -131,7 +131,16 @@
 
         <div class="col RightSideBar">
 
-            
+            {% if request.user.is_authenticated %}
+                {% csrf_token %}
+                {% block content %}
+                {% load friendshiptags %}
+                <h1>Your Friends</h1>
+                {% get_by_name friendship_context_object_name as var %}
+                {% friends var %}
+                {% endblock %}
+
+            {% endif %}
         
         </div>
 
