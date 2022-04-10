@@ -108,7 +108,38 @@
 
         <div class="col RightSideBar">
 
-            {% include 'social_content.html' %}
+            {% if request.user.is_authenticated %}
+                {% block socialcontent %}
+                    {% include 'app/social_content.html' %}
+                {% endblock %}
+
+            {% else %}
+            
+                <div class="blank"></div>
+
+            {% endif %}
+
+            <div class="Nav-UserLogin">
+
+                <p id="ellipsis"><i class="fas fa-circle" style="padding: 1px"></i><i class="fas fa-circle" style="padding: 1px"></i><i class="fas fa-circle" style="padding: 1px"></i></p>
+                {% if user.is_authenticated %}
+
+                <img class="account-img" src="{{ user.profile.profpic.url }}"/>
+                <p id="logged-in">
+                    <a href="{% url 'users-profile' user.id user.username %}"> {{request.user.username}}</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                </p>
+
+                {% else %}
+                                    
+                <p id="logged-out">    
+                    <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    <a href="{% url 'users-register'%}" class="no_action"><i class="fas fa-plus-square"></i> Join</a>
+                </p>
+
+                {% endif %}
+
+            </div>
 
         </div>
 

@@ -1,72 +1,42 @@
-{% extends "app/layout.html" %}
-
 {% block socialcontent %}
 {% load static %}
 
 <head>
-	<link rel="stylesheet" type="text/css" href="{% static 'content\site.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'content\socialcontent.css' %}">
 </head>
 
+<div class="SignedIn">
 
-        {% if request.user.is_authenticated %}
+    <div class="UserNotifications">
 
-            <div class="UserNotifications">
+        <div class="row UserFriends">
 
-                <div class="row UserFriends">
-
-                    <div id="friends">
-                        <h3>Friends</h3>
-                            <br>
-                        <h1>###</h1>
-                            
-                    </div>
-
-                    <div id="following">
-                        <h3>Following</h3>
-                            <br>
-                        <h1>###</h1>
-                    </div>
-
-                </div>
-
-                <div class="row Notifications">
-                    <a href="#"><i class="fa-solid fa-user-plus"></i></a>
-                    <a href="#"><i class="far fa-bell"></i></a>
-                    <a href="#"><i class="fas fa-envelope-open-text"></i></a>
-                    <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
-                </div>
+            <div id="friends">
+                <h3>Friends</h3>
+                <h1>{{all_friends}}</h1>
+                        
             </div>
 
-        {% endif %}
+            <div id="following">
+                <h3>Following</h3>
+                <h1>###</h1>
+            </div>
 
-        {% if request.user.is_authenticated %}
+        </div>
+
+        <div class="row Notifications">
+            <a href="#"><i class="fa-solid fa-user-plus"></i></a>
+            <a href="#"><i class="far fa-bell"></i></a>
+            <a href="#"><i class="fas fa-envelope-open-text"></i></a>
+            <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+        </div>
+    </div>
+
         
-            <div class="UserSocialContainer">
+    <div class="UserSocialContainer">
 
-            </div>
+    </div>
 
-        {% endif %}
-
-            <div class="Nav-UserLogin">
-
-                <p id="ellipsis"><i class="fas fa-circle" style="padding: 1px"></i><i class="fas fa-circle" style="padding: 1px"></i><i class="fas fa-circle" style="padding: 1px"></i></p>
-                {% if user.is_authenticated %}
-
-                <img class="account-img" src="{{ user.profile.profpic.url }}"/>
-                <p>
-                    <a href="{% url 'users-profile' user.id user.username %}"> {{request.user.username}}</a>
-                    <a href="{% url 'logout' %}">Logout</a>
-                </p>
-
-                {% else %}
-                                
-                <p>    
-                    <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
-                    <a href="{% url 'users-register'%}" class="no_action"><i class="fas fa-plus-square"></i> Join</a>
-                </p>
-
-                {% endif %}
-
-            </div>
+</div>
 
 {% endblock %}

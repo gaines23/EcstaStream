@@ -32,10 +32,7 @@ import environ
 from django.db.models.functions import ExtractYear
 from tmdbv3api.tmdb import TMDb
 from django.contrib.auth.models import User
-from friendship.models import Friend, Follow, Block
-
-
-
+from friendship.models import Block, Follow, Friend, FriendshipRequest
 
 env = environ.Env()
 environ.Env.read_env()
@@ -55,19 +52,31 @@ URL_API = env('RAPID_API_KEY')
     
 def home(request):
     assert isinstance(request, HttpRequest)
+    all_friends = Friend.objects.friends(request.user)
 
+    context = {
+        'all_friends':all_friends,
+    }
     return render(
         request,
         'app/index.html',
+        context,
     )
 
-@login_required
-def SocialConent(request, username):
+
+def SocialContent(request):
     assert isinstance(request, HttpRequest)
+
+    all_friends = Friend.objects.friends(request.user)
+
+    context = {
+        'all_friends':all_friends,
+    }
 
     return render(
         request,
-        'app/social_content.html',    
+        'app/social_content.html',
+        context,
     )
 
 
