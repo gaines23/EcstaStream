@@ -58,7 +58,16 @@ def home(request):
 
     return render(
         request,
-        'app/index.html'
+        'app/index.html',
+    )
+
+@login_required
+def SocialConent(request, username):
+    assert isinstance(request, HttpRequest)
+
+    return render(
+        request,
+        'app/social_content.html',    
     )
 
 

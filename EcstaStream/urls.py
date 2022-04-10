@@ -15,7 +15,6 @@ from app.forms import *
 
 
 urlpatterns = [
-    path('friendship/', include('friendship.urls')),
     path('admin/', admin.site.urls),
     path('', include('app.urls'), name="home"),
     path('login/', NewLoginView.as_view(redirect_authenticated_user=True, 
@@ -31,5 +30,6 @@ urlpatterns = [
          auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),
          name='password_reset_complete'),
     path('password-change/', ChangePasswordView.as_view(), name='password-change'),
+    path('friendship/', include('friendship.urls')),
 #   url(r'^oauth/', include('social_django.urls', namespace='social')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
