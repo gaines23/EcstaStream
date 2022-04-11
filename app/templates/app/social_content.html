@@ -7,36 +7,64 @@
 
 <div class="SignedIn">
 
-    <div class="UserNotifications">
+    <div class="UserNotifications tab">
 
-        <div class="row UserFriends">
-
-            <div id="friends">
-                <h3>Friends</h3>
-                <h1>{{all_friends}}</h1>
-                        
-            </div>
-
-            <div id="following">
-                <h3>Following</h3>
-                <h1>###</h1>
-            </div>
-
-        </div>
-
-        <div class="row Notifications">
-            <a href="#"><i class="fa-solid fa-user-plus"></i></a>
-            <a href="#"><i class="far fa-bell"></i></a>
-            <a href="#"><i class="fas fa-envelope-open-text"></i></a>
-            <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+        <div class="row SocialButtons">
+            <button class="tablinks" onclick="openPage(event, 'SocialFeed')"><i class="fa-solid fa-rectangle-list"></i></button>
+            <button class="tablinks" onclick="openPage(event, 'Notifications')"><i class="far fa-bell"></i></button>
+            <button class="tablinks" onclick="openPage(event, 'FollowerSection')" id="defaultOpen"><i class="fa-solid fa-address-book"></i></button>
+            <button class="tablinks" onclick="openPage(event, 'DirectMessages')"><i class="fa-solid fa-envelope"></i></button>
         </div>
     </div>
 
         
     <div class="UserSocialContainer">
 
+        <div class="tabcontent" id="SocialFeed">
+
+        </div>
+
+        <div class="tabcontent" id="Notifications">
+
+        </div>
+
+        <div class="tabcontent" id="FollowerSection">
+            {% load friendshiptags %}
+            <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <p>Follower Requests</p>
+            {% friend_requests request.user %}
+     
+            {% friends request.user %} <!-- friends list -->
+
+        </div>
+
+        <div class="tabcontent" id="DirectMessages">
+
+
+        </div>
     </div>
 
 </div>
+
+
+<script>
+function openPage(evt, tabInfo) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabInfo).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+document.getElementById("defaultOpen").click();
+
+</script>
+   
 
 {% endblock %}

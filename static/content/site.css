@@ -269,8 +269,8 @@ nav .UserLists {
 
 
 .RightSideBar {
-    height: 90%;
-    width: 17%;
+    height: 100%;
+    width: 16%;
     flex-direction: column;
     display: flex;
     position: fixed;
@@ -288,7 +288,7 @@ nav .UserLists {
     width: 90%;
     height: 12%;
     margin-right: auto;
-    float: left;
+    margin-left: auto;
     font-size: 18px;
 }
 
@@ -353,8 +353,8 @@ nav .UserLists {
 /* Footer */
 footer {
     height: 10%;
-    width: 100%;
-    margin: 0px;
+    width: 60%;
+    margin: auto;
     flex-direction: row;
     display: flex;
     text-align: center;

@@ -52,26 +52,15 @@ URL_API = env('RAPID_API_KEY')
     
 def home(request):
     assert isinstance(request, HttpRequest)
-    all_friends = Friend.objects.friends(request.user)
 
-    context = {
-        'all_friends':all_friends,
-    }
     return render(
         request,
         'app/index.html',
-        context,
     )
 
 
 def SocialContent(request):
     assert isinstance(request, HttpRequest)
-
-    all_friends = Friend.objects.friends(request.user)
-
-    context = {
-        'all_friends':all_friends,
-    }
 
     return render(
         request,
