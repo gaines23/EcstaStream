@@ -34,6 +34,16 @@ from tmdbv3api.tmdb import TMDb
 from django.contrib.auth.models import User
 from friendship.models import Block, Follow, Friend, FriendshipRequest
 
+
+try:
+    from django.contrib.auth import get_user_model
+
+    user_model = get_user_model()
+except ImportError:
+    from django.contrib.auth.models import User
+
+    user_model = User
+
 env = environ.Env()
 environ.Env.read_env()
 tmdb_key = env('TMDB_API_KEY')
@@ -49,7 +59,8 @@ search = Search()
 Imdb_URL = env('IMDB_URL')
 URL_API = env('RAPID_API_KEY')
 
-    
+
+
 def home(request):
     assert isinstance(request, HttpRequest)
 
@@ -58,9 +69,17 @@ def home(request):
         'app/index.html',
     )
 
-
-def SocialContent(request):
+@login_required
+def SocialContent(request, username):
     assert isinstance(request, HttpRequest)
+
+    """ View the friends of a user """
+    user = get_object_or_404(user_model, username=username)
+    friends = Friend.objects.friends(user)
+
+    context = {
+        'friends':friends,
+    }
 
     return render(
         request,
