@@ -52,7 +52,6 @@ typing_extensions==4.0.1
 django-jsonify==0.3.0
 astroid==2.9.3
 django-embed-video==1.4.1
-django-friendship==1.9.6
 django-jsonfield==1.4.1
 djangorestframework==3.13.1
 isort==5.10.1

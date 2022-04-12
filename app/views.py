@@ -31,18 +31,8 @@ import os
 import environ
 from django.db.models.functions import ExtractYear
 from tmdbv3api.tmdb import TMDb
-from django.contrib.auth.models import User
-from friendship.models import Block, Follow, Friend, FriendshipRequest
 
 
-try:
-    from django.contrib.auth import get_user_model
-
-    user_model = get_user_model()
-except ImportError:
-    from django.contrib.auth.models import User
-
-    user_model = User
 
 env = environ.Env()
 environ.Env.read_env()
@@ -70,21 +60,19 @@ def home(request):
     )
 
 @login_required
-def SocialContent(request, username):
+def SocialContent(request):
     assert isinstance(request, HttpRequest)
-
-    """ View the friends of a user """
-    user = get_object_or_404(user_model, username=username)
-    friends = Friend.objects.friends(user)
-
+    
+    profiles = Profile.objects.exclude(user=request.user)
+    
     context = {
-        'friends':friends,
+        'profile':profile,
     }
 
     return render(
         request,
         'app/social_content.html',
-        context,
+        context
     )
 
 
@@ -241,7 +229,6 @@ def profile(request, id, username):
                   'users/UserProfile.html',
                   context,
     )
-
 
 
 

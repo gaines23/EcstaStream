@@ -30,8 +30,13 @@
 
         <div class="tabcontent" id="FollowerSection">
             <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
-            <h1>Your Friends</h1>
-                
+            {% for profile in profiles %}
+                <div>
+                    <p>{{ profile.user.username }}</p>
+
+                    <p>@{{ profile.user.username|lower }}</p>
+                </div>
+            {% endfor %}
 
         </div>
 

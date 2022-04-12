@@ -84,6 +84,7 @@ class Profile(models.Model):
     fav_genres = models.ForeignKey(Genre, on_delete=models.CASCADE, null=True)
     date_created = models.DateTimeField(auto_now=True)
     last_modified = models.DateTimeField(auto_now=True)
+    follows = models.ManyToManyField("self", related_name="followed_by", symmetrical=False, blank=True)
 
     def __str__(self):
         return self.user.username
@@ -97,7 +98,7 @@ class Profile(models.Model):
             new_img = (100, 100)
             img.thumbnail(new_img)
             img.save(self.profpic.path)
-
+            
 
 class FavoriteListData(models.Model):
     mediaChoices = (
