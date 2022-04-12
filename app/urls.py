@@ -12,7 +12,6 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('SocialContent/<username>', views.home, name='social-content'),
     path('MainSearchResults', views.MainSearchResults, name='search-results'),
     path('profile/<id>/<username>', views.profile, name='users-profile'),
     path('MovieDetails/<movieid>/<media_type>', views.MovieDetails, name='MovieDetails'),

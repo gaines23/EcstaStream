@@ -75,6 +75,8 @@ class Streamingurls(models.Model):
 
 
 
+
+
 class Profile(models.Model):
     id = models.BigAutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)

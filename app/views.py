@@ -54,26 +54,17 @@ URL_API = env('RAPID_API_KEY')
 def home(request):
     assert isinstance(request, HttpRequest)
 
+    profiles_list = Profile.objects.exclude(user=request.user)
+    
+    context = {
+        'profiles_list':profiles_list,
+    }
     return render(
         request,
         'app/index.html',
+        context,
     )
 
-@login_required
-def SocialContent(request):
-    assert isinstance(request, HttpRequest)
-    
-    profiles = Profile.objects.exclude(user=request.user)
-    
-    context = {
-        'profile':profile,
-    }
-
-    return render(
-        request,
-        'app/social_content.html',
-        context
-    )
 
 
 def MainSearchResults(request):

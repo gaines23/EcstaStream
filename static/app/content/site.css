@@ -302,7 +302,7 @@ nav .UserLists {
 .RightSideBar .Nav-UserLogin #logged-in {
     height: 100%;
     width: 50%;
-    float: right;
+    float: left;
     margin-bottom: 0px;
     margin-top: 0px;
 }
@@ -337,7 +337,6 @@ nav .UserLists {
     cursor: pointer;
     object-fit: cover;
 }
-
 
 
 
