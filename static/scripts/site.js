@@ -19,18 +19,6 @@ function searchAll() {
 
 
 
-function searchToggle(obj, evt){
-    var container = $(obj).closest('.search-wrapper');
-        if(!container.hasClass('active')){
-            container.addClass('active');
-            evt.preventDefault();
-        }
-        else if(container.hasClass('active') && $(obj).closest('.input-holder').length == 0){
-            container.removeClass('active');
-            // clear input
-            container.find('.search-input').val('');
-        }
-}
 
 
 
@@ -39,9 +27,9 @@ function searchFriends() {
     input = document.getElementById("searchInput");
     filter = input.value.toUpperCase();
     ul = document.getElementById("cards");
-    li = document.getElementByClassName("div");
+    li = ul.getElementsByTagName("div");
     for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("info-container")[0];
+        a = li[i].getElementsByTagName("h4")[0];
         txtValue = a.textContent || a.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
             li[i].style.display = "";

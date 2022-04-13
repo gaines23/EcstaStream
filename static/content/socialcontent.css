@@ -84,32 +84,77 @@
     color: white;
 }
 
+.RightSideBar .SignedIn .tabcontent h3 {
+    font-size: 20px;
+    text-align: center;
+}
 
 
 
-.RightSideBar .tabcontent #cards-container {
-    height: 100%;
+
+.RightSideBar .tabcontent .Search-Wrapper {
+    width: 100%;
+    margin: auto;
+    color: white;
+}
+
+.tabcontent .Search-Wrapper .Input-Wrapper {
+    width: 90%;
+    margin: auto;
+    border-radius: 10px;
+    color: white;
+}
+
+
+.tabcontent .Search-Wrapper .Input-Wrapper .Search-Input {
+    width: 100%;
+    margin: auto;
+    color: white;
+    backdrop-filter: blur(10px) saturate(130%);
+    -webkit-backdrop-filter: blur(10px) saturate(130%);
+    background-color: rgba(121, 0, 224, 0.06);
+    border-radius: 12px;
+    border: 3px solid rgba(255, 255, 255, 0.125);
+    outline: none;
+}
+
+.tabcontent .Search-Wrapper .Input-Wrapper .Search-Input:focus {
+    -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 25%);
+    box-shadow: 0px 0px 2px 3px #f8f9fa73;
+    cursor: pointer;
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    border: 1px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+}
+
+
+
+
+.tabcontent .container #cards-container {
+    height: 85%;
     overflow: hidden;
     overflow-y: scroll;
     scroll-behavior: smooth;
 }
 
-.tabcontent cards-container {
+.tabcontent .container #cards-container {
   scrollbar-width: thin;
   scrollbar-color: #f96d2d #000000;
 }
 
   /* Chrome, Edge, and Safari */
-.tabcontent #cards-container::-webkit-scrollbar {
-  width: 15px;
+.tabcontent .container #cards-container::-webkit-scrollbar {
+  width: 10px;
   height: 10px;
 }
 
-.tabcontent #cards-container::-webkit-scrollbar-track {
-  background: #000000;
+.tabcontent .container #cards-container::-webkit-scrollbar-track {
+  background-color: transparent;
   }
 
-.tabcontent #cards-container::-webkit-scrollbar-thumb {
+.tabcontent .container #cards-container::-webkit-scrollbar-thumb {
   background-color: #f96d2d;
   border-radius: 5px;
 }
@@ -117,13 +162,13 @@
 
 .tabcontent .cards {
     display: inline-block;
-    height: 100%;
+    height: 85%;
     width: 100%;
     margin: auto;
 }
 
-.tabcontent .cardInfo {
-    height: 80px;
+.tabcontent .card {
+    height: 100px;
     width: 90%;
     backdrop-filter: blur(10px) saturate(130%);
     -webkit-backdrop-filter: blur(10px) saturate(130%);
@@ -139,7 +184,7 @@
     border-radius: 20px;
 }
 
-.tabcontent .cardInfo:hover {
+.tabcontent .card:hover {
     -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 25%);
     box-shadow: 0px 0px 2px 3px #f8f9fa73;
     cursor: pointer;
@@ -153,31 +198,51 @@
 
 
 
-.tabcontent .cardinfo #friend-img {
-    width: 30%;
-    height: 100%;
-    float: left;
-    padding-top: 8px;
-    display: inline-block;
-}
 
-.tabcontent .cardInfo #friend-img img {
-    height: 55px;
-    width: fit-content;
-    margin-left: 10px;
-    border-radius: 30px;
-}
 
-.tabcontent .cardInfo .info-container {
-    width: 70%;
+
+.tabcontent .card .info-container {
+    width: 100%;
     height: 100%;
     padding-top: 5px;
     float: right;
-    font-size: ;
 }
 
-.info-container h4 {
+.tabcontent .card img {
+    height: 55px;
+    width: 55px;
+    float: left;
+    display: inline-block;
+    margin-left: 10px;
+    border-radius: 30px;
+    margin-top: 5px;
+}
+
+.info-container #username {
     height: fit-content;
+    font-size: 15px;
+    width: 160px; 
+    float: right;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
+.info-container #name {
+    height: fit-content;
+    font-size: 12px;
+    width: 160px;
+    float: right;
+}
 
+.tabcontent .card button {
+    width: 80px;
+    display: inline-block;
+}
+
+.tabcontent .card #accept {
+    float: left;
+}
+
+.tabcontent .card #deny {
+    float: right;
+}

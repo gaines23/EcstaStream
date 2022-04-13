@@ -115,9 +115,8 @@
                 <div class="UserNotifications tab">
 
                     <div class="row SocialButtons">
-                        <button class="tablinks" onclick="openPage(event, 'SocialFeed')"><i class="fa-solid fa-rectangle-list"></i></button>
+                        <button class="tablinks" onclick="openPage(event, 'SocialFeed')" id="defaultOpen"><i class="fa-solid fa-rectangle-list"></i></button>
                         <button class="tablinks" onclick="openPage(event, 'Notifications')"><i class="far fa-bell"></i></button>
-                        <button class="tablinks" onclick="openPage(event, 'FriendSection')" id="defaultOpen"><i class="fa-solid fa-address-book"></i></button>
                         <button class="tablinks" onclick="openPage(event, 'DirectMessages')"><i class="fa-solid fa-envelope"></i></button>
                     </div>
                 </div>
@@ -130,47 +129,6 @@
                     </div>
 
                     <div class="tabcontent" id="Notifications">
-
-                    </div>
-
-                    <div class="tabcontent" id="FriendSection">
-                        <p>Friends</p>
-        
-                        <div class="search-wrapper">
-                            <div class="input-holder">
-                                <input type="text" id="searchInput" onkeyup="searchFriends()" class="search-input" placeholder="Search..." />
-                                <button class="search-icon" onclick="searchToggle(this, event);">
-                                    <i class="fas fa-search" style="font-size: 25px; color: #f97c32"></i>
-                                </button>
-                            </div>
-                            <span class="close" onclick="searchToggle(this, event);"></span>
-                        </div>
-
-
-                        <span class="container">
-
-                            <div id="cards-container">
-                                <h3>Friend List:</h3>
-
-                                <div class="cards" id="cards">
-                                    {% for profile in profiles_list %}
-
-                                    <div class="cardInfo" id="cardinfo">
-                                        <a href="{% url 'users-profile' profile.user.id profile.user.username %}">
-                                            <div class="info-container">
-                                                <h4>{{ profile.user.username }}</h4>
-                                                <h4>@{{ profile.user.username|lower }}</h4>
-                                            </div>
-                                            <div id="friend-img">
-                                                <img src="{{ user.profile.profpic.url }}">
-                                            </div>
-                                        </a>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-
-                        </span>
 
                     </div>
 

@@ -334,6 +334,7 @@ nav .UserLists {
     height: 100px;
     width: 110px;
     float: left;
+    border-radius: 20px;
     cursor: pointer;
     object-fit: cover;
 }

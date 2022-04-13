@@ -14,6 +14,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('MainSearchResults', views.MainSearchResults, name='search-results'),
     path('profile/<id>/<username>', views.profile, name='users-profile'),
+    path('friend/<id>/<username>', views.FriendProfile, name='friends-profile'),
     path('MovieDetails/<movieid>/<media_type>', views.MovieDetails, name='MovieDetails'),
     path('fav-movie/<movieid>/<media_type>', views.favorite_add_movie, name='fav-add-movie'),
     path('TvDetails/<tvid>/<media_type>', views.TvDetails, name='TvDetails'),

@@ -7,6 +7,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'content\users\profilePage.css' %}">
 </head>
 
+
+<!--
+
 <div class="col-4 ProfileForm">
 
     <div class="ProfPic" id="profpic">
@@ -46,5 +49,64 @@
 
 </div>
 
+-->
+
+
+
+{% for following in follow_list.follows.all %}
+
+    <li>{{ following }}</li>
+
+{% endfor %}
+
+{% for following in follow_list.followed_by.all %}
+
+    <li>{{ following }}</li>
+
+{% endfor %}
+
+
+<div class="FriendSection" id="friends">
+    <h3>Friends</h3>
+    
+    <div class="Search-Wrapper">
+        <div class="Input-Wrapper">
+            <input type="text" id="search-Input" onkeyup="searchFriends()" class="Search-Input" placeholder="Search..." />
+        </div>
+    </div>
+
+                    
+    <span class="container">
+        <h3>Friend List:</h3>
+            <div id="cards-container">
+                <div class="cards" id="cards">
+                    {% for follow in follow_list %}
+                        <div class="cardInfo" id="cardinfo">
+                                
+                            <div class="card">
+                                <a href="{% url 'friends-profile' follow.user.id follow.user.username %}">
+                                    <div class="info-container">
+                                        <img id="friend-img" src="{{ follow.user.profpic.url }}">
+                                        <h4 id="username">@{{ follow.user.username }}</h4>
+                                        <h4 id="name">{{ follow.user.first_name }} {{follow.user.last_name}}</h4>
+                                    </div>
+                                </a>
+                                
+                            </div>
+                                        
+                                        
+                        </div>
+
+                    {% endfor %}
+
+            </div>
+                            
+        </div>
+                            
+    </span>
+</div>
+
+
+<script src="{% static 'scripts\profile.js' %}"></script>
 
 {% endblock %}

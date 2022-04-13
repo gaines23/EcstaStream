@@ -55,7 +55,8 @@ def home(request):
     assert isinstance(request, HttpRequest)
 
     profiles_list = Profile.objects.exclude(user=request.user)
-    
+    #profiles_list = Profile.objects.all()
+
     context = {
         'profiles_list':profiles_list,
     }
@@ -193,6 +194,8 @@ def profile(request, id, username):
     model = Profile
     profid = Profile.objects.get(user=id)
 
+    follow_list = Profile.objects.exclude(user=request.user)
+
     if request.method == 'POST' and 'edit' in request.POST:
         user_form = UpdateUserForm(request.POST, instance=userid)
         profile_form = UpdateProfileForm(request.POST, request.FILES, instance=profid)
@@ -214,12 +217,42 @@ def profile(request, id, username):
             'profid': profid,
             'user_form': user_form, 
             'profile_form': profile_form,
+            'follow_list':follow_list,
         }
 
     return render(request, 
                   'users/UserProfile.html',
                   context,
     )
+
+def FriendProfile(request, id, username):
+    assert isinstance(request, HttpRequest)
+
+    friend = Profile.objects.get(id=id)
+    follow_list = Profile.objects.exclude(user=request.user)
+
+    if request.method == 'POST':
+        current_user = request.user.profile
+        data = request.POST
+        action = data.get('follow')
+
+        if action == 'follow':
+            current_user.follows.add(friend)
+        elif action == 'unfollow':
+            current_user.follows.remove(friend)
+        current_user.save()
+
+
+    context = {
+        'follow_list':follow_list,
+        'friend':friend,
+    }
+
+    return render(request,
+        'users/FriendsProfile.html',
+        context,
+    )
+
 
 
 
