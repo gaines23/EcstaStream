@@ -110,6 +110,9 @@ class UserPost(models.Model):
     def __str__(self):
         return f"({self.user.username} {self.created_at:%Y-%m-%d %H:%M})"
 
+    class Meta:
+        ordering = ['-created_at']
+
         
 
 class FavoriteListData(models.Model):

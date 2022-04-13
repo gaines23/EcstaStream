@@ -152,11 +152,12 @@
                                             <div class="info-container">
                                                 <img id="friend-img" src="{{ post.user.profpic.url }}">
                                                 <h4 id="username">
-                                                    {{ post.user.username }} ({{ post.created_at }}):
+                                                    {{ post.user.username }}:
                                                 </h4>
                                                 <h1 id="body">
                                                     {{ post.body }}
                                                 </h1>
+                                                {{ post.created_at }}
                                             </div>
                                         </a>
                                     </div>
