@@ -15,7 +15,7 @@ admin.site.register(StreamingRegion)
 admin.site.register(Collection)
 admin.site.register(UsCerts)
 admin.site.register(Streamingurls)
-
+admin.site.register(UserPost)
 
 
 #admin.site.register(Movie)

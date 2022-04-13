@@ -54,12 +54,18 @@ URL_API = env('RAPID_API_KEY')
 def home(request):
     assert isinstance(request, HttpRequest)
 
-    profiles_list = Profile.objects.exclude(user=request.user)
-    #profiles_list = Profile.objects.all()
+    new_post = UserPostForm(request.POST or None)
+    if request.method == "POST":
+        if new_post.is_valid():
+            post = new_post.save(commit=False)
+            post.user = request.user
+            post.save()
+            return redirect("home")
 
     context = {
-        'profiles_list':profiles_list,
+        'new_post':new_post,
     }
+
     return render(
         request,
         'app/index.html',

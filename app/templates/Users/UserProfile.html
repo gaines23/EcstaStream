@@ -7,13 +7,109 @@
     <link rel="stylesheet" type="text/css" href="{% static 'content\users\profilePage.css' %}">
 </head>
 
+<div class="Posts">
+    {% for post in user.posts.all %}
+        <div class="PostContent">
+            {{ post.body }}
+            <span class="DateCreated">({{ post.created_at }})</span>
+        </div>
+    {% endfor %}
+</div>
+
+
+
+<div class="SocialTab">
+
+    <div class="SocialContent">
+
+        <div class="col-md-3 FriendSection" id="friends">
+
+            <div class="Followers">
+                <h3>Followers</h3>
+                {{profid.followed_by.all.count}}
+            </div>
+
+            <div class="Following">
+                <h3>Following</h3>
+                {{profid.follows.all.count}}
+            </div>
+
+            
+            
+            <div class="Search-Wrapper">
+                <div class="Input-Wrapper">
+                    <input type="text" id="searchInput" onkeyup="searchFriends()" class="Search-Input" placeholder="Search..." />
+                </div>
+            </div>
+                            
+            <span class="container">
+                <div id="cards-container">
+                    <div class="cards" id="cards">
+                        {% for follow in follow_list %}
+                            <div class="cardInfo" id="cardinfo">
+                                <div class="card">
+                                    <a href="{% url 'friends-profile' follow.user.id follow.user.username %}">
+                                        <div class="info-container">
+                                            <img id="friend-img" src="{{ follow.user.profpic.url }}">
+                                            <h4 id="username">@{{ follow.user.username }}</h4>
+                                            <h4 id="name">{{ follow.user.first_name }} {{follow.user.last_name}}</h4>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>           
+                        {% endfor %}    
+                    </div>
+                </div>
+            </span>
+
+            <div class="FollowerList">
+                <div id="cards-container">
+                    <div class="cards" id="cards">
+                        {% for follow in profid.followed_by.all %}
+                            <div class="cardInfo" id="cardinfo">
+                                <div class="card">
+                                    <a href="{% url 'friends-profile' follow.user.id follow.user.username %}">
+                                        <div class="info-container">
+                                            <img id="friend-img" src="{{ follow.user.profpic.url }}">
+                                            <h4 id="username">@{{ follow.user.username }}</h4>
+                                            <h4 id="name">{{ follow.user.first_name }} {{follow.user.last_name}}</h4>
+                                        </div>
+                                    </a>
+                                </div>           
+                            </div>
+                        {% endfor %}
+                        {% for follow in profid.follows.all %}
+                            <div class="cardInfo" id="cardinfo">
+                                <div class="card">
+                                    <a href="{% url 'friends-profile' follow.user.id follow.user.username %}">
+                                        <div class="info-container">
+                                            <img id="friend-img" src="{{ follow.user.profpic.url }}">
+                                            <h4 id="username">@{{ follow.user.username }}</h4>
+                                            <h4 id="name">{{ follow.user.first_name }} {{follow.user.last_name}}</h4>
+                                        </div>
+                                    </a>
+                                </div>           
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
 
 <!--
 
 <div class="col-4 ProfileForm">
 
     <div class="ProfPic" id="profpic">
-       	<img class="rounded-circle account-img" src="{{ user.profile.profpic.url }} " height="50px" width="50px" style="cursor: pointer;"/>
+        <img class="rounded-circle account-img" src="{{ user.profile.profpic.url }} " height="50px" width="50px" style="cursor: pointer;"/>
     </div>
 
     {% if user_form.errors %}
@@ -52,59 +148,6 @@
 -->
 
 
-
-{% for following in follow_list.follows.all %}
-
-    <li>{{ following }}</li>
-
-{% endfor %}
-
-{% for following in follow_list.followed_by.all %}
-
-    <li>{{ following }}</li>
-
-{% endfor %}
-
-
-<div class="FriendSection" id="friends">
-    <h3>Friends</h3>
-    
-    <div class="Search-Wrapper">
-        <div class="Input-Wrapper">
-            <input type="text" id="search-Input" onkeyup="searchFriends()" class="Search-Input" placeholder="Search..." />
-        </div>
-    </div>
-
-                    
-    <span class="container">
-        <h3>Friend List:</h3>
-            <div id="cards-container">
-                <div class="cards" id="cards">
-                    {% for follow in follow_list %}
-                        <div class="cardInfo" id="cardinfo">
-                                
-                            <div class="card">
-                                <a href="{% url 'friends-profile' follow.user.id follow.user.username %}">
-                                    <div class="info-container">
-                                        <img id="friend-img" src="{{ follow.user.profpic.url }}">
-                                        <h4 id="username">@{{ follow.user.username }}</h4>
-                                        <h4 id="name">{{ follow.user.first_name }} {{follow.user.last_name}}</h4>
-                                    </div>
-                                </a>
-                                
-                            </div>
-                                        
-                                        
-                        </div>
-
-                    {% endfor %}
-
-            </div>
-                            
-        </div>
-                            
-    </span>
-</div>
 
 
 <script src="{% static 'scripts\profile.js' %}"></script>

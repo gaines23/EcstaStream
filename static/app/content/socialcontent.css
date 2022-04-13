@@ -132,29 +132,29 @@
 
 
 
-.tabcontent .container #cards-container {
+.tabconten  #cards-container {
     height: 85%;
     overflow: hidden;
     overflow-y: scroll;
     scroll-behavior: smooth;
 }
 
-.tabcontent .container #cards-container {
+.tabcontent #cards-container {
   scrollbar-width: thin;
   scrollbar-color: #f96d2d #000000;
 }
 
   /* Chrome, Edge, and Safari */
-.tabcontent .container #cards-container::-webkit-scrollbar {
+.tabcontent #cards-container::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 
-.tabcontent .container #cards-container::-webkit-scrollbar-track {
+.tabcontent #cards-container::-webkit-scrollbar-track {
   background-color: transparent;
   }
 
-.tabcontent .container #cards-container::-webkit-scrollbar-thumb {
+.tabcontent #cards-container::-webkit-scrollbar-thumb {
   background-color: #f96d2d;
   border-radius: 5px;
 }
@@ -220,16 +220,16 @@
 
 .info-container #username {
     height: fit-content;
-    font-size: 15px;
+    font-size: 12px;
     width: 160px; 
     float: right;
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
-.info-container #name {
+.info-container #body {
     height: fit-content;
-    font-size: 12px;
+    font-size: 15px;
     width: 160px;
     float: right;
 }

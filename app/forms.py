@@ -126,7 +126,12 @@ class MovieListForm(forms.ModelForm):
         fields = ['movieid', 'title', 'genre_list', 'release_date', 'poster_path', 'tagline',]
 
 
+class UserPostForm(forms.ModelForm):
+    body = forms.CharField(required=True)
 
+    class Meta:
+        model = UserPost
+        exclude = ("user",)
 
 
 #class FavoritePlaylist(forms.ModelForm):

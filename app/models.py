@@ -100,7 +100,17 @@ class Profile(models.Model):
             new_img = (100, 100)
             img.thumbnail(new_img)
             img.save(self.profpic.path)
-            
+
+
+class UserPost(models.Model):
+    user = models.ForeignKey(User, related_name="posts", on_delete=models.DO_NOTHING)
+    body = models.CharField(max_length=20)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"({self.user.username} {self.created_at:%Y-%m-%d %H:%M})"
+
+        
 
 class FavoriteListData(models.Model):
     mediaChoices = (

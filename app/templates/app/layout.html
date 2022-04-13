@@ -126,6 +126,45 @@
 
                     <div class="tabcontent" id="SocialFeed">
 
+                        <div class="UserPost">
+                            <h3>Whatcha Watchin?</h3>
+                            <div class="PostForm">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    {{ new_post }}
+
+                                    <button class="SubmitPost" type="submit">
+                                        Submit
+                                    </button>
+                                </form>
+                            </div>
+
+                        </div>
+
+
+                        {% for followed in user.profile.follows.all %}
+                        <div class="cards-container">
+                            <div class="cards" id="cards">
+                            {% for post in followed.user.posts.all %}
+                                <div class="cardInfo" id="cardinfo">
+                                    <div class="card">
+                                        <a href="#">
+                                            <div class="info-container">
+                                                <img id="friend-img" src="{{ post.user.profpic.url }}">
+                                                <h4 id="username">
+                                                    {{ post.user.username }} ({{ post.created_at }}):
+                                                </h4>
+                                                <h1 id="body">
+                                                    {{ post.body }}
+                                                </h1>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
 
                     <div class="tabcontent" id="Notifications">

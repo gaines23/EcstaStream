@@ -9,20 +9,55 @@
 }
 
 
+.RightSideBar .SignedIn .UserNotifications {
+	display: none;
+}
+
+.RightSideBar .SignedIn .UserSocialContainer {
+	display: none;
+}
+
+
+.SocialTab {
+	height: 100%;
+	width: 100%;
+}
+
+.SocialTab .SocialContent {
+	width: 90%;
+	margin: auto;
+}
+
+.SocialTab .SocialContent .FriendSection .Followers {
+	width: 50%;
+	height: 70px;
+	float: left;
+	text-align: center;
+}
+
+.SocialTab .SocialContent .FriendSection .Following {
+	width: 50%;
+	height: 70px;
+	float: right;
+	text-align: center;
+}
+
+
+
 
 }
-.FriendSection {
+.SocialTab .SocialContent .FriendSection {
     height: 100%;
     width: 100%;
     margin: 0px auto 10px auto;
 }
 
-.FriendSection a {
+.SocialTab .SocialContent .FriendSection a {
     text-decoration: none;
     color: white;
 }
 
-.FriendSection h3 {
+.SocialTab .SocialContent .FriendSection h3 {
     font-size: 20px;
     text-align: center;
 }

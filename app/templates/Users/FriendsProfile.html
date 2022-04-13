@@ -32,6 +32,16 @@
 </div>
 
 
+<div class="Posts">
+    {% for post in friend.user.posts.all %}
+        <div class="PostContent">
+            {{ post.body }}
+            <span class="DateCreated">({{ post.body }})</span>
+        </div>
+    {% endfor %}
+</div>
+
+
 
 <script src="{% static 'scripts\profile.js' %}"></script>
 
