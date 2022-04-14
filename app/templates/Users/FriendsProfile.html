@@ -36,7 +36,7 @@
     {% for post in friend.user.posts.all %}
         <div class="PostContent">
             {{ post.body }}
-            <span class="DateCreated">({{ post.body }})</span>
+            <span class="DateCreated">({{ post.created_on }})</span>
         </div>
     {% endfor %}
 </div>

@@ -1,0 +1,40 @@
+{% extends "app/layout.html" %}
+
+{% block maincontent %}
+{% load static %}
+
+
+{% load static %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'content\playlists\create_playlist.css' %}">
+</head>
+
+<div class="PlaylistForm">
+
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <div class="PlaylistHeader">
+            <h2 class="ActionTitle">Create New Playlist</h2>
+        </div>
+
+        <div class="PlaylistInfo">
+            {{create_pl}}
+        </div>
+
+        <div class="modal-footer">
+            <button type="submit" class="SubmitPL">Create</button>
+            <a href="{% url 'home' %}">
+            <button type="button" class="CancelPL" aria-label="Close">
+                <span aria-hidden="true">Cancel</span>
+            </button>
+            </a>
+        </div>
+
+    </form>
+
+</div>
+
+
+{% endblock %}

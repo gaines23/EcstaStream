@@ -31,6 +31,9 @@ import os
 import environ
 from django.db.models.functions import ExtractYear
 from tmdbv3api.tmdb import TMDb
+from bootstrap_modal_forms.generic import BSModalCreateView
+
+
 
 
 
@@ -201,6 +204,7 @@ def profile(request, id, username):
     profid = Profile.objects.get(user=id)
 
     follow_list = Profile.objects.exclude(user=request.user)
+    playlists = UserPlaylist.objects.get(creator=request.user)
 
     if request.method == 'POST' and 'edit' in request.POST:
         user_form = UpdateUserForm(request.POST, instance=userid)
@@ -236,6 +240,7 @@ def FriendProfile(request, id, username):
 
     friend = Profile.objects.get(id=id)
     follow_list = Profile.objects.exclude(user=request.user)
+    playlists = UserPlaylist.objects.get(creator=id)
 
     if request.method == 'POST':
         current_user = request.user.profile
@@ -402,12 +407,57 @@ def watch_list(request):
 
 
 
-def user_playlists(request):
-    assert isinstance(request, HttpRequest)
+## Create Playlists
+@login_required
+def CreatePlaylist(request):
+    create_pl = CreatePlaylistForm(request.POST or None)
+    if request.method == 'POST':
+        if create_pl.is_valid():
+            pl  = create_pl.save(commit=False)
+            pl.creator = request.user
+            pl.save()
+            return redirect("/")
+    
+    context = {'create_pl':create_pl}
 
     return render(
         request,
-        'playlists/playlist.html'
+        'playlists/create_playlist.html',
+        context        
+    )
+
+
+def user_playlists(request, creator, user_pl_id):
+    user = get_object_or_404(User, creator=creator)
+    playlist = get_object_or_404(UserPlaylist, creator=creator, user_pl_id=user_pl_id)
+
+    playlist_data = list(UserPlaylistData.objects.filter(Q(user=request.user)))
+    play = list(sorted(playlist_data, key = lambda x: x.pl_date_added, reverse=True))
+    all_playlist = UserPlaylistData.objects.all()
+
+    details = []
+
+    try:
+        for x in play:
+            id = x.pl_mov_show_id
+            media = x.media_type
+            if x.media_type == 1:
+                details.append([{'movie': movie.details(id)}, movie.watch_providers(id).results['US']])
+            else:
+                details.append([{'tv': tv.details(id)}, tv.watch_providers(id).results['US']])
+    except Exception as e:
+        pass
+    
+    context = {'play':play,
+               'playlist_data':playlist_data,
+               'details':details,
+               'ap':all_playlist,
+    }
+
+    return render(
+        request,
+        'playlists/playlist.html',
+        context,
     )
 
 

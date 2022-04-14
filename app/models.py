@@ -105,15 +105,54 @@ class Profile(models.Model):
 class UserPost(models.Model):
     user = models.ForeignKey(User, related_name="posts", on_delete=models.DO_NOTHING)
     body = models.CharField(max_length=20)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"({self.user.username} {self.created_at:%Y-%m-%d %H:%M})"
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ['-created_on']
 
+    
         
+
+class UserPlaylist(models.Model):
+    user_pl_id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=50)
+    pl_list = models.JSONField(default=list, null=True, blank=True)
+    creator = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+    private = models.BooleanField(default=True)
+    description = models.TextField(null=True)
+    comments = models.TextField(null=True)
+    playlist_follows = models.ManyToManyField("self", related_name="followed_by", symmetrical=False, blank=True)
+
+    def __str__(self):
+        return (self.creator, self.created_on, self.user_pl_id)
+
+class UserPlaylistData(models.Model):
+    mediaChoices = (
+        (1,'Movie'),
+        (2, 'TV')
+    )
+
+    pl_data_id = models.AutoField(primary_key=True)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_playlist = models.ForeignKey(UserPlaylist, on_delete=models.CASCADE)
+    pl_mov_show_id = models.IntegerField()
+    pl_date_added = models.DateTimeField(auto_now=True)
+    media_type = models.IntegerField(null=True, blank=True, choices=mediaChoices)
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["user_playlist", "pl_mov_show_id", "media_type"], name='user_playlist_constraint')    
+        ]
+
+
 
 class FavoriteListData(models.Model):
     mediaChoices = (
@@ -155,40 +194,6 @@ class WatchListData(models.Model):
             models.UniqueConstraint(fields=["user", "watch_mov_show_id", "media_type"], name='watchlist_constraint')    
         ]
 
-
-class UserPlaylist(models.Model):
-    user_pl_id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=50)
-    pl_list = models.JSONField(default=list, null=True, blank=True)
-    creator = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now=True)
-    private = models.BooleanField()
-
-
-    def __str__(self):
-        return self.title
-
-class UserPlaylistData(models.Model):
-    mediaChoices = (
-        (1,'Movie'),
-        (2, 'TV')
-    )
-
-    pl_data_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    user_playlist = models.ForeignKey(User, on_delete=models.CASCADE)
-    watch_mov_show_id = models.IntegerField()
-    watch_date_added = models.DateTimeField(auto_now=True)
-    media_type = models.IntegerField(null=True, blank=True, choices=mediaChoices)
-
-    def __str__(self):
-        return self.user.username
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=["user", "user_pl_id", "media_type"], name='playlist_constraint')    
-        ]
 
 
 

@@ -134,13 +134,18 @@ class UserPostForm(forms.ModelForm):
         exclude = ("user",)
 
 
-class UserPlaylistForm(forms.ModelForm):
+class CreatePlaylistForm(forms.ModelForm):
+    title = forms.CharField(required=True)
+    private = forms.BooleanField(required=True)
+    description = forms.CharField(required=False)
+    
     class Meta:
         model = UserPlaylist
-        field = ['title', 'creator', 'private',]
+        fields = ['title', 'creator', 'private', 'description']
 
-class UserPlaylisstDataForm(forms.ModelForm):
+
+
+class UserPlaylistDataForm(forms.ModelForm):
     class Meta:
         model = UserPlaylistData
-
-
+        fields = ['creator', 'pl_mov_show_id', 'user_playlist']

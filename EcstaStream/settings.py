@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'multiselectfield',
     'social_django',
     'rest_framework',
+    'bootstrap_modal_forms',
 ]
 
 # Middleware framework
