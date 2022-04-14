@@ -134,10 +134,13 @@ class UserPostForm(forms.ModelForm):
         exclude = ("user",)
 
 
-#class FavoritePlaylist(forms.ModelForm):
-#     share = forms.BooleanField()
-#     private = forms.BooleanField()
-     
-#     class Meta:
-#         model = FavoriteList
-#         fields = ['id']
+class UserPlaylistForm(forms.ModelForm):
+    class Meta:
+        model = UserPlaylist
+        field = ['title', 'creator', 'private',]
+
+class UserPlaylisstDataForm(forms.ModelForm):
+    class Meta:
+        model = UserPlaylistData
+
+

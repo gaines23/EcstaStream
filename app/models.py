@@ -156,6 +156,40 @@ class WatchListData(models.Model):
         ]
 
 
+class UserPlaylist(models.Model):
+    user_pl_id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=50)
+    pl_list = models.JSONField(default=list, null=True, blank=True)
+    creator = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+    private = models.BooleanField()
+
+
+    def __str__(self):
+        return self.title
+
+class UserPlaylistData(models.Model):
+    mediaChoices = (
+        (1,'Movie'),
+        (2, 'TV')
+    )
+
+    pl_data_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_playlist = models.ForeignKey(User, on_delete=models.CASCADE)
+    watch_mov_show_id = models.IntegerField()
+    watch_date_added = models.DateTimeField(auto_now=True)
+    media_type = models.IntegerField(null=True, blank=True, choices=mediaChoices)
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["user", "user_pl_id", "media_type"], name='playlist_constraint')    
+        ]
+
 
 
 
@@ -166,6 +200,7 @@ class UserFavoritesList(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     favs_list = JSONField(default=list, null=True, blank=True)
 ### add user settings/preferences 
+
 
 class UserWatchList(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -254,7 +289,6 @@ class MoviesList(models.Model):
 #    created_on = models.DateTimeField(auto_now=True)
 #    updated_on = models.DateTimeField(auto_now=True)
 #    playlist_favorites = models.ManyToManyField(User, related_name="favorite", default=None)
-#    image_caption = models.CharField(max_length=100),
 #    friends_like_playlist = models.ManyToManyField(User, related_name='like', default=None)
 #    playlist_like_count = models.BigIntegerField(default='0')
 

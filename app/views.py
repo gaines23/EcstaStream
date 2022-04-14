@@ -335,7 +335,6 @@ def favorites_list(request):
 
 
 
-
 @login_required
 def watchlist_add_movie(request, movieid, media_type=1):
     assert isinstance(request, HttpRequest)
@@ -394,6 +393,21 @@ def watch_list(request):
     return render(request,
                   'playlists/watchlist.html',
                   context
+    )
+
+
+
+
+
+
+
+
+def user_playlists(request):
+    assert isinstance(request, HttpRequest)
+
+    return render(
+        request,
+        'playlists/playlist.html'
     )
 
 

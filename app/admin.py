@@ -16,7 +16,8 @@ admin.site.register(Collection)
 admin.site.register(UsCerts)
 admin.site.register(Streamingurls)
 admin.site.register(UserPost)
-
+admin.site.register(UserPlaylist)
+admin.site.register(UserPlaylistData)
 
 #admin.site.register(Movie)
 #admin.site.register(Watchlist)
