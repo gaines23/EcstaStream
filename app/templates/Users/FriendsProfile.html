@@ -18,7 +18,7 @@
 
     <form method="post">
         {% csrf_token %}
-       <div class="buttons has-addons">
+        <div class="buttons has-addons">
         {% if friend in friend.user.follows.all %}
             <button class="button is-success is-static">Follow</button>
             <button class="button is-danger" name="follow" value="unfollow"> Unfollow</button>

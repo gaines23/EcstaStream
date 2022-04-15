@@ -57,6 +57,8 @@ URL_API = env('RAPID_API_KEY')
 def home(request):
     assert isinstance(request, HttpRequest)
 
+    playlist_list = UserPlaylist.objects.get(creator=request.user)
+
     new_post = UserPostForm(request.POST or None)
     if request.method == "POST":
         if new_post.is_valid():
@@ -67,6 +69,7 @@ def home(request):
 
     context = {
         'new_post':new_post,
+        'playlist_list':playlist_list,
     }
 
     return render(
@@ -238,21 +241,19 @@ def profile(request, id, username):
 def FriendProfile(request, id, username):
     assert isinstance(request, HttpRequest)
 
-    friend = Profile.objects.get(id=id)
+    follow = Profile.objects.get(id=id)
     follow_list = Profile.objects.exclude(user=request.user)
-    playlists = UserPlaylist.objects.get(creator=id)
+    #playlists = UserPlaylist.objects.get(creator=id)
 
-    if request.method == 'POST':
-        current_user = request.user.profile
+    if request.method == "POST":
+        current_user_profile = request.user.follow
         data = request.POST
-        action = data.get('follow')
-
-        if action == 'follow':
-            current_user.follows.add(friend)
-        elif action == 'unfollow':
-            current_user.follows.remove(friend)
-        current_user.save()
-
+        action = data.get("follow")
+        if action == "follow":
+            current_user_profile.follows.add(follow)
+        elif action == "unfollow":
+            current_user_profile.follows.remove(follow)
+        current_user_profile.save()
 
     context = {
         'follow_list':follow_list,
@@ -266,8 +267,22 @@ def FriendProfile(request, id, username):
 
 
 
+@login_required
+def add_follower(request, id, username):
+    new_follower = Profile.objects.get(id=id)
+    current_user = request.user
+
+    current_user.profile.follows.add(new_follower)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
+@login_required
+def remove_follower(request, id, username):
+    new_follower = Profile.objects.get(id=id)
+    current_user = request.user
+
+    current_user.profile.follows.remove(new_follower)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 @login_required
 def favorite_add_movie(request, movieid, media_type=1):

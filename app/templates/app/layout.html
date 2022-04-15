@@ -112,6 +112,7 @@
         <!-- Expandable Sidebar to show/hide info -->
 
         <div class="col RightSideBar">
+            {% block rightsidebar %}{% endblock %}
 
             {% if request.user.is_authenticated %}
             <div class="SignedIn">

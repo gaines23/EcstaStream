@@ -50,55 +50,31 @@
                                 <div class="card">
                                     <a href="{% url 'friends-profile' follow.user.id follow.user.username %}">
                                         <div class="info-container">
-                                            <img id="friend-img" src="{{ follow.user.profpic.url }}">
+                                            <img class="rounded-circle account-img" src="{{ friend.user.profpic.url }} " height="50px" width="50px" style="cursor: pointer;"/>
                                             <h4 id="username">@{{ follow.user.username }}</h4>
                                             <h4 id="name">{{ follow.user.first_name }} {{follow.user.last_name}}</h4>
                                         </div>
                                     </a>
-                                </div>
-                            </div>           
-                        {% endfor %}    
+
+                                   <div class="FollowButtons">
+                                    {% if follow in user.profile.follows.all %}
+                                        <p>Following</p>
+                                        <a href="{% url 'unfollow' follow.user.id follow.user.username %}" class="UnFollow">Unfollow</a>
+                                    {% else %}
+                                        <a href="{% url 'follow' follow.user.id follow.user.username %}" class="Follow">Follow</a>
+                                    {% endif %}
+                                    </div>
+                                </div>           
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </span>
-
-            <div class="FollowerList">
-                <div id="cards-container">
-                    <div class="cards" id="cards">
-                        {% for follow in profid.followed_by.all %}
-                            <div class="cardInfo" id="cardinfo">
-                                <div class="card">
-                                    <a href="{% url 'friends-profile' follow.user.id follow.user.username %}">
-                                        <div class="info-container">
-                                            <img id="friend-img" src="{{ follow.user.profpic.url }}">
-                                            <h4 id="username">@{{ follow.user.username }}</h4>
-                                            <h4 id="name">{{ follow.user.first_name }} {{follow.user.last_name}}</h4>
-                                        </div>
-                                    </a>
-                                </div>           
-                            </div>
-                        {% endfor %}
-                        {% for follow in profid.follows.all %}
-                            <div class="cardInfo" id="cardinfo">
-                                <div class="card">
-                                    <a href="{% url 'friends-profile' follow.user.id follow.user.username %}">
-                                        <div class="info-container">
-                                            <img id="friend-img" src="{{ follow.user.profpic.url }}">
-                                            <h4 id="username">@{{ follow.user.username }}</h4>
-                                            <h4 id="name">{{ follow.user.first_name }} {{follow.user.last_name}}</h4>
-                                        </div>
-                                    </a>
-                                </div>           
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
         </div>
-
     </div>
 
 </div>
+
 
 
 
@@ -144,6 +120,47 @@
     </div>
 
 </div>
+
+
+
+
+
+
+
+
+                        {% for follow in follow_list %}
+                            <div class="cardInfo" id="cardinfo">
+                                <div class="card">
+                                    <a href="{% url 'friends-profile' follow.user.id follow.user.username %}">
+                                        <div class="info-container">
+                                            <img class="rounded-circle account-img" src="{{ friend.user.profpic.url }} " height="50px" width="50px" style="cursor: pointer;"/>
+                                            <h4 id="username">@{{ follow.user.username }}</h4>
+                                            <h4 id="name">{{ follow.user.first_name }} {{follow.user.last_name}}</h4>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>           
+                        {% endfor %}    
+                    </div>
+                </div>
+            </span>
+
+            <div class="FollowerList">
+                <div id="cards-container">
+                    <div class="cards" id="cards">
+                        {% for follow in profid.followed_by.all %}
+                            <div class="cardInfo" id="cardinfo">
+                                <div class="card">
+                                    <a href="{% url 'friends-profile' follow.user.id follow.user.username %}">
+                                        <div class="info-container">
+                                            <img class="rounded-circle account-img" src="{{ friend.user.profpic.url }} " height="50px" width="50px" style="cursor: pointer;"/>
+                                            <h4 id="username">@{{ follow.user.username }}</h4>
+                                            <h4 id="name">{{ follow.user.first_name }} {{follow.user.last_name}}</h4>
+                                        </div>
+                                    </a>
+                                </div>           
+                            </div>
+                        {% endfor %}
 
 -->
 

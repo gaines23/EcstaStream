@@ -108,7 +108,7 @@ class UserPost(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"({self.user.username} {self.created_at:%Y-%m-%d %H:%M})"
+        return f"({self.user.username} {self.created_on:%Y-%m-%d %H:%M})"
 
     class Meta:
         ordering = ['-created_on']
