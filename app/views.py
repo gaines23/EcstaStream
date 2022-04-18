@@ -57,7 +57,7 @@ URL_API = env('RAPID_API_KEY')
 def home(request):
     assert isinstance(request, HttpRequest)
 
-    playlist_list = UserPlaylist.objects.get(creator=request.user)
+    #playlist_list = UserPlaylist.objects.get(creator=request.user)
 
     new_post = UserPostForm(request.POST or None)
     if request.method == "POST":
@@ -69,7 +69,7 @@ def home(request):
 
     context = {
         'new_post':new_post,
-        'playlist_list':playlist_list,
+        #'playlist_list':playlist_list,
     }
 
     return render(
@@ -207,7 +207,7 @@ def profile(request, id, username):
     profid = Profile.objects.get(user=id)
 
     follow_list = Profile.objects.exclude(user=request.user)
-    playlists = UserPlaylist.objects.get(creator=request.user)
+    #playlists = UserPlaylist.objects.get(creator=request.user)
 
     if request.method == 'POST' and 'edit' in request.POST:
         user_form = UpdateUserForm(request.POST, instance=userid)

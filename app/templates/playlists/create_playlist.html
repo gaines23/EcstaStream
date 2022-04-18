@@ -1,4 +1,4 @@
-{% extends "app/index.html" %}
+{% extends "app/layout.html" %}
 
 {% block maincontent %}
 {% load static %}
@@ -10,31 +10,53 @@
     <link rel="stylesheet" type="text/css" href="{% static 'content\playlists\create_playlist.css' %}">
 </head>
 
-<div class="PlaylistForm">
+    <div class="form-content">
+        <div class="container">
 
-    <form method="POST" action="">
-        {% csrf_token %}
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <h3>Create Playlist</h3>
 
-        <div class="PlaylistHeader">
-            <h2 class="ActionTitle">Create New Playlist</h2>
+                    <div class="form-row  ">
+                        <div class="Image">
+
+                        </div>
+
+                        <div class="login-group Title">
+
+
+                            <label class="username">Title</label>
+                                {{ create_pl.title }}
+                        </div>
+                    </div>
+                    
+                    <div class="form-row Remember">
+                        <div class="form-group">  
+                            <label>{{ form.remember_me }} Remember me</label>
+                        </div>
+                    </div>
+                    
+                    <button name="login" class="col-md-12 btn" id="login">Sign in</button>
+
+                    <div class="social">
+                      <div class="go"><i class="fab fa-google"></i>  Google</div>
+                      <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
+                    </div>
+
+                    <div class="card-bottom">
+                        <div class="small">
+                            <a href="{% url 'users-register' %}">Don't have an account yet? Signup here!</a>
+                            <br>
+                            <a href="{% url 'password_reset' %}"><i>Forgot Password?</i></a>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
         </div>
-
-        <div class="PlaylistInfo">
-            {{create_pl}}
-        </div>
-
-        <div class="modal-footer">
-            <button type="submit" class="SubmitPL">Create</button>
-            <a href="{% url 'home' %}">
-            <button type="button" class="CancelPL" aria-label="Close">
-                <span aria-hidden="true">Cancel</span>
-            </button>
-            </a>
-        </div>
-
-    </form>
-
-</div>
-
+     </div>
 
 {% endblock %}

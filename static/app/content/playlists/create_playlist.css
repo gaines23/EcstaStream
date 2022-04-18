@@ -1,0 +1,149 @@
+
+.SearchForm {
+    display: none;
+}
+
+.RightSideBar {
+    display: none;
+}
+
+.form-content {
+	height: 650px;
+}
+
+.form-content .container {
+	height: 100%;
+    width: 33%;
+    margin: auto;
+}
+
+.container .AuthLogin {
+	text-align: center;
+}
+
+.container .card-body {
+	height: 100%;
+}
+
+form {
+    height: 600px;
+    width: 400px;
+    float: left;
+    margin-top: auto;
+    top: 50%;
+    left: 50%;
+    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 15px 30px;
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-radius: 12px;
+}
+
+form *{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+    text-decoration: none;
+}
+
+form h3 {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.container .NamePass input {
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.57);
+    color: #eaf0fb;    
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.input-group-append {
+    display: none;
+}
+
+::placeholder{
+    color: #e5e5e5;
+}
+
+
+#login {
+    width: 100%;
+    background-color: rgba(255,255,255,0.27);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 15px 30px;
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-radius: 12px;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#login:hover {
+    background-color: rgba(255,255,255,0.47);
+}
+
+.container .Remember {
+	height: 40px;
+}
+
+.container .Remember .form-group {
+	text-align: center;
+}
+
+.container .SubmitLogin {
+	margin-left: 80px;
+}
+
+.container .card-footer {
+	margin-left: 15px;
+}
+
+.social {
+    margin-top: 30px;
+    display: flex;
+}
+
+.social div {
+    margin: auto;
+    width: 150px;
+    border-radius: 3px;
+    padding: 10px 10px 10px 5px;
+    background-color: rgba(255,255,255,0.27);
+    color: #eaf0fb;
+    text-align: center;
+}
+
+.social div:hover {
+    background-color: rgba(255,255,255,0.47);
+}
+
+.card-bottom {
+    text-align: center;
+    margin-top: 30px;
+    text-decoration: none; 
+}

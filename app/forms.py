@@ -138,6 +138,7 @@ class CreatePlaylistForm(forms.ModelForm):
     title = forms.CharField(required=True)
     private = forms.BooleanField(required=True)
     description = forms.CharField(required=False)
+    # Add Friends
     
     class Meta:
         model = UserPlaylist

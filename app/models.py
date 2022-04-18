@@ -125,11 +125,20 @@ class UserPlaylist(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     private = models.BooleanField(default=True)
     description = models.TextField(null=True)
+    cover_img = models.ImageField(default='media/default.png', upload_to='cover_images', null=True)
     comments = models.TextField(null=True)
     playlist_follows = models.ManyToManyField("self", related_name="followed_by", symmetrical=False, blank=True)
 
+    class Meta:
+        ordering = ['-created_on']
+
     def __str__(self):
         return (self.creator, self.created_on, self.user_pl_id)
+
+    def save(self, *args, **kwargs):
+        super().save()
+        img = Image.open(self.cover_img)
+
 
 class UserPlaylistData(models.Model):
     mediaChoices = (
