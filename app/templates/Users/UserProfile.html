@@ -34,6 +34,14 @@
                 {{profid.follows.all.count}}
             </div>
                 
+            <div class="Search-Wrapper">
+                <div class="Input-Wrapper">
+                    <input type="text" id="searchInput" onkeyup="searchFriends()" class="Search-Input" placeholder="Search..." />
+                </div>
+            </div>
+                      
+
+
             <div class="FollowRequests">
                 {% if request_to_follow != '' %}
                 <h3>Follower Requests</h3>
@@ -66,7 +74,7 @@
                     </div>
                 </span>
                 {% else %}
-                    <h3>No Pending Follower Requests</h3>
+                    <div class="none" style="display:none;"></div>
                 {% endif %}
             </div>
 
@@ -99,17 +107,11 @@
                     </div>
                 </span>
                 {% else %}
-                    <h3>No Pending Requests</h3>
+                    <div class="none" style="display:none;"></div>
                 {% endif %}
             </div>
 
-            
-            <div class="Search-Wrapper">
-                <div class="Input-Wrapper">
-                    <input type="text" id="searchInput" onkeyup="searchFriends()" class="Search-Input" placeholder="Search..." />
-                </div>
-            </div>
-                            
+                  
             <span class="container">
                 <div id="cards-container">
                     <div class="cards" id="cards">

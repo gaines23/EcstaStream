@@ -233,7 +233,7 @@ def profile(request, id, username):
             'profid': profid,
             'user_form': user_form, 
             'profile_form': profile_form,
-
+            'follow_list':follow_list,
             'request_to_follow':request_to_follow,
             'pending_request':pending_request,
         }
@@ -308,12 +308,11 @@ def accept_follower_request(request, requestid):
         follower_request.delete()
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
-
 @login_required
 def reject_follower_request(request, requestid):
     follower_request = FollowRequest.objects.get(id=requestid)
     
-    if follower_request.to_user == request.user:
+    if follower_request.from_user == request.user:
         follower_request.delete()
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
