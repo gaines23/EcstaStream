@@ -102,6 +102,12 @@ class Profile(models.Model):
             img.save(self.profpic.path)
 
 
+
+class FollowRequest(models.Model):
+    from_user = models.ForeignKey(User, related_name='from_user', on_delete=models.CASCADE)
+    to_user = models.ForeignKey(User, related_name='to_user', on_delete=models.CASCADE)
+
+
 class UserPost(models.Model):
     user = models.ForeignKey(User, related_name="posts", on_delete=models.DO_NOTHING)
     body = models.CharField(max_length=20)

@@ -34,7 +34,14 @@
                 {{profid.follows.all.count}}
             </div>
 
-            
+            {% for follow_request in request_to_follow %}
+                <h3>
+                    {{follow_request.from_user}}
+                    <a href="/accept-follow-request/{{follow_request.id}}/">
+                        accept follower request
+                    </a>
+                </h3>
+            {% endfor %}
             
             <div class="Search-Wrapper">
                 <div class="Input-Wrapper">
@@ -61,7 +68,7 @@
                                         <p>Following</p>
                                         <a href="{% url 'unfollow' follow.user.id follow.user.username %}" class="UnFollow">Unfollow</a>
                                     {% else %}
-                                        <a href="{% url 'follow' follow.user.id follow.user.username %}" class="Follow">Follow</a>
+                                        <a href="{% url 'send-follow-request' follow.user.id %}" class="Follow">Follow</a>
                                     {% endif %}
                                     </div>
                                 </div>           
