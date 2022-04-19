@@ -9,48 +9,53 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'content\playlists\create_playlist.css' %}">
 </head>
-
     <div class="form-content">
         <div class="container">
 
             <div class="card-body">
                 <form method="POST">
                     {% csrf_token %}
+
+
                     <h3>Create Playlist</h3>
 
-                    <div class="form-row  ">
+                    <div class="form-row TopInfo">
                         <div class="Image">
-
+                            <img class="cover-img" src="{{ user.create_pl.cover_img.url }}" >
                         </div>
-
-                        <div class="login-group Title">
-
-
-                            <label class="username">Title</label>
+                        <div class="TopInput">
+                            <div class="Title">
                                 {{ create_pl.title }}
+                            </div>
+                             <div class="Desc">  
+                            {{ create_pl.description }}
+                            </div>
                         </div>
+
                     </div>
                     
-                    <div class="form-row Remember">
-                        <div class="form-group">  
-                            <label>{{ form.remember_me }} Remember me</label>
+                    <div class="form-row Options">
+                        <div class="Private">
+                            <h4 id="private">Private On</h4>
+                            <label class="switch">
+                                {{create_pl.private}}
+                                <span class="slider round" onclick="privateToggle()"></span>
+                            </label>
                         </div>
+                        <div class="Comments">
+                            <h4 id="comments">Comments Off</h4>
+                            <label class="switch">
+                                {{create_pl.comments_on}}
+                                <span class="slider round" onclick="commentToggle()"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-row Friends">
+                        <div class="">
                     </div>
                     
-                    <button name="login" class="col-md-12 btn" id="login">Sign in</button>
-
-                    <div class="social">
-                      <div class="go"><i class="fab fa-google"></i>  Google</div>
-                      <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
-                    </div>
-
-                    <div class="card-bottom">
-                        <div class="small">
-                            <a href="{% url 'users-register' %}">Don't have an account yet? Signup here!</a>
-                            <br>
-                            <a href="{% url 'password_reset' %}"><i>Forgot Password?</i></a>
-                        </div>
-                    </div>
+                    <button name="save" class="col-md-12 btn" id="save">Save Playlist</button>
 
                 </form>
 
@@ -58,5 +63,37 @@
 
         </div>
      </div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#checkbox').change(function() {
+        $.post("/create_playlist/", {
+            id: '{{create_pl.user_pl_id}}', 
+            private: this.checked,
+            csrfmiddlewaretoken: '{{ csrf_token }}' 
+        });
+    });
+}); 
+
+function privateToggle(){
+    var x = document.getElementById("private");
+    if (x.innerHTML === "Private On") {
+        x.innerHTML = "Private Off";
+    } else {
+        x.innerHTML = "Private On";
+    }
+}
+
+function commentToggle(){
+    var c = document.getElementById("comments");
+    if (c.innerHTML === "Comments Off") {
+        c.innerHTML = "Comments On";
+    } else {
+        c.innerHTML = "Comments Off";
+    }
+}
+
+</script>                     
+
 
 {% endblock %}

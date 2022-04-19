@@ -275,7 +275,6 @@ def add_follower(request, id, username):
     current_user.profile.follows.add(new_follower)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
-
 @login_required
 def remove_follower(request, id, username):
     new_follower = Profile.objects.get(id=id)
@@ -283,6 +282,10 @@ def remove_follower(request, id, username):
 
     current_user.profile.follows.remove(new_follower)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+
+
 
 @login_required
 def favorite_add_movie(request, movieid, media_type=1):
@@ -418,20 +421,20 @@ def watch_list(request):
 
 
 
-
-
-
-
 ## Create Playlists
 @login_required
 def CreatePlaylist(request):
-    create_pl = CreatePlaylistForm(request.POST or None)
+    create_pl = CreatePlaylistForm(request.POST or None, request.FILES)
+    follow_list = Profile.objects.exclude(user=request.user)
+
     if request.method == 'POST':
         if create_pl.is_valid():
             pl  = create_pl.save(commit=False)
             pl.creator = request.user
+            pl.private = request.POST['private'] == 'true'
+            pl.comments_on = request.POST['comments_on'] == 'false'
             pl.save()
-            return redirect("/")
+            return HttpResponseRedirect("playlist/"+request.user+"/"+create_pl.instance.id)
     
     context = {'create_pl':create_pl}
 

@@ -3,6 +3,9 @@
     display: none;
 }
 
+.RightSideBar {
+    display: none;
+}
 
 .form-content {
 	height: 650px;
@@ -10,12 +13,8 @@
 
 .form-content .container {
 	height: 100%;
-    width: 33%;
+    width: 50%;
     margin: auto;
-}
-
-.container .AuthLogin {
-	text-align: center;
 }
 
 .container .card-body {
@@ -24,7 +23,7 @@
 
 form {
     height: 600px;
-    width: 400px;
+    width: 100%;
     float: left;
     margin-top: auto;
     top: 50%;
@@ -43,7 +42,6 @@ form {
 
 form *{
     font-family: 'Poppins',sans-serif;
-    color: #ffffff;
     letter-spacing: 0.5px;
     outline: none;
     border: none;
@@ -64,28 +62,157 @@ label {
     font-weight: 500;
 }
 
-.container .NamePass input {
-    display: block;
-    height: 50px;
+
+.container .TopInfo {
     width: 100%;
-    background-color: rgba(255,255,255,0.57);
-    color: #eaf0fb;    
-    padding: 0 10px;
-    margin-top: 8px;
-    font-size: 14px;
-    font-weight: 300;
+    height: 40%;
 }
 
-.input-group-append {
-    display: none;
+.TopInfo .Image {
+    width: 40%;
+    float: left;
 }
+
+.TopInfo .Image img {
+    width: 95%;
+    height: 92%;
+    border-radius: 15px;
+}
+
+.TopInfo .TopInput {
+    width: 60%;
+    height: 100%;
+    float: right;
+}
+
+.TopInput .Title {
+    height: 25%;
+}
+
+.TopInput .Title input {
+    width: 100%;
+    height: 50px;
+    margin: auto;
+    color: white;
+    backdrop-filter: blur(10px) saturate(130%);
+    -webkit-backdrop-filter: blur(10px) saturate(130%);
+    background-color: rgba(121, 0, 224, 0.06);
+    border-radius: 12px;
+    border: 3px solid rgba(255, 255, 255, 0.125);
+    outline: none;
+}
+
+..TopInput .Title input:focus {
+    -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 25%);
+    box-shadow: 0px 0px 2px 3px #f8f9fa73;
+    cursor: pointer;
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    border: 1px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+}
+
+.TopInput .Desc {
+    height: 75%;
+}
+
+.TopInput .Desc textarea {
+    width: 100%;
+    margin: auto;
+    color: white;
+    backdrop-filter: blur(10px) saturate(130%);
+    -webkit-backdrop-filter: blur(10px) saturate(130%);
+    background-color: rgba(121, 0, 224, 0.06);
+    border-radius: 12px;
+    border: 3px solid rgba(255, 255, 255, 0.125);
+    outline: none;
+}
+
+.TopInput .Desc textarea:focus {
+    -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 25%);
+    box-shadow: 0px 0px 2px 3px #f8f9fa73;
+    cursor: pointer;
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    border: 1px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+}
+
+.Options .Private {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 90px;
+}
+
+.Options .Comments {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 90px;
+}
+
+.Options h4 {
+    height: 20px;
+    font-size: 20px;
+}
+
+.Options input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.Options .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.Options .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.Options input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.Options .slider.round {
+  border-radius: 34px;
+  height: 35px;
+  width: 65px;
+  margin-top: 25px;
+}
+
+.Options .slider.round:before {
+  border-radius: 50%;
+}
+
 
 ::placeholder{
-    color: #e5e5e5;
+    color: white;
 }
 
 
-#login {
+#save {
     width: 100%;
     background-color: rgba(255,255,255,0.27);
     border: 2px solid rgba(255,255,255,0.1);
@@ -100,25 +227,11 @@ label {
     cursor: pointer;
 }
 
-#login:hover {
+#save:hover {
     background-color: rgba(255,255,255,0.47);
 }
 
-.container .Remember {
-	height: 40px;
-}
 
-.container .Remember .form-group {
-	text-align: center;
-}
-
-.container .SubmitLogin {
-	margin-left: 80px;
-}
-
-.container .card-footer {
-	margin-left: 15px;
-}
 
 .social {
     margin-top: 30px;
@@ -139,8 +252,4 @@ label {
     background-color: rgba(255,255,255,0.47);
 }
 
-.card-bottom {
-    text-align: center;
-    margin-top: 30px;
-    text-decoration: none; 
-}
+

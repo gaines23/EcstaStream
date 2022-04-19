@@ -125,9 +125,11 @@ class UserPlaylist(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     private = models.BooleanField(default=True)
     description = models.TextField(null=True)
-    cover_img = models.ImageField(default='media/default.png', upload_to='cover_images', null=True)
+    cover_img = models.ImageField(default='default_playlist.png', upload_to='cover_images', null=True)
     comments = models.TextField(null=True)
+    comments_on = models.BooleanField(default=False)
     playlist_follows = models.ManyToManyField("self", related_name="followed_by", symmetrical=False, blank=True)
+    #add friends
 
     class Meta:
         ordering = ['-created_on']
@@ -137,7 +139,8 @@ class UserPlaylist(models.Model):
 
     def save(self, *args, **kwargs):
         super().save()
-        img = Image.open(self.cover_img)
+        img = Image.open(self.cover_img.path)
+
 
 
 class UserPlaylistData(models.Model):
@@ -160,6 +163,20 @@ class UserPlaylistData(models.Model):
         constraints = [
             models.UniqueConstraint(fields=["user_playlist", "pl_mov_show_id", "media_type"], name='user_playlist_constraint')    
         ]
+
+#class PlaylistComments(models.Model):
+#    playlist_id = models.ForeignKey(UserPlaylist, on_delete=models.CASCADE, related_name='comments')
+#    name = models.CharField(max_length=50)
+#    email = models.EmailField()
+#    content = models.TextField()
+#    publish = models.DateTimeField(auto_now_add=True)
+#    status = models.BooleanField(default=True) #disable inappropriate posts
+
+#    class Meta:
+#        ordering = ('publish',)
+
+#    def __str__(self):
+#        return f'Comment by {self.name}'
 
 
 
