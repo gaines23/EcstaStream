@@ -33,15 +33,76 @@
                 <h3>Following</h3>
                 {{profid.follows.all.count}}
             </div>
+                
+            <div class="FollowRequests">
+                {% if request_to_follow != '' %}
+                <h3>Follower Requests</h3>
+                <span class="container">
+                    <div id="cards-container">
+                        <div class="cards" id="cards">
+                        {% for follower in request_to_follow %}
+                            <div class="cardInfo" id="cardinfo">
+                                <div class="card">
+                                    <a href="{% url 'friends-profile' follower.from_user.id follower.from_user.username %}">
+                                        <div class="info-container">
+                                            <img class="rounded-circle account-img" src="{{ follower.from_user.profpic.url }} " height="50px" width="50px" style="cursor: pointer;"/>
+                                            <h4 id="username">@{{ follower.from_user.username }}</h4>
+                                            <h4 id="name">{{ follower.from_user.first_name }} {{follower.from_user.last_name}}</h4>
+                                        </div>
+                                    </a>
 
-            {% for follow_request in request_to_follow %}
-                <h3>
-                    {{follow_request.from_user}}
-                    <a href="/accept-follow-request/{{follow_request.id}}/">
-                        accept follower request
-                    </a>
-                </h3>
-            {% endfor %}
+                                    <div class="FollowButtons">
+                                        <a href="/accept_follower_request/{{follower.id}}/">
+                                            Sure
+                                        </a>
+                                        <a href="/reject_follower_request/{{follower.id}}/">
+                                           Nah
+                                        </a>
+                                    </div>
+                                </div>           
+                            </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </span>
+                {% else %}
+                    <h3>No Pending Follower Requests</h3>
+                {% endif %}
+            </div>
+
+            <div class="PendingRequests">
+                <h3>Pending Requests</h3>
+                {% if pending_request != '' %}
+                <span class="container">
+                    <div id="cards-container">
+                        <div class="cards" id="cards">
+                        {% for follower in pending_request %}
+                            <div class="cardInfo" id="cardinfo">
+                                <div class="card">
+                                    <a href="{% url 'friends-profile' follower.to_user.id follower.to_user.username %}">
+                                        <div class="info-container">
+                                            <img class="rounded-circle account-img" src="{{ follower.to_user.profpic.url }} " height="50px" width="50px" style="cursor: pointer;"/>
+                                            <h4 id="username">@{{ follower.to_user.username }}</h4>
+                                            <h4 id="name">{{ follower.to_user.first_name }} {{follower.to_user.last_name}}</h4>
+                                        </div>
+                                    </a>
+
+                                    <div class="FollowButtons">
+                                        <a href="/reject_follower_request/{{follower.id}}/">
+                                           Nevermind :(
+                                        </a>
+                                    </div>
+                                </div>           
+                            </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </span>
+                {% else %}
+                    <h3>No Pending Requests</h3>
+                {% endif %}
+            </div>
+
             
             <div class="Search-Wrapper">
                 <div class="Input-Wrapper">

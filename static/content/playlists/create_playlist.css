@@ -143,20 +143,21 @@ label {
 .Options .Private {
     position: relative;
     display: inline-block;
-    width: 100px;
+    width: 120px;
     height: 90px;
 }
 
 .Options .Comments {
     position: relative;
     display: inline-block;
-    width: 100px;
+    width: 120px;
     height: 90px;
 }
 
 .Options h4 {
     height: 20px;
-    font-size: 20px;
+    font-size: 15px;
+    text-align: center;
 }
 
 .Options input { 
@@ -200,6 +201,8 @@ label {
   height: 35px;
   width: 65px;
   margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .Options .slider.round:before {

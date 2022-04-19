@@ -17,6 +17,7 @@ urlpatterns = [
     path('friend/<id>/<username>', views.FriendProfile, name='friends-profile'),
     path('send_follower_request/<int:userid>/', views.send_follower_request, name='send-follow-request'),
     path('accept_follower_request/<int:requestid>/', views.accept_follower_request, name='accept-follow-request'),
+    path('reject_follower_request/<int:requestid>/', views.reject_follower_request, name='reject-follow-request'),
     path('follow/<id>/<username>', views.add_follower, name='follow'),
     path('unfollow/<id>/<username>', views.remove_follower, name='unfollow'),
     path('create-playlist', views.CreatePlaylist, name='user_create_playlist'),
@@ -31,4 +32,4 @@ urlpatterns = [
     path('watchlist-show/<int:tvid>/<media_type>', views.watchlist_add_tv, name='watchlist-add-tv'),
     path('CreditsDetails/<personid>', views.CreditsDetails, name='CreditsDetails'),
     path('register/', RegisterView.as_view(), name='users-register'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

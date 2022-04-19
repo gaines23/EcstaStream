@@ -207,8 +207,9 @@ def profile(request, id, username):
     profid = Profile.objects.get(user=id)
 
     follow_list = Profile.objects.exclude(user=request.user)
-    request_to_follow = FollowRequest.objects.get(to_user=request.user)
-    pending_request = FollowRequest.objects.get(from_user=request.user)
+    request_to_follow = FollowRequest.objects.filter(to_user=request.user)
+    pending_request = FollowRequest.objects.filter(from_user=request.user)
+    
     #playlists = UserPlaylist.objects.get(creator=request.user)
 
     if request.method == 'POST' and 'edit' in request.POST:
@@ -232,7 +233,7 @@ def profile(request, id, username):
             'profid': profid,
             'user_form': user_form, 
             'profile_form': profile_form,
-            'follow_list':follow_list,
+
             'request_to_follow':request_to_follow,
             'pending_request':pending_request,
         }
@@ -293,20 +294,29 @@ def send_follower_request(request, userid):
     to_user = User.objects.get(id=userid)
     friend_request, created = FollowRequest.objects.get_or_create(from_user=from_user, to_user=to_user)
     if created:
-        return HttpResponse('friend request sent')
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
     else:
         return HttpResponse('friend request was already sent')
 
 @login_required
 def accept_follower_request(request, requestid):
     follower_request = FollowRequest.objects.get(id=requestid)
+   
     if follower_request.to_user == request.user:
-        follower_request.to_use.follows.add(follower_request.from_user)
-        follower_request.from_user.follows.add(follower_request.to_user)
+        follower_request.to_user.profile.follows.add(follower_request.from_user.id)
+        follower_request.from_user.profile.follows.add(follower_request.to_user.id)
         follower_request.delete()
-        return HttpResponse('follower request accepted')
-    else:
-        return HttpResponse('follower request not accepted')
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+@login_required
+def reject_follower_request(request, requestid):
+    follower_request = FollowRequest.objects.get(id=requestid)
+    
+    if follower_request.to_user == request.user:
+        follower_request.delete()
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
 
 
 @login_required
