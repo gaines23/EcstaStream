@@ -454,26 +454,32 @@ def watch_list(request):
 
 ## Create Playlists
 @login_required
-def CreatePlaylist(request):
+def CreatePlaylist(request, id):
+    
     create_pl = CreatePlaylistForm(request.POST or None, request.FILES)
     follow_list = Profile.objects.exclude(user=request.user)
 
     if request.method == 'POST':
         if create_pl.is_valid():
-            pl  = create_pl.save(commit=False)
+            pl = create_pl.save(commit=False)
             pl.creator = request.user
             pl.private = request.POST['private'] == 'true'
             pl.comments_on = request.POST['comments_on'] == 'false'
+
             pl.save()
             return HttpResponseRedirect("playlist/"+request.user+"/"+create_pl.instance.id)
     
-    context = {'create_pl':create_pl}
+    context = {
+        'create_pl':create_pl,
+
+    }
 
     return render(
         request,
         'playlists/create_playlist.html',
         context        
     )
+
 
 
 def user_playlists(request, creator, user_pl_id):

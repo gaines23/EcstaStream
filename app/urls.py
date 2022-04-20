@@ -32,4 +32,4 @@ urlpatterns = [
     path('watchlist-show/<int:tvid>/<media_type>', views.watchlist_add_tv, name='watchlist-add-tv'),
     path('CreditsDetails/<personid>', views.CreditsDetails, name='CreditsDetails'),
     path('register/', RegisterView.as_view(), name='users-register'),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

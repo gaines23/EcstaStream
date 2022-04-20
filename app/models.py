@@ -131,10 +131,10 @@ class UserPlaylist(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     private = models.BooleanField(default=True)
     description = models.TextField(null=True)
-    cover_img = models.ImageField(default='default_playlist.png', upload_to='cover_images', null=True)
+    cover_img = models.ImageField(default='media/default_playlist.png', upload_to='cover_images/', null=True)
     comments = models.TextField(null=True)
     comments_on = models.BooleanField(default=False)
-    playlist_follows = models.ManyToManyField("self", related_name="followed_by", symmetrical=False, blank=True)
+    playlist_follows = models.ManyToManyField(User, related_name="following", default=True)
     #add friends
 
     class Meta:
