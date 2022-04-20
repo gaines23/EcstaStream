@@ -52,7 +52,19 @@
                     </div>
 
                     <div class="form-row Friends">
-                        <div class="">
+                        <div class="AddFriends">
+                            <h4 id="add">Share</h4>
+                            <div class="search-wrapper">
+                                <div class="input-holder">
+                                    <input type="text" id="searchInput" onkeyup="searchCast()" class="search-input" placeholder="Search..." />
+                                    <button class="search-icon" onclick="searchToggle(this, event);">
+                                        <i class="fas fa-search" style="font-size: 25px; color: #f97c32"></i>
+                                    </button>
+                                </div>
+                                <span class="close" onclick="searchToggle(this, event);"></span>
+                            </div>
+
+                        </div>
                     </div>
                     
                     <button name="save" class="col-md-12 btn" id="save">Save Playlist</button>
@@ -63,6 +75,10 @@
 
         </div>
      </div>
+
+
+<script src="{% static 'scripts\create_playlist.js' %}"></script>
+
 
 <script type="text/javascript">
 $(document).ready(function() {
