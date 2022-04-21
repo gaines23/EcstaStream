@@ -454,11 +454,11 @@ def watch_list(request):
 
 ## Create Playlists
 @login_required
-def CreatePlaylist(request, id):
-    
+def CreatePlaylist(request):
     create_pl = CreatePlaylistForm(request.POST or None, request.FILES)
+    profid = Profile.objects.get(user=request.user)
     follow_list = Profile.objects.exclude(user=request.user)
-
+    
     if request.method == 'POST':
         if create_pl.is_valid():
             pl = create_pl.save(commit=False)
@@ -471,7 +471,8 @@ def CreatePlaylist(request, id):
     
     context = {
         'create_pl':create_pl,
-
+        'follow_list':follow_list,
+        'profid':profid,
     }
 
     return render(

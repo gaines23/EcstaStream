@@ -135,7 +135,6 @@ class UserPlaylist(models.Model):
     comments = models.TextField(null=True)
     comments_on = models.BooleanField(default=False)
     playlist_follows = models.ManyToManyField(User, related_name="following", default=True)
-    #add friends
 
     class Meta:
         ordering = ['-created_on']

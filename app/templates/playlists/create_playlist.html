@@ -12,6 +12,17 @@
 
 
 
+{% for follow in create_pl.playlist_follows %}
+    {% if follow.user in profid.followed_by.all %}
+        {% for x in follow %}
+            {{follow.user.username}}
+        {% endfor %}
+    {% endif %}
+{% endfor %}  
+
+
+
+
     <div class="form-content">
         <div class="container">
 
@@ -69,7 +80,9 @@
                                     </div>
                                     <span class="close" onclick="searchToggle(this, event);"></span>
                                 </div>
-
+                                {% for follow in profid.followed_by.all %}
+                                    {{follow.user.username}}
+                                {% endfor %}    
                             </div>
                         </div>
                     </div>
@@ -120,3 +133,18 @@ function commentToggle(){
 
 
 {% endblock %}
+
+
+
+<!-- 
+                                <select name="playlist_follows" multiple>
+                                <div class="cardInfo" id="cardinfo">
+                                    <option class="card">
+                                        <div class="info-container">
+                                            <img class="rounded-circle account-img" src="{{ friend.user.profpic.url }} " height="50px" width="50px" style="cursor: pointer;"/>
+                                            <h4 id="username">@{{ follow.user.username }}</h4>
+                                            <h4 id="name">{{ follow.user.first_name }} {{follow.user.last_name}}</h4>
+                                        </div>
+                                    </option>
+                                </div></select>
+-->

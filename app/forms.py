@@ -148,7 +148,7 @@ class CreatePlaylistForm(forms.ModelForm):
     
     class Meta:
         model = UserPlaylist
-        fields = ['title', 'creator', 'private', 'description', 'cover_img', 'comments_on']
+        fields = ['title', 'creator', 'private', 'description', 'cover_img', 'comments_on', 'playlist_follows',]
 
 
 

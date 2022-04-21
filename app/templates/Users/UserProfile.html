@@ -115,7 +115,7 @@
             <span class="container">
                 <div id="cards-container">
                     <div class="cards" id="cards">
-                        {% for follow in follow_list %}
+                        {% for follow in profid.followed_by.all %}
                             <div class="cardInfo" id="cardinfo">
                                 <div class="card">
                                     <a href="{% url 'friends-profile' follow.user.id follow.user.username %}">
