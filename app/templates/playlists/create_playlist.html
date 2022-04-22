@@ -12,14 +12,7 @@
 
 
 
-{% for follow in create_pl.playlist_follows %}
-    {% if follow.user in profid.followed_by.all %}
-        {% for x in follow %}
-            {{follow.user.username}}
-        {% endfor %}
-    {% endif %}
-{% endfor %}  
-
+{{create_pl.share}}
 
 
 
@@ -80,7 +73,7 @@
                                     </div>
                                     <span class="close" onclick="searchToggle(this, event);"></span>
                                 </div>
-                                {% for follow in profid.followed_by.all %}
+                                {% for follow in following %}
                                     {{follow.user.username}}
                                 {% endfor %}    
                             </div>

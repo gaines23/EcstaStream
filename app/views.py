@@ -209,6 +209,7 @@ def profile(request, id, username):
     follow_list = Profile.objects.exclude(user=request.user)
     request_to_follow = FollowRequest.objects.filter(to_user=request.user)
     pending_request = FollowRequest.objects.filter(from_user=request.user)
+    following = Profile.objects.filter(follows__in=[profid])
     
     #playlists = UserPlaylist.objects.get(creator=request.user)
 
@@ -236,6 +237,7 @@ def profile(request, id, username):
             'follow_list':follow_list,
             'request_to_follow':request_to_follow,
             'pending_request':pending_request,
+            'following':following,
         }
 
     return render(request, 
@@ -451,28 +453,38 @@ def watch_list(request):
 
 
 
+    new_follower = Profile.objects.get(id=id)
+    current_user = request.user
+
+    current_user.profile.follows.add(new_follower)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 ## Create Playlists
 @login_required
 def CreatePlaylist(request):
     create_pl = CreatePlaylistForm(request.POST or None, request.FILES)
+    current_user = request.user
+
     profid = Profile.objects.get(user=request.user)
-    follow_list = Profile.objects.exclude(user=request.user)
+    following = Profile.objects.filter(follows__in=[profid])
     
+    share = UserPlaylist.objects.filter(Q(playlist_follows=following))
+
     if request.method == 'POST':
         if create_pl.is_valid():
             pl = create_pl.save(commit=False)
             pl.creator = request.user
             pl.private = request.POST['private'] == 'true'
             pl.comments_on = request.POST['comments_on'] == 'false'
-
+          
             pl.save()
             return HttpResponseRedirect("playlist/"+request.user+"/"+create_pl.instance.id)
     
     context = {
         'create_pl':create_pl,
-        'follow_list':follow_list,
         'profid':profid,
+        'following':following,
+        'share':share,
     }
 
     return render(
@@ -482,7 +494,7 @@ def CreatePlaylist(request):
     )
 
 
-
+@login_required
 def user_playlists(request, creator, user_pl_id):
     user = get_object_or_404(User, creator=creator)
     playlist = get_object_or_404(UserPlaylist, creator=creator, user_pl_id=user_pl_id)

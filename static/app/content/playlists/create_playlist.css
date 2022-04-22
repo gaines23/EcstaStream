@@ -3,9 +3,14 @@
     display: none;
 }
 
-.RightSideBar {
+.RightSideBar .SignedIn .UserNotifications {
     display: none;
 }
+
+.RightSideBar .SignedIn .UserSocialContainer {
+    display: none;
+}
+
 
 .form-content {
 	height: 650px;

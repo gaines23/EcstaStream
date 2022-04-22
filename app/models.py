@@ -103,11 +103,6 @@ class Profile(models.Model):
 
 
 
-class FollowRequest(models.Model):
-    from_user = models.ForeignKey(User, related_name='from_user', on_delete=models.CASCADE)
-    to_user = models.ForeignKey(User, related_name='to_user', on_delete=models.CASCADE)
-
-
 class UserPost(models.Model):
     user = models.ForeignKey(User, related_name="posts", on_delete=models.DO_NOTHING)
     body = models.CharField(max_length=20)
@@ -119,8 +114,6 @@ class UserPost(models.Model):
     class Meta:
         ordering = ['-created_on']
 
-    
-        
 
 class UserPlaylist(models.Model):
     user_pl_id = models.AutoField(primary_key=True)
@@ -131,10 +124,10 @@ class UserPlaylist(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     private = models.BooleanField(default=True)
     description = models.TextField(null=True)
-    cover_img = models.ImageField(default='media/default_playlist.png', upload_to='cover_images/', null=True)
+    cover_img = models.ImageField(default='defaultplaylist.png', upload_to='cover_images', null=True)
     comments = models.TextField(null=True)
     comments_on = models.BooleanField(default=False)
-    playlist_follows = models.ManyToManyField(User, related_name="following", default=True)
+    playlist_follows = models.ManyToManyField(User, related_name="following", default=False)
 
     class Meta:
         ordering = ['-created_on']
@@ -168,6 +161,32 @@ class UserPlaylistData(models.Model):
         constraints = [
             models.UniqueConstraint(fields=["user_playlist", "pl_mov_show_id", "media_type"], name='user_playlist_constraint')    
         ]
+
+
+
+
+
+
+
+
+class FollowRequest(models.Model):
+    from_user = models.ForeignKey(User, related_name='from_user', on_delete=models.CASCADE)
+    to_user = models.ForeignKey(User, related_name='to_user', on_delete=models.CASCADE)
+
+
+class Notifications(models.Model):
+    id = models.AutoField(primary_key=True)
+    send_to = models.ManyToMany(Profile)
+
+
+
+#stackoverflow.com/questions/70870323/can-someone-help-sending-notifications-to-all-users-or-some-users-in-django-for
+
+
+
+
+
+
 
 #class PlaylistComments(models.Model):
 #    playlist_id = models.ForeignKey(UserPlaylist, on_delete=models.CASCADE, related_name='comments')
