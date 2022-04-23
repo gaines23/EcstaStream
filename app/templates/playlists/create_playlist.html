@@ -10,11 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'content\playlists\create_playlist.css' %}">
 </head>
 
-
-
-{{create_pl.share}}
-
-
+{{all_playlists}}
 
     <div class="form-content">
         <div class="container">
@@ -73,15 +69,14 @@
                                     </div>
                                     <span class="close" onclick="searchToggle(this, event);"></span>
                                 </div>
-                                {% for follow in following %}
-                                    {{follow.user.username}}
-                                {% endfor %}    
+ 
                             </div>
                         </div>
                     </div>
 
-                    <button name="save" class="col-md-12 btn" id="save">Save Playlist</button>
-
+                    <div class="form-group Submit">
+                        <button name="submit" class="col-md-12 btn" id="save">Save Playlist</button>
+                    </div>
                 </form>
 
             </div>

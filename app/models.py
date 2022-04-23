@@ -116,7 +116,7 @@ class UserPost(models.Model):
 
 
 class UserPlaylist(models.Model):
-    user_pl_id = models.AutoField(primary_key=True)
+    user_pl_id = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=50)
     pl_list = models.JSONField(default=list, null=True, blank=True)
     creator = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
@@ -174,9 +174,10 @@ class FollowRequest(models.Model):
     to_user = models.ForeignKey(User, related_name='to_user', on_delete=models.CASCADE)
 
 
-class Notifications(models.Model):
-    id = models.AutoField(primary_key=True)
-    send_to = models.ManyToMany(Profile)
+
+#class Notifications(models.Model):
+#    id = models.AutoField(primary_key=True)
+#    send_to = models.ManyToMany(Profile)
 
 
 

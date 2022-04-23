@@ -144,12 +144,12 @@ class CreatePlaylistForm(forms.ModelForm):
                                                              'cols':5,
                                                              }))
     cover_img = forms.ImageField(required=False, widget=forms.FileInput(attrs={'class': 'form-control-file'}))
-    playlist_follows = forms.SelectMultiple()
-    
+    user_pl_id = forms.IntegerField()
+
     class Meta:
         model = UserPlaylist
         fields = ['title', 'creator', 'private', 'description', 'cover_img', 
-                  'comments_on', 'playlist_follows']
+                  'comments_on', 'user_pl_id',]
 
 
 

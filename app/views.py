@@ -453,38 +453,36 @@ def watch_list(request):
 
 
 
-    new_follower = Profile.objects.get(id=id)
-    current_user = request.user
-
-    current_user.profile.follows.add(new_follower)
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])
-
 ## Create Playlists
 @login_required
 def CreatePlaylist(request):
-    create_pl = CreatePlaylistForm(request.POST or None, request.FILES)
-    current_user = request.user
+    assert isinstance(request, HttpRequest)
+
+    #create_pl = CreatePlaylistForm(request.POST or None, request.FILES)
+    
+    user_id = request.user
+    all_playlists = UserPlaylist.objects.filter(creator=request.user)
 
     profid = Profile.objects.get(user=request.user)
     following = Profile.objects.filter(follows__in=[profid])
-    
-    share = UserPlaylist.objects.filter(Q(playlist_follows=following))
 
     if request.method == 'POST':
+        create_pl = CreatePlaylistForm(request.POST or None, request.FILES)
         if create_pl.is_valid():
             pl = create_pl.save(commit=False)
             pl.creator = request.user
             pl.private = request.POST['private'] == 'true'
             pl.comments_on = request.POST['comments_on'] == 'false'
-          
             pl.save()
-            return HttpResponseRedirect("playlist/"+request.user+"/"+create_pl.instance.id)
-    
+            return HttpResponseRedirect("/playlist/"+user_id+"/"+user_pl_id)
+    else:
+        create_pl = CreatePlaylistForm()
+
     context = {
         'create_pl':create_pl,
         'profid':profid,
+        'all_playlists':all_playlists,
         'following':following,
-        'share':share,
     }
 
     return render(
