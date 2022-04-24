@@ -496,12 +496,11 @@ def CreatePlaylist(request, user):
 def user_playlists(request, user, title):
     #user = get_object_or_404(User, username=creator)
     playlist = get_object_or_404(UserPlaylist, user=user, title=title)
-    all_playlist = UserPlaylistData.objects.all()
+    all_playlist = UserPlaylistData.objects.get(user=user, user_playlist=playlist.user_pl_id)
 
     details = []
     playlist_data = []
     play = []
-
 
     try:
         playlist_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist=playlist.user_pl_id)))
@@ -519,7 +518,6 @@ def user_playlists(request, user, title):
                     details.append([{'tv': tv.details(id)}, tv.watch_providers(id).results['US']])
     except Exception as e:
         pass
-
     
     context = {               
                'playlist_data':playlist_data,
