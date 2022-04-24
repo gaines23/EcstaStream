@@ -53,11 +53,13 @@ Imdb_URL = env('IMDB_URL')
 URL_API = env('RAPID_API_KEY')
 
 
-
 def home(request):
     assert isinstance(request, HttpRequest)
 
-    #playlist_list = UserPlaylist.objects.get(creator=request.user)
+    #try:
+    #    playlist_list = UserPlaylist.objects.get(creator=request.user)
+    #except Exception as e:
+    #    pass
 
     new_post = UserPostForm(request.POST or None)
     if request.method == "POST":
@@ -145,7 +147,7 @@ class RegisterView(View):
     
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect(to='/')
+            return redirect(to='/users-profile/')
         return super(RegisterView, self).dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
@@ -161,7 +163,7 @@ class RegisterView(View):
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}')
 
-            return redirect(to='/')
+            return redirect(to='/login/')
 
         return render(request, self.template_name, {'form': form})
 
@@ -455,69 +457,75 @@ def watch_list(request):
 
 ## Create Playlists
 @login_required
-def CreatePlaylist(request):
+def CreatePlaylist(request, user):
     assert isinstance(request, HttpRequest)
-
-    #create_pl = CreatePlaylistForm(request.POST or None, request.FILES)
+    all_playlists = UserPlaylist.objects.filter(user=user)
+    #userid = UserPlaylist.objects.get(creator=user)
     
-    user_id = request.user
-    all_playlists = UserPlaylist.objects.filter(creator=request.user)
+    create_pl = CreatePlaylistForm(data=request.POST)
 
-    profid = Profile.objects.get(user=request.user)
+    profid = Profile.objects.get(user=user)
     following = Profile.objects.filter(follows__in=[profid])
-
+    
     if request.method == 'POST':
-        create_pl = CreatePlaylistForm(request.POST or None, request.FILES)
         if create_pl.is_valid():
-            pl = create_pl.save(commit=False)
-            pl.creator = request.user
-            pl.private = request.POST['private'] == 'true'
-            pl.comments_on = request.POST['comments_on'] == 'false'
-            pl.save()
-            return HttpResponseRedirect("/playlist/"+user_id+"/"+user_pl_id)
-    else:
-        create_pl = CreatePlaylistForm()
+            pl_data = create_pl.cleaned_data.get
+            playlist = UserPlaylist(title=pl_data('title'), private=pl_data('private'), 
+                                    description=pl_data('description'), user=request.user,
+                                    comments_on=pl_data('comments_on'), 
+                                   )
+            playlist.save()
+            return redirect("/playlist/"+user+'/'+playlist.title)
 
     context = {
         'create_pl':create_pl,
         'profid':profid,
         'all_playlists':all_playlists,
         'following':following,
+        #'userid':userid,
     }
 
     return render(
         request,
         'playlists/create_playlist.html',
-        context        
+        context,
     )
 
 
 @login_required
-def user_playlists(request, creator, user_pl_id):
-    user = get_object_or_404(User, creator=creator)
-    playlist = get_object_or_404(UserPlaylist, creator=creator, user_pl_id=user_pl_id)
-
-    playlist_data = list(UserPlaylistData.objects.filter(Q(user=request.user)))
-    play = list(sorted(playlist_data, key = lambda x: x.pl_date_added, reverse=True))
+def user_playlists(request, user, title):
+    #user = get_object_or_404(User, username=creator)
+    playlist = get_object_or_404(UserPlaylist, user=user, title=title)
     all_playlist = UserPlaylistData.objects.all()
 
     details = []
+    playlist_data = []
+    play = []
+
 
     try:
-        for x in play:
-            id = x.pl_mov_show_id
-            media = x.media_type
-            if x.media_type == 1:
-                details.append([{'movie': movie.details(id)}, movie.watch_providers(id).results['US']])
-            else:
-                details.append([{'tv': tv.details(id)}, tv.watch_providers(id).results['US']])
+        playlist_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist=playlist.user_pl_id)))
+        play = list(sorted(playlist_data, key = lambda x: x.pl_date_added, reverse=True))
     except Exception as e:
         pass
+    try:
+        if play != '':
+            for x in play:
+                id = x.pl_mov_show_id
+                media = x.media_type
+                if x.media_type == 1:
+                    details.append([{'movie': movie.details(id)}, movie.watch_providers(id).results['US']])
+                else:
+                    details.append([{'tv': tv.details(id)}, tv.watch_providers(id).results['US']])
+    except Exception as e:
+        pass
+
     
-    context = {'play':play,
+    context = {               
                'playlist_data':playlist_data,
                'details':details,
                'ap':all_playlist,
+               'play':play,
     }
 
     return render(
@@ -527,6 +535,34 @@ def user_playlists(request, creator, user_pl_id):
     )
 
 
+
+@login_required
+def playlist_add_movie(request, movieid, media_type=1):
+    assert isinstance(request, HttpRequest)
+
+    fav_model = WatchListData.objects.all()
+
+    if fav_model.filter(Q(user=request.user) & Q(watch_mov_show_id=movieid) & Q(media_type=1)).exists():
+        fav_model.filter(Q(watch_mov_show_id=movieid) & Q(user=request.user) & Q(media_type=1)).delete()
+        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+    else:
+        fav_model.create(user=request.user, watch_mov_show_id=movieid, media_type=1)
+        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+
+
+@login_required
+def playlist_add_tv(request, tvid, media_type=2):
+    assert isinstance(request, HttpRequest)
+
+    fav_model = WatchListData.objects.all()
+
+    if fav_model.filter(Q(user=request.user) & Q(watch_mov_show_id=tvid) & Q(media_type=2)).exists():
+        fav_model.filter(Q(watch_mov_show_id=tvid) & Q(user=request.user) & Q(media_type=2)).delete()
+        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+    else:
+        fav_model.create(user=request.user, watch_mov_show_id=tvid, media_type=2)
+        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+ 
 
 
 

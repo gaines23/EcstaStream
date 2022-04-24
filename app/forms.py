@@ -137,23 +137,14 @@ class UserPostForm(forms.ModelForm):
 class CreatePlaylistForm(forms.ModelForm):
     title = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Title',
                                                              }))
-    private = forms.BooleanField(required=False,)
+    private = forms.BooleanField(required=False)
     comments_on = forms.BooleanField(required=False)
     description = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder': 'Decription (optional) ',
                                                              'rows':5,
                                                              'cols':5,
                                                              }))
-    cover_img = forms.ImageField(required=False, widget=forms.FileInput(attrs={'class': 'form-control-file'}))
-    user_pl_id = forms.IntegerField()
 
     class Meta:
         model = UserPlaylist
-        fields = ['title', 'creator', 'private', 'description', 'cover_img', 
-                  'comments_on', 'user_pl_id',]
+        fields = ['title', 'private', 'description', 'comments_on',]
 
-
-
-class UserPlaylistDataForm(forms.ModelForm):
-    class Meta:
-        model = UserPlaylistData
-        fields = ['creator', 'pl_mov_show_id', 'user_playlist']

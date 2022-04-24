@@ -53,17 +53,17 @@
                         <div class="UserLists">
                             {% if user.is_authenticated %}
                             <div id="watchlist">
-                                <a href="{% url 'user_create_playlist' %}"><i class="far fa-plus-square"></i> New List</a>
+                                
                                 <a href="{% url 'watchlist' %}"><i class="fa-solid fa-tv"></i> Watchlist</a>
                                 <a href="{% url 'fav-list' %}" ><i class="fa-solid fa-heart"></i> Favorites</a>
+                                <a href="{% url 'user_create_playlist' user.id %}"><i class="far fa-plus-square"></i> New List</a>
                                 
                             </div>
 
-
-
                             <div class="Playlists">
-                                {% for all in user.userplaylist.title.all %}
-                                    {{all.title}}
+
+                                {% for x in user.playlists.all %}
+                                    <a href="{% url 'user_playlist' user.id x.title %}">{{x.title}}</a><br>
                                 {% endfor %}
                             </div>
                             {% endif %}

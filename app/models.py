@@ -4,7 +4,7 @@ from datetime import date, time, datetime
 from PIL import Image
 from multiselectfield import MultiSelectField
 from django.contrib.postgres.fields import ArrayField
-
+from django.utils.text import slugify
 
 try:
     from django.db.models import JSONField
@@ -116,10 +116,10 @@ class UserPost(models.Model):
 
 
 class UserPlaylist(models.Model):
-    user_pl_id = models.IntegerField(primary_key=True)
+    user_pl_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50)
     pl_list = models.JSONField(default=list, null=True, blank=True)
-    creator = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="playlists")
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     private = models.BooleanField(default=True)
@@ -127,20 +127,24 @@ class UserPlaylist(models.Model):
     cover_img = models.ImageField(default='defaultplaylist.png', upload_to='cover_images', null=True)
     comments = models.TextField(null=True)
     comments_on = models.BooleanField(default=False)
-    playlist_follows = models.ManyToManyField(User, related_name="following", default=False)
+    playlist_follows = models.ManyToManyField(User, related_name="following", default=False) 
+    
+    #pl_slug = models.SlugField(max_length=200, unique=True, null=True)
 
     class Meta:
         ordering = ['-created_on']
 
     def __str__(self):
-        return (self.creator, self.created_on, self.user_pl_id)
+        return '{} {}'.format(self.user, self.created_on)
 
     def save(self, *args, **kwargs):
-        super().save()
+        #self.pl_slug = '-'.join((slugify(self.creator), slugify(self.title)))
+
+        super(UserPlaylist, self).save(*args, **kwargs)
         img = Image.open(self.cover_img.path)
 
 
-
+        
 class UserPlaylistData(models.Model):
     mediaChoices = (
         (1,'Movie'),
@@ -148,7 +152,7 @@ class UserPlaylistData(models.Model):
     )
 
     pl_data_id = models.AutoField(primary_key=True)
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     user_playlist = models.ForeignKey(UserPlaylist, on_delete=models.CASCADE)
     pl_mov_show_id = models.IntegerField()
     pl_date_added = models.DateTimeField(auto_now=True)

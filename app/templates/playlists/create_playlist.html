@@ -4,13 +4,12 @@
 {% load static %}
 
 
-{% load static %}
 
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'content\playlists\create_playlist.css' %}">
 </head>
 
-{{all_playlists}}
+{{create_pl.playlist_follows}}
 
     <div class="form-content">
         <div class="container">
@@ -18,14 +17,12 @@
             <div class="card-body">
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-
-
                     <h3>Create Playlist</h3>
 
                     <div class="form-row TopInfo">
                         <div class="Image">
                             <img class="cover-img" src="{{ create_pl.cover_img.url }}"> 
-                            <input type="file" name="cover_img" class="form-control-file" accept="image/*" id="id_cover_img">
+                            
                         </div>
                         <div class="TopInput">
                             <div class="Title">
@@ -38,9 +35,6 @@
 
                     </div>
                     
-
-
-
                     <div class="form-row Options">
                         <div class="Comments">
                             <h4 id="comments">Comments Off</h4>
@@ -74,9 +68,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group Submit">
-                        <button name="submit" class="col-md-12 btn" id="save">Save Playlist</button>
-                    </div>
+                    <button type="submit" class="col-md-12 btn" id="save">Save Playlist</button>
                 </form>
 
             </div>
