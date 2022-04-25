@@ -1,4 +1,9 @@
 
+.SearchForm {
+    display: none;
+}
+
+
 .ProfileForm {
 	text-align: center;
 	float: left;

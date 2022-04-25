@@ -246,7 +246,38 @@
 	float: left;
 }
 
-.SummaryStreaming .UserActions .User .LikeDislike {
+.SummaryStreaming .UserActions .User .Actions .Playlists {
+	position: relative;
+	display: inline-block;
+}
+
+.Actions .Playlists .dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #ff0000 !important;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	-webkit-transition: opacity .3s ease-in;
+	-moz-transition: opacity .3s ease-in;
+	-o-transition: opacity .3s ease-in;
+	transition: opacity .3 ease-in;
+}
+
+.Actions .Playlists .dropdown-content a {
+	text-decoration: none;
+	color: none;
+}
+
+.Actions .Playlists .dropdown-content a:hover {
+	background: white;
+}
+
+.Actions .Playlists .dropdown-content .show {
+	display: block;
+}
+
+.User .LikeDislike {
 	float: right;
 }
 

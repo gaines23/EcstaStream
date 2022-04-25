@@ -56,11 +56,6 @@ URL_API = env('RAPID_API_KEY')
 def home(request):
     assert isinstance(request, HttpRequest)
 
-    #try:
-    #    playlist_list = UserPlaylist.objects.get(creator=request.user)
-    #except Exception as e:
-    #    pass
-
     new_post = UserPostForm(request.POST or None)
     if request.method == "POST":
         if new_post.is_valid():
@@ -71,7 +66,6 @@ def home(request):
 
     context = {
         'new_post':new_post,
-        #'playlist_list':playlist_list,
     }
 
     return render(
@@ -459,9 +453,8 @@ def watch_list(request):
 @login_required
 def CreatePlaylist(request, user):
     assert isinstance(request, HttpRequest)
-    all_playlists = UserPlaylist.objects.filter(user=user)
-    #userid = UserPlaylist.objects.get(creator=user)
     
+    all_playlists = UserPlaylist.objects.filter(user=user)
     create_pl = CreatePlaylistForm(data=request.POST)
 
     profid = Profile.objects.get(user=user)
@@ -475,14 +468,13 @@ def CreatePlaylist(request, user):
                                     comments_on=pl_data('comments_on'), 
                                    )
             playlist.save()
-            return redirect("/playlist/"+user+'/'+playlist.title)
+            return HttpResponseRedirect("/playlist/"+user+'/'+playlist.title)
 
     context = {
         'create_pl':create_pl,
         'profid':profid,
         'all_playlists':all_playlists,
         'following':following,
-        #'userid':userid,
     }
 
     return render(
@@ -494,9 +486,8 @@ def CreatePlaylist(request, user):
 
 @login_required
 def user_playlists(request, user, title):
-    #user = get_object_or_404(User, username=creator)
     playlist = get_object_or_404(UserPlaylist, user=user, title=title)
-    all_playlist = UserPlaylistData.objects.get(user=user, user_playlist=playlist.user_pl_id)
+    #all_playlist = UserPlaylistData.objects.get(user=user, user_playlist=playlist.user_pl_id)
 
     details = []
     playlist_data = []
@@ -522,7 +513,7 @@ def user_playlists(request, user, title):
     context = {               
                'playlist_data':playlist_data,
                'details':details,
-               'ap':all_playlist,
+               #'ap':all_playlist,
                'play':play,
     }
 
@@ -614,15 +605,6 @@ def MovieDetails(request, movieid, media_type=1):
     if watchlist.filter(Q(watch_mov_show_id=movieid) & Q(media_type=1)).exists():
         watch = True
 
-
-    pl_data = UserPlaylistData.objects.all()
-    playlists = UserPlaylist.objects.get(user=request.user)
-    #pl_user = playlists.get(user=request.user)
-    pl = bool
-    if pl_data.filter(Q(pl_mov_show_id=movieid) & Q(media_type=1) & 
-                      Q(user_playlist=playlists.user_pl_id)).exists():
-        pl = True
-
     runtime = details.runtime
     hours = runtime // 60
     minutes = runtime % 60
@@ -670,7 +652,6 @@ def MovieDetails(request, movieid, media_type=1):
         'hours_runtime':hours_runtime,
         'fav':fav,
         'watch':watch,
-        'pl':pl,
     }
 
     return render(

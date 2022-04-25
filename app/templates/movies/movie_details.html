@@ -12,6 +12,7 @@
 
 
 
+
 <div class="Img-Wrapper" style="background-image: linear-gradient(transparent, black 100%), url(https://image.tmdb.org/t/p/original/{{ details.backdrop_path }})">
 
 <div class="row TopInfoBar">
@@ -114,8 +115,24 @@
                     {% if request.user.is_authenticated %}
                         {% csrf_token %}
                     <div class="Actions">
-                        <li><i class="far fa-plus-square"></i></li>
 
+                        <div class="Playlists">
+                            <button class="dropbtn" onclick="playList()">
+                                <i class="far fa-plus-square"></i>
+                            </button>
+                            <div class="dropdown-content" id="plDropdown">
+                            {% for x in user.playlists.all %}
+                                {% if x in user.pl_data.all %}
+                                    <div id="none" style="display:none;"></div>
+                                {% else %}
+                                    <a href="{% url 'user_playlist' user.id x.title %}">{{x.title}}</a>
+                                {% endif %}
+                            {% endfor %}
+                            <a href="{% url 'user_create_playlist' user.id %}"> New List</a>
+                            </div>
+
+                        </div>
+                        
                         {% if fav %}
                             <a href="/fav-movie/{{details.id}}/1" class="Fav">
                                 <li><i class="fa-solid fa-heart" style="color: #6d44a8;"></i></li>
