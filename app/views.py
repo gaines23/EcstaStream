@@ -606,15 +606,22 @@ def MovieDetails(request, movieid, media_type=1):
     
     favorited = FavoriteListData.objects.all()
     fav = bool
-
     if favorited.filter(Q(fav_mov_show_id=movieid) & Q(media_type=1)).exists():
         fav = True
 
     watchlist = WatchListData.objects.all()
     watch = bool
-
     if watchlist.filter(Q(watch_mov_show_id=movieid) & Q(media_type=1)).exists():
         watch = True
+
+
+    pl_data = UserPlaylistData.objects.all()
+    playlists = UserPlaylist.objects.get(user=request.user)
+    #pl_user = playlists.get(user=request.user)
+    pl = bool
+    if pl_data.filter(Q(pl_mov_show_id=movieid) & Q(media_type=1) & 
+                      Q(user_playlist=playlists.user_pl_id)).exists():
+        pl = True
 
     runtime = details.runtime
     hours = runtime // 60
@@ -663,6 +670,7 @@ def MovieDetails(request, movieid, media_type=1):
         'hours_runtime':hours_runtime,
         'fav':fav,
         'watch':watch,
+        'pl':pl,
     }
 
     return render(

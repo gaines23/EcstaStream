@@ -142,8 +142,6 @@ class UserPlaylist(models.Model):
 
         super(UserPlaylist, self).save(*args, **kwargs)
         img = Image.open(self.cover_img.path)
-
-
         
 class UserPlaylistData(models.Model):
     mediaChoices = (
