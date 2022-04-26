@@ -11,6 +11,9 @@
 </head>
 
 
+{{add_pl}}
+
+
 <div class="Img-Wrapper" style="background-image: linear-gradient(transparent, black 100%), url(https://image.tmdb.org/t/p/original/{{ details.backdrop_path }})">
 
 <div class="row TopInfoBar">
@@ -117,11 +120,11 @@
                         <div class="dropdown" id="playlists">
                             <button onclick="myFunction()" class="dropbtn far fa-plus-square"></button>
                             <div id="myDropdown" class="dropdown-content">
-                            {% for x in user.playlists.all %}
-                                {% if x.user_pl_id == user.pl_data.playlist_id %}
-
+                            {% for x in pl_list %}
+                                {% if x.user_playlist_id != user.playlists.user_pl_id %}
+                                    <a href="/add-to-playlist/{{request.user.id}}/{{x.user_pl_id}}/{{details.id}}/1">{{x.title}}</a>
                                 {% else %}
-                                    <a href="/add-to-playlist/{{x.user_pl_id}}/{{x.user_pl_id}}/{{details.id}}/1">{{x.title}}</a>
+                                    <a href="/add-to-playlist/{{request.user.id}}/{{x.user_pl_id}}/{{details.id}}/1">{{x.title}}</a>
                                 {% endif %}
                             {% endfor %}
                             <div class="New">

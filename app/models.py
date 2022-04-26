@@ -130,11 +130,8 @@ class UserPlaylist(models.Model):
     playlist_follows = models.ManyToManyField(User, related_name="following", default=False)  
     #pl_slug = models.SlugField(max_length=200, unique=True, null=True)
 
-    class Meta:
-        ordering = ['-created_on']
-
     def __str__(self):
-        return '{} {}'.format(self.user, self.created_on)
+        return '{} {} {}'.format(self.user, self.created_on, self.user_pl_id)
 
     def playlist_id(self):
         return self.user_pl_id
@@ -144,7 +141,14 @@ class UserPlaylist(models.Model):
 
         super().save()
         img = Image.open(self.cover_img.path)
-        
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["user", "user_pl_id", "title"], name='user_playlist_constraint')    
+        ]
+
+        ordering = ['-created_on']
+
 class UserPlaylistData(models.Model):
     mediaChoices = (
         (1,'Movie'),
@@ -153,7 +157,7 @@ class UserPlaylistData(models.Model):
 
     pl_data_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="pl_data")
-    user_playlist = models.ForeignKey(UserPlaylist, on_delete=models.CASCADE, related_name="pl_id")
+    user_playlist_id = models.ForeignKey(UserPlaylist, on_delete=models.CASCADE, related_name="pl_id")
     pl_mov_show_id = models.IntegerField()
     pl_date_added = models.DateTimeField(auto_now=True)
     media_type = models.IntegerField(null=True, blank=True, choices=mediaChoices)
@@ -162,13 +166,14 @@ class UserPlaylistData(models.Model):
         return self.user.username
 
     def playlist_id(self):
-        return self.user_playlist.user_pl_id
+        return self.user_playlist_id.user_pl_id
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=["user_playlist", "pl_mov_show_id", "media_type"], name='user_playlist_constraint')    
+            models.UniqueConstraint(fields=["user_playlist_id", "pl_mov_show_id", "media_type"], name='user_data_playlist_constraint')    
         ]
-
+        
+        ordering = ['-pl_date_added']
 
 
 

@@ -486,7 +486,6 @@ def CreatePlaylist(request, user):
 
 @login_required
 def user_playlists(request, user, title):
-    playlist = get_object_or_404(UserPlaylist, user=user, title=title)
     #all_playlist = UserPlaylistData.objects.get(user=user, user_playlist=playlist.user_pl_id)
 
     details = []
@@ -494,10 +493,13 @@ def user_playlists(request, user, title):
     play = []
 
     try:
-        playlist_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist=playlist.user_pl_id)))
-        play = list(sorted(playlist_data, key = lambda x: x.pl_date_added, reverse=True))
+        playlist = get_object_or_404(UserPlaylist, user=user, title=title)
+        pl_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist=playlist.user_pl_id)))
+        play = list(sorted(pl_data, key = lambda x: x.pl_date_added, reverse=True))
+        playlist_data.append([pl_data, playlist])
     except Exception as e:
         pass
+
     try:
         if play != '':
             for x in play:
@@ -526,14 +528,21 @@ def user_playlists(request, user, title):
 
 
 @login_required
-def playlist_add_movie(request, user, user_playlist, movieid, media_type=1):
+def playlist_add_movie(request, user, user_playlist_id, movieid, media_type=1):
     assert isinstance(request, HttpRequest)
 
     pl_model = UserPlaylistData.objects.all()
-    user_pl = UserPlaylist.objects.get(user=request.user, user_pl_id=user_playlist)
-    pl_model.create(user=request.user, pl_mov_show_id=movieid, user_playlist=user_pl.user_pl_id, media_type=1)
+    user_pl = UserPlaylist.objects.get(user_pl_id=user_playlist_id)
+    pl_id = user_pl.user_pl_id
+    
+    pl_model.create(user=request.user, pl_mov_show_id=movieid, media_type=1, user_playlist_id=user_pl)
     return HttpResponseRedirect(request.META['HTTP_REFERER']) 
     
+
+
+
+
+
 
 #if pl_model.filter(Q(user=request.user) & Q(pl_mov_show_id=movieid) & Q(media_type=1) & Q(user_playlist=pl_id)).exists():
     #    pl_model.filter(Q(user=request.user) & Q(pl_mov_show_id=movieid) & Q(media_type=1) & Q(user_playlist=pl_id)).delete()
@@ -598,9 +607,7 @@ def MovieDetails(request, movieid, media_type=1):
     us_streaming = streaming.results['US']
     credits = details['credits']
     trailers = details['videos']
-    
-    playlists = UserPlaylist.objects.all()
-
+   
     favorited = FavoriteListData.objects.all()
     fav = bool
     if favorited.filter(Q(fav_mov_show_id=movieid) & Q(media_type=1)).exists():
@@ -610,6 +617,24 @@ def MovieDetails(request, movieid, media_type=1):
     watch = bool
     if watchlist.filter(Q(watch_mov_show_id=movieid) & Q(media_type=1)).exists():
         watch = True
+
+    pl_data = UserPlaylistData.objects.all()
+    user_playlists = UserPlaylist.objects.all()
+    pl_list = [] # all playlists with movieid added to it
+    add_pl = []
+
+    if pl_data.filter(Q(pl_mov_show_id=movieid) & Q(media_type=1)).exists():
+        pl_data_id = pl_data.filter(Q(pl_mov_show_id=movieid) & Q(media_type=1))
+        
+        try:
+            for pl_id in pl_data_id.filter(user=request.user):
+                if pl_id in user_playlists.filter(user=request.user):
+                    pl_list.append(pl_id.user_playlist_id)
+                else:
+                    add_pl.append(user_playlists.filter(user=request.user))
+
+        except Exception as e:
+            pass
 
     runtime = details.runtime
     hours = runtime // 60
@@ -658,7 +683,10 @@ def MovieDetails(request, movieid, media_type=1):
         'hours_runtime':hours_runtime,
         'fav':fav,
         'watch':watch,
-        'pls':playlists,
+        'pl_data':pl_data,
+        'pl_list':pl_list,
+        'user_playlists':user_playlists,
+        'add_pl':add_pl,
     }
 
     return render(
