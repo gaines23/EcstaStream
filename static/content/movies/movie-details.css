@@ -8,6 +8,7 @@
 	border-top-right-radius: 20px;
 }
 
+
 .TopInfoBar {
 	height: 500px;
 	margin: 0;
@@ -244,38 +245,59 @@
 
 .SummaryStreaming .UserActions .User .Actions {
 	float: left;
+	width: 50%;
 }
 
-.SummaryStreaming .UserActions .User .Actions .Playlists {
-	position: relative;
-	display: inline-block;
+
+
+.User .Actions .dropbtn {
+  	background-color: transparent;
+  	color: white;
+  	font-size: 35px;
+  	border: none;
+  	cursor: pointer;
 }
 
-.Actions .Playlists .dropdown-content {
+.User .Actions .dropbtn:hover, .User .Actions .Playlist .dropbtn:focus {
+  	background-color: #6d44a8;
+}
+
+.User .Actions .dropdown {
+  	position: relative;
+  	display: inline-block;
+  	height: 35px;
+  	width: 35px;
+}
+
+.User .Actions .dropdown-content {
 	display: none;
 	position: absolute;
-	background-color: #ff0000 !important;
+	background-color: #6d44a8;
 	min-width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	overflow: auto;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	z-index: 1;
-	-webkit-transition: opacity .3s ease-in;
-	-moz-transition: opacity .3s ease-in;
-	-o-transition: opacity .3s ease-in;
-	transition: opacity .3 ease-in;
 }
 
-.Actions .Playlists .dropdown-content a {
-	text-decoration: none;
-	color: none;
+.User .Actions .dropdown-content a {
+  	color: black;
+  	padding: 12px 16px;
+  	text-decoration: none;
+  	display: block;
 }
 
-.Actions .Playlists .dropdown-content a:hover {
-	background: white;
-}
+.User .Actions .dropdown a:hover {background-color: #ddd;}
 
-.show {
+.User .Actions .dropdown-content.show {
 	display: block;
+	position: fixed;
+	border-radius: 10px;
 }
+
+.User .Actions .dropdown .New {
+	border-top: 1px solid white;
+}
+
 
 .User .LikeDislike {
 	float: right;

@@ -526,17 +526,21 @@ def user_playlists(request, user, title):
 
 
 @login_required
-def playlist_add_movie(request, movieid, media_type=1):
+def playlist_add_movie(request, user, user_playlist, movieid, media_type=1):
     assert isinstance(request, HttpRequest)
 
-    fav_model = WatchListData.objects.all()
+    pl_model = UserPlaylistData.objects.all()
+    user_pl = UserPlaylist.objects.get(user=request.user, user_pl_id=user_playlist)
+    pl_model.create(user=request.user, pl_mov_show_id=movieid, user_playlist=user_pl.user_pl_id, media_type=1)
+    return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+    
 
-    if fav_model.filter(Q(user=request.user) & Q(watch_mov_show_id=movieid) & Q(media_type=1)).exists():
-        fav_model.filter(Q(watch_mov_show_id=movieid) & Q(user=request.user) & Q(media_type=1)).delete()
-        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
-    else:
-        fav_model.create(user=request.user, watch_mov_show_id=movieid, media_type=1)
-        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+#if pl_model.filter(Q(user=request.user) & Q(pl_mov_show_id=movieid) & Q(media_type=1) & Q(user_playlist=pl_id)).exists():
+    #    pl_model.filter(Q(user=request.user) & Q(pl_mov_show_id=movieid) & Q(media_type=1) & Q(user_playlist=pl_id)).delete()
+    #    return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+    #else:
+        #pl_model.create(user=request.user, pl_mov_show_id=movieid, user_playlist=pl_id, media_type=1)
+        #return HttpResponseRedirect(request.META['HTTP_REFERER']) 
 
 
 @login_required
@@ -595,6 +599,8 @@ def MovieDetails(request, movieid, media_type=1):
     credits = details['credits']
     trailers = details['videos']
     
+    playlists = UserPlaylist.objects.all()
+
     favorited = FavoriteListData.objects.all()
     fav = bool
     if favorited.filter(Q(fav_mov_show_id=movieid) & Q(media_type=1)).exists():
@@ -652,6 +658,7 @@ def MovieDetails(request, movieid, media_type=1):
         'hours_runtime':hours_runtime,
         'fav':fav,
         'watch':watch,
+        'pls':playlists,
     }
 
     return render(
