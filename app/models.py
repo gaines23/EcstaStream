@@ -101,18 +101,10 @@ class Profile(models.Model):
             img.thumbnail(new_img)
             img.save(self.profpic.path)
 
+class FollowRequest(models.Model):
+    from_user = models.ForeignKey(User, related_name='from_user', on_delete=models.CASCADE)
+    to_user = models.ForeignKey(User, related_name='to_user', on_delete=models.CASCADE)
 
-
-class UserPost(models.Model):
-    user = models.ForeignKey(User, related_name="posts", on_delete=models.DO_NOTHING)
-    body = models.CharField(max_length=20)
-    created_on = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"({self.user.username} {self.created_on:%Y-%m-%d %H:%M})"
-
-    class Meta:
-        ordering = ['-created_on']
 
 
 class UserPlaylist(models.Model):
@@ -128,6 +120,7 @@ class UserPlaylist(models.Model):
     comments = models.TextField(null=True)
     comments_on = models.BooleanField(default=False)
     playlist_follows = models.ManyToManyField(User, related_name="following", default=False)  
+    share_list = models.ManyToManyField(User, related_name="sharing", default=False)
     #pl_slug = models.SlugField(max_length=200, unique=True, null=True)
 
     def __str__(self):
@@ -156,7 +149,7 @@ class UserPlaylistData(models.Model):
     )
 
     pl_data_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="pl_data")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="pl_user")
     user_playlist_id = models.ForeignKey(UserPlaylist, on_delete=models.CASCADE, related_name="pl_id")
     pl_mov_show_id = models.IntegerField()
     pl_date_added = models.DateTimeField(auto_now=True)
@@ -177,13 +170,36 @@ class UserPlaylistData(models.Model):
 
 
 
+# Posts created by users on playlists ( UserPlaylist.comments_on == True)
+class UserPlaylistPost(models.Model):
+    user = models.ForeignKey(User, related_name="user_posts", on_delete=models.DO_NOTHING)
+    body = models.CharField(max_length=20)
+    created_on = models.DateTimeField(auto_now_add=True)
+    playlist_id = models.ForeignKey(UserPlaylist, related_name="pl_posts", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"({self.user.username} {self.created_on:%Y-%m-%d %H:%M}) {{self.playlist_id.title}}"
+
+    class Meta:
+        ordering = ['-created_on']
+
+
+# User comments on posts
+class Comment(models.Model):
+    post = models.ForeignKey(UserPost, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="person")
+    content = models.TextField()
+    status = models.BooleanField(default=True) #disable inappropriate posts
+    com_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('com_date',)
+
+    def __str__(self):
+        return f'Comment by {self.user.username}'
 
 
 
-
-class FollowRequest(models.Model):
-    from_user = models.ForeignKey(User, related_name='from_user', on_delete=models.CASCADE)
-    to_user = models.ForeignKey(User, related_name='to_user', on_delete=models.CASCADE)
 
 
 

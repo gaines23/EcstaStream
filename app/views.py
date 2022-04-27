@@ -412,7 +412,7 @@ def watchlist_add_tv(request, tvid, media_type=2):
         return HttpResponseRedirect(request.META['HTTP_REFERER']) 
     else:
         fav_model.create(user=request.user, watch_mov_show_id=tvid, media_type=2)
-        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+         
  
 
 @login_required
@@ -468,7 +468,7 @@ def CreatePlaylist(request, user):
                                     comments_on=pl_data('comments_on'), 
                                    )
             playlist.save()
-            return HttpResponseRedirect("/playlist/"+user+'/'+playlist.title)
+            return HttpResponseRedirect("/edit-playlist/"+user+'/'+playlist.title)
 
     context = {
         'create_pl':create_pl,
@@ -485,20 +485,33 @@ def CreatePlaylist(request, user):
 
 
 @login_required
-def user_playlists(request, user, title):
-    #all_playlist = UserPlaylistData.objects.get(user=user, user_playlist=playlist.user_pl_id)
+def edit_user_playlist(request, user, title):
+    
+    playlist = get_object_or_404(UserPlaylist, user=user, title=title)
+    all_playlist = UserPlaylistData.objects.get(user=user, user_playlist_id=playlist.user_pl_id)
+
+    editform = EditPlaylistForm(request.POST, instance=playlist)
+     # Update playlist info
+    if request.method == 'POST' and 'edit' in request.POST:
+        if editform.is_valid():
+            editform.save()
+            return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+
+
 
     details = []
     playlist_data = []
     play = []
 
-    try:
+    try: 
         playlist = get_object_or_404(UserPlaylist, user=user, title=title)
+        all_playlist = UserPlaylistData.objects.get(user=user, user_playlist_id=playlist.user_pl_id)
         pl_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist=playlist.user_pl_id)))
         play = list(sorted(pl_data, key = lambda x: x.pl_date_added, reverse=True))
         playlist_data.append([pl_data, playlist])
     except Exception as e:
         pass
+
 
     try:
         if play != '':
@@ -517,6 +530,9 @@ def user_playlists(request, user, title):
                'details':details,
                #'ap':all_playlist,
                'play':play,
+               'playlist':playlist,
+               'all_playlist':all_playlist,
+               'editform':editform,
     }
 
     return render(
@@ -525,6 +541,49 @@ def user_playlists(request, user, title):
         context,
     )
 
+
+def user_playlist(request, user, title):
+    
+    playlist = get_object_or_404(UserPlaylist, user=user, title=title)
+    all_playlist = UserPlaylistData.objects.get(user=user, user_playlist_id=playlist.user_pl_id)
+
+    details = []
+    playlist_data = []
+    play = []
+
+    all_playlist = UserPlaylistData.objects.get(user=user, user_playlist_id=playlist.user_pl_id)
+    pl_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist=playlist.user_pl_id)))
+    
+    play = list(sorted(pl_data, key = lambda x: x.pl_date_added, reverse=True))
+    playlist_data.append([play, playlist])
+
+
+    try:
+        if play != '':
+            for x in play:
+                id = x.pl_mov_show_id
+                media = x.media_type
+                if x.media_type == 1:
+                    details.append([{'movie': movie.details(id)}, movie.watch_providers(id).results['US']])
+                else:
+                    details.append([{'tv': tv.details(id)}, tv.watch_providers(id).results['US']])
+    except Exception as e:
+        pass
+    
+    context = {               
+               'playlist_data':playlist_data,
+               'details':details,
+               #'ap':all_playlist,
+               'play':play,
+               'playlist':playlist,
+               'all_playlist':all_playlist,
+    }
+
+    return render(
+        request,
+        'playlists/playlist.html',
+        context,
+    )
 
 
 @login_required
@@ -538,19 +597,6 @@ def playlist_add_movie(request, user, user_playlist_id, movieid, media_type=1):
     pl_model.create(user=request.user, pl_mov_show_id=movieid, media_type=1, user_playlist_id=user_pl)
     return HttpResponseRedirect(request.META['HTTP_REFERER']) 
     
-
-
-
-
-
-
-#if pl_model.filter(Q(user=request.user) & Q(pl_mov_show_id=movieid) & Q(media_type=1) & Q(user_playlist=pl_id)).exists():
-    #    pl_model.filter(Q(user=request.user) & Q(pl_mov_show_id=movieid) & Q(media_type=1) & Q(user_playlist=pl_id)).delete()
-    #    return HttpResponseRedirect(request.META['HTTP_REFERER']) 
-    #else:
-        #pl_model.create(user=request.user, pl_mov_show_id=movieid, user_playlist=pl_id, media_type=1)
-        #return HttpResponseRedirect(request.META['HTTP_REFERER']) 
-
 
 @login_required
 def playlist_add_tv(request, tvid, media_type=2):
@@ -634,7 +680,6 @@ def MovieDetails(request, movieid, media_type=1):
             for x in user_list_id:
                 if x not in pl:
                     add_pl.append(x)
-            
 
     except Exception as e:
         pass

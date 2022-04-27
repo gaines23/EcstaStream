@@ -8,64 +8,81 @@
 </head>
 
 
-<div class="form-content">
-    <div class="container">
 
-        <div class="card-body">
+<header>
+    <h1>{{playlist.title}}</h1>
+</header>
 
-            <h3>Create Playlist</h3>
+{{editform}}
 
-                <div class="form-row TopInfo">
-                    <div class="Image">
-                        <img class="cover-img" src="{{ editform.cover_img.url }}"> 
+
+    <div class="form-content">
+        <div class="container">
+
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form}}
+                    <h3>Create Playlist</h3>
+
+                    <div class="form-row TopInfo">
+                        <div class="Image">
+                            <img class="cover-img" src="{{ editform.cover_img.url }}"> 
                             
-                    </div>
-                    <div class="TopInput">
-                        <div class="Title">
-                            {{ playlist.title }}
                         </div>
-                         <div class="Desc">  
-                        {{ playlist.description }}
+                        <div class="TopInput">
+                            <div class="Title">
+                                {{ editform.title }}
+                            </div>
+                             <div class="Desc">  
+                            {{ editform.description }}
+                            </div>
                         </div>
-                    </div>
 
-                </div>
+                    </div>
                     
-                <div class="form-row Options">
-                    <div class="Comments">
-                        <h4 id="comments">Comments Off</h4>
-                        <label class="switch">
-                            {{playlist.comments_on}}
-                            <span class="slider round comm" onclick="commentToggle()"></span>
-                        </label>
-                    </div>
-                    <div class="Private">
-                        <h4 id="private">Private On</h4>
-                        <label class="switch">
-                            {{playlist.private}}
-                            <span class="slider round private" onclick="privateToggle()"></span>
-                        </label>
-                    </div>
+                    <div class="form-row Options">
+                        <div class="Comments">
+                            <h4 id="comments">Comments Off</h4>
+                            <label class="switch">
+                                {{editform.comments_on}}
+                                <span class="slider round comm" onclick="commentToggle()"></span>
+                            </label>
+                        </div>
+                        <div class="Private">
+                            <h4 id="private">Private On</h4>
+                            <label class="switch">
+                                {{editform.private}}
+                                <span class="slider round private" onclick="privateToggle()"></span>
+                            </label>
+                        </div>
 
-                    <div class="Friends">
-                        <div class="AddFriends">
-                            <h4 id="share">Share</h4>
-                            <div class="search-wrapper">
-                                <div class="input-holder">
-                                    <input type="text" id="searchInput" onkeyup="searchFriends()" class="search-input" placeholder="Search..." />
-                                    <button class="search-icon" onclick="searchToggle(this, event);">
-                                        <i class="fa-solid fa-user-plus" style="font-size: 15px; color: #f97c32"></i>
-                                    </button>
+                        <div class="Friends">
+                            <div class="AddFriends">
+                                <h4 id="share">Share</h4>
+                                <div class="search-wrapper">
+                                    <div class="input-holder">
+                                        <input type="text" id="searchInput" onkeyup="searchFriends()" class="search-input" placeholder="Search..." />
+                                        <button class="search-icon" onclick="searchToggle(this, event);">
+                                            <i class="fa-solid fa-user-plus" style="font-size: 15px; color: #f97c32"></i>
+                                        </button>
+                                    </div>
+                                    <span class="close" onclick="searchToggle(this, event);"></span>
                                 </div>
-                                <span class="close" onclick="searchToggle(this, event);"></span>
+ 
                             </div>
                         </div>
                     </div>
-                </div>
+
+                    <button type="submit" class="col-md-12 btn" id="save">Save Playlist</button>
+                </form>
+
             </div>
 
-    </div>
-</div>
+        </div>
+     </div>
+
+        
 
 
 <div class="FavSearch">
