@@ -620,21 +620,36 @@ def MovieDetails(request, movieid, media_type=1):
 
     pl_data = UserPlaylistData.objects.all()
     user_playlists = UserPlaylist.objects.all()
-    pl_list = [] # all playlists with movieid added to it
-    add_pl = []
+    user_pls = [] # all user's playlists with movieid in them
+    all_pl = [] # all user's playlists
+    
+    try:
+        user_list_id = user_playlists.filter(user=request.user)
+        for x in user_list_id:
+            all_pl.append(x)
+    
+        pl_data_id = pl_data.filter(Q(pl_mov_show_id=movieid) & Q(media_type=1) & Q(user=request.user))
+        for t in pl_data_id:
+            user_pls.append(t)
 
-    if pl_data.filter(Q(pl_mov_show_id=movieid) & Q(media_type=1)).exists():
-        pl_data_id = pl_data.filter(Q(pl_mov_show_id=movieid) & Q(media_type=1))
-        
-        try:
-            for pl_id in pl_data_id.filter(user=request.user):
-                if pl_id in user_playlists.filter(user=request.user):
-                    pl_list.append(pl_id.user_playlist_id)
-                else:
-                    add_pl.append(user_playlists.filter(user=request.user))
+    except Exception as e:
+        pass
 
-        except Exception as e:
-            pass
+
+    #if pl_data.filter(Q(pl_mov_show_id=movieid) & Q(media_type=1)).exists():
+    #    pl_data_id = pl_data.filter(Q(pl_mov_show_id=movieid) & Q(media_type=1))
+    #    user_list_id = user_playlists.filter(user=request.user)
+
+    #    try:
+    #        for pl_id in pl_data_id.filter(user=request.user):
+    #            pl_list.append(pl_id.user_playlist_id)
+    #            if pl_id.user_playlist_id == user_list_id.user_pl_id:
+    #                print('')
+    #            else:
+    #                add_pl.append(user_playlists.filter(user=request.user))
+
+    #    except Exception as e:
+    #        pass
 
     runtime = details.runtime
     hours = runtime // 60
@@ -684,9 +699,9 @@ def MovieDetails(request, movieid, media_type=1):
         'fav':fav,
         'watch':watch,
         'pl_data':pl_data,
-        'pl_list':pl_list,
         'user_playlists':user_playlists,
-        'add_pl':add_pl,
+        'user_pls':user_pls,
+        'all_pl':all_pl,
     }
 
     return render(

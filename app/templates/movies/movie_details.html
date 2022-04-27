@@ -11,8 +11,52 @@
 </head>
 
 
-{{add_pl}}
+{% for x in all_pl %}
+    {% if x.user_playlist_id == user.playlists.playlist_id %}
+        {{x.user_playlist_id}}
+    {% else %}
+        {{x.user_playlist_id}}
+    {% endif %}
+{% endfor %}
 
+
+{% for x in user_pls %}
+    {{x.user_playlist_id}}
+{% endfor %}
+
+
+
+<!--
+{% for x in all_pl %}
+    {{x.user_pl_id}}
+{% endfor %}
+
+<br>
+
+{% for x in user_pls%}
+    {{x.user_playlist_id}}
+{% endfor %}
+
+<br>
+
+{% for x in all_pl %}
+    {% if x.user_pl_id in user_pls %}
+
+    {% else %}
+        {{x.user_pl_id}}
+    {% endif %}
+    
+{% endfor %}
+
+
+
+{% for x in all_pl %}
+    {% if x.user_pl_id == user.pl_id.playlist_id %}
+        {{x}}
+    {% endif %}
+{% endfor %}
+
+-->
 
 <div class="Img-Wrapper" style="background-image: linear-gradient(transparent, black 100%), url(https://image.tmdb.org/t/p/original/{{ details.backdrop_path }})">
 
@@ -107,6 +151,7 @@
     </div>
 
 
+
     <div class="col-9 SummaryStreaming">
 
         <div class="UserActions">
@@ -120,9 +165,9 @@
                         <div class="dropdown" id="playlists">
                             <button onclick="myFunction()" class="dropbtn far fa-plus-square"></button>
                             <div id="myDropdown" class="dropdown-content">
-                            {% for x in pl_list %}
-                                {% if x.user_playlist_id != user.playlists.user_pl_id %}
-                                    <a href="/add-to-playlist/{{request.user.id}}/{{x.user_pl_id}}/{{details.id}}/1">{{x.title}}</a>
+                            {% for x in all_pl %}
+                                {% if x.user_pl_id in user_pls %}
+                                    
                                 {% else %}
                                     <a href="/add-to-playlist/{{request.user.id}}/{{x.user_pl_id}}/{{details.id}}/1">{{x.title}}</a>
                                 {% endif %}
