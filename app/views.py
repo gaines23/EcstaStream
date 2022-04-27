@@ -620,36 +620,25 @@ def MovieDetails(request, movieid, media_type=1):
 
     pl_data = UserPlaylistData.objects.all()
     user_playlists = UserPlaylist.objects.all()
-    user_pls = [] # all user's playlists with movieid in them
-    all_pl = [] # all user's playlists
+    add_pl = []
     
     try:
-        user_list_id = user_playlists.filter(user=request.user)
-        for x in user_list_id:
-            all_pl.append(x)
-    
-        pl_data_id = pl_data.filter(Q(pl_mov_show_id=movieid) & Q(media_type=1) & Q(user=request.user))
-        for t in pl_data_id:
-            user_pls.append(t)
+        if pl_data.filter(Q(pl_mov_show_id=movieid) & Q(media_type=1)).exists():
+            user_list_id = user_playlists.filter(user=request.user)
+            pl_data_id = pl_data.filter(Q(pl_mov_show_id=movieid) & Q(media_type=1) & Q(user=request.user))
+            
+            for t in pl_data_id:
+                x = t.user_playlist_id
+                user_pls.append(x)
+
+            for x in user_list_id:
+                if x not in pl:
+                    add_pl.append(x)
+            
 
     except Exception as e:
         pass
 
-
-    #if pl_data.filter(Q(pl_mov_show_id=movieid) & Q(media_type=1)).exists():
-    #    pl_data_id = pl_data.filter(Q(pl_mov_show_id=movieid) & Q(media_type=1))
-    #    user_list_id = user_playlists.filter(user=request.user)
-
-    #    try:
-    #        for pl_id in pl_data_id.filter(user=request.user):
-    #            pl_list.append(pl_id.user_playlist_id)
-    #            if pl_id.user_playlist_id == user_list_id.user_pl_id:
-    #                print('')
-    #            else:
-    #                add_pl.append(user_playlists.filter(user=request.user))
-
-    #    except Exception as e:
-    #        pass
 
     runtime = details.runtime
     hours = runtime // 60
@@ -700,8 +689,7 @@ def MovieDetails(request, movieid, media_type=1):
         'watch':watch,
         'pl_data':pl_data,
         'user_playlists':user_playlists,
-        'user_pls':user_pls,
-        'all_pl':all_pl,
+        'add_pl':add_pl,
     }
 
     return render(
