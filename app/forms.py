@@ -172,23 +172,23 @@ class EditPlaylistForm(forms.ModelForm):
 
 
 class NewCommentForm(forms.ModelForm):
-    body = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder':'Comment here',
-                                                                           'rows':3,
-                                                                           'cols':3,                                                                           
-                                                                           }))
     class Meta:
         model = Comment
-        fields = ('body',)
+        fields = ('body', 'user')
+        widget = {
+            'body': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Comment here', 'rows':3, 'cols':3,}),
+            'user': forms.TextInput(attrs={'class':'form-control'}),
+            }
 
-class NewPlaylistPostForm(models.Model):
-    body = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder':'Comment here',
-                                                                           'rows':3,
-                                                                           'cols':3,                                                                           
-                                                                           }))
+
+class NewPlaylistPostForm(forms.ModelForm):
     class Meta:
         model = UserPlaylistPost
-        fields = ('body',)
-
+        fields = ('body', 'user')
+        widget = {
+            'body': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Comment here', 'rows':3, 'cols':3,}),
+            'user': forms.TextInput(attrs={'class':'form-control'}),
+            }
 
 
 

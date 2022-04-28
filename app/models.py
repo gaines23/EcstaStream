@@ -184,7 +184,7 @@ class UserPlaylistData(models.Model):
 # Posts created by users on playlists ( UserPlaylist.comments_on == True)
 class UserPlaylistPost(models.Model):
     user = models.ForeignKey(User, related_name="user_posts", on_delete=models.DO_NOTHING)
-    body = models.TextField(null=True, max_length=250)
+    body = models.TextField(max_length=250)
     created_on = models.DateTimeField(auto_now_add=True)
     playlist_id = models.ForeignKey(UserPlaylist, related_name="pl_posts", on_delete=models.CASCADE)
     status = models.BooleanField(default=True) #disable inappropriate posts
@@ -198,17 +198,17 @@ class UserPlaylistPost(models.Model):
 
 # User comments on posts
 class Comment(models.Model):
-    post = models.ForeignKey(UserPlaylistPost, on_delete=models.CASCADE, related_name='comments')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="follower")
-    body = models.TextField(null=True, max_length=250)
+    post = models.ForeignKey(UserPlaylistPost, on_delete=models.CASCADE, related_name="comments")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_comments")
+    body = models.TextField(max_length=250)
     status = models.BooleanField(default=True) #disable inappropriate posts
     com_date = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('com_date',)
+        ordering = ('-com_date',)
 
     def __str__(self):
-        return f'Comment by {self.user.username}'
+        return f'Comment by {self.user.username} at {self.com_date:created_on:%Y-%m-%d %H:%M}'
 
 
 
