@@ -1,0 +1,606 @@
+.SearchForm {
+    display: none;
+}
+
+.RightSideBar .SignedIn .UserNotifications {
+    display: none;
+}
+
+.RightSideBar .SignedIn .UserSocialContainer {
+    display: none;
+}
+
+
+.PlaylistHeader {
+    height: 650px;
+}
+
+.PlaylistHeader .HeaderContainer {
+    height: 100%;
+    width: 50%;
+    margin: auto;
+}
+
+.HeaderContainer .card-body {
+    height: 100%;
+}
+
+
+
+
+.HeaderContainer .HeaderBody {
+    width: 100%;
+    height: 40%;
+}
+
+.HeaderBody .Image {
+    width: 40%;
+    float: left;
+}
+
+.HeaderBody .Image img {
+    width: 95%;
+    height: 92%;
+    border-radius: 15px;
+}
+
+.HeaderBody .TopInput {
+    width: 60%;
+    height: 100%;
+    float: right;
+}
+
+.TopInput .Title {
+    height: 25%;
+}
+
+.TopInput .Title input {
+    width: 100%;
+    height: 50px;
+    margin: auto;
+    color: white;
+    backdrop-filter: blur(10px) saturate(130%);
+    -webkit-backdrop-filter: blur(10px) saturate(130%);
+    background-color: rgba(121, 0, 224, 0.06);
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.125);
+    outline: none;
+}
+
+.TopInput .Title input:focus {
+    cursor: pointer;
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    border: 2px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+}
+
+.TopInput .Desc {
+    height: 75%;
+}
+
+.TopInput .Desc textarea {
+    width: 100%;
+    margin: auto;
+    color: white;
+    backdrop-filter: blur(10px) saturate(130%);
+    -webkit-backdrop-filter: blur(10px) saturate(130%);
+    background-color: rgba(121, 0, 224, 0.06);
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.125);
+    outline: none;
+}
+
+.TopInput .Desc textarea:focus {
+    cursor: pointer;
+    -webkit-transition: 0.3s;
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+}
+
+
+
+
+
+
+.Options{
+    height: 130px;
+    width: 100%;
+}
+
+.Options .Private {
+    position: relative;
+    display: inline-block;
+    width: 20%;
+    height: 90px;
+    float: right;
+}
+
+.Options .Comments {
+    position: relative;
+    display: inline-block;
+    width: 20%;
+    height: 90px;
+    float: right;
+}
+
+.Options h4 {
+    margin-bottom: 10px;
+    height: 20px;
+    font-size: 15px;
+    text-align: left;
+}
+
+.Options input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.Options .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    border: 2px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.Options .slider:before {
+    position: absolute;
+    content: "";
+    height: 25px;
+    width: 25px;
+    left: 1px;
+    bottom: 1px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.Options input:checked + .slider:before {
+    -webkit-transform: translateX(35px);
+    -ms-transform: translateX(35px);
+    transform: translateX(35px);
+}
+
+.Options .slider.round.private {
+    border-radius: 30px;
+    height: 30px;
+    width: 65px;
+    margin-top: 30px;
+    margin-right: auto;
+    margin-left: 5px;
+}
+
+.Options .slider.round.comm {
+    border-radius: 30px;
+    height: 30px;
+    width: 65px;
+    margin-top: 30px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.Options .slider.round:before {
+    border-radius: 50%;
+}
+
+
+
+
+::placeholder{
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+.Options .Friends a {
+    text-decoration: none;
+    color: white;
+}
+
+.Options .Friends {
+    width: 50%;
+    float: left;
+    height: 100px;
+}
+
+.Friends #share {
+    margin-left: 30px;
+}
+
+.Friends .AddFriends {
+    height: 90px;
+}
+
+.Friends .AddFriends p {
+    width: 25%;
+    float: left;
+    margin: revert;
+    font-weight: bold;
+    color: white;
+    font-size: 15px;
+    text-align: center;
+}
+
+.Friends .AddFriends ::selection {
+   background: #212129;
+}
+
+.Friends .AddFriends .search-wrapper {
+    position: inherit;
+    float: left;
+    transform: translate(-5%, 0%);
+    margin-left: 5%;
+}
+.Friends .AddFriends .search-wrapper.active {}
+
+.Friends .AddFriends .search-wrapper .input-holder {    
+    width: 35px;
+    height: 30px;
+    border-radius: 30px;
+    margin: 0px;
+    border: 2px solid transparent;
+    background: transparent;
+    color: transparent;
+    transition: all .3s cubic-bezier(0.5, 0.06, 0.75, 1.26);
+    transition-delay: 0.2s;
+}
+
+.Friends .AddFriends .search-wrapper.active .input-holder {
+    width: 275px;
+    height: 30px;
+    border-radius: 30px;
+    border: 2px solid rgb(255 255 255 / 35%);
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    -webkit-transition: 0.3s;
+    transition: all .3s cubic-bezier(0.5, 0.06, 0.75, 1.26);
+    transition-delay: 0.2s;
+}
+
+.Friends .AddFriends .search-wrapper .input-holder .search-input {
+    width: 90%;
+    height: 29px;
+    padding: 0px 10px 0 45px;
+    opacity: 0;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: transparent;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    font-family:"Open Sans", Arial, Verdana;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 20px;
+    color: white;
+    transition: all .3s cubic-bezier(0.5, 0.06, 0.75, 1.26);
+    transition-delay: 0.2s;
+}
+
+.Friends .AddFriends .search-wrapper.active .input-holder .search-input {
+    opacity: 1;
+    transform: translate(0px, 0px);
+}
+
+.Friends .AddFriends .search-wrapper .input-holder .search-icon {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 30px;
+    background: #FFF;
+    padding: 0px;
+    outline: none;
+    position: relative;
+    z-index: 2;
+    float: left;
+    cursor: pointer;
+    transform: translate(-2px, -2px);
+}
+
+.Friends .AddFriends .search-wrapper.active .input-holder .search-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    transform: translate(-2px, -2px);
+}
+
+.Friends .AddFriends .search-wrapper .input-holder .search-icon span {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+}
+
+.Friends .AddFriends .search-wrapper .close {
+    position: absolute;
+    z-index: 1;
+    top: 6px;
+    right: 7px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transform: rotate(-180deg);
+    transition: all .6s cubic-bezier(0.285, -0.450, 0.935, 0.110);
+    transition-delay: 0.5s;
+}
+
+.Friends .AddFriends .search-wrapper.active .close {
+    transform: rotate(45deg);
+    transition: all .6s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+    transition-delay: 0.5s;
+    color: transparent;
+}
+
+.Friends .AddFriends .search-wrapper .close::before, .search-wrapper .close::after {
+    position: absolute;
+    content:'';
+    background: white;
+    border-radius: 2px;
+}
+
+.Friends .AddFriends .search-wrapper .close::before {
+    width: 4px;
+    height: 20px;
+    left: 8px;
+    top: 0px;
+}
+
+.Friends .AddFriends .search-wrapper .close::after {
+    width: 20px;
+    height: 4px;
+    left: 0px;
+    top: 8px;
+}
+
+
+
+
+
+
+#save {
+    width: 100%;
+    background-color: rgba(255,255,255,0.27);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 15px 30px;
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-radius: 12px;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#save:hover {
+    background-color: rgba(255,255,255,0.47);
+}
+
+
+
+
+
+.PlaylistSection {
+    width: 70%;
+    margin: auto;
+    background-color: rgb(73 6 203 / 20%);
+    border-radius: 15px;
+/*    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
+*/
+}
+
+.PlaylistSection a {
+    text-decoration: none;
+    color: white;
+}
+
+.PlaylistSection .Info {
+    height: 100%;
+    width: 80%;
+    list-style: none;
+    display: inline-flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+}
+
+.PlaylistSection .Info .PosterInfo {
+    width: 33%;
+    height: 100%;
+    margin-bottom: 20px;
+    position: relative;
+    transition-duration: 0.5s;
+    display: inline-grid;
+}
+
+.Info .PosterInfo > .StreamingInfo {
+    display: none;
+    position: absolute;
+}
+
+.PlaylistSection .Info .PosterInfo .card {
+    background: rgba(255, 255, 255, .25);
+    height: 230px;
+    border: 1px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    width: 180px;
+    text-decoration: none;
+    margin: 10px auto 10px auto;
+    border-radius: 20px;
+    -webkit-backdrop-filter: revert;
+    backdrop-filter: revert;
+}
+
+.PlaylistSection .Info .PosterInfo .card:hover {
+    -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 25%);
+    box-shadow: 0px 0px 2px 3px #f8f9fa73;
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
+}
+
+.PlaylistSection .Info .PosterInfo .card img {
+    width: 85%;
+    height: 68%;
+    object-fit: cover;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 8px;
+    display: inline-block;
+    border-radius: 20px;
+}
+
+.PlaylistSection .Info .PosterInfo .card .info-container {
+    text-align: center;
+    height: 35%;
+    padding-top: 5px;
+}
+
+
+
+.PlaylistSection .Info .PosterInfo:hover > .StreamingInfo {
+    display: contents;
+    margin-top: 255px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.StreamingInfo .section-content {
+    width: 120%;
+}
+
+.StreamingInfo .section-title {
+    flex: 1;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: white;
+}
+
+.StreamingInfo .section-title h2 {
+    margin: 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.StreamingInfo #streaming .StreamingList {
+    float: right;
+    width: 100%;
+    height: 90%;
+}
+
+#streaming .StreamingList .List-Cat {
+    height: 100%;
+    text-align: center;
+    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
+}
+
+#streaming .List-Cat h3 {
+    font-size: 20px;
+    color: white;
+    margin-left: 5px;
+}
+
+#streaming .List-Cat img {
+    height: 40px;
+    width: 40px;
+    margin-bottom: 5px;
+    margin-left: 8px;
+    margin-right: 8px;
+    border-radius: 10px;
+}
+
+#streaming .List-Cat .Free-Streaming:hover {
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+}
+
+#streaming .List-Cat .Rent-Streaming:hover {
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+}
+
+#streaming .List-Cat .Buy-Streaming:hover {
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+}
+
+#streaming .List-Cat .Free-Streaming {
+    height: 33%;
+    border-bottom: 1px solid white;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background: rgba(255, 255, 255, .25);
+    border: 1px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    text-decoration: none;
+    -webkit-backdrop-filter: revert;
+    backdrop-filter: revert;
+}
+
+#streaming .List-Cat .Rent-Streaming {
+    height: 33%;
+    border-bottom: 1px solid white;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background: rgba(255, 255, 255, .25);
+    border: 1px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    text-decoration: none;
+    -webkit-backdrop-filter: revert;
+    backdrop-filter: revert;
+}
+
+#streaming .List-Cat .Buy-Streaming {
+    height: 33%;
+    border-bottom: 1px solid white;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background: rgba(255, 255, 255, .25);
+    border: 1px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    text-decoration: none;
+    -webkit-backdrop-filter: revert;
+    backdrop-filter: revert;
+}

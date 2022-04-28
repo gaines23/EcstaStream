@@ -487,31 +487,36 @@ def CreatePlaylist(request, user):
 @login_required
 def edit_user_playlist(request, user, title):
     
-    playlist = get_object_or_404(UserPlaylist, user=user, title=title)
-    all_playlist = UserPlaylistData.objects.get(user=user, user_playlist_id=playlist.user_pl_id)
-
-    editform = EditPlaylistForm(request.POST, instance=playlist)
-     # Update playlist info
-    if request.method == 'POST' and 'edit' in request.POST:
-        if editform.is_valid():
-            editform.save()
-            return HttpResponseRedirect(request.META['HTTP_REFERER']) 
-
-
+    playlist = []
+    all_playlist = []
 
     details = []
     playlist_data = []
     play = []
 
-    try: 
-        playlist = get_object_or_404(UserPlaylist, user=user, title=title)
-        all_playlist = UserPlaylistData.objects.get(user=user, user_playlist_id=playlist.user_pl_id)
+    try:
+        x = UserPlaylist.objects.get(user=user, title=title)
+        z = UserPlaylistData.objects.get(user=user, user_playlist_id=playlist.user_pl_id)
+    
+        playlist.append(x)
+        all_playlist.append(y)
+    
         pl_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist=playlist.user_pl_id)))
         play = list(sorted(pl_data, key = lambda x: x.pl_date_added, reverse=True))
         playlist_data.append([pl_data, playlist])
+
+
+
+
     except Exception as e:
         pass
 
+    editform = EditPlaylistForm(request.POST)
+        # Update playlist info
+    if request.method == 'POST' in request.POST:
+        if editform.is_valid():
+            editform.save()
+            return HttpResponseRedirect(request.META['HTTP_REFERER']) 
 
     try:
         if play != '':
@@ -673,9 +678,11 @@ def MovieDetails(request, movieid, media_type=1):
             user_list_id = user_playlists.filter(user=request.user)
             pl_data_id = pl_data.filter(Q(pl_mov_show_id=movieid) & Q(media_type=1) & Q(user=request.user))
             
+            pl = []
+
             for t in pl_data_id:
                 x = t.user_playlist_id
-                user_pls.append(x)
+                pl.append(x)
 
             for x in user_list_id:
                 if x not in pl:
