@@ -56,7 +56,7 @@ URL_API = env('RAPID_API_KEY')
 def home(request):
     assert isinstance(request, HttpRequest)
 
-    new_post = UserPostForm(request.POST or None)
+    new_post = UserStatusPostForm(request.POST or None)
     if request.method == "POST":
         if new_post.is_valid():
             post = new_post.save(commit=False)
@@ -552,7 +552,7 @@ def user_playlist(request, user, title):
     play = []
 
     all_playlist = UserPlaylistData.objects.get(user=user, user_playlist_id=playlist.user_pl_id)
-    pl_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist=playlist.user_pl_id)))
+    pl_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist_id=playlist.user_pl_id)))
     
     play = list(sorted(pl_data, key = lambda x: x.pl_date_added, reverse=True))
     playlist_data.append([play, playlist])

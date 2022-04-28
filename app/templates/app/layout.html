@@ -152,7 +152,7 @@
                         {% for followed in user.profile.follows.all %}
                         <div class="cards-container">
                             <div class="cards" id="cards">
-                            {% for post in followed.user.posts.all %}
+                            {% for post in followed.user.status_posts.all %}
                                 <div class="cardInfo" id="cardinfo">
                                     <div class="card">
                                         <a href="#">

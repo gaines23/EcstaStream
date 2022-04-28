@@ -8,17 +8,16 @@
 </head>
 
 
-<div class="form-content">
-    <div class="container">
+<div class="PlaylistHeader">
+    <div class="HeaderContainer">
 
-        <div class="card-body">
+        <div class="HeaderBody">
 
-            <h3>Create Playlist</h3>
+            <h3>{{playlist.title}}</h3>
 
                 <div class="form-row TopInfo">
                     <div class="Image">
-                        <img class="cover-img" src="{{ editform.cover_img.url }}"> 
-                            
+                        <img class="cover-img" src="{{ playlist.cover_img.url }}"> 
                     </div>
                     <div class="TopInput">
                         <div class="Title">

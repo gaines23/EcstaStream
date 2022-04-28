@@ -126,12 +126,12 @@ class MovieListForm(forms.ModelForm):
         fields = ['movieid', 'title', 'genre_list', 'release_date', 'poster_path', 'tagline',]
 
 
-class UserPostForm(forms.ModelForm):
+class UserStatusPostForm(forms.ModelForm):
     body = forms.CharField(required=True)
 
     class Meta:
-        model = UserPost
-        exclude = ("user",)
+        model = UserStatusPost
+        fields = ['user', 'body']
 
 
 class CreatePlaylistForm(forms.ModelForm):
@@ -139,7 +139,7 @@ class CreatePlaylistForm(forms.ModelForm):
                                                              }))
     private = forms.BooleanField(required=False)
     comments_on = forms.BooleanField(required=False)
-    description = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder': 'Decription (optional) ',
+    description = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder': 'Description (optional) ',
                                                              'rows':5,
                                                              'cols':5,
                                                              }))
@@ -154,7 +154,7 @@ class EditPlaylistForm(forms.ModelForm):
                                                              }))
     private = forms.BooleanField(required=False)
     comments_on = forms.BooleanField(required=False)
-    description = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder': 'Decription (optional) ',
+    description = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder': 'Description (optional) ',
                                                              'rows':5,
                                                              'cols':5,
                                                              }))
@@ -167,10 +167,18 @@ class EditPlaylistForm(forms.ModelForm):
 class NewCommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ("user", "content")
+        fields = ("user", "body")
         widget = {
                 "name": forms.TextInput(attrs={"class": "col-sm-12"}),
-                "content": forms.Textarea(attrs={"class": "form-control"})
+                "body": forms.Textarea(attrs={"class": "form-control"})
             }
 
 
+class NewPlaylistPostForm(forms.ModelForm):
+    class Meta:
+        model = UserPlaylistPost
+        fields = ("user", "body")
+        widget = {
+                "name": forms.TextInput(attrs={"class": "col-sm-12"}),
+                "body": forms.Textarea(attrs={"class": "form-control"})
+            }
