@@ -110,6 +110,9 @@ class UpdateProfileForm(forms.ModelForm):
         fields = ['profpic', 'bio', 'id', 'streaming_services', 'fav_genres', ]
 
 
+
+
+
 class FavoritePlaylistForm(forms.ModelForm):
     class Meta:
         model = FavoriteListData
@@ -120,10 +123,12 @@ class WatchlistForm(forms.ModelForm):
         model = WatchListData
         fields = ['user', 'watch_mov_show_id',]
 
-class MovieListForm(forms.ModelForm):
-    class Meta:
-        model = MoviesList
-        fields = ['movieid', 'title', 'genre_list', 'release_date', 'poster_path', 'tagline',]
+
+
+
+
+
+
 
 
 class UserStatusPostForm(forms.ModelForm):
@@ -131,7 +136,7 @@ class UserStatusPostForm(forms.ModelForm):
 
     class Meta:
         model = UserStatusPost
-        fields = ['user', 'body']
+        exclude = ("user",)
 
 
 class CreatePlaylistForm(forms.ModelForm):
@@ -139,7 +144,7 @@ class CreatePlaylistForm(forms.ModelForm):
                                                              }))
     private = forms.BooleanField(required=False)
     comments_on = forms.BooleanField(required=False)
-    description = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder': 'Description (optional) ',
+    description = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder': 'Decription (optional) ',
                                                              'rows':5,
                                                              'cols':5,
                                                              }))
@@ -154,7 +159,7 @@ class EditPlaylistForm(forms.ModelForm):
                                                              }))
     private = forms.BooleanField(required=False)
     comments_on = forms.BooleanField(required=False)
-    description = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder': 'Description (optional) ',
+    description = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder': 'Decription (optional) ',
                                                              'rows':5,
                                                              'cols':5,
                                                              }))
@@ -164,21 +169,31 @@ class EditPlaylistForm(forms.ModelForm):
         model = UserPlaylist
         fields = ['title', 'private', 'description', 'comments_on', 'cover_img', ]
 
+
+
 class NewCommentForm(forms.ModelForm):
+    body = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder':'Comment here',
+                                                                           'rows':3,
+                                                                           'cols':3,                                                                           
+                                                                           }))
     class Meta:
         model = Comment
-        fields = ("user", "body")
-        widget = {
-                "name": forms.TextInput(attrs={"class": "col-sm-12"}),
-                "body": forms.Textarea(attrs={"class": "form-control"})
-            }
+        fields = ('body',)
 
-
-class NewPlaylistPostForm(forms.ModelForm):
+class NewPlaylistPostForm(models.Model):
+    body = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder':'Comment here',
+                                                                           'rows':3,
+                                                                           'cols':3,                                                                           
+                                                                           }))
     class Meta:
         model = UserPlaylistPost
-        fields = ("user", "body")
-        widget = {
-                "name": forms.TextInput(attrs={"class": "col-sm-12"}),
-                "body": forms.Textarea(attrs={"class": "form-control"})
-            }
+        fields = ('body',)
+
+
+
+
+
+class MovieListForm(forms.ModelForm):
+    class Meta:
+        model = MoviesList
+        fields = ['movieid', 'title', 'genre_list', 'release_date', 'poster_path', 'tagline',]
