@@ -10,9 +10,6 @@
 
 </head>
 
-{{add_pl}}
-{{user_playlists}}
-
 
 
 <div class="Img-Wrapper" style="background-image: linear-gradient(transparent, black 100%), url(https://image.tmdb.org/t/p/original/{{ details.backdrop_path }})">
@@ -122,13 +119,13 @@
                         <div class="dropdown" id="playlists">
                             <button onclick="myFunction()" class="dropbtn far fa-plus-square"></button>
                             <div id="myDropdown" class="dropdown-content">
-                            {% for x in add_pl %}
-                                {% if x != '' %}
-                                    <a href="/add-to-playlist/{{request.user.id}}/{{x.user_pl_id}}/{{details.id}}/1">{{x.title}}</a>
-                                {% else %}
-                                    <a href="/add-to-playlist/{{request.user.id}}/{{x.user_pl_id}}/{{details.id}}/1">{{x.title}}</a>
+                        
+                            {% for x in user_playlists %}
+                                {% if x not in user_pls %}
+                                    <a href="/add-movie-to-playlist/{{request.user.id}}/{{x.user_pl_id}}/{{details.id}}/1">{{x.title}}</a>
                                 {% endif %}
                             {% endfor %}
+
                             <div class="New">
                                 <a href="{% url 'user_create_playlist' user.id %}"> New List</a>
                             </div>

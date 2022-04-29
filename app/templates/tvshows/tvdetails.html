@@ -97,27 +97,44 @@
                     {% if request.user.is_authenticated %}
                         {% csrf_token %}
                     <div class="Actions">
-                        <li><i class="far fa-plus-square"></i></li>
 
+                        <div class="dropdown" id="playlists">
+                            <button onclick="myFunction()" class="dropbtn far fa-plus-square"></button>
+                            <div id="myDropdown" class="dropdown-content">
+                        
+                            {% for x in user_playlists %}
+                                {% if x not in user_pls %}
+                                    <a href="/add-tv-to-playlist/{{request.user.id}}/{{x.user_pl_id}}/{{details.id}}/2">{{x.title}}</a>
+                                {% endif %}
+                            {% endfor %}
+
+                            <div class="New">
+                                <a href="{% url 'user_create_playlist' user.id %}"> New List</a>
+                            </div>
+                          </div>
+                        </div>
+
+                        
                         {% if fav %}
-                            <a href="/fav-show/{{details.id}}/2" class="Fav">
+                            <a href="/fav-movie/{{details.id}}/2" class="Fav">
                                 <li><i class="fa-solid fa-heart" style="color: #6d44a8;"></i></li>
                             </a>
                         {% else %}
-                            <a href="/fav-show/{{details.id}}/2" class="Fav">
-                                <li><i class="fa-regular fa-heart" style="color:white;"></i></li>
+                            <a href="/fav-movie/{{details.id}}/2" class="Fav">
+                                <li><i class="fa-regular fa-heart" style="color: white;"></i></li>
                             </a>
                         {% endif %}
-                    
+                                        
                         {% if watch %}
-                            <a href="/watchlist-show/{{details.id}}/2" class="Fav">
+                            <a href="/watchlist-movie/{{details.id}}/2" class="Watch">
                                 <li><i class="fa-solid fa-tv" style="color: #6d44a8;"></i></li>
                             </a>
                         {% else %}
-                            <a href="/watchlist-show/{{details.id}}/2" class="Fav">
-                                <li><i class="fa-solid fa-tv" style="color:white;"></i></li>
+                            <a href="/watchlist-movie/{{details.id}}/2" class="Watch">
+                                <li><i class="fa-solid fa-tv" style="color: white;"></i></li>
                             </a>
                         {% endif %}
+                    
                     </div>
                 
                     <div class="LikeDislike">
@@ -130,7 +147,6 @@
                     </div>
 
                     {% else %}
-
                 <div class="Actions">
                     <a href="{% url 'users-register' %}" class="Register">
                         <li><i class="far fa-plus-square"></i></li>
@@ -160,7 +176,6 @@
 
                 </ul>
             </div>
-
 
             <div class="Friends">
                 <h3>Friends:</h3>

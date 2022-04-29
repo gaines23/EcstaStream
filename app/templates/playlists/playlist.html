@@ -13,42 +13,33 @@
 
         <div class="HeaderBody">
 
-            <h3>{{playlist.title}}</h3>
-
-                <div class="form-row TopInfo">
-                    <div class="Image">
-                        <img class="cover-img" src="{{ playlist.cover_img.url }}"> 
+            <div class="row TopInfo">
+                <div class="Title">
+                    <h1 id="title">{{ playlist.title }}</h1>
+                    <div id="private">
+                        {% if playlist.private == True %}
+                            private
+                        {% else %}
+                            public
+                        {% endif %}
                     </div>
-                    <div class="TopInput">
-                        <div class="Title">
-                            {{ playlist.title }}
-                        </div>
-                         <div class="Desc">  
-                        {{ playlist.description }}
-                        </div>
-                    </div>
-
                 </div>
-                    
-                <div class="form-row Options">
-                    <div class="Comments">
-                        <h4 id="comments">Comments Off</h4>
-                        <label class="switch">
-                            {{playlist.comments_on}}
-                            <span class="slider round comm" onclick="commentToggle()"></span>
-                        </label>
-                    </div>
-                    <div class="Private">
-                        <h4 id="private">Private On</h4>
-                        <label class="switch">
-                            {{playlist.private}}
-                            <span class="slider round private" onclick="privateToggle()"></span>
-                        </label>
-                    </div>
+            </div>
+                
 
+            <div class="row SocialInfo">
+                <p id="creator">
+                    {{playlist.user.username}} | {{playlist.playlist_follows.count}} Favorites | 13 hours 12 min (500min) of supreme watching 
+                </p>
+            </div> 
+
+                <div class="row Desc">  
+                    <p id="desc">{{ playlist.description }}</p>
+                </div>     
+
+                <div class="row UserActions">
                     <div class="Friends">
                         <div class="AddFriends">
-                            <h4 id="share">Share</h4>
                             <div class="search-wrapper">
                                 <div class="input-holder">
                                     <input type="text" id="searchInput" onkeyup="searchFriends()" class="search-input" placeholder="Search..." />
@@ -63,137 +54,148 @@
                 </div>
             </div>
 
+        </div>
+
     </div>
 </div>
 
 
-<div class="FavSearch">
-
-    <form class="FavFind" id="favfind">
 
 
-    </form>
+<div class="PlaylistFilters">
+
 
 </div>
 
 
-<div class="PlaylistSection">
-        <div class="Info">
-            {% for x in details %}
-                        
-            <div class="PosterInfo" id="posterinfo">
-                {% for m in x %}
-                
-                    {% if forloop.counter|divisibleby:2 %}
+
+<div class="row Playlist_Search_Section">
+
+    <div class="FavSearch">
+
+        <form class="FavFind" id="favfind">
+
+
+        </form>
+
+    </div>
+
+
+    <div class="PlaylistSection">
+            <div class="Info">
+                {% for x in details %}
+                            
+                <div class="PosterInfo" id="posterinfo">
+                    {% for m in x %}
                     
-                    <div class="StreamingInfo" id="streaming">
-                        <div class="section-content">
+                        {% if forloop.counter|divisibleby:2 %}
                         
-                            <div class="section-title">
-                                <h2>Streaming</h2>
-                            </div>
+                        <div class="StreamingInfo" id="streaming">
+                            <div class="section-content">
                             
-                            <div class="StreamingList">
+                                <div class="section-title">
+                                    <h2>Streaming</h2>
+                                </div>
                                 
-                                <div class="List-Cat">
-                                    {% if m.flatrate == '' %}
-                                        <div class="none" style="display: none;"></div>
-                                    {% else %}
-                                    <div class="Free-Streaming">
-                                        <h3>Free</h3>
-                                        {% for free in m.flatrate %}
-                                            {% if free.display_priority <= 20 %}
-                                                <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ free.logo_path }}">
-                                            {% endif %}
-                                        {% endfor %} 
-    
-                                        {% endif %}                                    
-                                    </div>                                    
-                                    <div class="Rent-Streaming">
-                                        {% if m.rent == '' %}
+                                <div class="StreamingList">
+                                    
+                                    <div class="List-Cat">
+                                        {% if m.flatrate == '' %}
                                             <div class="none" style="display: none;"></div>
                                         {% else %}
-    
-                                        <h3>Rent</h3>
-                                        {% for rent in m.rent %}
-                                            {% if rent.display_priority <= 20 %}
-                                                <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ rent.logo_path }}">
-                                            {% endif %}    
-                                        {% endfor %}
-
-                                        {% endif %}
-                                    </div>
-                                    <div class="Buy-Streaming">
-                                        {% if m.buy == '' %}
-                                            <div class="none" style="display: none;"></div>
-                                        {% else %}
-                                        <h3>Purchase</h3>
-                                        {% for buy in m.buy %}
-                                            {% if buy.display_priority <= 20 %}
-                                                <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ buy.logo_path }}">
-                                            {% endif %}
-                                            
-                                        {% endfor %}
-
-                                        {% endif %}
-                                    </div> 
-                                   
-                                </div>   
-                                
-                            </div>
-                            
-                        </div>
-                        
-                    </div> 
-    
-                    {% else %}
-
-                        {% if m.tv %}
-
-                        <a href="/TvDetails/{{m.tv.id}}/2">
-                            <div class="card" id="card">
-                                <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
-                              <div class="info-container">
-                                <h4>
-                                    <b style="font-size: 15px">{{ m.tv.name }}</b><br>
-                                    <i style="font-size: 12px">Added:
-                                        
-                                            {% for all_favs in m %}
-                                                {{ all_favs.date_added }}
+                                        <div class="Free-Streaming">
+                                            <h3>Free</h3>
+                                            {% for free in m.flatrate %}
+                                                {% if free.display_priority <= 20 %}
+                                                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ free.logo_path }}">
+                                                {% endif %}
+                                            {% endfor %} 
+        
+                                            {% endif %}                                    
+                                        </div>                                    
+                                        <div class="Rent-Streaming">
+                                            {% if m.rent == '' %}
+                                                <div class="none" style="display: none;"></div>
+                                            {% else %}
+        
+                                            <h3>Rent</h3>
+                                            {% for rent in m.rent %}
+                                                {% if rent.display_priority <= 20 %}
+                                                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ rent.logo_path }}">
+                                                {% endif %}    
                                             {% endfor %}
-                                        
-                                    </i>
-                                </h4>
-                              </div>
-                            </div>
-                        </a>                    
 
+                                            {% endif %}
+                                        </div>
+                                        <div class="Buy-Streaming">
+                                            {% if m.buy == '' %}
+                                                <div class="none" style="display: none;"></div>
+                                            {% else %}
+                                            <h3>Purchase</h3>
+                                            {% for buy in m.buy %}
+                                                {% if buy.display_priority <= 20 %}
+                                                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ buy.logo_path }}">
+                                                {% endif %}
+                                                
+                                            {% endfor %}
+
+                                            {% endif %}
+                                        </div> 
+                                       
+                                    </div>   
+                                    
+                                </div>
+                                
+                            </div>
+                            
+                        </div> 
+        
                         {% else %}
 
-                        <a href="/MovieDetails/{{m.movie.id}}/1">
-                            <div class="card" id="card">
-                                <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.movie.poster_path }}">
-                              <div class="info-container">
-                                <h4>
-                                  <b style="font-size: 15px">{{ m.movie.title }}</b><br>
-                                  <i style="font-size: 12px">Added:</i>
-                                </h4>
-                              </div>
-                            </div>
-                        </a>                        
+                            {% if m.tv %}
+
+                            <a href="/TvDetails/{{m.tv.id}}/2">
+                                <div class="card" id="card">
+                                    <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
+                                  <div class="info-container">
+                                    <h4>
+                                        <b style="font-size: 15px">{{ m.tv.name }}</b><br>
+                                        <i style="font-size: 12px">Added:
+                                            {% if m.tv.id in play %}
+                                                {{m.pl_date_added}}
+                                            {% endif %}
+                                        </i>
+                                    </h4>
+                                  </div>
+                                </div>
+                            </a>                    
+
+                            {% else %}
+
+                            <a href="/MovieDetails/{{m.movie.id}}/1">
+                                <div class="card" id="card">
+                                    <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.movie.poster_path }}">
+                                  <div class="info-container">
+                                    <h4>
+                                      <b style="font-size: 15px">{{ m.movie.title }}</b><br>
+                                      <i style="font-size: 12px">Added:</i>
+                                    </h4>
+                                  </div>
+                                </div>
+                            </a>                        
+
+                            {% endif %}
 
                         {% endif %}
 
-                    {% endif %}
-
-                {% endfor %}
+                    {% endfor %}
+                    </div>
+                    
+                 {% endfor %}
                 </div>
-                
-             {% endfor %}
-            </div>
+    </div>
+
 </div>
-
-
 
 
 
@@ -208,33 +210,7 @@
 
 
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#checkbox').change(function() {
-        $.post("/create_playlist/", {
-            id: '{{create_pl.user_pl_id}}', 
-            private: this.checked,
-            csrfmiddlewaretoken: '{{ csrf_token }}' 
-        });
-    });
-}); 
 
-function privateToggle(){
-    var x = document.getElementById("private");
-    if (x.innerHTML === "Private On") {
-        x.innerHTML = "Private Off";
-    } else {
-        x.innerHTML = "Private On";
-    }
-}
-
-function commentToggle(){
-    var c = document.getElementById("comments");
-    if (c.innerHTML === "Comments Off") {
-        c.innerHTML = "Comments On";
-    } else {
-        c.innerHTML = "Comments Off";
-    }
-}
 
 </script>             
 
