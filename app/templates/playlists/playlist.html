@@ -16,64 +16,103 @@
             <div class="row TopInfo">
                 <div class="Title">
                     <h1 id="title">{{ playlist.title }}</h1>
-                    <div id="private">
-                        {% if playlist.private == True %}
-                            private
-                        {% else %}
-                            public
-                        {% endif %}
-                    </div>
                 </div>
             </div>
                 
 
             <div class="row SocialInfo">
+                <p id="private">
+                    {% if playlist.private == True %}
+                        private
+                    {% else %}
+                        public
+                    {% endif %}
+                </p>
                 <p id="creator">
                     {{playlist.user.username}} | {{playlist.playlist_follows.count}} Favorites | 13 hours 12 min (500min) of supreme watching 
                 </p>
             </div> 
 
-                <div class="row Desc">  
-                    <p id="desc">{{ playlist.description }}</p>
-                </div>     
-
-                <div class="row UserActions">
-                    <div class="Friends">
-                        <div class="AddFriends">
-                            <div class="search-wrapper">
-                                <div class="input-holder">
-                                    <input type="text" id="searchInput" onkeyup="searchFriends()" class="search-input" placeholder="Search..." />
-                                    <button class="search-icon" onclick="searchToggle(this, event);">
-                                        <i class="fa-solid fa-user-plus" style="font-size: 15px; color: #f97c32"></i>
-                                    </button>
-                                </div>
-                                <span class="close" onclick="searchToggle(this, event);"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="row Desc">  
+                <p id="desc">{{ playlist.description }}</p>
+            </div>     
 
         </div>
 
-    </div>
+    
+
+        <div class="row SocialActions">
+
+                <ul id="actions">
+                {% if request.user.is_authenticated %}
+                    <div class="Actions">
+                        {% if saved %}
+                            <a href="/fav-movie/{{details.id}}/1" class="Save">
+                                <li><i class="far fa-plus-square" style="color: #6d44a8;"></i></li>
+                            </a>
+                        {% else %}
+                            <a href="/fav-movie/{{details.id}}/1" class="Save">
+                                <li><i class="far fa-plus-square" style="color: white;"></i></li>
+                            </a>
+                        {% endif %}
+                   
+                        {% if fav %}
+                            <a href="/fav-movie/{{details.id}}/1" class="Fav">
+                                <li><i class="fa-solid fa-heart" style="color: #6d44a8;"></i></li>
+                            </a>
+                        {% else %}
+                            <a href="/fav-movie/{{details.id}}/1" class="Fav">
+                                <li><i class="fa-regular fa-heart" style="color: white;"></i></li>
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="UserActions">
+                        <div class="Friends">
+                            <div class="AddFriends">
+                                <div class="search-wrapper">
+                                    <div class="input-holder">
+                                        <input type="text" id="searchInput" onkeyup="searchFriends()" class="search-input" placeholder="Search..." />
+                                        <button class="search-icon" onclick="searchToggle(this, event);">
+                                            <i class="fa-solid fa-user-plus" style="font-size: 15px; color: #f97c32"></i>
+                                        </button>
+                                    </div>
+                                    <span class="close" onclick="searchToggle(this, event);"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% else %}
+                    <div class="Actions">
+                        <a href="{% url 'users-register' %}" class="Register">
+                            <li><i class="far fa-plus-square"></i></li>
+                        </a>
+                        <a href="{% url 'users-register' %}" class="Register">
+                            <li><i class="fa-solid fa-fire"></i></li>
+                        </a>
+                        <a href="{% url 'users-register' %}" class="Register">
+                            <li><i class="fa-regular fa-heart"></i></li>
+                        </a>
+                    </div>    
+                {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="PlaylistFilters">
+
+        </div>
 </div>
 
 
-
-
-<div class="PlaylistFilters">
-
-
-</div>
 
 
 
 <div class="row Playlist_Search_Section">
 
-    <div class="FavSearch">
+    <div class="PlaylistSearch">
 
-        <form class="FavFind" id="favfind">
+        <form class="SearchFind" id="searchfind">
 
 
         </form>
@@ -82,6 +121,7 @@
 
 
     <div class="PlaylistSection">
+        <div class="SectionCards">
             <div class="Info">
                 {% for x in details %}
                             
@@ -193,8 +233,8 @@
                     
                  {% endfor %}
                 </div>
+        </div>
     </div>
-
 </div>
 
 

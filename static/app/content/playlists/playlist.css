@@ -22,7 +22,7 @@
 }
 
 .PlaylistHeader .HeaderContainer {
-    height: 100%;
+    height: 315px;
     width: 90%;
     margin: auto;
 }
@@ -32,16 +32,16 @@
 
 .HeaderContainer .HeaderBody {
     width: 100%;
-    height: 40%;
+    height: 75%;
 }
 
 .HeaderBody .TopInfo {
-    height: 150px;
+    height: 130px;
 }
 
 .HeaderBody .Title {
     height: 100%;
-    width: 60%;
+    width: 70%;
 }
 
 .HeaderBody .Title #title {
@@ -55,32 +55,32 @@
     text-shadow: -2px 3px rebeccapurple;
 }
 
-.HeaderBody .Title #private {
-    font-size: 15px;
-    float: right;
-    width: 12%;
-    padding-top: 100px;
-}
-
 
 
 
 .HeaderBody .SocialInfo {
-    height: 50px;
+    height: 60px;
     width: 55%;
     margin-left: 10px;
+    display: inline-block;
 }
 
 .HeaderBody .SocialInfo #creator {
     font-size: 13px;
-    float: right;
+    float: left;
     width: 100%;
 }
 
+.HeaderBody .SocialInfo #private {
+    font-size: 13px;
+    width: 100%;
+    float: left;
+    margin-bottom: 0px;
+}
 
 
 .HeaderBody .Desc {
-    height: 50px;
+    height: 30px;
     width: 55%;
     margin-left: 10px;
 }
@@ -95,14 +95,78 @@
 
 
 
+.PlaylistHeader .SocialActions {
+    width: 35%;
+    height: 15%;
+    margin-left: 10px;
+}
+
+.PlaylistHeader .SocialActions .Actions {
+    width: 25%;
+    margin: auto;
+    float: left;
+    display: inline-flex;
+}
+
+.PlaylistHeader .SocialActions ul {
+    float: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    list-style-type: none;
+}
+
+.PlaylistHeader .SocialActions ul li {
+    width: 50px;
+    text-align: center;
+    font-size: 35px;
+    display: inline-block;
+}
+
+.PlaylistHeader .SocialActions ul a {
+    text-decoration: none;
+    color: none;
+}
+
+
+
+
+.PlaylistHeader .SocialActions .Actions .AddFav {
+    background-color: transparent;
+    color: white;
+    font-size: 35px;
+    border: none;
+    cursor: pointer;
+}
+
+.PlaylistHeader .SocialActions .Actions .AddFav:hover, .User .Actions .Playlist .dropbtn:focus {
+    background-color: #6d44a8;
+}
+
+.PlaylistHeader .SocialActions .Actions .AddFav {
+    position: relative;
+    display: inline-block;
+    height: 35px;
+    width: 35px;
+}
 
 
 
 
 
+.PlaylistHeader .UserActions {
+    float: right;
+    width: 72%;
+}
 
-
-
+.PlaylistHeader .UserActions .Friends {
+    position: relative;
+    display: inline-block;
+    height: 35px;
+    width: 35px;
+    padding-top: 10px;
+}
 
 .UserActions .Friends a {
     text-decoration: none;
@@ -111,7 +175,6 @@
 
 .UserActions .Friends {
     width: 50%;
-    float: left;
     height: 100px;
 }
 
@@ -143,7 +206,7 @@
     transform: translate(-5%, 0%);
     margin-left: 5%;
 }
-.Friends .AddFriends .search-wrapper.active {}
+.Friends .AddFriends .search-wrapper.active {margin-left: 30%}
 
 .Friends .AddFriends .search-wrapper .input-holder {    
     width: 35px;
@@ -271,6 +334,23 @@
 
 
 
+.PlaylistHeader .PlaylistFilters {
+    height: 150px;
+    width: 50%;
+    margin: auto;
+    border-radius: 15px;
+    border: 1px white solid;
+    background-color: forestgreen;
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -278,17 +358,25 @@
 .Playlist_Search_Section {
     width: 100%;
     height: 100%;
-
+    margin: auto;
+    background-color: rgb(73 6 203 / 20%);
 }
 
 
+.Playlist_Search_Section .PlaylistSearch {
+    width: 30%;
+    float: left;
+    margin-top: 80px;
+    background-color: white;
+}
 
 
-.PlaylistSection {
+.Playlist_Search_Section .PlaylistSection {
     width: 70%;
     margin: auto;
-    background-color: rgb(73 6 203 / 20%);
+    float: right;
     border-radius: 15px;
+    margin-top: 80px;
 /*    background-color: #530881;
     background-image: 
         radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
@@ -301,9 +389,14 @@
     color: white;
 }
 
+.Playlist_Search_Section .PlaylistSection .SectionCards {
+    width: 80%;
+    margin: auto;
+}
+
 .PlaylistSection .Info {
     height: 100%;
-    width: 80%;
+    width: 90%;
     list-style: none;
     display: inline-flex;
     flex-wrap: wrap;
@@ -366,8 +459,6 @@
     height: 35%;
     padding-top: 5px;
 }
-
-
 
 .PlaylistSection .Info .PosterInfo:hover > .StreamingInfo {
     display: contents;
