@@ -1,3 +1,4 @@
-.env
+
+*.env
 /TestData.file
-.rapidapi.py
+*.rapidapi.py
