@@ -46,22 +46,12 @@
                 <ul id="actions">
                 {% if request.user.is_authenticated %}
                     <div class="Actions">
-                        {% if saved %}
-                            <a href="/fav-movie/{{details.id}}/1" class="Save">
-                                <li><i class="far fa-plus-square" style="color: #6d44a8;"></i></li>
-                            </a>
-                        {% else %}
-                            <a href="/fav-movie/{{details.id}}/1" class="Save">
-                                <li><i class="far fa-plus-square" style="color: white;"></i></li>
-                            </a>
-                        {% endif %}
-                   
                         {% if fav %}
-                            <a href="/fav-movie/{{details.id}}/1" class="Fav">
+                            <a href="/pplaylist-follow-add/{{playlist.user.id}}/{{playlist.user_pl_id}}/" class="Fav">
                                 <li><i class="fa-solid fa-heart" style="color: #6d44a8;"></i></li>
                             </a>
                         {% else %}
-                            <a href="/fav-movie/{{details.id}}/1" class="Fav">
+                            <a href="/playlist-follow-add/{{playlist.user.id}}/{{playlist.user_pl_id}}/" class="Fav">
                                 <li><i class="fa-regular fa-heart" style="color: white;"></i></li>
                             </a>
                         {% endif %}
@@ -102,6 +92,14 @@
         <div class="PlaylistFilters">
             <div class="FiltersContainer">
 
+                <h3>Filter Playlist:</h3>
+
+                <div class="MovieTvFilter" id="mtvBtnContainer">
+                    <button class="mtvBtn active" onclick="mtvFilter('all')">All</button>
+                    <button class="mtvBtn" onclick="mtvFilter('movie')">Movies</button>
+                    <button class="mtvBtn" onclick="mtvFilter('tv')">TV</button>
+                </div>
+
             </div>
         </div>
 </div>
@@ -110,24 +108,16 @@
 
 
 
-<div class="row Playlist_Search_Section">
 
-    <div class="PlaylistSearch">
-
-        <form class="SearchFind" id="searchfind">
-
-
-        </form>
-
-    </div>
+<div class="Playlist_Search_Section">
 
 
     <div class="PlaylistSection">
         <div class="SectionCards">
-            <div class="Info">
+            <div class="row Info">
                 {% for x in details %}
                             
-                <div class="PosterInfo" id="posterinfo">
+                <div class="posterinfo" id="posterinfo">
                     {% for m in x %}
                     
                         {% if forloop.counter|divisibleby:2 %}
@@ -196,7 +186,7 @@
 
                             {% if m.tv %}
 
-                            <a href="/TvDetails/{{m.tv.id}}/2">
+                            <a href="/TvDetails/{{m.tv.id}}/2" class="column tv">
                                 <div class="card" id="card">
                                     <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
                                   <div class="info-container">
@@ -214,7 +204,7 @@
 
                             {% else %}
 
-                            <a href="/MovieDetails/{{m.movie.id}}/1">
+                            <a href="/MovieDetails/{{m.movie.id}}/1" class="column movie">
                                 <div class="card" id="card">
                                     <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.movie.poster_path }}">
                                   <div class="info-container">
@@ -252,6 +242,8 @@
 
 
 <script type="text/javascript">
+
+
 
 
 </script>             

@@ -8,10 +8,294 @@
 </head>
 
 
+<div class="PlaylistHeader">
+    <div class="HeaderContainer">
 
-<header>
-    <h1>{{playlist.title}}</h1>
-</header>
+        <div class="HeaderBody">
+
+            <div class="row TopInfo">
+                <div class="Title">
+                    <h1 id="title">{{ playlist.title }}</h1>
+                </div>
+            </div>
+                
+
+            <div class="row SocialInfo">
+                <p id="private">
+                    {% if playlist.private == True %}
+                        private
+                    {% else %}
+                        public
+                    {% endif %}
+                </p>
+                <p id="creator">
+                    {{playlist.user.username}} | {{playlist.playlist_follows.count}} Favorites | 13 hours 12 min (500min) of supreme watching 
+                </p>
+            </div> 
+
+            <div class="row Desc">  
+                <p id="desc">{{ playlist.description }}</p>
+            </div>     
+
+        </div>
+
+    
+
+        <div class="row SocialActions">
+
+                <ul id="actions">
+                {% if request.user.is_authenticated %}
+                    <div class="Actions">
+                        {% if saved %}
+                            <a href="/fav-movie/{{details.id}}/1" class="Save">
+                                <li><i class="far fa-plus-square" style="color: #6d44a8;"></i></li>
+                            </a>
+                        {% else %}
+                            <a href="/fav-movie/{{details.id}}/1" class="Save">
+                                <li><i class="far fa-plus-square" style="color: white;"></i></li>
+                            </a>
+                        {% endif %}
+                   
+                        {% if fav %}
+                            <a href="/fav-movie/{{details.id}}/1" class="Fav">
+                                <li><i class="fa-solid fa-heart" style="color: #6d44a8;"></i></li>
+                            </a>
+                        {% else %}
+                            <a href="/fav-movie/{{details.id}}/1" class="Fav">
+                                <li><i class="fa-regular fa-heart" style="color: white;"></i></li>
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="UserActions">
+                        <div class="Friends">
+                            <div class="AddFriends">
+                                <div class="search-wrapper">
+                                    <div class="input-holder">
+                                        <input type="text" id="searchInput" onkeyup="searchFriends()" class="search-input" placeholder="Search..." />
+                                        <button class="search-icon" onclick="searchToggle(this, event);">
+                                            <i class="fa-solid fa-user-plus" style="font-size: 15px; color: #f97c32"></i>
+                                        </button>
+                                    </div>
+                                    <span class="close" onclick="searchToggle(this, event);"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% else %}
+                    <div class="Actions">
+                        <a href="{% url 'users-register' %}" class="Register">
+                            <li><i class="far fa-plus-square"></i></li>
+                        </a>
+                        <a href="{% url 'users-register' %}" class="Register">
+                            <li><i class="fa-solid fa-fire"></i></li>
+                        </a>
+                        <a href="{% url 'users-register' %}" class="Register">
+                            <li><i class="fa-regular fa-heart"></i></li>
+                        </a>
+                    </div>    
+                {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="PlaylistFilters">
+            <div class="FiltersContainer">
+
+                <h3>Filter Playlist:</h3>
+
+                <div class="MovieTvFilter" id="mtvBtnContainer">
+                    <button class="mtvBtn active" onclick="mtvFilter('all')">All</button>
+                    <button class="mtvBtn" onclick="mtvFilter('movie')">Movies</button>
+                    <button class="mtvBtn" onclick="mtvFilter('tv')">TV</button>
+                </div>
+
+            </div>
+        </div>
+</div>
+
+
+
+
+
+
+<div class="Playlist_Search_Section">
+
+    <div class="PlaylistSearch">
+        <h3>Add More Movies/Shows</h3>
+
+        <div class="Search-Wrapper">
+            <div class="Input-Wrapper">
+                <input type="text"  method='GET' id="searchInput" onkeyup="searchAll()" class="Search-Input" placeholder="Search..."/>
+            </div>
+        </div>
+   
+        <div class="SearchCards">
+            <div class="Info">
+            {% for x in search_movies %}
+            
+            <div class="PosterInfo" id="posterinfo">
+                {% for m in x %}
+                <a href="/MovieDetails/{{m.id}}/1">
+                    <div class="searchcard" id="searchcard">
+                        <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
+                        <div class="info-container">
+                            <h4>
+                              <b style="font-size: 15px">{{ m.title }}</b><br>
+                            </h4>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            
+            {% endfor %}
+            </div>
+
+
+            <div class="Info">
+                {% for x in search_tv %}
+
+                <div class="PosterInfo" id="posterinfo">
+                    {% for t in x %}
+                    <a href="/TvDetails/{{t.id}}/2">
+                        <div class="searchcard" id="searchcard">
+                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ t.poster_path }}">
+                          <div class="info-container">
+                            <h4>
+                              <b style="font-size: 15px">{{ t.name }}</b><br>
+                            </h4>
+                          </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <div class="PlaylistSection">
+        <div class="SectionCards">
+            <div class="row Info">
+                {% for x in details %}
+                            
+                <div class="posterinfo" id="posterinfo">
+                    {% for m in x %}
+                    
+                        {% if forloop.counter|divisibleby:2 %}
+                        
+                        <div class="StreamingInfo" id="streaming">
+                            <div class="section-content">
+                            
+                                <div class="section-title">
+                                    <h2>Streaming</h2>
+                                </div>
+                                
+                                <div class="StreamingList">
+                                    
+                                    <div class="List-Cat">
+                                        {% if m.flatrate == '' %}
+                                            <div class="none" style="display: none;"></div>
+                                        {% else %}
+                                        <div class="Free-Streaming">
+                                            <h3>Free</h3>
+                                            {% for free in m.flatrate %}
+                                                {% if free.display_priority <= 20 %}
+                                                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ free.logo_path }}">
+                                                {% endif %}
+                                            {% endfor %} 
+        
+                                            {% endif %}                                    
+                                        </div>                                    
+                                        <div class="Rent-Streaming">
+                                            {% if m.rent == '' %}
+                                                <div class="none" style="display: none;"></div>
+                                            {% else %}
+        
+                                            <h3>Rent</h3>
+                                            {% for rent in m.rent %}
+                                                {% if rent.display_priority <= 20 %}
+                                                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ rent.logo_path }}">
+                                                {% endif %}    
+                                            {% endfor %}
+
+                                            {% endif %}
+                                        </div>
+                                        <div class="Buy-Streaming">
+                                            {% if m.buy == '' %}
+                                                <div class="none" style="display: none;"></div>
+                                            {% else %}
+                                            <h3>Purchase</h3>
+                                            {% for buy in m.buy %}
+                                                {% if buy.display_priority <= 20 %}
+                                                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ buy.logo_path }}">
+                                                {% endif %}
+                                                
+                                            {% endfor %}
+
+                                            {% endif %}
+                                        </div> 
+                                       
+                                    </div>   
+                                    
+                                </div>
+                                
+                            </div>
+                            
+                        </div> 
+        
+                        {% else %}
+
+                            {% if m.tv %}
+
+                            <a href="/TvDetails/{{m.tv.id}}/2" class="column tv">
+                                <div class="card" id="card">
+                                    <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
+                                  <div class="info-container">
+                                    <h4>
+                                        <b style="font-size: 15px">{{ m.tv.name }}</b><br>
+                                        <i style="font-size: 12px">Added:
+                                            {% if m.tv.id in play %}
+                                                {{m.pl_date_added}}
+                                            {% endif %}
+                                        </i>
+                                    </h4>
+                                  </div>
+                                </div>
+                            </a>                    
+
+                            {% else %}
+
+                            <a href="/MovieDetails/{{m.movie.id}}/1" class="column movie">
+                                <div class="card" id="card">
+                                    <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.movie.poster_path }}">
+                                  <div class="info-container">
+                                    <h4>
+                                      <b style="font-size: 15px">{{ m.movie.title }}</b><br>
+                                      <i style="font-size: 12px">Added:</i>
+                                    </h4>
+                                  </div>
+                                </div>
+                            </a>                        
+
+                            {% endif %}
+
+                        {% endif %}
+
+                    {% endfor %}
+                    </div>
+                    
+                 {% endfor %}
+                </div>
+        </div>
+    </div>
+</div>
 
 
     <div class="form-content">
@@ -81,138 +365,6 @@
      </div>
 
         
-
-
-<div class="FavSearch">
-
-    <form class="FavFind" id="favfind">
-
-
-    </form>
-
-</div>
-
-
-<div class="PlaylistSection">
-        <div class="Info">
-            {% for x in details %}
-                        
-            <div class="PosterInfo" id="posterinfo">
-                {% for m in x %}
-                
-                    {% if forloop.counter|divisibleby:2 %}
-                    
-                    <div class="StreamingInfo" id="streaming">
-                        <div class="section-content">
-                        
-                            <div class="section-title">
-                                <h2>Streaming</h2>
-                            </div>
-                            
-                            <div class="StreamingList">
-                                
-                                <div class="List-Cat">
-                                    {% if m.flatrate == '' %}
-                                        <div class="none" style="display: none;"></div>
-                                    {% else %}
-                                    <div class="Free-Streaming">
-                                        <h3>Free</h3>
-                                        {% for free in m.flatrate %}
-                                            {% if free.display_priority <= 20 %}
-                                                <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ free.logo_path }}">
-                                            {% endif %}
-                                        {% endfor %} 
-    
-                                        {% endif %}                                    
-                                    </div>                                    
-                                    <div class="Rent-Streaming">
-                                        {% if m.rent == '' %}
-                                            <div class="none" style="display: none;"></div>
-                                        {% else %}
-    
-                                        <h3>Rent</h3>
-                                        {% for rent in m.rent %}
-                                            {% if rent.display_priority <= 20 %}
-                                                <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ rent.logo_path }}">
-                                            {% endif %}    
-                                        {% endfor %}
-
-                                        {% endif %}
-                                    </div>
-                                    <div class="Buy-Streaming">
-                                        {% if m.buy == '' %}
-                                            <div class="none" style="display: none;"></div>
-                                        {% else %}
-                                        <h3>Purchase</h3>
-                                        {% for buy in m.buy %}
-                                            {% if buy.display_priority <= 20 %}
-                                                <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ buy.logo_path }}">
-                                            {% endif %}
-                                            
-                                        {% endfor %}
-
-                                        {% endif %}
-                                    </div> 
-                                   
-                                </div>   
-                                
-                            </div>
-                            
-                        </div>
-                        
-                    </div> 
-    
-                    {% else %}
-
-                        {% if m.tv %}
-
-                        <a href="/TvDetails/{{m.tv.id}}/2">
-                            <div class="card" id="card">
-                                <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
-                              <div class="info-container">
-                                <h4>
-                                    <b style="font-size: 15px">{{ m.tv.name }}</b><br>
-                                    <i style="font-size: 12px">Added:
-                                        
-                                            {% for all_favs in m %}
-                                                {{ all_favs.date_added }}
-                                            {% endfor %}
-                                        
-                                    </i>
-                                </h4>
-                              </div>
-                            </div>
-                        </a>                    
-
-                        {% else %}
-
-                        <a href="/MovieDetails/{{m.movie.id}}/1">
-                            <div class="card" id="card">
-                                <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.movie.poster_path }}">
-                              <div class="info-container">
-                                <h4>
-                                  <b style="font-size: 15px">{{ m.movie.title }}</b><br>
-                                  <i style="font-size: 12px">Added:</i>
-                                </h4>
-                              </div>
-                            </div>
-                        </a>                        
-
-                        {% endif %}
-
-                    {% endif %}
-
-                {% endfor %}
-                </div>
-                
-             {% endfor %}
-            </div>
-</div>
-
-
-
-
-
 
 
 

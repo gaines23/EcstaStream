@@ -80,7 +80,7 @@ def MainSearchResults(request):
     assert isinstance(request, HttpRequest)
     
     search_request = request.GET.get("search")
-    multi_search = search.multi({"query":{search_request}, "include_adult":"False", "region":"US"})
+    multi_search = search.multi({"query":{search_request}, "include_adult":"False"})
     streaming_mov = movie.watch_providers
     streaming_tv = tv.watch_providers
     
@@ -316,6 +316,10 @@ def reject_follower_request(request, requestid):
 
 
 
+
+
+
+
 @login_required
 def favorite_add_movie(request, movieid, media_type=1):
     assert isinstance(request, HttpRequest)
@@ -505,9 +509,6 @@ def edit_user_playlist(request, user, title):
         play = list(sorted(pl_data, key = lambda x: x.pl_date_added, reverse=True))
         playlist_data.append([pl_data, playlist])
 
-
-
-
     except Exception as e:
         pass
 
@@ -529,22 +530,63 @@ def edit_user_playlist(request, user, title):
                     details.append([{'tv': tv.details(id)}, tv.watch_providers(id).results['US']])
     except Exception as e:
         pass
+
+
+    search_request = request.GET.get("search")
+    multi_search = search.multi({"query":{search_request}, "include_adult":"False"})
+    
+    search_movies = []
+    search_tv = []
+ 
+    try:
+        for m in multi_search:
+            if m.media_type == 'movie' and m.media_type != 'person' and m.media_type != 'tv':
+                if m.id == streaming_mov(m.id).results['US']:
+                    break
+                movies.append([m, streaming_mov(m.id).results['US']])
+            else:
+                break
+            continue
+    except Exception as e:
+        print(e)
+
+    try:
+        for t in multi_search:
+            if t.media_type == 'tv' and t.media_type != 'person' and t.media_type != 'movie':
+                if t.id == streaming_tv(t.id).results['US']:
+                    break    
+                tv_shows.append([t, streaming_tv(t.id).results['US']])
+            else:
+                break
+            continue
+    except Exception as e:
+        print(e)
     
     context = {               
                'playlist_data':playlist_data,
                'details':details,
-               #'ap':all_playlist,
                'play':play,
                'playlist':playlist,
                'all_playlist':all_playlist,
                'editform':editform,
+               'search_movies':'search_movies',
+               'search_tv':search_tv,
     }
 
     return render(
         request,
-        'playlists/playlist.html',
+        'playlists/edit_playlist.html',
         context,
     )
+
+
+
+## Filters Needed:
+##  - Genres
+##  - Movie or TV
+##  - Streaming Services (all + user choices)
+##  - Date
+
 
 
 def user_playlist(request, user, title):
@@ -573,11 +615,13 @@ def user_playlist(request, user, title):
                     details.append([{'tv': tv.details(id)}, tv.watch_providers(id).results['US']])
     except Exception as e:
         pass
+
+
+
     
     context = {               
                'playlist_data':playlist_data,
                'details':details,
-               #'ap':all_playlist,
                'play':play,
                'playlist':playlist,
                'playlist_items':playlist_items,
@@ -617,6 +661,38 @@ def playlist_add_tv(request, user, user_playlist_id, tvid, media_type=2):
 
 
 
+
+@login_required
+def add_pl_follower(request, user, user_playlist_id):
+    user_pl = get_object_or_404(UserPlaylist, user=user, user_playlist_id=playlist.user_pl_id)
+    if user_pl.playlist_follows.filter(id=request.user.id).exists():
+        user_pl.playlist_follows.remove(request.user)
+    else:
+        user_pl.playlist_follows.add(request.user)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+
+
+
+#@login_required
+#def add_pl_follower(request, user, user_playlist_id, id):
+#    new_follower = Profile.objects.get(id=id)
+#    user_pl = UserPlaylist.objects.filter(user=user, user_playlist_id=playlist.user_pl_id)
+#    pl_id = user_pl.user_pl_id
+
+#    user_pl.playlist_follows.add(new_follower)
+#    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+#@login_required
+#def remove_pl_follower(request, user, user_playlist_id, id):
+#    new_follower = Profile.objects.get(id=id)
+#    user_pl = UserPlaylistData.objects.filter(user=user, user_playlist_id=playlist.user_pl_id)
+#    pl_id = user_pl.user_pl_id
+
+#    user_pl.playlist_follows.remove(new_follower)
+#    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 

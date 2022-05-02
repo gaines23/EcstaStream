@@ -130,8 +130,8 @@ class UserPlaylist(models.Model):
     cover_img = models.ImageField(default='defaultplaylist.png', upload_to='cover_images', null=True)
     comments = models.TextField(null=True)
     comments_on = models.BooleanField(default=False)
-    playlist_follows = models.ManyToManyField(User, related_name="following", default=False)  
-    share_list = models.ManyToManyField(User, related_name="sharing", default=False)
+    playlist_follows = models.ManyToManyField(User, related_name="following", default=None)  
+    share_list = models.ManyToManyField(User, related_name="sharing", default=None)
     #pl_slug = models.SlugField(max_length=200, unique=True, null=True)
 
     def __str__(self):

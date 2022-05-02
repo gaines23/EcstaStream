@@ -12,17 +12,24 @@
 
 
 .PlaylistHeader {
-    height: 650px;
+    height: 400px;
+    border-radius: 20px;
+    border-top: 4px solid rgba(255, 255, 255, 0.125);
+    border-right: 4px solid rgba(255, 255, 255, 0.125);
+    border-left: 4px solid rgba(255, 255, 255, 0.125);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
+
 }
 
 .PlaylistHeader .HeaderContainer {
-    height: 100%;
-    width: 50%;
+    height: 315px;
+    width: 90%;
     margin: auto;
-}
-
-.HeaderContainer .card-body {
-    height: 100%;
 }
 
 
@@ -30,196 +37,149 @@
 
 .HeaderContainer .HeaderBody {
     width: 100%;
-    height: 40%;
-}
-
-.HeaderBody .Image {
-    width: 40%;
-    float: left;
-}
-
-.HeaderBody .Image img {
-    width: 95%;
-    height: 92%;
-    border-radius: 15px;
-}
-
-.HeaderBody .TopInput {
-    width: 60%;
     height: 100%;
-    float: right;
 }
 
-.TopInput .Title {
-    height: 25%;
-}
-
-.TopInput .Title input {
-    width: 100%;
-    height: 50px;
-    margin: auto;
-    color: white;
-    backdrop-filter: blur(10px) saturate(130%);
-    -webkit-backdrop-filter: blur(10px) saturate(130%);
-    background-color: rgba(121, 0, 224, 0.06);
-    border-radius: 12px;
-    border: 2px solid rgba(255, 255, 255, 0.125);
-    outline: none;
-}
-
-.TopInput .Title input:focus {
-    cursor: pointer;
-    background: rgba(255, 255, 255, .25);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px) saturate(200%);
-    border: 2px solid rgb(255 255 255 / 35%);
-    -webkit-transition: 0.3s;
-}
-
-.TopInput .Desc {
-    height: 75%;
-}
-
-.TopInput .Desc textarea {
-    width: 100%;
-    margin: auto;
-    color: white;
-    backdrop-filter: blur(10px) saturate(130%);
-    -webkit-backdrop-filter: blur(10px) saturate(130%);
-    background-color: rgba(121, 0, 224, 0.06);
-    border-radius: 12px;
-    border: 2px solid rgba(255, 255, 255, 0.125);
-    outline: none;
-}
-
-.TopInput .Desc textarea:focus {
-    cursor: pointer;
-    -webkit-transition: 0.3s;
-    background: rgba(255, 255, 255, .25);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px) saturate(200%);
-}
-
-
-
-
-
-
-.Options{
+.HeaderBody .TopInfo {
     height: 130px;
+}
+
+.HeaderBody .Title {
+    height: 100%;
+    width: 70%;
+}
+
+.HeaderBody .Title #title {
+    padding-top: 25px;
+    padding-left: 15px;
+    font-weight: 800;
+    float: left;
+    height: 120px;
+    width: 88%;
+    font-size: 90px;
+    text-shadow: -2px 3px rebeccapurple;
+}
+
+
+
+
+.HeaderBody .SocialInfo {
+    height: 60px;
+    width: 55%;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.HeaderBody .SocialInfo #creator {
+    font-size: 13px;
+    float: left;
     width: 100%;
 }
 
-.Options .Private {
-    position: relative;
-    display: inline-block;
-    width: 20%;
-    height: 90px;
-    float: right;
+.HeaderBody .SocialInfo #private {
+    font-size: 13px;
+    width: 100%;
+    float: left;
+    margin-bottom: 0px;
 }
 
-.Options .Comments {
-    position: relative;
-    display: inline-block;
-    width: 20%;
-    height: 90px;
-    float: right;
+
+.HeaderBody .Desc {
+    height: 30px;
+    width: 55%;
+    margin-left: 10px;
 }
 
-.Options h4 {
-    margin-bottom: 10px;
-    height: 20px;
+.HeaderBody .Desc #desc {
     font-size: 15px;
-    text-align: left;
-}
-
-.Options input { 
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.Options .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, .25);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px) saturate(200%);
-    border: 2px solid rgb(255 255 255 / 35%);
-    -webkit-transition: 0.3s;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-.Options .slider:before {
-    position: absolute;
-    content: "";
-    height: 25px;
-    width: 25px;
-    left: 1px;
-    bottom: 1px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-.Options input:checked + .slider:before {
-    -webkit-transform: translateX(35px);
-    -ms-transform: translateX(35px);
-    transform: translateX(35px);
-}
-
-.Options .slider.round.private {
-    border-radius: 30px;
-    height: 30px;
-    width: 65px;
-    margin-top: 30px;
-    margin-right: auto;
-    margin-left: 5px;
-}
-
-.Options .slider.round.comm {
-    border-radius: 30px;
-    height: 30px;
-    width: 65px;
-    margin-top: 30px;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-.Options .slider.round:before {
-    border-radius: 50%;
+    float: right;
+    width: 100%;
 }
 
 
 
 
-::placeholder{
+
+.PlaylistHeader .SocialActions {
+    width: 35%;
+    height: 15%;
+    margin-left: 10px;
+}
+
+.PlaylistHeader .SocialActions .Actions {
+    width: 25%;
+    margin: auto;
+    float: left;
+    display: inline-flex;
+}
+
+.PlaylistHeader .SocialActions ul {
+    float: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    list-style-type: none;
+}
+
+.PlaylistHeader .SocialActions ul li {
+    width: 50px;
+    text-align: center;
+    font-size: 35px;
+    display: inline-block;
+}
+
+.PlaylistHeader .SocialActions ul a {
+    text-decoration: none;
+    color: none;
+}
+
+
+
+
+.PlaylistHeader .SocialActions .Actions .AddFav {
+    background-color: transparent;
     color: white;
+    font-size: 35px;
+    border: none;
+    cursor: pointer;
+}
+
+.PlaylistHeader .SocialActions .Actions .AddFav:hover, .User .Actions .Playlist .dropbtn:focus {
+    background-color: #6d44a8;
+}
+
+.PlaylistHeader .SocialActions .Actions .AddFav {
+    position: relative;
+    display: inline-block;
+    height: 35px;
+    width: 35px;
 }
 
 
 
 
 
+.PlaylistHeader .UserActions {
+    float: right;
+    width: 72%;
+}
 
+.PlaylistHeader .UserActions .Friends {
+    position: relative;
+    display: inline-block;
+    height: 35px;
+    width: 35px;
+    padding-top: 10px;
+}
 
-
-
-
-
-.Options .Friends a {
+.UserActions .Friends a {
     text-decoration: none;
     color: white;
 }
 
-.Options .Friends {
+.UserActions .Friends {
     width: 50%;
-    float: left;
     height: 100px;
 }
 
@@ -251,7 +211,7 @@
     transform: translate(-5%, 0%);
     margin-left: 5%;
 }
-.Friends .AddFriends .search-wrapper.active {}
+.Friends .AddFriends .search-wrapper.active {margin-left: 30%}
 
 .Friends .AddFriends .search-wrapper .input-holder {    
     width: 35px;
@@ -379,35 +339,143 @@
 
 
 
-
-#save {
+.PlaylistHeader .PlaylistFilters {
+    height: 150px;
     width: 100%;
-    background-color: rgba(255,255,255,0.27);
+}
+
+.PlaylistHeader .PlaylistFilters .FiltersContainer {
+    height: 100%;
+    width: 55%;
+    margin-left: auto;
+    margin-right: 80px;
+    border-radius: 15px;
+    border: 1px white solid;
+    backdrop-filter: blur(10px) saturate(130%);
+    -webkit-backdrop-filter: blur(10px) saturate(130%);
+    background-color: rgba(121, 0, 224, 0.06);
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.125);
+    outline: none;
+}
+
+.PlaylistFilters .FiltersContainer h3 {
+    text-align: center;
+}
+
+.FiltersContainer .MovieTvFilter {
+    width: 60%;
+    margin: auto;
+}
+
+.PlaylistFilters .FiltersContainer button {
+    width: 30%;
+    height: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: white;
+    background-color: rgba(255,255,255,0.1);
     border: 2px solid rgba(255,255,255,0.1);
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
-    padding: 15px 30px;
     backdrop-filter: blur(16px) saturate(150%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border-radius: 12px;
-    padding: 15px 0;
-    font-size: 18px;
-    font-weight: 600;
+    -webkit-backdrop-filter: blur(16px) saturate(180%);    
+    border-radius: 10px;
+}
+
+.FiltersContainer button:hover {
     cursor: pointer;
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    border: 2px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+    border-radius: 10px;
 }
 
-#save:hover {
-    background-color: rgba(255,255,255,0.47);
+.FiltersContainer button.active {
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    border: 3px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+    border-radius: 10px;
 }
 
 
 
 
 
-.PlaylistSection {
+
+
+
+
+.Playlist_Search_Section {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    background-color: rgb(109 68 168 / 20%);
+}
+
+.Playlist_Search_Section .PlaylistSearch {
+    width: 30%;
+    float: left;
+    margin-top: 80px;
+    color: white;
+}
+
+.PlaylistSearch h3 {
+    font-size: 18px;
+    text-align: center;
+}
+
+
+.PlaylistSearch .Search-Wrapper {
+    width: 100%;
+    margin: auto;
+    color: white;
+}
+
+.PlaylistSearch .Input-Wrapper {
+    width: 90%;
+    margin: auto;
+    border-radius: 10px;
+    color: white;
+}
+
+
+.PlaylistSearch .Search-Wrapper .Input-Wrapper .Search-Input {
+    width: 100%;
+    margin: auto;
+    color: white;
+    backdrop-filter: blur(10px) saturate(130%);
+    -webkit-backdrop-filter: blur(10px) saturate(130%);
+    background-color: rgba(121, 0, 224, 0.06);
+    border-radius: 12px;
+    border: 3px solid rgba(255, 255, 255, 0.125);
+    outline: none;
+}
+
+.PlaylistSearch .Search-Wrapper .Input-Wrapper .Search-Input:focus {
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    border: 3px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+    border-radius: 10px;
+    -webkit-transition: 0.3s;
+}
+
+
+
+
+
+
+.Playlist_Search_Section .PlaylistSection {
     width: 70%;
     margin: auto;
-    background-color: rgb(73 6 203 / 20%);
+    float: right;
     border-radius: 15px;
+    margin-top: 80px;
 /*    background-color: #530881;
     background-image: 
         radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
@@ -415,35 +483,50 @@
 */
 }
 
+.PlaylistSection .show {
+    display: inline-grid;
+}
+
 .PlaylistSection a {
     text-decoration: none;
     color: white;
+    display: none;
+}
+
+.Playlist_Search_Section .PlaylistSection .SectionCards {
+    width: 95%;
+    margin: auto;
 }
 
 .PlaylistSection .Info {
     height: 100%;
-    width: 80%;
+    width: 100%;
     list-style: none;
     display: inline-flex;
     flex-wrap: wrap;
     padding-left: 0;
 }
 
-.PlaylistSection .Info .PosterInfo {
-    width: 33%;
+.PlaylistSection .SectionCards .row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.PlaylistSection .Info .posterinfo {
+    width: 25%;
     height: 100%;
     margin-bottom: 20px;
     position: relative;
-    transition-duration: 0.5s;
-    display: inline-grid;
+    transition-duration: 0.5s;  
 }
 
-.Info .PosterInfo > .StreamingInfo {
+.Info .posterinfo > .StreamingInfo {
     display: none;
     position: absolute;
 }
 
-.PlaylistSection .Info .PosterInfo .card {
+.PlaylistSection .Info .posterinfo .card {
     background: rgba(255, 255, 255, .25);
     height: 230px;
     border: 1px solid rgb(255 255 255 / 35%);
@@ -457,7 +540,8 @@
     backdrop-filter: revert;
 }
 
-.PlaylistSection .Info .PosterInfo .card:hover {
+
+.PlaylistSection .Info .posterinfo .card:hover {
     -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 25%);
     box-shadow: 0px 0px 2px 3px #f8f9fa73;
     cursor: pointer;
@@ -469,7 +553,7 @@
         radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
 }
 
-.PlaylistSection .Info .PosterInfo .card img {
+.PlaylistSection .Info .posterinfo .card img {
     width: 85%;
     height: 68%;
     object-fit: cover;
@@ -480,15 +564,13 @@
     border-radius: 20px;
 }
 
-.PlaylistSection .Info .PosterInfo .card .info-container {
+.PlaylistSection .Info .posterinfo .card .info-container {
     text-align: center;
     height: 35%;
     padding-top: 5px;
 }
 
-
-
-.PlaylistSection .Info .PosterInfo:hover > .StreamingInfo {
+.PlaylistSection .Info .posterinfo:hover > .StreamingInfo {
     display: contents;
     margin-top: 255px;
     margin-right: auto;
@@ -604,3 +686,6 @@
     -webkit-backdrop-filter: revert;
     backdrop-filter: revert;
 }
+
+
+

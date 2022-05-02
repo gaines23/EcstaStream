@@ -85,23 +85,18 @@
 
         <div class="col MainContainer">
 
-            <div class="row Search">    
-                    
+            <div class="row Search">   
                 <form class="SearchForm" id="search" method='GET' action="{% url 'search-results' %}">
-                    
                 {% csrf_token %}
-                    
-                <div class="MainSearch">
-                    <div class="SearchInput">
-                        <input class="searchinput" id="search" type="text" placeholder="Search" name="search" onkeyup="searchAll()">
+                    <div class="MainSearch">
+                        <div class="SearchInput">
+                            <input class="searchinput" id="search" type="text" placeholder="Search" name="search" onkeyup="searchAll()">
+                        </div>
+
+                        <div class="SearchIcon">
+                            <button type="submit" class="SearchButton"><i class="fas fa-search"></i></button>
+                        </div>
                     </div>
-
-                    <div class="SearchIcon">
-                        <button type="submit" class="SearchButton"><i class="fas fa-search"></i></button>
-                    </div>                    
-
-                </div>
-                
                 </form>
             </div>
 
