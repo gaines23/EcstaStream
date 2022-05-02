@@ -8,35 +8,52 @@
 </head>
 
 
+
 <div class="PlaylistHeader">
     <div class="HeaderContainer">
 
         <div class="HeaderBody">
-
-            <div class="row TopInfo">
-                <div class="Title">
-                    <h1 id="title">{{ playlist.title }}</h1>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}    
+                {{ form }}            
+                <div class="row TopInfo">
+                    <div class="Title">
+                        <h1 id="title">{{ editform.title }}</h1>
+                    </div>
                 </div>
-            </div>
-                
+                    
 
-            <div class="row SocialInfo">
-                <p id="private">
-                    {% if playlist.private == True %}
-                        private
-                    {% else %}
-                        public
-                    {% endif %}
-                </p>
-                <p id="creator">
-                    {{playlist.user.username}} | {{playlist.playlist_follows.count}} Favorites | 13 hours 12 min (500min) of supreme watching 
-                </p>
-            </div> 
+                <div class="row SocialInfo">
+                    <div class="Comments">
+                        <h4 id="comments">Comments Off</h4>
+                            <label class="switch">
+                                {{editform.comments_on}}
+                                <span class="slider round comm" onclick="commentToggle()"></span>
+                            </label>
+                        </div>
+                        <div class="Private">
+                            <h4 id="private">Private On</h4>
+                            <label class="switch">
+                                {{editform.private}}
+                                <span class="slider round private" onclick="privateToggle()"></span>
+                            </label>
+                        </div>
 
-            <div class="row Desc">  
-                <p id="desc">{{ playlist.description }}</p>
-            </div>     
+                    <p id="creator">
+                        {{playlist.user.username}} | {{playlist.playlist_follows.count}} Favorites | 13 hours 12 min (500min) of supreme watching 
+                    </p>
+                </div> 
 
+                <div class="row Desc">  
+                    <p id="desc">{{ playlist.description }}</p>
+                </div> 
+
+                <div class="EditDelete">
+                    <input type="submit" class="col-md-12 btn" name="edit" id="edit" value="Update Playlist">
+                    <input type="submit" class="col-md-12 btn" id="delete" name="Delete Playlist">
+
+                <div>
+            </form>
         </div>
 
     
@@ -129,7 +146,7 @@
                 <input type="text"  method='GET' id="searchInput" onkeyup="searchAll()" class="Search-Input" placeholder="Search..."/>
             </div>
         </div>
-   
+  <!-- 
         <div class="SearchCards">
             <div class="Info">
             {% for x in search_movies %}
@@ -174,9 +191,8 @@
                 {% endfor %}
             </div>
 
-        </div>
+        </div> -->
     </div>
-
 
 
 
@@ -298,71 +314,7 @@
 </div>
 
 
-    <div class="form-content">
-        <div class="container">
 
-            <div class="card-body">
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{form}}
-                    <h3>Create Playlist</h3>
-
-                    <div class="form-row TopInfo">
-                        <div class="Image">
-                            <img class="cover-img" src="{{ editform.cover_img.url }}"> 
-                            
-                        </div>
-                        <div class="TopInput">
-                            <div class="Title">
-                                {{ editform.title }}
-                            </div>
-                             <div class="Desc">  
-                            {{ editform.description }}
-                            </div>
-                        </div>
-
-                    </div>
-                    
-                    <div class="form-row Options">
-                        <div class="Comments">
-                            <h4 id="comments">Comments Off</h4>
-                            <label class="switch">
-                                {{editform.comments_on}}
-                                <span class="slider round comm" onclick="commentToggle()"></span>
-                            </label>
-                        </div>
-                        <div class="Private">
-                            <h4 id="private">Private On</h4>
-                            <label class="switch">
-                                {{editform.private}}
-                                <span class="slider round private" onclick="privateToggle()"></span>
-                            </label>
-                        </div>
-
-                        <div class="Friends">
-                            <div class="AddFriends">
-                                <h4 id="share">Share</h4>
-                                <div class="search-wrapper">
-                                    <div class="input-holder">
-                                        <input type="text" id="searchInput" onkeyup="searchFriends()" class="search-input" placeholder="Search..." />
-                                        <button class="search-icon" onclick="searchToggle(this, event);">
-                                            <i class="fa-solid fa-user-plus" style="font-size: 15px; color: #f97c32"></i>
-                                        </button>
-                                    </div>
-                                    <span class="close" onclick="searchToggle(this, event);"></span>
-                                </div>
- 
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="col-md-12 btn" id="save">Save Playlist</button>
-                </form>
-
-            </div>
-
-        </div>
-     </div>
 
         
 
@@ -378,8 +330,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('#checkbox').change(function() {
-        $.post("/create_playlist/", {
-            id: '{{create_pl.user_pl_id}}', 
+        $.post("/editform/", {
+            id: '{{editform.user_pl_id}}', 
             private: this.checked,
             csrfmiddlewaretoken: '{{ csrf_token }}' 
         });

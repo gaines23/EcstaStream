@@ -472,7 +472,7 @@ def CreatePlaylist(request, user):
                                     comments_on=pl_data('comments_on'), 
                                    )
             playlist.save()
-            return HttpResponseRedirect("/edit-playlist/"+user+'/'+playlist.title)
+            return redirect("/edit-playlist/"+user+'/'+playlist.title)
 
     context = {
         'create_pl':create_pl,
@@ -491,33 +491,30 @@ def CreatePlaylist(request, user):
 @login_required
 def edit_user_playlist(request, user, title):
     
-    playlist = []
-    all_playlist = []
+    playlist = get_object_or_404(UserPlaylist, user=user, title=title)
+    all_pl_data = UserPlaylistData.objects.all()
 
     details = []
     playlist_data = []
     play = []
 
-    try:
-        x = UserPlaylist.objects.get(user=user, title=title)
-        z = UserPlaylistData.objects.get(user=user, user_playlist_id=playlist.user_pl_id)
+    playlist_items = UserPlaylistData.objects.filter(user=user, user_playlist_id=playlist.user_pl_id)
+    pl_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist_id=playlist.user_pl_id)))
     
-        playlist.append(x)
-        all_playlist.append(y)
-    
-        pl_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist=playlist.user_pl_id)))
-        play = list(sorted(pl_data, key = lambda x: x.pl_date_added, reverse=True))
-        playlist_data.append([pl_data, playlist])
+    play = list(sorted(pl_data, key = lambda x: x.pl_date_added, reverse=True))
+    playlist_data.append([play, playlist])
 
-    except Exception as e:
-        pass
 
     editform = EditPlaylistForm(request.POST)
         # Update playlist info
-    if request.method == 'POST' in request.POST:
+    if request.method == 'POST' and 'edit' in request.POST:
         if editform.is_valid():
             editform.save()
             return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+
+    if request.method == 'POST' and 'delete' in request.POST:
+            editform.delete()
+            return redirect("home")
 
     try:
         if play != '':
@@ -530,6 +527,7 @@ def edit_user_playlist(request, user, title):
                     details.append([{'tv': tv.details(id)}, tv.watch_providers(id).results['US']])
     except Exception as e:
         pass
+
 
 
     search_request = request.GET.get("search")
@@ -567,9 +565,10 @@ def edit_user_playlist(request, user, title):
                'details':details,
                'play':play,
                'playlist':playlist,
-               'all_playlist':all_playlist,
+               'playlist_items':playlist_items,
+               'all_pl_data':all_pl_data,
                'editform':editform,
-               'search_movies':'search_movies',
+               'search_movies':search_movies,
                'search_tv':search_tv,
     }
 
@@ -657,7 +656,6 @@ def playlist_add_tv(request, user, user_playlist_id, tvid, media_type=2):
     
     pl_model.create(user=request.user, pl_mov_show_id=tvid, media_type=2, user_playlist_id=user_pl)
     return HttpResponseRedirect(request.META['HTTP_REFERER']) 
-
 
 
 

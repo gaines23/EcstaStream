@@ -155,19 +155,15 @@ class CreatePlaylistForm(forms.ModelForm):
 
 
 class EditPlaylistForm(forms.ModelForm):
-    title = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Title',
-                                                             }))
+    title = forms.CharField()
     private = forms.BooleanField(required=False)
     comments_on = forms.BooleanField(required=False)
-    description = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder': 'Decription (optional) ',
-                                                             'rows':5,
-                                                             'cols':5,
-                                                             }))
-    cover_img = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    description = forms.CharField()
+    #cover_img = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
 
     class Meta:
         model = UserPlaylist
-        fields = ['title', 'private', 'description', 'comments_on', 'cover_img', ]
+        fields = ['title', 'private', 'description', 'comments_on', ]
 
 
 

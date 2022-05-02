@@ -62,10 +62,9 @@
 
                             <div class="Playlists">
 
-                                {% for x in user.playlists.all %}\
+                                {% for x in user.playlists.all %}
                                     
-                                    <a href="{% url 'user_playlist' user.id x.title %}">{{x.title}}</a><br>
-                                    
+                                    <a href="{% url 'edit_playlist' user.id x.title %}">{{x.title}}</a>                                    
                                 {% endfor %}
                             </div>
                             {% endif %}
