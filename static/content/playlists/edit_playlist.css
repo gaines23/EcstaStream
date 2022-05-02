@@ -34,29 +34,27 @@
 
 
 
-
 .HeaderContainer .HeaderBody {
     width: 100%;
     height: 100%;
 }
 
-.HeaderBody .TopInfo {
-    height: 130px;
-}
-
 .HeaderBody .Title {
-    height: 100%;
-    width: 70%;
+    height: 125px;
+    width: 80%;
 }
 
-.HeaderBody .Title #title {
-    padding-top: 25px;
+.HeaderBody .Title #id_title {
+    padding-top: 10px;
     padding-left: 15px;
     font-weight: 800;
     float: left;
     height: 120px;
     width: 88%;
-    font-size: 90px;
+    font-size: 80px;
+    border: none;
+    background: transparent;
+    color: white;
     text-shadow: -2px 3px rebeccapurple;
 }
 
@@ -64,7 +62,7 @@
 
 
 .HeaderBody .SocialInfo {
-    height: 60px;
+    height: 30px;
     width: 55%;
     margin-left: 10px;
     display: inline-block;
@@ -76,109 +74,157 @@
     width: 100%;
 }
 
-.HeaderBody .SocialInfo #private {
-    font-size: 13px;
-    width: 100%;
-    float: left;
-    margin-bottom: 0px;
-}
+
 
 
 .HeaderBody .Desc {
-    height: 30px;
+    height: 60px;
     width: 55%;
     margin-left: 10px;
 }
 
-.HeaderBody .Desc #desc {
+.HeaderBody .Desc #id_description {
     font-size: 15px;
-    float: right;
-    width: 100%;
+    float: left;
+    width: 80%;
+    border: none;
+    background: transparent;
+    color: white;
 }
 
 
 
 
 
-.PlaylistHeader .SocialActions {
-    width: 35%;
-    height: 15%;
-    margin-left: 10px;
-}
 
-.PlaylistHeader .SocialActions .Actions {
-    width: 25%;
+
+
+.UserOptions {
+    height: 170px;
+    width: 38%;
     margin: auto;
     float: left;
-    display: inline-flex;
 }
 
-.PlaylistHeader .SocialActions ul {
-    float: left;
+.UserOptions .Options {
+    height: 100%;
     width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    list-style-type: none;
 }
 
-.PlaylistHeader .SocialActions ul li {
-    width: 50px;
-    text-align: center;
-    font-size: 35px;
-    display: inline-block;
+.UserOptions .Options .TopOptions {
+    height: 65%;
+    width: 100%;
 }
 
-.PlaylistHeader .SocialActions ul a {
-    text-decoration: none;
-    color: none;
-}
-
-
-
-
-.PlaylistHeader .SocialActions .Actions .AddFav {
-    background-color: transparent;
-    color: white;
-    font-size: 35px;
-    border: none;
-    cursor: pointer;
-}
-
-.PlaylistHeader .SocialActions .Actions .AddFav:hover, .User .Actions .Playlist .dropbtn:focus {
-    background-color: #6d44a8;
-}
-
-.PlaylistHeader .SocialActions .Actions .AddFav {
+.UserOptions .Options .Private {
     position: relative;
     display: inline-block;
-    height: 35px;
-    width: 35px;
+    width: 75px;
+    height: 65px;
+    float: left;
+}
+
+.UserOptions .Options .Comments {
+    position: relative;
+    display: inline-block;
+    width: 110px;
+    height: 65px;
+    float: left;
+}
+
+.UserOptions .Options h4 {
+    margin-bottom: 10px;
+    height: 20px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.UserOptions .Options input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.UserOptions .Options .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    border: 2px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.UserOptions .Options .slider:before {
+    position: absolute;
+    content: "";
+    height: 25px;
+    width: 25px;
+    left: 1px;
+    bottom: 1px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.UserOptions .Options input:checked + .slider:before {
+    -webkit-transform: translateX(35px);
+    -ms-transform: translateX(35px);
+    transform: translateX(35px);
+}
+
+.UserOptions .Options .slider.round.private-btn {
+    border-radius: 30px;
+    height: 30px;
+    width: 65px;
+    margin-top: 30px;
+    margin-right: auto;
+    margin-left: 5px;
+}
+
+.UserOptions .Options .slider.round.comm-btn {
+    border-radius: 30px;
+    height: 30px;
+    width: 65px;
+    margin-top: 30px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.UserOptions .Options .slider.round:before {
+    border-radius: 50%;
 }
 
 
 
 
-
-.PlaylistHeader .UserActions {
-    float: right;
-    width: 72%;
+::placeholder{
+    color: white;
 }
 
-.PlaylistHeader .UserActions .Friends {
+
+.UserOptions .Options .Friends {
     position: relative;
     display: inline-block;
     height: 35px;
     width: 35px;
     padding-top: 10px;
+    float: left;
+    margin-left: 10px;
 }
 
-.UserActions .Friends a {
+.Options .Friends a {
     text-decoration: none;
     color: white;
 }
 
-.UserActions .Friends {
+.Options .Friends {
     width: 50%;
     height: 100px;
 }
@@ -208,10 +254,9 @@
 .Friends .AddFriends .search-wrapper {
     position: inherit;
     float: left;
-    transform: translate(-5%, 0%);
-    margin-left: 5%;
+    transform: translate(0%, -11%);
 }
-.Friends .AddFriends .search-wrapper.active {margin-left: 30%}
+.Friends .AddFriends .search-wrapper.active {}
 
 .Friends .AddFriends .search-wrapper .input-holder {    
     width: 35px;
@@ -339,6 +384,51 @@
 
 
 
+.UserOptions .Options .EditDelete {
+    height: 35%;
+    width: 100%;
+}
+
+.EditDelete button {
+    width: 30%;
+    height: 35px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+    color: white;
+    background-color: rgba(255,255,255,0.1);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);    
+    border-radius: 10px;
+}
+
+.EditDelete button:hover {
+    cursor: pointer;
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    border: 2px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+    border-radius: 10px;
+}
+
+.EditDelete button.active {
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    border: 3px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+    border-radius: 10px;
+}
+
+
+
+
+
+
+
 .PlaylistHeader .PlaylistFilters {
     height: 150px;
     width: 100%;
@@ -428,14 +518,14 @@
     text-align: center;
 }
 
-
-.PlaylistSearch .Search-Wrapper {
+.PlaylistSearch .Playlist-Search-Wrapper {
     width: 100%;
+    height: 80px;
     margin: auto;
     color: white;
 }
 
-.PlaylistSearch .Input-Wrapper {
+.PlaylistSearch .Playlist-Input-Wrapper {
     width: 90%;
     margin: auto;
     border-radius: 10px;
@@ -443,19 +533,24 @@
 }
 
 
-.PlaylistSearch .Search-Wrapper .Input-Wrapper .Search-Input {
-    width: 100%;
+.PlaylistSearch .Playlist-Search-Wrapper .Playlist-Input-Wrapper .PL-Search-Input {
+    width: 90%;
+    height: 45px;
+    float: left;
+    border-right: none;    
     margin: auto;
     color: white;
     backdrop-filter: blur(10px) saturate(130%);
     -webkit-backdrop-filter: blur(10px) saturate(130%);
     background-color: rgba(121, 0, 224, 0.06);
-    border-radius: 12px;
-    border: 3px solid rgba(255, 255, 255, 0.125);
+    border-radius: 12px 0px 0px 12px;
+    border-left: 2px solid rgba(255, 255, 255, 0.125);
+    border-top: 2px solid rgba(255, 255, 255, 0.125);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.125);
     outline: none;
 }
 
-.PlaylistSearch .Search-Wrapper .Input-Wrapper .Search-Input:focus {
+.PlaylistSearch .Playlist-Search-Wrapper .Playlist-Input-Wrapper .Pl-earch-Input:focus {
     background: rgba(255, 255, 255, .25);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px) saturate(200%);
@@ -464,6 +559,51 @@
     border-radius: 10px;
     -webkit-transition: 0.3s;
 }
+
+
+
+.PlaylistSearch .Playlist-Search-Wrapper input {
+    padding: 10px 80px 10px 40px;
+    border: none;
+    display: block;
+    width: 100%;
+    font-size: 20px;
+    height: 45px;
+    font-style: normal;
+    color: white;
+    border-right: none;
+    background-color: initial;
+    overflow: visible;
+    font-weight: 600;
+}
+
+
+.PlaylistSearch .Playlist-Search-Wrapper .SearchIcon {
+    float: right;
+    width: 10%;
+    align-items: center;
+    height: 45px;
+}
+
+.PlaylistSearch .Playlist-Search-Wrapper .SearchIcon button {
+    background: #6d44a8;
+    height: 45px;
+    width: 100%;
+    border: 1px solid #6d44a8;
+    border-radius: 0 15px 15px 0;
+}
+
+.PlaylistSearch .Playlist-Search-Wrapper .SearchIcon i {
+    font-size: 25px;
+    margin: auto;
+}
+
+
+
+
+
+
+
 
 
 

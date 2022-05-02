@@ -125,11 +125,11 @@ class UserPlaylist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="playlists")
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    private = models.BooleanField(default=True)
+    private = models.BooleanField(default=True) #on
     description = models.TextField(null=True, max_length=150)
     cover_img = models.ImageField(default='defaultplaylist.png', upload_to='cover_images', null=True)
     comments = models.TextField(null=True)
-    comments_on = models.BooleanField(default=False)
+    comments_on = models.BooleanField(default=True) #on
     playlist_follows = models.ManyToManyField(User, related_name="following", default=None)  
     share_list = models.ManyToManyField(User, related_name="sharing", default=None)
     #pl_slug = models.SlugField(max_length=200, unique=True, null=True)

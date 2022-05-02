@@ -9,81 +9,49 @@
 
 
 
+
 <div class="PlaylistHeader">
     <div class="HeaderContainer">
-
-        <div class="HeaderBody">
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}    
-                {{ form }}            
-                <div class="row TopInfo">
-                    <div class="Title">
-                        <h1 id="title">{{ editform.title }}</h1>
-                    </div>
+        <form method="POST">
+            {% csrf_token %} 
+            <div class="HeaderBody">
+                <div class="row Title">
+                    <h1 id="title">{{ editform.title }}</h1>
                 </div>
-                    
 
                 <div class="row SocialInfo">
-                    <div class="Comments">
-                        <h4 id="comments">Comments Off</h4>
-                            <label class="switch">
-                                {{editform.comments_on}}
-                                <span class="slider round comm" onclick="commentToggle()"></span>
-                            </label>
-                        </div>
-                        <div class="Private">
-                            <h4 id="private">Private On</h4>
-                            <label class="switch">
-                                {{editform.private}}
-                                <span class="slider round private" onclick="privateToggle()"></span>
-                            </label>
-                        </div>
-
                     <p id="creator">
                         {{playlist.user.username}} | {{playlist.playlist_follows.count}} Favorites | 13 hours 12 min (500min) of supreme watching 
                     </p>
                 </div> 
 
                 <div class="row Desc">  
-                    <p id="desc">{{ playlist.description }}</p>
+                    <p id="desc">{{ editform.description }}</p>
                 </div> 
+            
+            </div>
 
-                <div class="EditDelete">
-                    <input type="submit" class="col-md-12 btn" name="edit" id="edit" value="Update Playlist">
-                    <input type="submit" class="col-md-12 btn" id="delete" name="Delete Playlist">
+            <div class="row UserOptions">
+                <div class="Options">
+                    <div class="TopOptions">
+                    
+                        <div class="Comments">
+                            <h4 id="comments">Comments On</h4>
+                            <label class="switch">
+                                {{editform.comments_on}}
+                                <span class="slider round comm-btn" onclick="commentToggle()"></span>
+                            </label>
+                        </div>
+                        <div class="Private">
+                            <h4 id="private">Private On</h4>
+                            <label class="switch">
+                                {{editform.private}}
+                                <span class="slider round private-btn" onclick="privateToggle()"></span>
+                            </label>
+                        </div>
 
-                <div>
-            </form>
-        </div>
-
-    
-
-        <div class="row SocialActions">
-
-                <ul id="actions">
-                {% if request.user.is_authenticated %}
-                    <div class="Actions">
-                        {% if saved %}
-                            <a href="/fav-movie/{{details.id}}/1" class="Save">
-                                <li><i class="far fa-plus-square" style="color: #6d44a8;"></i></li>
-                            </a>
-                        {% else %}
-                            <a href="/fav-movie/{{details.id}}/1" class="Save">
-                                <li><i class="far fa-plus-square" style="color: white;"></i></li>
-                            </a>
-                        {% endif %}
-                   
-                        {% if fav %}
-                            <a href="/fav-movie/{{details.id}}/1" class="Fav">
-                                <li><i class="fa-solid fa-heart" style="color: #6d44a8;"></i></li>
-                            </a>
-                        {% else %}
-                            <a href="/fav-movie/{{details.id}}/1" class="Fav">
-                                <li><i class="fa-regular fa-heart" style="color: white;"></i></li>
-                            </a>
-                        {% endif %}
-                    </div>
-                    <div class="UserActions">
+                        <br>
+                        
                         <div class="Friends">
                             <div class="AddFriends">
                                 <div class="search-wrapper">
@@ -97,25 +65,19 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
-                {% else %}
-                    <div class="Actions">
-                        <a href="{% url 'users-register' %}" class="Register">
-                            <li><i class="far fa-plus-square"></i></li>
-                        </a>
-                        <a href="{% url 'users-register' %}" class="Register">
-                            <li><i class="fa-solid fa-fire"></i></li>
-                        </a>
-                        <a href="{% url 'users-register' %}" class="Register">
-                            <li><i class="fa-regular fa-heart"></i></li>
-                        </a>
-                    </div>    
-                {% endif %}
-                </ul>
+                    <div class="EditDelete">
+                        <button type="submit" name="edit" id="edit" value="Update">Save Changes</button>
+                        <button type="submit" id="delete" name="delete" value="Delete">Delete Playlist</button>
+                    </div>
+            
+                </div>
             </div>
-        </div>
-
+        </form>
+    </div>
+        
         <div class="PlaylistFilters">
             <div class="FiltersContainer">
 
@@ -127,54 +89,56 @@
                     <button class="mtvBtn" onclick="mtvFilter('tv')">TV</button>
                 </div>
 
+                <div class="GenreFilter" id="genreContainer">
+                    <button class="gbtn active" onlick="gbtnFilter('all')">All</button>
+                </div>
+
             </div>
         </div>
 </div>
-
-
-
-
 
 
 <div class="Playlist_Search_Section">
 
     <div class="PlaylistSearch">
         <h3>Add More Movies/Shows</h3>
-
-        <div class="Search-Wrapper">
-            <div class="Input-Wrapper">
-                <input type="text"  method='GET' id="searchInput" onkeyup="searchAll()" class="Search-Input" placeholder="Search..."/>
-            </div>
+        
+        <div class="Playlist-Search-Wrapper">
+            <form class="AddPlaylistForm" id="plsearch">
+                {% csrf_token %}    
+                <div class="Playlist-Input-Wrapper">
+                    <input type="text" id="plsearch" name="plsearch" class="PL-Search-Input"/>
+                    
+                    <div class="SearchIcon">
+                        <button type="submit" class="SearchButton"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
         </div>
-  <!-- 
+
+
+
         <div class="SearchCards">
             <div class="Info">
-            {% for x in search_movies %}
-            
-            <div class="PosterInfo" id="posterinfo">
-                {% for m in x %}
-                <a href="/MovieDetails/{{m.id}}/1">
-                    <div class="searchcard" id="searchcard">
-                        <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
-                        <div class="info-container">
-                            <h4>
-                              <b style="font-size: 15px">{{ m.title }}</b><br>
-                            </h4>
+                {% for m in search_movies %}
+                <div class="PosterInfo" id="posterinfo">
+                    <a href="/MovieDetails/{{m.id}}/1">
+                        <div class="searchcard" id="searchcard">
+                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
+                            <div class="info-container">
+                                <h4>
+                                  <b style="font-size: 15px">{{ m.title }}</b><br>
+                                </h4>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
                 {% endfor %}
             </div>
-            
-            {% endfor %}
-            </div>
-
 
             <div class="Info">
-                {% for x in search_tv %}
-
+                {% for t in search_tv %}
                 <div class="PosterInfo" id="posterinfo">
-                    {% for t in x %}
                     <a href="/TvDetails/{{t.id}}/2">
                         <div class="searchcard" id="searchcard">
                             <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ t.poster_path }}">
@@ -185,13 +149,12 @@
                           </div>
                         </div>
                     </a>
-                    {% endfor %}
                 </div>
-
                 {% endfor %}
             </div>
+        </div>
 
-        </div> -->
+
     </div>
 
 
@@ -269,7 +232,7 @@
                         {% else %}
 
                             {% if m.tv %}
-
+                            {{m.tv.genres}}
                             <a href="/TvDetails/{{m.tv.id}}/2" class="column tv">
                                 <div class="card" id="card">
                                     <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
@@ -328,11 +291,17 @@
 
 
 <script type="text/javascript">
+
+
+function myFunction() {
+  document.getElementById("plsearch").defaultValue = " ";
+}
+
+
 $(document).ready(function() {
     $('#checkbox').change(function() {
         $.post("/editform/", {
             id: '{{editform.user_pl_id}}', 
-            private: this.checked,
             csrfmiddlewaretoken: '{{ csrf_token }}' 
         });
     });
@@ -349,10 +318,10 @@ function privateToggle(){
 
 function commentToggle(){
     var c = document.getElementById("comments");
-    if (c.innerHTML === "Comments Off") {
-        c.innerHTML = "Comments On";
-    } else {
+    if (c.innerHTML === "Comments On") {
         c.innerHTML = "Comments Off";
+    } else {
+        c.innerHTML = "Comments On";
     }
 }
 

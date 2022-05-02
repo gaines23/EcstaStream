@@ -155,10 +155,10 @@ class CreatePlaylistForm(forms.ModelForm):
 
 
 class EditPlaylistForm(forms.ModelForm):
-    title = forms.CharField()
+    title = forms.CharField(required=False)
     private = forms.BooleanField(required=False)
     comments_on = forms.BooleanField(required=False)
-    description = forms.CharField()
+    description = forms.CharField(required=False)
     #cover_img = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
 
     class Meta:

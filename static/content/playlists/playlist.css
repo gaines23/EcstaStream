@@ -40,23 +40,19 @@
     height: 100%;
 }
 
-.HeaderBody .TopInfo {
-    height: 130px;
-}
-
 .HeaderBody .Title {
-    height: 100%;
-    width: 70%;
+    height: 125px;
+    width: 80%;
 }
 
 .HeaderBody .Title #title {
-    padding-top: 25px;
+    padding-top: 10px;
     padding-left: 15px;
     font-weight: 800;
     float: left;
     height: 120px;
     width: 88%;
-    font-size: 90px;
+    font-size: 80px;
     text-shadow: -2px 3px rebeccapurple;
 }
 
@@ -92,8 +88,8 @@
 
 .HeaderBody .Desc #desc {
     font-size: 15px;
-    float: right;
-    width: 100%;
+    float: left;
+    width: 80%;
 }
 
 

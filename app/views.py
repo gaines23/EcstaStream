@@ -260,7 +260,7 @@ def FriendProfile(request, id, username):
 
     context = {
         'follow_list':follow_list,
-        'friend':friend,
+        'follow':follow,
     }
 
     return render(request,
@@ -494,6 +494,8 @@ def edit_user_playlist(request, user, title):
     playlist = get_object_or_404(UserPlaylist, user=user, title=title)
     all_pl_data = UserPlaylistData.objects.all()
 
+    pl_id = UserPlaylist.objects.get(user=user, title=title)
+
     details = []
     playlist_data = []
     play = []
@@ -503,17 +505,21 @@ def edit_user_playlist(request, user, title):
     
     play = list(sorted(pl_data, key = lambda x: x.pl_date_added, reverse=True))
     playlist_data.append([play, playlist])
-
-
-    editform = EditPlaylistForm(request.POST)
+    
+    
         # Update playlist info
     if request.method == 'POST' and 'edit' in request.POST:
+        editform = EditPlaylistForm(request.POST, instance=pl_id)
         if editform.is_valid():
             editform.save()
-            return HttpResponseRedirect(request.META['HTTP_REFERER']) 
+            return HttpResponseRedirect(request.META['HTTP_REFERER'])
+        else:
+            editform = EditPlaylistForm(instance=pl_id)
+    else:
+       editform = EditPlaylistForm(instance=pl_id)
 
     if request.method == 'POST' and 'delete' in request.POST:
-            editform.delete()
+            pl_id.delete()
             return redirect("home")
 
     try:
@@ -530,9 +536,11 @@ def edit_user_playlist(request, user, title):
 
 
 
-    search_request = request.GET.get("search")
+    search_request = request.GET.get("plsearch")
     multi_search = search.multi({"query":{search_request}, "include_adult":"False"})
-    
+    streaming_mov = movie.watch_providers
+    streaming_tv = tv.watch_providers
+
     search_movies = []
     search_tv = []
  
@@ -541,7 +549,7 @@ def edit_user_playlist(request, user, title):
             if m.media_type == 'movie' and m.media_type != 'person' and m.media_type != 'tv':
                 if m.id == streaming_mov(m.id).results['US']:
                     break
-                movies.append([m, streaming_mov(m.id).results['US']])
+                search_movies.append(m)
             else:
                 break
             continue
@@ -553,13 +561,15 @@ def edit_user_playlist(request, user, title):
             if t.media_type == 'tv' and t.media_type != 'person' and t.media_type != 'movie':
                 if t.id == streaming_tv(t.id).results['US']:
                     break    
-                tv_shows.append([t, streaming_tv(t.id).results['US']])
+                search_tv.append(t)
             else:
                 break
             continue
     except Exception as e:
         print(e)
     
+
+
     context = {               
                'playlist_data':playlist_data,
                'details':details,
