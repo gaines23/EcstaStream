@@ -1,5 +1,4 @@
 
 *.env
-
 /TestData.file
 .rapidapi.py
