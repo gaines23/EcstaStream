@@ -78,23 +78,22 @@
         </form>
     </div>
         
-        <div class="PlaylistFilters">
-            <div class="FiltersContainer">
+    <div class="PlaylistFilters">
+        <div class="FiltersContainer">
 
-                <h3>Filter Playlist:</h3>
+            <h3>Filter Playlist:</h3>
 
-                <div class="MovieTvFilter" id="mtvBtnContainer">
-                    <button class="mtvBtn active" onclick="mtvFilter('all')">All</button>
-                    <button class="mtvBtn" onclick="mtvFilter('movie')">Movies</button>
-                    <button class="mtvBtn" onclick="mtvFilter('tv')">TV</button>
-                </div>
+            <div class="MovieTvFilter" id="mtvBtnContainer">
+                <button class="mtvBtn active" onclick="mtvFilter('all')">All</button>
+                <button class="mtvBtn" onclick="mtvFilter('movie')">Movies</button>
+                <button class="mtvBtn" onclick="mtvFilter('tv')">TV</button>
+            </div>
 
-                <div class="GenreFilter" id="genreContainer">
-                    <button class="gbtn active" onlick="gbtnFilter('all')">All</button>
-                </div>
-
+            <div class="GenreFilter" id="genreContainer">
+                <button class="gbtn active" onlick="gbtnFilter('all')">All</button>
             </div>
         </div>
+    </div>
 </div>
 
 
@@ -104,13 +103,12 @@
         <h3>Add More Movies/Shows</h3>
         
         <div class="Playlist-Search-Wrapper">
-            <form class="AddPlaylistForm" id="plsearch">
-                {% csrf_token %}    
+            <form class="AddPlaylistForm" id="plsearch" method="GET">
                 <div class="Playlist-Input-Wrapper">
                     <input type="text" id="plsearch" name="plsearch" class="PL-Search-Input"/>
                     
                     <div class="SearchIcon">
-                        <button type="submit" class="SearchButton"><i class="fas fa-search"></i></button>
+                        <button type="submit" class="SearchButton" onload="myFunction('parameter')"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
             </form>
@@ -119,36 +117,43 @@
 
 
         <div class="SearchCards">
-            <div class="Info">
+            <div class="SearchCardsInfo">
                 {% for m in search_movies %}
                 <div class="PosterInfo" id="posterinfo">
-                    <a href="/MovieDetails/{{m.id}}/1">
-                        <div class="searchcard" id="searchcard">
+                    <div class="searchcard" id="searchcard">
+                        <a href="/MovieDetails/{{m.id}}/1">
                             <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
-                            <div class="info-container">
-                                <h4>
-                                  <b style="font-size: 15px">{{ m.title }}</b><br>
-                                </h4>
-                            </div>
+                        </a>
+                        <div class="info-container">
+                            <h4>
+                                <a href="/MovieDetails/{{m.id}}/1">
+                                    <b style="font-size: 15px">{{ m.title }}</b>
+                                </a>
+                              <br>
+                            </h4>
+                            <a href="/add-movie-to-playlist/{{request.user.id}}/{{playlist.user_pl_id}}/{{m.id}}/1">Add to Playlist</a>
                         </div>
-                    </a>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
 
-            <div class="Info">
+            <div class="SearchCardsInfo">
                 {% for t in search_tv %}
                 <div class="PosterInfo" id="posterinfo">
-                    <a href="/TvDetails/{{t.id}}/2">
-                        <div class="searchcard" id="searchcard">
+                    <div class="searchcard" id="searchcard">
+                        <a href="/TvDetails/{{t.id}}/2">
                             <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ t.poster_path }}">
-                          <div class="info-container">
+                        </a>
+                        <div class="info-container">
                             <h4>
-                              <b style="font-size: 15px">{{ t.name }}</b><br>
+                                <a href="/TvDetails/{{t.id}}/2"><b style="font-size: 15px">{{ t.name }}</b>
+                                </a>
+                            <br>
                             </h4>
-                          </div>
+                            <a href="/add-tv-to-playlist/{{request.user.id}}/{{playlist.user_pl_id}}/{{t.id}}/1">Add to Playlist</a>
                         </div>
-                    </a>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
@@ -232,7 +237,7 @@
                         {% else %}
 
                             {% if m.tv %}
-                            {{m.tv.genres}}
+                            
                             <a href="/TvDetails/{{m.tv.id}}/2" class="column tv">
                                 <div class="card" id="card">
                                     <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
@@ -291,17 +296,16 @@
 
 
 <script type="text/javascript">
-
-
-function myFunction() {
-  document.getElementById("plsearch").defaultValue = " ";
-}
-
+window.onload=function(){
+    myFunction('parameter');
+};
 
 $(document).ready(function() {
     $('#checkbox').change(function() {
         $.post("/editform/", {
-            id: '{{editform.user_pl_id}}', 
+            id: '{{editform.user_pl_id}}',
+            private: this.checked,
+            comments_on: this.checked,
             csrfmiddlewaretoken: '{{ csrf_token }}' 
         });
     });

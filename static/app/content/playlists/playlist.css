@@ -41,7 +41,7 @@
 }
 
 .HeaderBody .Title {
-    height: 125px;
+    height: 100px;
     width: 80%;
 }
 
@@ -50,9 +50,11 @@
     padding-left: 15px;
     font-weight: 800;
     float: left;
-    height: 120px;
+    height: 90px;
     width: 88%;
-    font-size: 80px;
+    border: none;
+    background: transparent;
+    color: white;
     text-shadow: -2px 3px rebeccapurple;
 }
 

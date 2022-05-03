@@ -51,7 +51,6 @@
     float: left;
     height: 120px;
     width: 88%;
-    font-size: 80px;
     border: none;
     background: transparent;
     color: white;
@@ -69,7 +68,7 @@
 }
 
 .HeaderBody .SocialInfo #creator {
-    font-size: 13px;
+    font-size: 12px;
     float: left;
     width: 100%;
 }
@@ -84,7 +83,7 @@
 }
 
 .HeaderBody .Desc #id_description {
-    font-size: 15px;
+    font-size: 14px;
     float: left;
     width: 80%;
     border: none;
@@ -135,7 +134,7 @@
 .UserOptions .Options h4 {
     margin-bottom: 10px;
     height: 20px;
-    font-size: 13px;
+    font-size: 10px;
     text-align: center;
 }
 
@@ -506,6 +505,7 @@
     background-color: rgb(109 68 168 / 20%);
 }
 
+
 .Playlist_Search_Section .PlaylistSearch {
     width: 30%;
     float: left;
@@ -597,6 +597,60 @@
     font-size: 25px;
     margin: auto;
 }
+
+
+
+
+
+
+
+
+/* Search CSS to ADD new shows/movies */
+
+
+.Playlist_Search_Section .PlaylistSearch .SearchCards {
+    height: 100%;
+    width: 85%;
+    margin: auto;
+}
+
+
+.PlaylistSearch .SectionCards .SearchCardsInfo {
+    height: 100%;
+    width: 90%;
+    margin: auto;
+}
+
+.SearchCardsInfo .PosterInfo {
+    height: 135px;
+    width: 100%;
+}
+
+.SearchCardsInfo .PosterInfo a {
+    text-decoration: none;
+    color: white;
+}
+
+.SearchCardsInfo .PosterInfo .searchcard {
+    height: 120px;
+    width: 90%;
+    margin: auto;
+}
+
+
+.SearchCardsInfo .PosterInfo .searchcard img {
+    height: 120px;
+    float: left;
+    width: 30%;
+}
+
+.SearchCardsInfo .PosterInfo .searchcard .info-container {
+    height: 120px;
+    float: right;
+    width: 65%;
+    text-align: center;
+}
+
 
 
 

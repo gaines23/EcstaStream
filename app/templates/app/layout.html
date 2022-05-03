@@ -64,7 +64,7 @@
 
                                 {% for x in user.playlists.all %}
                                     
-                                    <a href="{% url 'edit_playlist' user.id x.title %}">{{x.title}}</a>                                    
+                                    <a href="{% url 'user_playlist' user.id x.title %}">{{x.title}}</a>                                    
                                 {% endfor %}
                             </div>
                             {% endif %}
@@ -84,7 +84,7 @@
 
         <div class="col MainContainer">
 
-            <div class="row Search">   
+            <div class="row Search">
                 <form class="SearchForm" id="search" method='GET' action="{% url 'search-results' %}">
                 {% csrf_token %}
                     <div class="MainSearch">

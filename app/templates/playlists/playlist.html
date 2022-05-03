@@ -109,7 +109,6 @@
 
 <div class="Playlist_Search_Section">
 
-
     <div class="PlaylistSection">
         <div class="SectionCards">
             <div class="row Info">
@@ -184,7 +183,7 @@
 
                             {% if m.tv %}
 
-                            <a href="/TvDetails/{{m.tv.id}}/2" class="column tv">
+                            <a href="/TvDetails/{{m.tv.id}}/2" class="card-group tv">
                                 <div class="card" id="card">
                                     <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
                                   <div class="info-container">
@@ -202,7 +201,7 @@
 
                             {% else %}
 
-                            <a href="/MovieDetails/{{m.movie.id}}/1" class="column movie">
+                            <a href="/MovieDetails/{{m.movie.id}}/1" class="card-group movie">
                                 <div class="card" id="card">
                                     <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.movie.poster_path }}">
                                   <div class="info-container">

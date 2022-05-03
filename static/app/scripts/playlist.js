@@ -35,7 +35,7 @@ function searchFriends() {
 mtvFilter("all")
 function mtvFilter(c) {
   var x, i;
-  x = document.getElementsByClassName("column");
+  x = document.getElementsByClassName("card-group");
   if (c == "all") c = "";
   for (i = 0; i < x.length; i++) {
     mtvRemoveClass(x[i], "show");
