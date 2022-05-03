@@ -93,9 +93,9 @@
                 <h3>Filter Playlist:</h3>
 
                 <div class="MovieTvFilter" id="mtvBtnContainer">
-                    <button class="mtvBtn active" onclick="mtvFilter('all')">All</button>
-                    <button class="mtvBtn" onclick="mtvFilter('movie')">Movies</button>
-                    <button class="mtvBtn" onclick="mtvFilter('tv')">TV</button>
+                    <button class="mtvBtn active" onclick="mtvFilterSelection('all')">All</button>
+                    <button class="mtvBtn" onclick="mtvFilterSelection('movies')">Movies</button>
+                    <button class="mtvBtn" onclick="mtvFilterSelection('tvs')">TV</button>
                 </div>
 
             </div>
@@ -104,14 +104,11 @@
 
 
 
-
-
-
 <div class="Playlist_Search_Section">
 
     <div class="PlaylistSection">
         <div class="SectionCards">
-            <div class="row Info">
+            <div class="Info">
                 {% for x in details %}
                             
                 <div class="posterinfo" id="posterinfo">
@@ -132,7 +129,7 @@
                                         {% if m.flatrate == '' %}
                                             <div class="none" style="display: none;"></div>
                                         {% else %}
-                                        <div class="Free-Streaming">
+                                        <div class="row Streaming">
                                             <h3>Free</h3>
                                             {% for free in m.flatrate %}
                                                 {% if free.display_priority <= 20 %}
@@ -142,7 +139,7 @@
         
                                             {% endif %}                                    
                                         </div>                                    
-                                        <div class="Rent-Streaming">
+                                        <div class="row Streaming">
                                             {% if m.rent == '' %}
                                                 <div class="none" style="display: none;"></div>
                                             {% else %}
@@ -156,7 +153,7 @@
 
                                             {% endif %}
                                         </div>
-                                        <div class="Buy-Streaming">
+                                        <div class="row Streaming">
                                             {% if m.buy == '' %}
                                                 <div class="none" style="display: none;"></div>
                                             {% else %}
@@ -183,16 +180,15 @@
 
                             {% if m.tv %}
 
-                            <a href="/TvDetails/{{m.tv.id}}/2" class="card-group tv">
+                            <a href="/TvDetails/{{m.tv.id}}/2" class="mtvFilter tvs">
                                 <div class="card" id="card">
                                     <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
                                   <div class="info-container">
                                     <h4>
-                                        <b style="font-size: 15px">{{ m.tv.name }}</b><br>
+                                        <b style="font-size: 15px">{{ m.tv.name }}</b>
+                                        <br>
                                         <i style="font-size: 12px">Added:
-                                            {% if m.tv.id in play %}
-                                                {{m.pl_date_added}}
-                                            {% endif %}
+                                            
                                         </i>
                                     </h4>
                                   </div>
@@ -201,12 +197,13 @@
 
                             {% else %}
 
-                            <a href="/MovieDetails/{{m.movie.id}}/1" class="card-group movie">
+                            <a href="/MovieDetails/{{m.movie.id}}/1" class="mtvFilter movies">
                                 <div class="card" id="card">
                                     <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.movie.poster_path }}">
                                   <div class="info-container">
                                     <h4>
-                                      <b style="font-size: 15px">{{ m.movie.title }}</b><br>
+                                      <b style="font-size: 15px">{{ m.movie.title }}</b>
+                                      <br>
                                       <i style="font-size: 12px">Added:</i>
                                     </h4>
                                   </div>
@@ -221,7 +218,9 @@
                     </div>
                     
                  {% endfor %}
+                 <div class="clearfix"></div>
                 </div>
+                
         </div>
     </div>
 </div>
@@ -237,13 +236,6 @@
 
 <script src="{% static 'scripts\playlist.js' %}"></script>
 
-
-<script type="text/javascript">
-
-
-
-
-</script>             
 
 
 

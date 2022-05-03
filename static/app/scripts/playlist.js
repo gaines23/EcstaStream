@@ -32,10 +32,10 @@ function searchFriends() {
 
 
 
-mtvFilter("all")
-function mtvFilter(c) {
+mtvFilterSelection("all")
+function mtvFilterSelection(c) {
   var x, i;
-  x = document.getElementsByClassName("card-group");
+  x = document.getElementsByClassName("mtvFilter");
   if (c == "all") c = "";
   for (i = 0; i < x.length; i++) {
     mtvRemoveClass(x[i], "show");
@@ -64,7 +64,6 @@ function mtvRemoveClass(element, name) {
   element.className = arr1.join(" ");
 }
 
-
 // Add active class to the current button (highlight it)
 var btnContainer = document.getElementById("mtvBtnContainer");
 var btns = btnContainer.getElementsByClassName("mtvBtn");
@@ -76,3 +75,21 @@ for (var i = 0; i < btns.length; i++) {
   });
 }
 
+
+
+
+
+
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}

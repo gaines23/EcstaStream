@@ -32,10 +32,10 @@ function searchFriends() {
 
 
 
-mtvFilter("all")
-function mtvFilter(c) {
+mtvFilterSelection("all")
+function mtvFilterSelection(c) {
   var x, i;
-  x = document.getElementsByClassName("column");
+  x = document.getElementsByClassName("mtvFilter");
   if (c == "all") c = "";
   for (i = 0; i < x.length; i++) {
     mtvRemoveClass(x[i], "show");
@@ -63,7 +63,6 @@ function mtvRemoveClass(element, name) {
   }
   element.className = arr1.join(" ");
 }
-
 
 // Add active class to the current button (highlight it)
 var btnContainer = document.getElementById("mtvBtnContainer");

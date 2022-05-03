@@ -418,7 +418,7 @@
 
 
 .Playlist_Search_Section .PlaylistSection {
-    width: 70%;
+    width: 67%;
     margin: auto;
     float: right;
     border-radius: 15px;
@@ -429,6 +429,7 @@
         radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
 */
 }
+
 
 .PlaylistSection .show {
     display: inline-grid;
@@ -441,31 +442,36 @@
 }
 
 .Playlist_Search_Section .PlaylistSection .SectionCards {
-    width: 95%;
-    margin: auto;
+    width: 90%;
+    margin-left: auto;
 }
 
 .PlaylistSection .Info {
     height: 100%;
     width: 100%;
-    list-style: none;
     display: inline-flex;
     flex-wrap: wrap;
     padding-left: 0;
+    margin: auto;
+    overflow: hidden;
 }
 
-.PlaylistSection .SectionCards .row:after {
-    content: "";
-    display: table;
-    clear: both;
+
+
+/* Clear floats after the tab */
+.PlaylistSection .Info .clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 
 .PlaylistSection .Info .posterinfo {
-    width: 25%;
     height: 100%;
+    width: min-content;
     margin-bottom: 20px;
     position: relative;
-    transition-duration: 0.5s;  
+    transition-duration: 0.5s;
+    padding: 5px;
 }
 
 .Info .posterinfo > .StreamingInfo {
@@ -481,12 +487,19 @@
     transition: 0.3s;
     width: 180px;
     text-decoration: none;
-    margin: 10px auto 10px auto;
+    margin: auto;
     border-radius: 20px;
     -webkit-backdrop-filter: revert;
     backdrop-filter: revert;
 }
 
+.PlaylistSection .Info .posterinfo a:hover {
+    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
+    border-radius: 20px;
+}
 
 .PlaylistSection .Info .posterinfo .card:hover {
     -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 25%);
@@ -494,10 +507,6 @@
     cursor: pointer;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px) saturate(200%);
-    background-color: #530881;
-    background-image: 
-        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
-        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
 }
 
 .PlaylistSection .Info .posterinfo .card img {
@@ -526,6 +535,7 @@
 
 .StreamingInfo .section-content {
     width: 120%;
+    padding: 0px;
 }
 
 .StreamingInfo .section-title {
@@ -552,7 +562,7 @@
 
 #streaming .StreamingList .List-Cat {
     height: 100%;
-    text-align: center;
+    text-align: left;
     background-color: #530881;
     background-image: 
         radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
@@ -572,27 +582,17 @@
     margin-left: 8px;
     margin-right: 8px;
     border-radius: 10px;
+    padding: 0;
 }
 
-#streaming .List-Cat .Free-Streaming:hover {
+#streaming .List-Cat .Streaming:hover {
     cursor: pointer;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px) saturate(200%);
 }
 
-#streaming .List-Cat .Rent-Streaming:hover {
-    cursor: pointer;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px) saturate(200%);
-}
 
-#streaming .List-Cat .Buy-Streaming:hover {
-    cursor: pointer;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px) saturate(200%);
-}
-
-#streaming .List-Cat .Free-Streaming {
+#streaming .List-Cat .Streaming {
     height: 33%;
     border-bottom: 1px solid white;
     padding-top: 8px;
@@ -604,35 +604,7 @@
     text-decoration: none;
     -webkit-backdrop-filter: revert;
     backdrop-filter: revert;
-}
 
-#streaming .List-Cat .Rent-Streaming {
-    height: 33%;
-    border-bottom: 1px solid white;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    background: rgba(255, 255, 255, .25);
-    border: 1px solid rgb(255 255 255 / 35%);
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
-    text-decoration: none;
-    -webkit-backdrop-filter: revert;
-    backdrop-filter: revert;
 }
-
-#streaming .List-Cat .Buy-Streaming {
-    height: 33%;
-    border-bottom: 1px solid white;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    background: rgba(255, 255, 255, .25);
-    border: 1px solid rgb(255 255 255 / 35%);
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
-    text-decoration: none;
-    -webkit-backdrop-filter: revert;
-    backdrop-filter: revert;
-}
-
 
 

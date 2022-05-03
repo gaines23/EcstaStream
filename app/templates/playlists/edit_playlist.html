@@ -164,6 +164,17 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
     <div class="PlaylistSection">
         <div class="SectionCards">
             <div class="row Info">
@@ -246,7 +257,7 @@
                                         <b style="font-size: 15px">{{ m.tv.name }}</b><br>
                                         <i style="font-size: 12px">Added:
                                             {% if m.tv.id in play %}
-                                                {{m.pl_date_added}}
+                                                {{play.pl_date_added}}
                                             {% endif %}
                                         </i>
                                     </h4>
@@ -262,7 +273,7 @@
                                   <div class="info-container">
                                     <h4>
                                       <b style="font-size: 15px">{{ m.movie.title }}</b><br>
-                                      <i style="font-size: 12px">Added:</i>
+                                      <i style="font-size: 12px">Added: </i>
                                     </h4>
                                   </div>
                                 </div>
