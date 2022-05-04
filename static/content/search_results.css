@@ -155,25 +155,14 @@
     border-radius: 10px;
 }
 
-#streaming .List-Cat .Free-Streaming:hover {
+#streaming .List-Cat .Streaming:hover {
     cursor: pointer;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px) saturate(200%);
 }
 
-#streaming .List-Cat .Rent-Streaming:hover {
-    cursor: pointer;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px) saturate(200%);
-}
 
-#streaming .List-Cat .Buy-Streaming:hover {
-    cursor: pointer;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px) saturate(200%);
-}
-
-#streaming .List-Cat .Free-Streaming {
+#streaming .List-Cat .Streaming {
     height: 33%;
     border-bottom: 1px solid white;
     padding-top: 8px;
@@ -186,32 +175,3 @@
     -webkit-backdrop-filter: revert;
     backdrop-filter: revert;
 }
-
-#streaming .List-Cat .Rent-Streaming {
-    height: 33%;
-    border-bottom: 1px solid white;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    background: rgba(255, 255, 255, .25);
-    border: 1px solid rgb(255 255 255 / 35%);
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
-    text-decoration: none;
-    -webkit-backdrop-filter: revert;
-    backdrop-filter: revert;
-}
-
-#streaming .List-Cat .Buy-Streaming {
-    height: 33%;
-    border-bottom: 1px solid white;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    background: rgba(255, 255, 255, .25);
-    border: 1px solid rgb(255 255 255 / 35%);
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
-    text-decoration: none;
-    -webkit-backdrop-filter: revert;
-    backdrop-filter: revert;
-}
-

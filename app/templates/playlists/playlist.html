@@ -110,14 +110,13 @@
         <div class="SectionCards">
             <div class="Info">
                 {% for x in details %}
-                            
+                  
+                                          
                 <div class="posterinfo" id="posterinfo">
                     {% for m in x %}
-                    
-                        {% if forloop.counter|divisibleby:2 %}
-                        
-                        <div class="StreamingInfo" id="streaming">
-                            <div class="section-content">
+                    {% if forloop.counter|divisibleby:2 %}
+                        <div class="StreamingInfo">
+                            <div class="section-content" id="streaming">
                             
                                 <div class="section-title">
                                     <h2>Streaming</h2>
@@ -126,40 +125,48 @@
                                 <div class="StreamingList">
                                     
                                     <div class="List-Cat">
-                                        {% if m.flatrate == '' %}
-                                            <div class="none" style="display: none;"></div>
-                                        {% else %}
+
                                         <div class="row Streaming">
+                                            {% if m.flatrate == '' %}
+                                                <div class="none" style="display: none; border:none;"></div>
+                                            {% else %}
                                             <h3>Free</h3>
                                             {% for free in m.flatrate %}
-                                                {% if free.display_priority <= 20 %}
+ 
+                                                {% if free.display_priority %}
                                                     <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ free.logo_path }}">
                                                 {% endif %}
                                             {% endfor %} 
         
                                             {% endif %}                                    
-                                        </div>                                    
+                                        </div>
+                                        
                                         <div class="row Streaming">
                                             {% if m.rent == '' %}
-                                                <div class="none" style="display: none;"></div>
+                                                <div class="none" style="display: none; border: none;"></div>
                                             {% else %}
-        
+                                        
                                             <h3>Rent</h3>
                                             {% for rent in m.rent %}
-                                                {% if rent.display_priority <= 20 %}
+                                            
+                                                {% if rent.display_priority %}
                                                     <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ rent.logo_path }}">
-                                                {% endif %}    
-                                            {% endfor %}
+                                                {% endif %}
 
+                                            {% endfor %}
+                                            
                                             {% endif %}
+                                            
                                         </div>
+
                                         <div class="row Streaming">
                                             {% if m.buy == '' %}
-                                                <div class="none" style="display: none;"></div>
+                                                <div class="none" style="display: none; border-style: none;"></div>
                                             {% else %}
                                             <h3>Purchase</h3>
                                             {% for buy in m.buy %}
-                                                {% if buy.display_priority <= 20 %}
+
+                                                {% if buy.display_priority %}
                                                     <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ buy.logo_path }}">
                                                 {% endif %}
                                                 
@@ -177,27 +184,28 @@
                         </div> 
         
                         {% else %}
-
+                        
+                        <div class="CardTops">
                             {% if m.tv %}
-
-                            <a href="/TvDetails/{{m.tv.id}}/2" class="mtvFilter tvs">
-                                <div class="card" id="card">
-                                    <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
-                                  <div class="info-container">
-                                    <h4>
-                                        <b style="font-size: 15px">{{ m.tv.name }}</b>
-                                        <br>
-                                        <i style="font-size: 12px">Added:
-                                            
-                                        </i>
-                                    </h4>
-                                  </div>
-                                </div>
-                            </a>                    
+                            
+                                <a href="/TvDetails/{{m.tv.id}}/2" class="mtvFilter tvs">
+                                    <div class="card" id="card">
+                                        <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
+                                      <div class="info-container">
+                                        <h4>
+                                            <b style="font-size: 15px">{{ m.tv.name }}</b>
+                                            <br>
+                                            <i style="font-size: 12px">Added:
+                                                
+                                            </i>
+                                        </h4>
+                                      </div>
+                                    </div>
+                                </a>
 
                             {% else %}
 
-                            <a href="/MovieDetails/{{m.movie.id}}/1" class="mtvFilter movies">
+                            <a href="/MovieDetails/{{m.movie.id}}/1" class="tablinks mtvFilter movies" onmouseover="openStreaming(event, 'streaming')">
                                 <div class="card" id="card">
                                     <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.movie.poster_path }}">
                                   <div class="info-container">
@@ -208,17 +216,18 @@
                                     </h4>
                                   </div>
                                 </div>
-                            </a>                        
-
+                            </a>
                             {% endif %}
-
+                        </div>
+                        
                         {% endif %}
 
-                    {% endfor %}
-                    </div>
+                        {% endfor %}
+
+                        </div>                
                     
                  {% endfor %}
-                 
+                
               </div>  
         </div>
     </div>
