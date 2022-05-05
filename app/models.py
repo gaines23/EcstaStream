@@ -171,11 +171,13 @@ class UserPlaylistData(models.Model):
 
 
 # Posts created by users on playlists ( UserPlaylist.comments_on == True)
-class UserPlaylistPost(models.Model):
+class UserReviewPost(models.Model):
     user = models.ForeignKey(User, related_name="user_posts", on_delete=models.DO_NOTHING)
     body = models.TextField(max_length=250)
+    rating = models.IntegerField()
     created_on = models.DateTimeField(auto_now_add=True)
-    playlist_id = models.ForeignKey(UserPlaylist, related_name="pl_posts", on_delete=models.CASCADE)
+    movie_showid = models.IntegerField()
+    media_type = models.IntegerField()
     status = models.BooleanField(default=True) #disable inappropriate posts
 
     def __str__(self):

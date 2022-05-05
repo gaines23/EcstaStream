@@ -131,12 +131,6 @@ class WatchlistForm(forms.ModelForm):
 
 
 
-class UserStatusPostForm(forms.ModelForm):
-    body = forms.CharField(required=True)
-
-    class Meta:
-        model = UserStatusPost
-        exclude = ("user",)
 
 
 class CreatePlaylistForm(forms.ModelForm):
@@ -164,8 +158,19 @@ class EditPlaylistForm(forms.ModelForm):
     class Meta:
         model = UserPlaylist
         fields = ['title', 'private', 'description', 'comments_on', ]
+        
 
 
+
+
+
+
+class UserReviewPostForm(forms.ModelForm):
+    body = forms.CharField(required=True)
+
+    class Meta:
+        model = UserReviewPost
+        exclude = ("user",)
 
 class NewCommentForm(forms.ModelForm):
     class Meta:
@@ -185,6 +190,9 @@ class NewPlaylistPostForm(forms.ModelForm):
             'body': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Comment here', 'rows':3, 'cols':3,}),
             'user': forms.TextInput(attrs={'class':'form-control'}),
             }
+
+
+
 
 
 

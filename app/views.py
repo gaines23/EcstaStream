@@ -56,22 +56,22 @@ URL_API = env('RAPID_API_KEY')
 def home(request):
     assert isinstance(request, HttpRequest)
 
-    new_post = UserStatusPostForm(request.POST or None)
-    if request.method == "POST":
-        if new_post.is_valid():
-            post = new_post.save(commit=False)
-            post.user = request.user
-            post.save()
-            return redirect("home")
+    #new_post = UserStatusPostForm(request.POST or None)
+    #if request.method == "POST":
+    #    if new_post.is_valid():
+    #        post = new_post.save(commit=False)
+    #        post.user = request.user
+    #        post.save()
+    #        return redirect("home")
 
-    context = {
-        'new_post':new_post,
-    }
+    #context = {
+    #    'new_post':new_post,
+    #}
 
     return render(
         request,
         'app/index.html',
-        context,
+        #context,
     )
 
 
@@ -641,30 +641,61 @@ def user_playlist(request, user, title):
 
 
 
-def playlist_movshow_details(request, user, user_playlist_id, movieid, media_type=1):
+
+
+
+
+
+
+
+
+
+
+## If request.user in {creators} then edit 
+# Specific user reviews 
+def create_movie_review(request, user, movieid, media_type=1):
     assert isinstance(request, HttpRequest)
 
-    details = []
+    details = movie.details(movieid)
+    streaming = movie.watch_providers(movieid)
+    us_streaming = streaming.results['US']
 
-    try:
-        if play != '':
-            for x in play:
-                id = x.pl_mov_show_id
-                media = x.media_type
-                if x.media_type == 1:
-                    details.append([{'movie': movie.details(id)}, movie.watch_providers(id).results['US']])
-                else:
-                    details.append([{'tv': tv.details(id)}, tv.watch_providers(id).results['US']])
-    except Exception as e:
-        pass
 
 
 
     return render (
         render, 
-        'playlists/movshow_details.html',
+        'playlists/create_movie_review.html',
         context
     )
+
+
+
+def movie_review_details(request, user, id, movieid, media_type=1):
+    assert isinstance(request, HttpRequest)
+
+    details = movie.details(movieid)
+    streaming = movie.watch_providers(movieid)
+    us_streaming = streaming.results['US']
+
+    context = {
+        'details':details,
+        'streaming':us_streaming,
+    }
+
+    return render(
+        render,
+        'playlists/movie_review_details.html'
+
+    )
+
+
+
+
+
+
+
+
 
 
 
