@@ -105,18 +105,7 @@ class FollowRequest(models.Model):
     from_user = models.ForeignKey(User, related_name='from_user', on_delete=models.CASCADE)
     to_user = models.ForeignKey(User, related_name='to_user', on_delete=models.CASCADE)
 
-class UserStatusPost(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(User, related_name='status_posts', on_delete=models.CASCADE)
-    body = models.CharField(max_length=200)
-    created_on = models.DateTimeField(auto_now_add=True)
-    status = models.BooleanField(default=True) #disable inappropriate posts
 
-    def __str__(self):
-        return f"({self.user.username} {self.created_on:%Y-%m-%d %H:%M})"
-
-    class Meta:
-        ordering = ['-created_on']
 
 class UserPlaylist(models.Model):
     user_pl_id = models.AutoField(primary_key=True)
@@ -211,7 +200,18 @@ class Comment(models.Model):
         return f'Comment by {self.user.username} at {self.com_date:created_on:%Y-%m-%d %H:%M}'
 
 
+class UserStatusPost(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    user = models.ForeignKey(User, related_name='status_posts', on_delete=models.CASCADE)
+    body = models.CharField(max_length=200)
+    created_on = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=True) #disable inappropriate posts
 
+    def __str__(self):
+        return f"({self.user.username} {self.created_on:%Y-%m-%d %H:%M})"
+
+    class Meta:
+        ordering = ['-created_on']
 
 
 

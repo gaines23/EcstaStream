@@ -535,7 +535,6 @@ def edit_user_playlist(request, user, title):
         pass
 
 
-
     search_request = request.GET.get("plsearch")
     multi_search = search.multi({"query":{search_request}, "include_adult":"False"})
     streaming_mov = movie.watch_providers
@@ -625,9 +624,6 @@ def user_playlist(request, user, title):
     except Exception as e:
         pass
 
-
-
-    
     context = {               
                'playlist_data':playlist_data,
                'details':details,
@@ -642,6 +638,35 @@ def user_playlist(request, user, title):
         'playlists/playlist.html',
         context,
     )
+
+
+
+def playlist_movshow_details(request, user, user_playlist_id, movieid, media_type=1):
+    assert isinstance(request, HttpRequest)
+
+    details = []
+
+    try:
+        if play != '':
+            for x in play:
+                id = x.pl_mov_show_id
+                media = x.media_type
+                if x.media_type == 1:
+                    details.append([{'movie': movie.details(id)}, movie.watch_providers(id).results['US']])
+                else:
+                    details.append([{'tv': tv.details(id)}, tv.watch_providers(id).results['US']])
+    except Exception as e:
+        pass
+
+
+
+    return render (
+        render, 
+        'playlists/movshow_details.html',
+        context
+    )
+
+
 
 
 @login_required
@@ -678,6 +703,8 @@ def add_pl_follower(request, user, user_playlist_id):
     else:
         user_pl.playlist_follows.add(request.user)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
 
 
 
