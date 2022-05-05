@@ -430,7 +430,7 @@
 .Playlist_Search_Section .PlaylistSection .SectionCards {
     width: 90%;
     margin-left: auto;
-    display: contents;
+    display: block;
 }
 
 .PlaylistSection .Info {
@@ -449,9 +449,8 @@
 .PlaylistSection .Info .posterinfo {
     height: 100%;
     margin-bottom: 10px;
-    transition-duration: 0.5s;
     padding: 5px;
-    display: contents;
+    display: inline-flex;
 }
 
 .PlaylistSection a {
@@ -475,10 +474,9 @@
 }
 
 .PlaylistSection .Info .posterinfo:hover {
-    display: block;
+    display: flow-root;
+    height: 400px;
     margin-bottom: 10px;
-    margin-right: auto;
-    margin-left: auto;
 }
 
 .Info .posterinfo > .StreamingInfo {
@@ -488,6 +486,11 @@
 
 .Info .posterinfo:hover > .StreamingInfo {
     display: block;
+    z-index: 1;
+    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
 }
 
 .PlaylistSection .Info .posterinfo .card:hover {
@@ -504,7 +507,7 @@
     height: 230px;
     border: 1px solid rgb(255 255 255 / 35%);
     -webkit-transition: 0.3s;
-    transition: 0.3s;
+    transition: 0.1s;
     width: 180px;
     text-decoration: none;
     margin: auto;
@@ -514,12 +517,12 @@
 }
 
 .PlaylistSection .Info .posterinfo .card img {
-    width: 85%;
+    width: 95%;
     height: 68%;
     object-fit: cover;
     margin-right: auto;
     margin-left: auto;
-    padding-top: 8px;
+    padding-top: 3px;
     display: inline-block;
     border-radius: 20px;
 }
@@ -568,10 +571,6 @@
 #streaming .StreamingList .List-Cat {
     height: 100%;
     text-align: left;
-    background-color: #530881;
-    background-image: 
-        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
-        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
 }
 
 #streaming .List-Cat h3 {
