@@ -10,6 +10,7 @@
 
 
 
+
 <div class="PlaylistHeader">
     <div class="HeaderContainer">
         <form method="POST">
@@ -82,18 +83,14 @@
         <div class="FiltersContainer">
 
             <h3>Filter Playlist:</h3>
-
             <div class="MovieTvFilter" id="mtvBtnContainer">
-                <button class="mtvBtn active" onclick="mtvFilter('all')">All</button>
-                <button class="mtvBtn" onclick="mtvFilter('movie')">Movies</button>
-                <button class="mtvBtn" onclick="mtvFilter('tv')">TV</button>
-            </div>
-
-            <div class="GenreFilter" id="genreContainer">
-                <button class="gbtn active" onlick="gbtnFilter('all')">All</button>
+                <button class="mtvBtn active" onclick="mtvFilterSelection('all')">All</button>
+                <button class="mtvBtn" onclick="mtvFilterSelection('movies')">Movies</button>
+                <button class="mtvBtn" onclick="mtvFilterSelection('tvs')">TV</button>
             </div>
         </div>
     </div>
+
 </div>
 
 
@@ -108,33 +105,41 @@
                     <input type="text" id="plsearch" name="plsearch" class="PL-Search-Input"/>
                     
                     <div class="SearchIcon">
-                        <button type="submit" class="SearchButton" onload="myFunction('parameter')"><i class="fas fa-search"></i></button>
+                        <button type="submit" class="SearchButton"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
             </form>
         </div>
 
 
-
         <div class="SearchCards">
             <div class="SearchCardsInfo">
                 {% for m in search_movies %}
-                <div class="PosterInfo" id="posterinfo">
-                    <div class="searchcard" id="searchcard">
-                        <a href="/MovieDetails/{{m.id}}/1">
-                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
-                        </a>
-                        <div class="info-container">
-                            <h4>
-                                <a href="/MovieDetails/{{m.id}}/1">
-                                    <b style="font-size: 15px">{{ m.title }}</b>
-                                </a>
-                              <br>
-                            </h4>
-                            <a href="/add-movie-to-playlist/{{request.user.id}}/{{playlist.user_pl_id}}/{{m.id}}/1">Add to Playlist</a>
+
+                {% if m.id == pl_data.pl_mov_show_id %}
+                    <div class="none" style="display:none;"></div>
+                {% else %}
+
+                    <div class="PosterInfo" id="posterinfo">
+                        <div class="searchcard" id="searchcard">
+                            <a href="/MovieDetails/{{m.id}}/1">
+                                <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.poster_path }}">
+                            </a>
+                            <div class="info-container">
+                                <h4>
+                                    <a href="/MovieDetails/{{m.id}}/1">
+                                        <b style="font-size: 15px">{{ m.title }}</b> 
+                                        <i style="font-size: 12px;">{{ m.release_date|slice:":4" }}</i>
+                                    </a>
+                                  <br>
+                                </h4>
+                                <a href="/add-movie-to-playlist/{{request.user.id}}/{{playlist.user_pl_id}}/{{m.id}}/1"><button>Add to Playlist</button></a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                
+                {% endif %}
+
                 {% endfor %}
             </div>
 
@@ -151,7 +156,7 @@
                                 </a>
                             <br>
                             </h4>
-                            <a href="/add-tv-to-playlist/{{request.user.id}}/{{playlist.user_pl_id}}/{{t.id}}/1">Add to Playlist</a>
+                            <a href="/add-tv-to-playlist/{{request.user.id}}/{{playlist.user_pl_id}}/{{t.id}}/1"><button>Add to Playlist</button></a>
                         </div>
                     </div>
                 </div>
@@ -169,137 +174,51 @@
 
 
 
-
-
-
-
-
-
     <div class="PlaylistSection">
         <div class="SectionCards">
-            <div class="row Info">
-                {% for x in details %}
-                            
+            <div class="Info">
+                {% for m in details %}
                 <div class="posterinfo" id="posterinfo">
-                    {% for m in x %}
-                    
-                        {% if forloop.counter|divisibleby:2 %}
-                        
-                        <div class="StreamingInfo" id="streaming">
-                            <div class="section-content">
-                            
-                                <div class="section-title">
-                                    <h2>Streaming</h2>
-                                </div>
-                                
-                                <div class="StreamingList">
-                                    
-                                    <div class="List-Cat">
-                                        {% if m.flatrate == '' %}
-                                            <div class="none" style="display: none;"></div>
-                                        {% else %}
-                                        <div class="Free-Streaming">
-                                            <h3>Free</h3>
-                                            {% for free in m.flatrate %}
-                                                {% if free.display_priority <= 20 %}
-                                                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ free.logo_path }}">
-                                                {% endif %}
-                                            {% endfor %} 
-        
-                                            {% endif %}                                    
-                                        </div>                                    
-                                        <div class="Rent-Streaming">
-                                            {% if m.rent == '' %}
-                                                <div class="none" style="display: none;"></div>
-                                            {% else %}
-        
-                                            <h3>Rent</h3>
-                                            {% for rent in m.rent %}
-                                                {% if rent.display_priority <= 20 %}
-                                                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ rent.logo_path }}">
-                                                {% endif %}    
-                                            {% endfor %}
-
-                                            {% endif %}
-                                        </div>
-                                        <div class="Buy-Streaming">
-                                            {% if m.buy == '' %}
-                                                <div class="none" style="display: none;"></div>
-                                            {% else %}
-                                            <h3>Purchase</h3>
-                                            {% for buy in m.buy %}
-                                                {% if buy.display_priority <= 20 %}
-                                                    <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ buy.logo_path }}">
-                                                {% endif %}
-                                                
-                                            {% endfor %}
-
-                                            {% endif %}
-                                        </div> 
-                                       
-                                    </div>   
-                                    
-                                </div>
-                                
+                    {% if m.tv %}
+                    <a href="/TvDetails/{{m.tv.id}}/2" class="mtvFilter tvs">
+                        <div class="card" id="card">
+                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
+                            <div class="info-container">
+                                <h4>
+                                    <b style="font-size: 15px">{{ m.tv.name }}</b>
+                                    <br>
+                                    <i style="font-size: 12px">Added: {{m.tv.play.pl_date_added}} </i>
+                                </h4>
                             </div>
-                            
-                        </div> 
-        
-                        {% else %}
+                        </div>
+                    </a>
 
-                            {% if m.tv %}
-                            
-                            <a href="/TvDetails/{{m.tv.id}}/2" class="column tv">
-                                <div class="card" id="card">
-                                    <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
-                                  <div class="info-container">
-                                    <h4>
-                                        <b style="font-size: 15px">{{ m.tv.name }}</b><br>
-                                        <i style="font-size: 12px">Added:
-                                            {% if m.tv.id in play %}
-                                                {{play.pl_date_added}}
-                                            {% endif %}
-                                        </i>
-                                    </h4>
-                                  </div>
-                                </div>
-                            </a>                    
+                    {% else %}
 
-                            {% else %}
-
-                            <a href="/MovieDetails/{{m.movie.id}}/1" class="column movie">
-                                <div class="card" id="card">
-                                    <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.movie.poster_path }}">
-                                  <div class="info-container">
-                                    <h4>
-                                      <b style="font-size: 15px">{{ m.movie.title }}</b><br>
-                                      <i style="font-size: 12px">Added: </i>
-                                    </h4>
-                                  </div>
-                                </div>
-                            </a>                        
-
-                            {% endif %}
-
-                        {% endif %}
-
-                    {% endfor %}
-                    </div>
+                    <a href="/MovieDetails/{{m.movie.id}}/1" class="tablinks mtvFilter movies">
+                        <div class="card" id="card">
+                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.movie.poster_path }}">
+                            <div class="info-container">
+                                <h4>
+                                    <b style="font-size: 15px">{{ m.movie.title }}</b>
+                                <br>
+                                    <i style="font-size: 12px">Added: 
+                                        
+                                    </i>
+                                </h4>
+                            </div>
+                        </div>
+                    </a>
                     
-                 {% endfor %}
+                    {% endif %}
                 </div>
+                
+                {% endfor %}
+
+            </div>
         </div>
     </div>
 </div>
-
-
-
-
-        
-
-
-
-
 
 
 
@@ -339,6 +258,9 @@ function commentToggle(){
         c.innerHTML = "Comments On";
     }
 }
+
+
+document.getElementById('plsearch').reset();
 
 </script>             
 

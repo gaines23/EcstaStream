@@ -493,21 +493,16 @@ def edit_user_playlist(request, user, title):
     
     playlist = get_object_or_404(UserPlaylist, user=user, title=title)
     all_pl_data = UserPlaylistData.objects.all()
-
     pl_id = UserPlaylist.objects.get(user=user, title=title)
 
     details = []
-    playlist_data = []
     play = []
 
     playlist_items = UserPlaylistData.objects.filter(user=user, user_playlist_id=playlist.user_pl_id)
     pl_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist_id=playlist.user_pl_id)))
-    
     play = list(sorted(pl_data, key = lambda x: x.pl_date_added, reverse=True))
-    playlist_data.append([play, playlist])
-    
-    
-        # Update playlist info
+
+    # Update playlist info
     if request.method == 'POST' and 'edit' in request.POST:
         editform = EditPlaylistForm(request.POST, instance=pl_id)
         if editform.is_valid():
@@ -528,12 +523,11 @@ def edit_user_playlist(request, user, title):
                 id = x.pl_mov_show_id
                 media = x.media_type
                 if x.media_type == 1:
-                    details.append([{'movie': movie.details(id)}, movie.watch_providers(id).results['US']])
+                    details.append({'movie': movie.details(id)})
                 else:
-                    details.append([{'tv': tv.details(id)}, tv.watch_providers(id).results['US']])
+                    details.append({'tv': tv.details(id)})
     except Exception as e:
         pass
-
 
     search_request = request.GET.get("plsearch")
     multi_search = search.multi({"query":{search_request}, "include_adult":"False"})
@@ -570,7 +564,6 @@ def edit_user_playlist(request, user, title):
 
 
     context = {               
-               'playlist_data':playlist_data,
                'details':details,
                'play':play,
                'playlist':playlist,
@@ -610,7 +603,6 @@ def user_playlist(request, user, title):
     pl_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist_id=playlist.user_pl_id)))
     
     play = list(sorted(pl_data, key = lambda x: x.pl_date_added, reverse=True))
-    playlist_data.append([play, playlist])
 
     try:
         if play != '':
@@ -618,14 +610,13 @@ def user_playlist(request, user, title):
                 id = x.pl_mov_show_id
                 media = x.media_type
                 if x.media_type == 1:
-                    details.append([{'movie': movie.details(id)}, movie.watch_providers(id).results['US']])
+                    details.append({'movie': movie.details(id)})
                 else:
-                    details.append([{'tv': tv.details(id)}, tv.watch_providers(id).results['US']])
+                    details.append({'tv': tv.details(id)})
     except Exception as e:
         pass
 
     context = {               
-               'playlist_data':playlist_data,
                'details':details,
                'play':play,
                'playlist':playlist,
@@ -660,7 +651,38 @@ def create_movie_review(request, user, movieid, media_type=1):
     streaming = movie.watch_providers(movieid)
     us_streaming = streaming.results['US']
 
+    new_post = UserStatusPostForm(request.POST or None)
+    if request.method == "POST":
+        if new_post.is_valid():
+            post = new_post.save(commit=False)
+            post.user = request.user
+            post.save()
+            return redirect("home")
 
+
+    details = []
+
+    playlist_items = UserPlaylistData.objects.filter(user=user, user_playlist_id=playlist.user_pl_id)
+    pl_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist_id=playlist.user_pl_id)))
+    play = list(sorted(pl_data, key = lambda x: x.pl_date_added, reverse=True))
+
+    try:
+        if play != '':
+            for x in play:
+                id = x.pl_mov_show_id
+                media = x.media_type
+                if x.media_type == 1:
+                    details.append([{'movie': movie.details(id)}, movie.watch_providers(id).results['US']])
+                else:
+                    details.append([{'tv': tv.details(id)}, tv.watch_providers(id).results['US']])
+    except Exception as e:
+        pass
+
+    context = {'post': post,
+               'comments': user_comment,
+               'comments': comments,
+               'comment_form': comment_form,
+              }
 
 
     return render (

@@ -167,6 +167,7 @@ class EditPlaylistForm(forms.ModelForm):
 
 class UserReviewPostForm(forms.ModelForm):
     body = forms.CharField(required=True)
+    rating = forms.IntegerField(max_value=5)
 
     class Meta:
         model = UserReviewPost
@@ -180,24 +181,3 @@ class NewCommentForm(forms.ModelForm):
             'body': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Comment here', 'rows':3, 'cols':3,}),
             'user': forms.TextInput(attrs={'class':'form-control'}),
             }
-
-
-class NewPlaylistPostForm(forms.ModelForm):
-    class Meta:
-        model = UserPlaylistPost
-        fields = ('body', 'user')
-        widget = {
-            'body': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Comment here', 'rows':3, 'cols':3,}),
-            'user': forms.TextInput(attrs={'class':'form-control'}),
-            }
-
-
-
-
-
-
-
-class MovieListForm(forms.ModelForm):
-    class Meta:
-        model = MoviesList
-        fields = ['movieid', 'title', 'genre_list', 'release_date', 'poster_path', 'tagline',]

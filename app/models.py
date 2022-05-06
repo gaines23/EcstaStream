@@ -73,9 +73,10 @@ class Streamingurls(models.Model):
         managed = False
         db_table = 'app_streamingurls'
 
-
-
-
+STATUS = (
+    (0,"Open"),
+    (1,"Restricted")
+)
 
 class Profile(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -87,6 +88,7 @@ class Profile(models.Model):
     date_created = models.DateTimeField(auto_now=True)
     last_modified = models.DateTimeField(auto_now=True)
     follows = models.ManyToManyField("self", related_name="followed_by", symmetrical=False, blank=True)
+    status = models.IntegerField(choices=STATUS, default=0)
 
     def __str__(self):
         return self.user.username
@@ -107,6 +109,9 @@ class FollowRequest(models.Model):
 
 
 
+
+
+
 class UserPlaylist(models.Model):
     user_pl_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50)
@@ -121,6 +126,7 @@ class UserPlaylist(models.Model):
     comments_on = models.BooleanField(default=True) #on
     playlist_follows = models.ManyToManyField(User, related_name="following", default=None)  
     share_list = models.ManyToManyField(User, related_name="sharing", default=None)
+    status = models.BooleanField(choices=STATUS, default=0)
     #pl_slug = models.SlugField(max_length=200, unique=True, null=True)
 
     def __str__(self):
@@ -171,34 +177,35 @@ class UserPlaylistData(models.Model):
 
 
 # Posts created by users on playlists ( UserPlaylist.comments_on == True)
+
 class UserReviewPost(models.Model):
-    review_post_id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(User, related_name="user_posts", on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, related_name="user_reviews", on_delete=models.DO_NOTHING)
     body = models.TextField(max_length=250)
     rating = models.IntegerField()
     created_on = models.DateTimeField(auto_now_add=True)
-    movie_showid = models.IntegerField()
+    movie_show_id = models.IntegerField()
     media_type = models.IntegerField()
-    status = models.BooleanField(default=True) #disable inappropriate posts
+    status = models.IntegerField(choices=STATUS, default=0) #disable inappropriate posts
     likes = models.ManyToManyField(User, related_name='like', default=None)
 
     def __str__(self):
-        return f"({self.user.username} {self.created_on:%Y-%m-%d %H:%M}) {{self.movie_showid.title}}"
+        return '{} {} {}'.format(self.user, self.created_on, self.movie_show_id.title)
 
     class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=["review_post_id", "movie_showid", "media_type", "user"], name='user_data_playlist_constraint')    
-        ]
-
         ordering = ['-created_on']
+
+    def save(self, *args, **kwargs):
+        super().save()
+
+
 
 
 # User comments on posts
 class Comment(models.Model):
-    post = models.ForeignKey(UserPlaylistPost, on_delete=models.CASCADE, related_name="comments")
+    post = models.ForeignKey(UserReviewPost, on_delete=models.CASCADE, related_name="comments")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_comments")
     body = models.TextField(max_length=250)
-    status = models.BooleanField(default=True) #disable inappropriate posts
+    status = models.IntegerField(choices=STATUS, default=0) #disable inappropriate posts
     com_date = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -206,6 +213,13 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comment by {self.user.username} at {self.com_date:created_on:%Y-%m-%d %H:%M}'
+
+
+
+
+
+
+
 
 
 class UserStatusPost(models.Model):
