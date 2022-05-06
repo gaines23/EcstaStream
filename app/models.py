@@ -172,6 +172,7 @@ class UserPlaylistData(models.Model):
 
 # Posts created by users on playlists ( UserPlaylist.comments_on == True)
 class UserReviewPost(models.Model):
+    review_post_id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(User, related_name="user_posts", on_delete=models.DO_NOTHING)
     body = models.TextField(max_length=250)
     rating = models.IntegerField()
@@ -179,11 +180,16 @@ class UserReviewPost(models.Model):
     movie_showid = models.IntegerField()
     media_type = models.IntegerField()
     status = models.BooleanField(default=True) #disable inappropriate posts
+    likes = models.ManyToManyField(User, related_name='like', default=None)
 
     def __str__(self):
-        return f"({self.user.username} {self.created_on:%Y-%m-%d %H:%M}) {{self.playlist_id.title}}"
+        return f"({self.user.username} {self.created_on:%Y-%m-%d %H:%M}) {{self.movie_showid.title}}"
 
     class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["review_post_id", "movie_showid", "media_type", "user"], name='user_data_playlist_constraint')    
+        ]
+
         ordering = ['-created_on']
 
 
