@@ -415,7 +415,7 @@
 }
 
 .Playlist_Search_Section .PlaylistSection {
-    width: 67%;
+    width: 70%;
     margin: auto;
     float: right;
     border-radius: 15px;
@@ -427,71 +427,53 @@
 */
 }
 
-.Playlist_Search_Section .PlaylistSection .SectionCards {
-    width: 90%;
-    margin-left: auto;
-    display: block;
-}
-
-.PlaylistSection .Info {
-    height: 100%;
-    width: 100%;
-    padding-left: 0;
-    margin: auto;
-    list-style: none;
-    display: inline-flex;
-    flex-wrap: wrap;
-}
-
-
-
-
-.PlaylistSection .Info .posterinfo {
-    margin-bottom: 35px;
-    padding: 3px;
-    display: inline-flex;
+.PlaylistSection .show {
+    display: inline-grid;
 }
 
 .PlaylistSection a {
     text-decoration: none;
     color: white;
-    margin: 5px;
     display: none;
 }
 
-
-
-
-.posterinfo .show {
-    display: block;
-    width: fit-content;
+.Playlist_Search_Section .PlaylistSection .SectionCards {
+    width: 90%;
+    margin: auto;
 }
 
-.CardTops {
+.PlaylistSection .Info {
+    height: 100%;
+    width: 100%;
+    list-style: none;
+    display: inline-flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+}
+
+
+.PlaylistSection .Info .posterinfo {
+    width: 25%;
+    height: 100%;
+    margin-bottom: 20px;
     position: relative;
-    display: inline-block;
+    transition-duration: 0.5s;  
 }
 
-.PlaylistSection .Info .posterinfo:hover {
-    display: flow-root;
-    height: 400px;
-    margin-bottom: 10px;
+.PlaylistSection .Info .posterinfo .card {
+    background: rgba(255, 255, 255, .25);
+    height: 230px;
+    border: 1px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    width: 180px;
+    text-decoration: none;
+    margin: 10px auto 10px auto;
+    border-radius: 20px;
+    -webkit-backdrop-filter: revert;
+    backdrop-filter: revert;
 }
 
-.Info .posterinfo > .StreamingInfo {
-    display: none;
-    position: absolute;
-}
-
-.Info .posterinfo:hover > .StreamingInfo {
-    display: block;
-    z-index: 1;
-    width: ;
-    background-color: #530881;
-    background-image: 
-        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
-        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
-}
 
 .PlaylistSection .Info .posterinfo .card:hover {
     -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 25%);
@@ -499,30 +481,19 @@
     cursor: pointer;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px) saturate(200%);
-}
-
-
-.PlaylistSection .Info .posterinfo .card {
-    background: rgba(255, 255, 255, .25);
-    height: 230px;
-    border: 1px solid rgb(255 255 255 / 35%);
-    -webkit-transition: 0.3s;
-    transition: 0.1s;
-    width: 180px;
-    text-decoration: none;
-    margin: auto;
-    border-radius: 20px;
-    -webkit-backdrop-filter: revert;
-    backdrop-filter: revert;
+    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
 }
 
 .PlaylistSection .Info .posterinfo .card img {
-    width: 95%;
+    width: 85%;
     height: 68%;
     object-fit: cover;
     margin-right: auto;
     margin-left: auto;
-    padding-top: 3px;
+    padding-top: 8px;
     display: inline-block;
     border-radius: 20px;
 }
@@ -532,80 +503,3 @@
     height: 35%;
     padding-top: 5px;
 }
-
-
-
-
-
-
-.StreamingInfo .section-content {
-    width: 90%;
-    padding: 0px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 10px;
-    /*position: absolute;*/
-}
-
-.StreamingInfo .section-title {
-    flex: 1;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    color: white;
-}
-
-.StreamingInfo .section-title h2 {
-    margin: 0;
-    font-weight: bold;
-    text-align: center;
-}
-
-.StreamingInfo #streaming .StreamingList {
-    float: right;
-    width: 100%;
-    height: 90%;
-}
-
-#streaming .StreamingList .List-Cat {
-    height: 100%;
-    text-align: left;
-}
-
-#streaming .List-Cat h3 {
-    font-size: 20px;
-    color: white;
-    margin-left: 5px;
-}
-
-#streaming .List-Cat img {
-    height: 40px;
-    width: 40px;
-    margin-bottom: 5px;
-    margin-left: 8px;
-    margin-right: 8px;
-    border-radius: 10px;
-    padding: 0;
-}
-
-#streaming .List-Cat .Streaming:hover {
-    cursor: pointer;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px) saturate(200%);
-}
-
-
-#streaming .List-Cat .Streaming {
-    border-bottom: 1px solid white;
-    background: rgba(255, 255, 255, .25);
-    border: 1px solid rgb(255 255 255 / 35%);
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
-    text-decoration: none;
-    -webkit-backdrop-filter: revert;
-    backdrop-filter: revert;
-    margin: 0px;
-}
-
-

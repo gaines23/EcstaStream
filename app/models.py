@@ -249,24 +249,6 @@ class UserStatusPost(models.Model):
 
 
 
-
-
-#class PlaylistComments(models.Model):
-#    playlist_id = models.ForeignKey(UserPlaylist, on_delete=models.CASCADE, related_name='comments')
-#    name = models.CharField(max_length=50)
-#    email = models.EmailField()
-#    content = models.TextField()
-#    publish = models.DateTimeField(auto_now_add=True)
-#    status = models.BooleanField(default=True) #disable inappropriate posts
-
-#    class Meta:
-#        ordering = ('publish',)
-
-#    def __str__(self):
-#        return f'Comment by {self.name}'
-
-
-
 class FavoriteListData(models.Model):
     mediaChoices = (
         (1,'Movie'),

@@ -395,13 +395,13 @@ def favorites_list(request):
 def watchlist_add_movie(request, movieid, media_type=1):
     assert isinstance(request, HttpRequest)
 
-    fav_model = WatchListData.objects.all()
+    watch_model = WatchListData.objects.all()
 
-    if fav_model.filter(Q(user=request.user) & Q(watch_mov_show_id=movieid) & Q(media_type=1)).exists():
-        fav_model.filter(Q(watch_mov_show_id=movieid) & Q(user=request.user) & Q(media_type=1)).delete()
+    if watch_model.filter(Q(user=request.user) & Q(watch_mov_show_id=movieid) & Q(media_type=1)).exists():
+        watch_model.filter(Q(watch_mov_show_id=movieid) & Q(user=request.user) & Q(media_type=1)).delete()
         return HttpResponseRedirect(request.META['HTTP_REFERER']) 
     else:
-        fav_model.create(user=request.user, watch_mov_show_id=movieid, media_type=1)
+        watch_model.create(user=request.user, watch_mov_show_id=movieid, media_type=1)
         return HttpResponseRedirect(request.META['HTTP_REFERER']) 
 
 
@@ -409,13 +409,14 @@ def watchlist_add_movie(request, movieid, media_type=1):
 def watchlist_add_tv(request, tvid, media_type=2):
     assert isinstance(request, HttpRequest)
 
-    fav_model = WatchListData.objects.all()
+    watch_model = WatchListData.objects.all()
 
-    if fav_model.filter(Q(user=request.user) & Q(watch_mov_show_id=tvid) & Q(media_type=2)).exists():
-        fav_model.filter(Q(watch_mov_show_id=tvid) & Q(user=request.user) & Q(media_type=2)).delete()
+    if watch_model.filter(Q(user=request.user) & Q(watch_mov_show_id=tvid) & Q(media_type=2)).exists():
+        watch_model.filter(Q(watch_mov_show_id=tvid) & Q(user=request.user) & Q(media_type=2)).delete()
         return HttpResponseRedirect(request.META['HTTP_REFERER']) 
     else:
-        fav_model.create(user=request.user, watch_mov_show_id=tvid, media_type=2)
+        watch_model.create(user=request.user, watch_mov_show_id=tvid, media_type=2)
+        return HttpResponseRedirect(request.META['HTTP_REFERER']) 
          
  
 
@@ -492,16 +493,28 @@ def CreatePlaylist(request, user):
 def edit_user_playlist(request, user, title):
     
     playlist = get_object_or_404(UserPlaylist, user=user, title=title)
-    all_pl_data = UserPlaylistData.objects.all()
     pl_id = UserPlaylist.objects.get(user=user, title=title)
-
     details = []
     play = []
 
-    playlist_items = UserPlaylistData.objects.filter(user=user, user_playlist_id=playlist.user_pl_id)
+    favorites = FavoriteListData.objects.get(user=user)
+    watch = WatchListData.objects.get(user=user)
+
     pl_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist_id=playlist.user_pl_id)))
     play = list(sorted(pl_data, key = lambda x: x.pl_date_added, reverse=True))
 
+    try:
+        if play != '':
+            for x in play:
+                id = x.pl_mov_show_id
+                media = x.media_type
+                if x.media_type == 1:
+                    details.append({'movie': movie.details(id)})
+                else:
+                    details.append({'tv': tv.details(id)})
+    except Exception as e:
+        pass
+ 
     # Update playlist info
     if request.method == 'POST' and 'edit' in request.POST:
         editform = EditPlaylistForm(request.POST, instance=pl_id)
@@ -516,18 +529,6 @@ def edit_user_playlist(request, user, title):
     if request.method == 'POST' and 'delete' in request.POST:
             pl_id.delete()
             return redirect("home")
-
-    try:
-        if play != '':
-            for x in play:
-                id = x.pl_mov_show_id
-                media = x.media_type
-                if x.media_type == 1:
-                    details.append({'movie': movie.details(id)})
-                else:
-                    details.append({'tv': tv.details(id)})
-    except Exception as e:
-        pass
 
     search_request = request.GET.get("plsearch")
     multi_search = search.multi({"query":{search_request}, "include_adult":"False"})
@@ -560,18 +561,17 @@ def edit_user_playlist(request, user, title):
             continue
     except Exception as e:
         print(e)
-    
-
+                
 
     context = {               
                'details':details,
                'play':play,
                'playlist':playlist,
-               'playlist_items':playlist_items,
-               'all_pl_data':all_pl_data,
                'editform':editform,
                'search_movies':search_movies,
                'search_tv':search_tv,
+               'favorites':favorites,
+               'watch':watch,
     }
 
     return render(
