@@ -691,7 +691,7 @@
 }
 
 .PlaylistSection .show {
-    display: inline-grid;
+    display: inline-flex;
 }
 
 .PlaylistSection a {
@@ -701,7 +701,7 @@
 
 .Playlist_Search_Section .PlaylistSection .SectionCards {
     width: 90%;
-    margin: auto;
+    margin-left: auto;
 }
 
 .PlaylistSection .Info {
@@ -715,7 +715,7 @@
 }
 
 .PlaylistSection .Info .posterinfo {
-    width: 20%;
+    width: 25%;
     height: 100%;
     margin-bottom: 20px;
     position: relative;
@@ -724,7 +724,7 @@
 
 .PlaylistSection .Info .posterinfo .card {
     background: none;
-    height: 230px;
+    height: 240px;
     width: 165px;
     -webkit-transition: 0.3s;
     transition: 0.3s;
@@ -768,7 +768,6 @@
     transition: 0.5s;
 }
 
-
 .PlaylistSection .Info .posterinfo .card img {
     width: 164px;
     height: 200px;
@@ -779,13 +778,13 @@
     border-radius: 20px;
 }
 
-
 .PlaylistSection .Info .posterinfo .card .face.face2 {
     display: none;
 }
 
 .PlaylistSection .Info .posterinfo .card:hover .face.face2 {
     position: relative;
+    height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -804,10 +803,10 @@
 
 .PlaylistSection .Info .posterinfo .card:hover .face.face2 .content .info-container {
     text-align: center;
-    height: 50px;
+    height: 65px;
 }
 
 .PlaylistSection .Info .posterinfo .card:hover .face.face2 .content .actions {
     text-align: center;
-    height: 30px;
+    height: 25px;
 }

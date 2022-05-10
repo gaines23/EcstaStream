@@ -691,7 +691,7 @@
 }
 
 .PlaylistSection .show {
-    display: inline-grid;
+    display: inline-flex;
 }
 
 .PlaylistSection a {
@@ -701,7 +701,7 @@
 
 .Playlist_Search_Section .PlaylistSection .SectionCards {
     width: 90%;
-    margin: auto;
+    margin-left: auto;
 }
 
 .PlaylistSection .Info {
@@ -715,7 +715,7 @@
 }
 
 .PlaylistSection .Info .posterinfo {
-    width: 20%;
+    width: 25%;
     height: 100%;
     margin-bottom: 20px;
     position: relative;
@@ -784,6 +784,7 @@
 
 .PlaylistSection .Info .posterinfo .card:hover .face.face2 {
     position: relative;
+    height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;

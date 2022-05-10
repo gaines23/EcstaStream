@@ -9,13 +9,55 @@
 </head>
 
 
-<div class="">
-
-
+<div class="title">
+    <h3>details.title</h3>
 </div>
 
 
+<div class="row top-info">
 
+    <div class="col-3 PosterInfo">
+
+        <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
+            <br>
+
+        <div class="actions">
+            {% if m.movie.id == watched.fav_mov_show_id %}
+                <a href="/fav-show/{{m.movie.id}}/1" class="Watched">
+                    <i class="fa-solid fa-check" style="color: #6d44a8; font-size:18px; height: 20px; width: 30px;"></i>
+                </a>
+            {% else %}
+                <a href="/fav-show/{{m.movie.id}}/1" class="Watched">
+                    <i class="fa-solid fa-check" style="color: white; font-size:18px; height: 20px; width: 30px;"></i>
+                </a>
+            {% endif %}
+
+            {% if m.movie.id == favorites.fav_mov_show_id %}
+                <a href="/fav-show/{{m.tv.id}}/1" class="Fav">
+                    <i class="fa-solid fa-heart" style="color: #6d44a8; font-size:18px; height: 20px; width: 30px;"></i>
+                </a>
+            {% else %}
+                <a href="/fav-show/{{m.movie.id}}/1" class="Fav">
+                    <i class="fa-regular fa-heart" style="color: white; font-size:18px; height: 20px; width: 20px;"></i>
+                </a>
+            {% endif %}
+                                                    
+            {% if m.movie.id == watch.watch_mov_show_id %}
+                <a href="/watchlist-show/{{m.movie.id}}/1" class="Watch">
+                    <i class="fa-solid fa-tv" style="color: #6d44a8; font-size:18px; height: 20px; width: 30px;"></i>
+                </a>
+            {% else %}
+                <a href="/watchlist-show/{{m.movie.id}}/1" class="Watch">
+                    <i class="fa-solid fa-tv" style="color: white; font-size:18px; height: 20px; width: 30px;"></i>
+                </a>
+            {% endif %}
+        </div>
+
+    </div>
+
+
+
+</div>
 
 
 <div class="StreamingServices">
@@ -101,4 +143,4 @@
 
             </ul>
 
-        </div>
+</div>

@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'content\playlists\edit_playlist.css' %}">
 </head>
 
-
+{{details.m.id}}
 
 
 <div class="PlaylistHeader">
@@ -115,7 +115,7 @@
             <div class="SearchCardsInfo">
                 {% for m in search_movies %}
 
-                {% if m.id in details.movie.id %}
+                {% if m.id == details.movie.id %}
 
                     <div class="none" style="display:none;"></div>
 
@@ -183,10 +183,10 @@
                 <div class="posterinfo" id="posterinfo">
                     {% if m.tv %}
                     
-                    <div class="card" id="card">
+                    <div class="mtvFilter tvs card" id="card">
                         <div class="face face1">
                             <div class="content">
-                                <a href="/TvDetails/{{m.tv.id}}/2" class="mtvFilter tvs">
+                                <a href="/TvDetails/{{m.tv.id}}/2">
                                     <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
                                 </a>
                             </div>
@@ -195,7 +195,7 @@
                         <div class="face face2">
                             <div class="content">
                                 <div class="info-container">
-                                    <a href="/TvDetails/{{m.tv.id}}/2" class="mtvFilter tvs"><b style="font-size: 12px">{{ m.tv.name }}</b></a>
+                                    <a href="/TvDetails/{{m.tv.id}}/2"><b style="font-size: 12px">{{ m.tv.name }}</b></a>
                                     <br>
                                     <i style="font-size: 10px">Added: {{m.tv.play.pl_date_added}}</i>
                                 </div>
@@ -231,7 +231,7 @@
                                         </a>
                                     {% endif %}
 
-                                    <a href="create-tv-review/{{request.user}}/{{m.tv.id}}/2" class="Review"><i class="fa-solid fa-pen-to-square" style="font-size:18px; height: 20px; width: 30px;"></i></a>
+                                    <a href="/create-tv-review/{{request.user}}/{{m.tv.id}}/2" class="Review"><i class="fa-solid fa-pen-to-square" style="font-size:18px; height: 20px; width: 30px;"></i></a>
                                 </div>
 
                             </div>
@@ -240,10 +240,10 @@
 
                     {% else %}
 
-                    <div class="card" id="card">
+                    <div class="mtvFilter movies card" id="card">
                         <div class="face face1">
                             <div class="content">
-                                <a href="/MovieDetails/{{m.movie.id}}/1" class="tablinks mtvFilter movies">
+                                <a href="/MovieDetails/{{m.movie.id}}/1">
                                     <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.movie.poster_path }}">
                                 </a>
                             </div>
@@ -252,7 +252,7 @@
                         <div class="face face2">
                             <div class="content">
                                 <div class="info-container">
-                                    <a href="/MovieDetails/{{m.movie.id}}/1" class="tablinks mtvFilter movies"><b style="font-size: 12px">{{ m.movie.title }}</b></a>
+                                    <a href="/MovieDetails/{{m.movie.id}}/1"><b style="font-size: 12px">{{ m.movie.title }}</b></a>
                                     <br>
                                     <i style="font-size:10px;">Added: </i>
                                 </div>
@@ -288,7 +288,7 @@
                                         </a>
                                     {% endif %}
 
-                                    <a href="create-tv-review/{{request.user}}/{{m.movie.id}}/1" class="Review"><i class="fa-solid fa-pen-to-square" style="font-size:18px; height: 20px; width: 30px;"></i></a>
+                                    <a href="{% 'movie-review' request.user.id m.movie.id 1 %}" class="Review"><i class="fa-solid fa-pen-to-square" style="font-size:18px; height: 20px; width: 30px;"></i></a>
                                 </div>
 
                             </div>
@@ -312,9 +312,6 @@
 
 
 <script type="text/javascript">
-window.onload=function(){
-    myFunction('parameter');
-};
 
 $(document).ready(function() {
     $('#checkbox').change(function() {

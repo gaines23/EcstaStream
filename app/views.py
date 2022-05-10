@@ -497,8 +497,6 @@ def edit_user_playlist(request, user, title):
     details = []
     play = []
 
-    favorites = FavoriteListData.objects.get(user=user)
-    watch = WatchListData.objects.get(user=user)
 
     pl_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist_id=playlist.user_pl_id)))
     play = list(sorted(pl_data, key = lambda x: x.pl_date_added, reverse=True))
@@ -562,6 +560,14 @@ def edit_user_playlist(request, user, title):
     except Exception as e:
         print(e)
                 
+    favorites = []
+    watch =[]
+
+    try:
+        favorites.append(FavoriteListData.objects.get(user=user))
+        watch.append(WatchListData.objects.get(user=user))
+    except Exception as e:
+        print(e)
 
     context = {               
                'details':details,
@@ -651,6 +657,16 @@ def create_movie_review(request, user, movieid, media_type=1):
     streaming = movie.watch_providers(movieid)
     us_streaming = streaming.results['US']
 
+    favorited = FavoriteListData.objects.all()
+    fav = bool
+    if favorited.filter(Q(fav_mov_show_id=movieid) & Q(media_type=1)).exists():
+        fav = True
+
+    watchlist = WatchListData.objects.all()
+    watch = bool
+    if watchlist.filter(Q(watch_mov_show_id=movieid) & Q(media_type=1)).exists():
+        watch = True
+
     new_post = UserStatusPostForm(request.POST or None)
     if request.method == "POST":
         if new_post.is_valid():
@@ -658,7 +674,6 @@ def create_movie_review(request, user, movieid, media_type=1):
             post.user = request.user
             post.save()
             return redirect("home")
-
 
     details = []
 
@@ -682,12 +697,14 @@ def create_movie_review(request, user, movieid, media_type=1):
                'comments': user_comment,
                'comments': comments,
                'comment_form': comment_form,
+               'fav':fav,
+               'watch':watch,
               }
 
 
     return render (
         render, 
-        'playlists/create_movie_review.html',
+        'playlists/create_review.html',
         context
     )
 
