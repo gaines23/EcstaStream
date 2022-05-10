@@ -497,7 +497,6 @@ def edit_user_playlist(request, user, title):
     details = []
     play = []
 
-
     pl_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist_id=playlist.user_pl_id)))
     play = list(sorted(pl_data, key = lambda x: x.pl_date_added, reverse=True))
 
@@ -560,14 +559,9 @@ def edit_user_playlist(request, user, title):
     except Exception as e:
         print(e)
                 
-    favorites = []
-    watch =[]
+    favorites = FavoriteListData.objects.all()
+    watch = WatchListData.objects.all()
 
-    try:
-        favorites.append(FavoriteListData.objects.get(user=user))
-        watch.append(WatchListData.objects.get(user=user))
-    except Exception as e:
-        print(e)
 
     context = {               
                'details':details,
@@ -648,9 +642,105 @@ def user_playlist(request, user, title):
 
 
 
-## If request.user in {creators} then edit 
-# Specific user reviews 
+## user's specific review
+@login_required
 def create_movie_review(request, user, movieid, media_type=1):
+    assert isinstance(request, HttpRequest)
+
+    details = movie.details(movieid)
+    streaming = movie.watch_providers(movieid)
+    us_streaming = streaming.results['US']
+    media = 1
+
+    favorited = FavoriteListData.objects.all()
+    fav = bool
+    if favorited.filter(Q(user=user) & Q(fav_mov_show_id=movieid) & Q(media_type=1)).exists():
+        fav = True
+
+    watchlist = WatchListData.objects.all()
+    watch = bool
+    if watchlist.filter(Q(user=user) & Q(watch_mov_show_id=movieid) & Q(media_type=1)).exists():
+        watch = True
+
+    new_review = UserReviewForm(request.POST or None)
+    if request.method == "POST":
+        if new_review.is_valid():
+            review = new_review.save(commit=False)
+            review.user = request.user
+            review.movie_show_id = details.id
+            review.media_type = 1
+            review.save()
+            return HttpResponseRedirect("/edit-movie-review/"+user+"/"+details.id+"/"+1)
+
+
+        return redirect("/edit-movie-review/"+user+"/"+details.id+"/"+1)
+    context = {
+               'fav':fav,
+               'watch':watch,
+               'details':details,
+               'us':us_streaming,
+               'new_review':new_review,
+               'media':media,
+              }
+
+    return render (
+        request, 
+        'Users/reviews/create_review.html',
+        context,
+    )
+
+
+@login_required
+def edit_movie_review(request, user, movideid, media_type=1):
+    assert isinstance(request, HttpRequest)
+
+    review_id = UserReviewPost.objects.get(Q(user=user) & Q(movie_show_id=movieid) & Q(media_type=1))
+    details = movie.details(movieid)
+    streaming = movie.watch_providers(movieid)
+    us_streaming = streaming.results['US']
+
+    favorited = FavoriteListData.objects.all()
+    fav = bool
+    if favorited.filter(Q(fav_mov_show_id=movieid) & Q(media_type=1)).exists():
+        fav = True
+
+    watchlist = WatchListData.objects.all()
+    watch = bool
+    if watchlist.filter(Q(watch_mov_show_id=movieid) & Q(media_type=1)).exists():
+        watch = True
+
+    # Update playlist info
+    if request.method == 'POST' and 'edit' in request.POST:
+        editform = UserReviewForm(request.POST, instance=review_id)
+        if editform.is_valid():
+            editform.save()
+            return HttpResponseRedirect(request.META['HTTP_REFERER'])
+        else:
+            editform = UserReviewForm(instance=review_id)
+    else:
+       editform = UserReviewForm(instance=review_id)
+
+    if request.method == 'POST' and 'delete' in request.POST:
+            review_id.delete()
+            return redirect("home")
+
+    context = {
+               'fav':fav,
+               'watch':watch,
+               'details':details,
+               'us':us_streaming,
+              }
+
+    return render (
+        render, 
+        'Users/reviews/edit_review.html',
+        context
+    )
+
+
+
+## everyone else 
+def movie_review_details(request, user, movieid, media_type=1):
     assert isinstance(request, HttpRequest)
 
     details = movie.details(movieid)
@@ -667,31 +757,26 @@ def create_movie_review(request, user, movieid, media_type=1):
     if watchlist.filter(Q(watch_mov_show_id=movieid) & Q(media_type=1)).exists():
         watch = True
 
-    new_post = UserStatusPostForm(request.POST or None)
+    new_post = UserReviewForm(request.POST or None)
     if request.method == "POST":
         if new_post.is_valid():
             post = new_post.save(commit=False)
             post.user = request.user
             post.save()
-            return redirect("home")
+            return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
-    details = []
+    user_comment = None
 
-    playlist_items = UserPlaylistData.objects.filter(user=user, user_playlist_id=playlist.user_pl_id)
-    pl_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist_id=playlist.user_pl_id)))
-    play = list(sorted(pl_data, key = lambda x: x.pl_date_added, reverse=True))
+    if request.method == 'POST':
+        comment_form = NewCommentForm(request.POST)
+        if comment_form.is_valid():
+            user_comment = comment_form.save(commit=False)
+            user_comment.post = post
+            user_comment.save()
+            return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    else:
+        comment_form = NewCommentForm()
 
-    try:
-        if play != '':
-            for x in play:
-                id = x.pl_mov_show_id
-                media = x.media_type
-                if x.media_type == 1:
-                    details.append([{'movie': movie.details(id)}, movie.watch_providers(id).results['US']])
-                else:
-                    details.append([{'tv': tv.details(id)}, tv.watch_providers(id).results['US']])
-    except Exception as e:
-        pass
 
     context = {'post': post,
                'comments': user_comment,
@@ -699,35 +784,15 @@ def create_movie_review(request, user, movieid, media_type=1):
                'comment_form': comment_form,
                'fav':fav,
                'watch':watch,
+               'details':details,
               }
 
 
     return render (
         render, 
-        'playlists/create_review.html',
+        'Users/reviews/review.html',
         context
     )
-
-
-
-def movie_review_details(request, user, id, movieid, media_type=1):
-    assert isinstance(request, HttpRequest)
-
-    details = movie.details(movieid)
-    streaming = movie.watch_providers(movieid)
-    us_streaming = streaming.results['US']
-
-    context = {
-        'details':details,
-        'streaming':us_streaming,
-    }
-
-    return render(
-        render,
-        'playlists/movie_review_details.html'
-
-    )
-
 
 
 

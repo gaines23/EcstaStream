@@ -165,13 +165,22 @@ class EditPlaylistForm(forms.ModelForm):
 
 
 
-class UserReviewPostForm(forms.ModelForm):
-    body = forms.CharField(required=True)
-    rating = forms.IntegerField(max_value=5)
+class UserReviewForm(forms.ModelForm):
+    RATINGS = [
+        (1, 1),
+        (2, 2),
+        (3,3),
+        (4,4),
+        (5,5),
+    ]
+
+    body = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder': 'Review here',}))
+    rating = forms.IntegerField(required=False, widget=forms.RadioSelect(choices=RATINGS))
 
     class Meta:
         model = UserReviewPost
-        exclude = ("user",)
+        fields = ['body', 'rating',]
+
 
 class NewCommentForm(forms.ModelForm):
     class Meta:

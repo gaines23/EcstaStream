@@ -1,0 +1,145 @@
+
+.Title {
+	width: 100%;
+	height: 150px;
+	font-size: 30px;
+}
+
+.TopInfo {
+	width: 95%;
+	height: 300px;
+	margin: auto;
+}
+
+.TopInfo .PosterInfo {
+	width: 40%;
+	height: 100%;
+	float: left;
+}
+
+.TopInfo .
+
+.StreamingServices {
+	height: 80%;
+	padding-left: 0px;
+}
+
+.StreamingServices ul {
+    display: flex;
+    min-height: 95%;
+    max-height: 95%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+	list-style-type: none;
+}
+
+.StreamingServices li {
+	display: flex;
+	width: 14%;
+	align-items: stretch;
+	background-position: center;
+	cursor: pointer;
+	border-radius: 12px;
+	transition: all .7s ease;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+}
+
+.StreamingServices li.active {
+	flex: 1;
+  	cursor: default;
+    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
+
+}
+
+.StreamingServices li.active .section-content {
+    flex: 4;
+    opacity: 1;
+    transform: scaleX(1);
+    width: 90%;
+ }
+
+.StreamingServices li .section-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+}
+
+.StreamingServices .section-title {
+	flex: 1;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: white;
+}
+
+.StreamingServices .section-title h2 {
+    margin: 0;
+    transform: rotate(-90deg);
+    white-space: nowrap;
+	font-weight: bold;
+}
+
+.StreamingServices #streaming .StreamingList {
+	float: right;
+	width: 100%;
+	height: 90%;
+}
+
+#streaming .StreamingList .List-Cat {
+	padding-left: 15px;
+	padding-right: 15px;
+	height: 100%;
+}
+
+#streaming .List-Cat h3 {
+	font-size: 20px;
+	color: white;
+}
+
+#streaming .List-Cat img {
+	height: 40px;
+	width: 40px;
+	margin-left: 8px;
+	margin-right: 8px;
+	border-radius: 10px;
+}
+
+#streaming .List-Cat .Free-Streaming {
+	height: 33%;
+	border-bottom: 1px solid white;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+#streaming .List-Cat .Rent-Streaming {
+	height: 33%;
+	border-bottom: 1px solid white;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+#streaming .List-Cat .Buy-Streaming {
+	height: 33%;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+
+.StreamingServices #summary {
+	border-bottom-right-radius: 20px;
+}
+
+.StreamingServices #summary .text {
+	width: 90%;
+}

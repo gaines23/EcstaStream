@@ -7,9 +7,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'content\playlists\edit_playlist.css' %}">
 </head>
 
-{{details.m.id}}
-
-
 <div class="PlaylistHeader">
     <div class="HeaderContainer">
         <form method="POST">
@@ -182,8 +179,8 @@
 
                 <div class="posterinfo" id="posterinfo">
                     {% if m.tv %}
-                    
-                    <div class="mtvFilter tvs card" id="card">
+                    <div class="mtvFilter tvs ">
+                    <div class="card" id="card">
                         <div class="face face1">
                             <div class="content">
                                 <a href="/TvDetails/{{m.tv.id}}/2">
@@ -237,10 +234,11 @@
                             </div>
                         </div>
                     </div>
-
+                    </div>
                     {% else %}
 
-                    <div class="mtvFilter movies card" id="card">
+                    <div class="mtvFilter movies">
+                    <div class="card" id="card">
                         <div class="face face1">
                             <div class="content">
                                 <a href="/MovieDetails/{{m.movie.id}}/1">
@@ -269,7 +267,7 @@
                                     {% endif %}
 
                                     {% if m.movie.id == favorites.fav_mov_show_id %}
-                                        <a href="/fav-show/{{m.tv.id}}/1" class="Fav">
+                                        <a href="/fav-show/{{m.movie.id}}/1" class="Fav">
                                         <i class="fa-solid fa-heart" style="color: #6d44a8; font-size:18px; height: 20px; width: 30px;"></i>
                                         </a>
                                     {% else %}
@@ -278,7 +276,7 @@
                                         </a>
                                     {% endif %}
                                                     
-                                    {% if m.movie.id == watch.watch_mov_show_id %}
+                                    {% if m.movie.id == watch.request.user.watch_mov_show_id %}
                                         <a href="/watchlist-show/{{m.movie.id}}/1" class="Watch">
                                         <i class="fa-solid fa-tv" style="color: #6d44a8; font-size:18px; height: 20px; width: 30px;"></i>
                                         </a>
@@ -288,11 +286,12 @@
                                         </a>
                                     {% endif %}
 
-                                    <a href="{% 'movie-review' request.user.id m.movie.id 1 %}" class="Review"><i class="fa-solid fa-pen-to-square" style="font-size:18px; height: 20px; width: 30px;"></i></a>
+                                    <a href="{% url 'create-movie-review' request.user.id m.movie.id 1 %}" class="Review"><i class="fa-solid fa-pen-to-square" style="font-size:18px; height: 20px; width: 30px;"></i></a>
                                 </div>
 
                             </div>
                         </div>
+                    </div>
                     </div>
                     
                     {% endif %}

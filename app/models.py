@@ -145,7 +145,6 @@ class UserPlaylist(models.Model):
         constraints = [
             models.UniqueConstraint(fields=["user", "user_pl_id", "title"], name='user_playlist_constraint')    
         ]
-
         ordering = ['-created_on']
 
 class UserPlaylistData(models.Model):
@@ -179,13 +178,14 @@ class UserPlaylistData(models.Model):
 # Posts created by users on playlists ( UserPlaylist.comments_on == True)
 
 class UserReviewPost(models.Model):
+    review_id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(User, related_name="user_reviews", on_delete=models.DO_NOTHING)
     body = models.TextField(max_length=250)
     rating = models.IntegerField()
     created_on = models.DateTimeField(auto_now_add=True)
     movie_show_id = models.IntegerField()
     media_type = models.IntegerField()
-    status = models.IntegerField(choices=STATUS, default=0) #disable inappropriate posts
+    status = models.BooleanField(choices=STATUS, default=0) #disable inappropriate posts
     likes = models.ManyToManyField(User, related_name='like', default=None)
 
     def __str__(self):
@@ -197,15 +197,12 @@ class UserReviewPost(models.Model):
     def save(self, *args, **kwargs):
         super().save()
 
-
-
-
 # User comments on posts
 class Comment(models.Model):
     post = models.ForeignKey(UserReviewPost, on_delete=models.CASCADE, related_name="comments")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_comments")
     body = models.TextField(max_length=250)
-    status = models.IntegerField(choices=STATUS, default=0) #disable inappropriate posts
+    status = models.BooleanField(choices=STATUS, default=0) #disable inappropriate posts
     com_date = models.DateTimeField(auto_now=True)
 
     class Meta:

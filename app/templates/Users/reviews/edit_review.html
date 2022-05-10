@@ -1,0 +1,158 @@
+
+{% extends "app/layout.html" %}
+
+{% block maincontent %}
+{% load static %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'content\users\reviews\review.css' %}">
+</head>
+
+
+<div class="Title">
+    <h3>details.title</h3>
+</div>
+
+
+<div class="row TopInfo">
+
+    <div class="col-3 PosterInfo">
+
+        <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
+            <br>
+
+        <div class="actions">
+            {% if details.id == watched.fav_mov_show_id %}
+                <a href="/fav-show/{{m.movie.id}}/1" class="Watched">
+                    <i class="fa-solid fa-check" style="color: #6d44a8; font-size:18px; height: 20px; width: 30px;"></i>
+                </a>
+            {% else %}
+                <a href="/fav-show/{{m.movie.id}}/1" class="Watched">
+                    <i class="fa-solid fa-check" style="color: white; font-size:18px; height: 20px; width: 30px;"></i>
+                </a>
+            {% endif %}
+
+            {% if details.id == favorites.fav_mov_show_id %}
+                <a href="/fav-show/{{m.tv.id}}/1" class="Fav">
+                    <i class="fa-solid fa-heart" style="color: #6d44a8; font-size:18px; height: 20px; width: 30px;"></i>
+                </a>
+            {% else %}
+                <a href="/fav-show/{{m.movie.id}}/1" class="Fav">
+                    <i class="fa-regular fa-heart" style="color: white; font-size:18px; height: 20px; width: 20px;"></i>
+                </a>
+            {% endif %}
+                                                    
+            {% if details.id == watch.watch_mov_show_id %}
+                <a href="/watchlist-show/{{m.movie.id}}/1" class="Watch">
+                    <i class="fa-solid fa-tv" style="color: #6d44a8; font-size:18px; height: 20px; width: 30px;"></i>
+                </a>
+            {% else %}
+                <a href="/watchlist-show/{{details.id}}/1" class="Watch">
+                    <i class="fa-solid fa-tv" style="color: white; font-size:18px; height: 20px; width: 30px;"></i>
+                </a>
+            {% endif %}
+        </div>
+
+    </div>
+
+
+
+    <div class="col-9 ReviewForm">
+
+        {{review}}
+
+
+        <div class="EditDelete">
+            <button type="submit" name="edit" id="edit" value="Update">Save Changes</button>
+            <button type="submit" id="delete" name="delete" value="Delete">Delete Playlist</button>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="row StreamingServices">
+	<ul>
+        <li class="active" id="streaming">
+
+            <div class="section-title">
+                <h2>Streaming</h2>
+            </div>
+
+            <div class="section-content">
+                <div class="StreamingList">
+                            
+                    <div class="List-Cat">
+                        {% if us_streaming.flatrate == '' %}
+                            <div class="none" style="display: none;"></div>
+                        {% else %}
+                            <div class="Free-Streaming">
+                                <h3>Free</h3>
+                                {% for free in us_streaming.flatrate %}
+                                    {% if free.display_priority%}
+                                        <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ free.logo_path }}">
+                                    {% endif %}
+                                {% endfor %} 
+                            </div>
+                        {% endif %}                                    
+                                                                    
+                        <div class="Rent-Streaming">
+                            {% if us_streaming.rent == '' %}
+                                <div class="none" style="display: none;"></div>
+                            {% else %}
+                            <h3>Rent</h3>
+                                {% for rent in us_streaming.rent %}
+                                    {% if rent.display_priority %}
+                                        <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ rent.logo_path }}">
+                                    {% endif %}    
+                                {% endfor %}
+
+                            {% endif %}
+                        </div>
+                                
+                        <div class="Buy-Streaming">
+                            {% if us_streaming.buy == '' %}
+                                <div class="none" style="display: none;"></div>
+                            {% else %}
+                            <h3>Purchase</h3>
+                                {% for buy in us_streaming.buy %}
+                                    {% if buy.display_priority %}
+                                        <img id="moviePoster" src="https://image.tmdb.org/t/p/original/{{ buy.logo_path }}">
+                                    {% endif %}
+                                    
+                                {% endfor %}
+
+                            {% endif %}
+                        </div> 
+                                   
+                    </div>   
+                                
+                </div>
+            </div>
+        </li>
+
+        <li id="summary">
+            <div class="section-title">
+                <h2>Summary</h2>
+            </div>
+
+            <div class="section-content">
+                <div class="text">
+                    {{ details.overview }}
+                </div>
+            </div>
+        </li>
+
+    </ul>
+
+</div>
+
+
+
+
+
+<script src="{% static 'scripts\review.js' %}"></script>
+  
+
+{% endblock %}

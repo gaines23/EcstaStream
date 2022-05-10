@@ -1,0 +1,313 @@
+
+.ReviewContent {
+	max-width: 650px;
+	margin: auto;
+	background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
+    border-radius: 15px;
+}
+
+.ReviewContent .container {
+	height: 100%;
+    width: 100%;
+    margin: auto;
+/*	backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%); */   
+}
+
+.ReviewContent .container .Title a {
+	text-decoration: none;
+	color: white;
+}
+
+.Title {
+	width: 100%;
+	height: 120px;
+}
+
+.Title h3 {
+	height: 100%;
+}
+
+.Title #title {
+	width: fit-content;
+	float: left;
+	font-size: 40px;
+	padding-top: 25px;
+	padding-left: 15px;
+	font-weight: 800;
+	text-shadow: -2px 3px rebeccapurple;
+}
+
+.Title i {
+	float: right;
+	width: fit-content;
+}
+
+.TopInfo {
+	width: 95%;
+	height: 260px;
+	margin: auto;
+	display: inline-block;
+	border-radius: 12px;
+	border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+.TopInfo .PosterInfo {
+	height: 98%;
+	margin-top: 1%;
+	float: left;
+}
+
+.TopInfo .PosterInfo img {
+	height: 215px;
+	width: 100%;
+	margin-bottom: 3px;
+	object-fit: fill;
+	border-radius: 15px 15px 0px 0px;
+}
+
+.TopInfo .PosterInfo .actions {
+	text-align: center;
+	width: 100%;
+}
+
+.TopInfo .PosterInfo .actions a {
+	text-decoration: none;
+}
+
+.TopInfo .ReviewForm {
+	height: 98%;
+	margin-top: 1%;
+	float: right;
+	border-radius: 12px;
+	border-left: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+.TopInfo .ReviewForm form {
+    height: 90%;
+    width: 100%;
+    float: left;
+    margin-top: auto;
+    padding: 10px 10px;
+}
+
+.TopInfo .ReviewForm form *{
+    font-family: 'Poppins',sans-serif;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+    text-decoration: none;
+}
+
+
+/****** Style Star Rating Widget *****/
+
+.RatingChoice {
+	width: 100%;
+	margin: 0px;
+}
+
+.RatingChoice #id_rating {
+	width: fit-content;
+	margin: auto;
+}
+
+.rating > input { display: none; } 
+.rating > label:before { 
+	margin: 5px;
+  	font-size: 1.25em;
+  	font-family: FontAwesome;
+  	display: inline-block;
+  	content: "\f005";
+}
+
+.rating > label { 
+	color: white;
+	float: right; 
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #f9752f;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #f9a538;  } 
+
+
+
+.TopInfo .ReviewForm .Review {
+	margin-top: 20px;
+}
+
+.TopInfo .ReviewForm textarea {
+	height: 100px;
+	width: 95%;
+    margin: auto;
+    color: white;
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.125);
+    outline: none;
+}
+
+#save {
+    width: 30%;
+    height: 30px;
+    float: right;
+    margin-right: 5%;
+    margin-top: 20px;
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.125);
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#save:hover {
+    background-color: rgba(255,255,255,0.47);
+}
+
+
+
+
+
+
+
+
+.StreamingServices {
+	height: 350px;
+	padding-left: 0px;
+}
+
+.StreamingServices ul {
+    display: flex;
+    min-height: 95%;
+    max-height: 95%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+	list-style-type: none;
+}
+
+.StreamingServices li {
+	display: flex;
+	width: 20%;
+	align-items: stretch;
+	background-position: center;
+	cursor: pointer;
+	border-radius: 12px;
+	transition: all .7s ease;
+}
+
+.StreamingServices li.active {
+	flex: 1;
+  	cursor: default;
+}
+
+.StreamingServices li.active .section-content {
+    flex: 4;
+    opacity: 1;
+    transform: scaleX(1);
+    width: 90%;
+ }
+
+.StreamingServices li .section-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+}
+
+.StreamingServices .section-title {
+	flex: 1;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: white;
+}
+
+.StreamingServices .section-title h2 {
+    margin: 0;
+    transform: rotate(-90deg);
+    white-space: nowrap;
+	font-weight: bold;
+}
+
+.StreamingServices #streaming .StreamingList {
+	float: right;
+	width: 100%;
+	height: 90%;
+}
+
+#streaming .StreamingList .List-Cat {
+	padding-left: 15px;
+	padding-right: 15px;
+	height: 100%;
+}
+
+#streaming .List-Cat h3 {
+	font-size: 20px;
+	color: white;
+}
+
+#streaming .List-Cat img {
+	height: 40px;
+	width: 40px;
+	margin-left: 8px;
+	margin-right: 8px;
+	border-radius: 10px;
+}
+
+#streaming .List-Cat .Free-Streaming {
+	height: 33%;
+	border-bottom: 1px solid white;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+#streaming .List-Cat .Rent-Streaming {
+	height: 33%;
+	border-bottom: 1px solid white;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+#streaming .List-Cat .Buy-Streaming {
+	height: 33%;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+
+.StreamingServices #summary {
+	border-bottom-right-radius: 20px;
+}
+
+.StreamingServices #summary .text {
+	width: 90%;
+}
+
+
+
+
+
+
+
