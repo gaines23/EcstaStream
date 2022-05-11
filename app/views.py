@@ -462,6 +462,7 @@ def CreatePlaylist(request, user):
     all_playlists = UserPlaylist.objects.filter(user=user)
     create_pl = CreatePlaylistForm(data=request.POST)
 
+
     profid = Profile.objects.get(user=user)
     following = Profile.objects.filter(follows__in=[profid])
     
@@ -491,9 +492,11 @@ def CreatePlaylist(request, user):
 
 @login_required
 def edit_user_playlist(request, user, title):
-    
+    assert isinstance(request, HttpRequest)
+
     playlist = get_object_or_404(UserPlaylist, user=user, title=title)
     pl_id = UserPlaylist.objects.get(user=user, title=title)
+
     details = []
     play = []
 
@@ -558,10 +561,15 @@ def edit_user_playlist(request, user, title):
             continue
     except Exception as e:
         print(e)
-                
+
     favorites = FavoriteListData.objects.all()
+    #FavoriteListData.objects(Q(user=user) & Q(fav_mov_show_id=id) & Q(media_type=media))
     watch = WatchListData.objects.all()
 
+    try:
+        fav_mov = FavoriteListData.objects.filter(Q(user=user) & Q(media_type=1))
+    except Exception as e:
+        print(e)
 
     context = {               
                'details':details,
@@ -570,8 +578,8 @@ def edit_user_playlist(request, user, title):
                'editform':editform,
                'search_movies':search_movies,
                'search_tv':search_tv,
-               'favorites':favorites,
-               'watch':watch,
+               'fav':favorites,
+               'fav_mov':fav_mov,
     }
 
     return render(
@@ -670,10 +678,8 @@ def create_movie_review(request, user, movieid, media_type=1):
             review.movie_show_id = details.id
             review.media_type = 1
             review.save()
-            return HttpResponseRedirect("/edit-movie-review/"+user+"/"+details.id+"/"+1)
+            return HttpResponseRedirect("/edit-movie-review/"+user+"/"+details.id+"/1")
 
-
-        return redirect("/edit-movie-review/"+user+"/"+details.id+"/"+1)
     context = {
                'fav':fav,
                'watch':watch,
