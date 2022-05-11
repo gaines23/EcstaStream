@@ -109,6 +109,10 @@ class FollowRequest(models.Model):
 
 
 
+mediaChoices = (
+    (1,'Movie'),
+    (2, 'TV')
+)
 
 
 
@@ -148,10 +152,6 @@ class UserPlaylist(models.Model):
         ordering = ['-created_on']
 
 class UserPlaylistData(models.Model):
-    mediaChoices = (
-        (1,'Movie'),
-        (2, 'TV')
-    )
 
     pl_data_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="pl_user")
@@ -186,10 +186,10 @@ class UserReviewPost(models.Model):
     movie_show_id = models.IntegerField()
     media_type = models.IntegerField()
     status = models.BooleanField(choices=STATUS, default=0) #disable inappropriate posts
-    likes = models.ManyToManyField(User, related_name='like', default=None)
+    likes = models.ManyToManyField(User, related_name='review_likes', default=None)
 
     def __str__(self):
-        return '{} {} {}'.format(self.user, self.created_on, self.movie_show_id.title)
+        return '{} {} {}'.format(self.user, self.created_on, self.movie_show_id)
 
     class Meta:
         ordering = ['-created_on']
@@ -204,6 +204,7 @@ class Comment(models.Model):
     body = models.TextField(max_length=250)
     status = models.BooleanField(choices=STATUS, default=0) #disable inappropriate posts
     com_date = models.DateTimeField(auto_now=True)
+    likes = models.ManyToManyField(User, related_name='comment_likes', default=None)
 
     class Meta:
         ordering = ('-com_date',)
@@ -213,64 +214,27 @@ class Comment(models.Model):
 
 
 
-
-
-
-
-
-
-class UserStatusPost(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(User, related_name='status_posts', on_delete=models.CASCADE)
-    body = models.CharField(max_length=200)
-    created_on = models.DateTimeField(auto_now_add=True)
-    status = models.BooleanField(default=True) #disable inappropriate posts
-
-    def __str__(self):
-        return f"({self.user.username} {self.created_on:%Y-%m-%d %H:%M})"
-
-    class Meta:
-        ordering = ['-created_on']
-
-
-
-#class Notifications(models.Model):
-#    id = models.AutoField(primary_key=True)
-#    send_to = models.ManyToMany(Profile)
-
-
-
-#stackoverflow.com/questions/70870323/can-someone-help-sending-notifications-to-all-users-or-some-users-in-django-for
-
-
-
-
-
 class FavoriteListData(models.Model):
-    mediaChoices = (
-        (1,'Movie'),
-        (2, 'TV')
-    )
-
     favid = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='favs', on_delete=models.CASCADE)
     fav_mov_show_id = models.IntegerField()
     fav_date_added = models.DateTimeField(auto_now=True)
     media_type = models.IntegerField(null=True, blank=True, choices=mediaChoices)
 
     def __str__(self):
-        return self.user.username
+        return '{} {} {}'.format(self.user, self.media_type, self.fav_mov_show_id)
+
+    def fav_id(self):
+        return fav_mov_show_id
 
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=["user", "fav_mov_show_id", "media_type"], name='fav_constraint')    
         ]
 
+        ordering = ['-fav_date_added']
+
 class WatchListData(models.Model):
-    mediaChoices = (
-        (1,'Movie'),
-        (2, 'TV')
-    )
 
     watchid = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -279,13 +243,15 @@ class WatchListData(models.Model):
     media_type = models.IntegerField(null=True, blank=True, choices=mediaChoices)
 
     def __str__(self):
-        return self.user.username
+        return '{} {} {}'.format(self.user, self.media_type, self.watch_mov_show_id)
+
 
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=["user", "watch_mov_show_id", "media_type"], name='watchlist_constraint')    
         ]
-
+        
+        ordering = ['-watch_date_added']
 
 
 
@@ -319,6 +285,42 @@ class MoviesList(models.Model):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#class UserStatusPost(models.Model):
+#    id = models.BigAutoField(primary_key=True)
+#    user = models.ForeignKey(User, related_name='status_posts', on_delete=models.CASCADE)
+#    body = models.CharField(max_length=200)
+#    created_on = models.DateTimeField(auto_now_add=True)
+#    status = models.BooleanField(default=True) #disable inappropriate posts
+
+#    def __str__(self):
+#        return f"({self.user.username} {self.created_on:%Y-%m-%d %H:%M})"
+
+#    class Meta:
+#        ordering = ['-created_on']
+
+
+#class Notifications(models.Model):
+#    id = models.AutoField(primary_key=True)
+#    send_to = models.ManyToMany(Profile)
+
+
+
+#stackoverflow.com/questions/70870323/can-someone-help-sending-notifications-to-all-users-or-some-users-in-django-for
 
 
 

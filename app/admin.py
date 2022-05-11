@@ -20,7 +20,6 @@ admin.site.register(UserPlaylist)
 admin.site.register(UserPlaylistData)
 admin.site.register(FollowRequest)
 admin.site.register(Comment)
-admin.site.register(UserStatusPost)
 
 
 #admin.site.register(Movie)

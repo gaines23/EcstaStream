@@ -462,7 +462,6 @@ def CreatePlaylist(request, user):
     all_playlists = UserPlaylist.objects.filter(user=user)
     create_pl = CreatePlaylistForm(data=request.POST)
 
-
     profid = Profile.objects.get(user=user)
     following = Profile.objects.filter(follows__in=[profid])
     
@@ -565,9 +564,9 @@ def edit_user_playlist(request, user, title):
     favorites = FavoriteListData.objects.all()
     #FavoriteListData.objects(Q(user=user) & Q(fav_mov_show_id=id) & Q(media_type=media))
     watch = WatchListData.objects.all()
-
+    fav_mov = []
     try:
-        fav_mov = FavoriteListData.objects.filter(Q(user=user) & Q(media_type=1))
+        fav_mov.append( FavoriteListData.objects.filter(Q(user=user) & Q(media_type=1)))
     except Exception as e:
         print(e)
 
@@ -578,7 +577,7 @@ def edit_user_playlist(request, user, title):
                'editform':editform,
                'search_movies':search_movies,
                'search_tv':search_tv,
-               'fav':favorites,
+               'favorites':favorites,
                'fav_mov':fav_mov,
     }
 
@@ -678,7 +677,7 @@ def create_movie_review(request, user, movieid, media_type=1):
             review.movie_show_id = details.id
             review.media_type = 1
             review.save()
-            return HttpResponseRedirect("/edit-movie-review/"+user+"/"+details.id+"/1")
+            return HttpResponseRedirect("/edit-movie-review/" + user + "/" + movieid + "/" + media_type)
 
     context = {
                'fav':fav,
@@ -697,13 +696,15 @@ def create_movie_review(request, user, movieid, media_type=1):
 
 
 @login_required
-def edit_movie_review(request, user, movideid, media_type=1):
+def edit_movie_review(request, user, movieid, media_type=1):
     assert isinstance(request, HttpRequest)
 
     review_id = UserReviewPost.objects.get(Q(user=user) & Q(movie_show_id=movieid) & Q(media_type=1))
     details = movie.details(movieid)
     streaming = movie.watch_providers(movieid)
     us_streaming = streaming.results['US']
+
+    rated = review_id.rating
 
     favorited = FavoriteListData.objects.all()
     fav = bool
@@ -714,7 +715,7 @@ def edit_movie_review(request, user, movideid, media_type=1):
     watch = bool
     if watchlist.filter(Q(watch_mov_show_id=movieid) & Q(media_type=1)).exists():
         watch = True
-
+    
     # Update playlist info
     if request.method == 'POST' and 'edit' in request.POST:
         editform = UserReviewForm(request.POST, instance=review_id)
@@ -735,12 +736,14 @@ def edit_movie_review(request, user, movideid, media_type=1):
                'watch':watch,
                'details':details,
                'us':us_streaming,
+               'editform':editform,
+               'rated':rated,
               }
 
     return render (
-        render, 
+        request,
         'Users/reviews/edit_review.html',
-        context
+        context,
     )
 
 
@@ -795,9 +798,9 @@ def movie_review_details(request, user, movieid, media_type=1):
 
 
     return render (
-        render, 
+        request, 
         'Users/reviews/review.html',
-        context
+        context,
     )
 
 

@@ -8,7 +8,7 @@
 </head>
 
 
-{{fav_mov}}
+
 
 
 <div class="PlaylistHeader">
@@ -270,7 +270,7 @@
                                         </a>
                                     {% endif %}
 
-                                    {% if m.movie.id == fav_mov.fav_mov_show_id %}
+                                    {% if m.movie.id == request.user.favs.fav_mov_show_id %}
                                         <a href="/fav-movie/{{m.movie.id}}/1" class="Fav">
                                         <i class="fa-solid fa-heart" style="color: #6d44a8; font-size:18px; height: 20px; width: 30px;"></i>
                                         </a>
@@ -279,7 +279,7 @@
                                         <i class="fa-regular fa-heart" style="color: white; font-size:18px; height: 20px; width: 20px;"></i>
                                         </a>
                                     {% endif %}
-                                                    
+   
                                     {% if m.movie.id == watch.request.user.watch_mov_show_id %}
                                         <a href="/watchlist-movie/{{m.movie.id}}/1" class="Watch">
                                         <i class="fa-solid fa-tv" style="color: #6d44a8; font-size:18px; height: 20px; width: 30px;"></i>
@@ -290,7 +290,11 @@
                                         </a>
                                     {% endif %}
 
-                                    <a href="{% url 'create-movie-review' request.user.id m.movie.id 1 %}" class="Review"><i class="fa-solid fa-pen-to-square" style="font-size:18px; height: 20px; width: 30px;"></i></a>
+                                        {% if m.movie.id == request.user.user_reviews.fav_mov_show_id %}
+                                            <a href="{% url 'edit-movie-review' request.user.id m.movie.id 1 %}" class="Review"><i class="fa-solid fa-pen-to-square" style="font-size:18px; height: 20px; width: 30px; color: #6d44a8"></i></a>
+                                        {% else  %}
+                                            <a href="{% url 'create-movie-review' request.user.id m.movie.id 1 %}" class="Review"><i class="fa-solid fa-pen-to-square" style="font-size:18px; height: 20px; width: 30px; color: white;"></i></a>
+                                        {% endif %}
                                 </div>
 
                             </div>
