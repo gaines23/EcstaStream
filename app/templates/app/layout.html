@@ -63,7 +63,7 @@
                             <div class="Playlists">
 
                                 {% for x in user.playlists.all %}
-                                    {% if user.id == x.creator %}
+                                    {% if user.id == x.creator.id %}
                                         <a href="{% url 'user_playlist' user.id x.title %}">{{x.title}}</a>
                                     {% else %}
                                         <a href="{% url 'edit_playlist' user.id x.title %}">{{x.title}}</a>

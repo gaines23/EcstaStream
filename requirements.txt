@@ -66,3 +66,4 @@ pylint-plugin-utils==0.7
 six==1.16.0
 typed-ast==1.5.2
 wrapt==1.13.3
+django-bootstrap-modal-forms==2.2.0

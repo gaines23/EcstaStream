@@ -7,15 +7,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'content\users\profilePage.css' %}">
 </head>
 
-<div class="Posts">
-    {% for post in user.posts.all %}
-        <div class="PostContent">
-            {{ post.body }}
-            <span class="DateCreated">({{ post.created_at }})</span>
-        </div>
-    {% endfor %}
-</div>
-
 
 
 <div class="SocialTab">
@@ -24,17 +15,18 @@
 
         <div class="col-md-3 FriendSection" id="friends">
 
-            <div class="Followers">
-                <h3>Followers</h3>
-                {{profid.followed_by.all.count}}
-            </div>
-
-            <div class="Following">
-                <h3>Following</h3>
-                {{profid.follows.all.count}}
-            </div>
-                
             <div class="Search-Wrapper">
+                <div class="Followers">
+                    <h3>Followers</h3>
+                    {{profid.followed_by.all.count}}
+                </div>
+
+                <div class="Following">
+                    <h3>Following</h3>
+                    {{profid.follows.all.count}}
+                </div>
+                
+            
                 <div class="Input-Wrapper">
                     <input type="text" id="searchInput" onkeyup="searchFriends()" class="Search-Input" placeholder="Search..." />
                 </div>
@@ -118,19 +110,18 @@
                                 <div class="card">
                                     <a href="{% url 'friends-profile' follow.user.id follow.user.username %}">
                                         <div class="info-container">
-                                            <img class="rounded-circle account-img" src="{{ friend.user.profpic.url }} " height="50px" width="50px" style="cursor: pointer;"/>
+                                            <img class="rounded-circle account-img" src="{{ follow.user.profpic.url }}" height="50px" width="50px" style="cursor: pointer;"/>
                                             <h4 id="username">@{{ follow.user.username }}</h4>
                                             <h4 id="name">{{ follow.user.first_name }} {{follow.user.last_name}}</h4>
                                         </div>
                                     </a>
 
                                    <div class="FollowButtons">
-                                    {% if follow in user.profile.follows.all %}
-                                        <p>Following</p>
-                                        <a href="{% url 'unfollow' follow.user.id follow.user.username %}" class="UnFollow">Unfollow</a>
-                                    {% else %}
-                                        <a href="{% url 'send-follow-request' follow.user.id %}" class="Follow">Follow</a>
-                                    {% endif %}
+                                        {% if follow in user.profile.follows.all %}
+                                            <a href="{% url 'unfollow' follow.user.id follow.user.username %}" class="UnFollow">Unfollow</a>
+                                        {% else %}
+                                            <a href="{% url 'send-follow-request' follow.user.id %}" class="Follow">Follow</a>
+                                        {% endif %}
                                     </div>
                                 </div>           
                             </div>

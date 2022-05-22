@@ -1,3 +1,7 @@
+.SearchForm {
+    display: none;
+}
+
 .card {
 	margin: auto;
 	height: 330px;

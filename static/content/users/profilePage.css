@@ -29,32 +29,15 @@
 }
 
 .SocialTab .SocialContent {
+	height: 100%;
 	width: 90%;
 	margin: auto;
 }
 
-.SocialTab .SocialContent .FriendSection .Followers {
-	width: 50%;
-	height: 70px;
-	float: left;
-	text-align: center;
-}
 
-.SocialTab .SocialContent .FriendSection .Following {
-	width: 50%;
-	height: 70px;
-	float: right;
-	text-align: center;
-}
-
-
-
-
-}
 .SocialTab .SocialContent .FriendSection {
     height: 100%;
-    width: 100%;
-    margin: 0px auto 10px auto;
+    width: 30%;
 }
 
 .SocialTab .SocialContent .FriendSection a {
@@ -70,13 +53,32 @@
 
 
 
+
+
+
 .FriendSection .Search-Wrapper {
+	height: 140px;
     width: 100%;
     margin: auto;
     color: white;
 }
 
-.FriendSection .Input-Wrapper {
+.FriendSection .Search-Wrapper .Followers {
+	width: 50%;
+	height: 70px;
+	float: left;
+	text-align: center;
+}
+
+.FriendSection .Search-Wrapper .Following {
+	width: 50%;
+	height: 70px;
+	float: right;
+	text-align: center;
+}
+
+
+.FriendSection .Search-Wrapper .Input-Wrapper {
     width: 90%;
     margin: auto;
     border-radius: 10px;
@@ -144,8 +146,13 @@
     margin: auto;
 }
 
+.FriendSection .cards .cardInfo {
+	margin-bottom: 20px;
+	height: 110px;
+}
+
 .FriendSection .card {
-    height: 100px;
+    height: 110px;
     width: 90%;
     backdrop-filter: blur(10px) saturate(130%);
     -webkit-backdrop-filter: blur(10px) saturate(130%);
@@ -177,7 +184,7 @@
 
 .FriendSection .card .info-container {
     width: 100%;
-    height: 100%;
+    height: 75px;
     padding-top: 5px;
     float: right;
 }
@@ -190,9 +197,10 @@
     margin-left: 10px;
     border-radius: 30px;
     margin-top: 5px;
+    padding-left: 15px;
 }
 
-.info-container #username {
+.FriendSection .info-container #username {
     height: fit-content;
     font-size: 15px;
     width: 160px; 
@@ -201,10 +209,15 @@
     margin-bottom: 5px;
 }
 
-.info-container #name {
+.FriendSection .info-container #name {
     height: fit-content;
     font-size: 12px;
     width: 160px;
     float: right;
 }
 
+.FriendSection .FollowButtons {
+	width: 100%;
+	height: 15px;
+	padding-left: 15px;
+}
