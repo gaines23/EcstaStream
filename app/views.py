@@ -494,8 +494,8 @@ def edit_user_playlist(request, user, title):
     assert isinstance(request, HttpRequest)
 
     playlist = get_object_or_404(UserPlaylist, user=user, title=title)
-    pl_id = UserPlaylist.objects.get(user=user, title=title)
-
+    pl_id = UserPlaylist.objects.get(Q(user=user) & Q(title=title))
+    
     details = []
     play = []
 
@@ -519,7 +519,7 @@ def edit_user_playlist(request, user, title):
         editform = EditPlaylistForm(request.POST, instance=pl_id)
         if editform.is_valid():
             editform.save()
-            return HttpResponseRedirect(request.META['HTTP_REFERER'])
+            return redirect(request.META['HTTP_REFERER']) 
         else:
             editform = EditPlaylistForm(instance=pl_id)
     else:

@@ -110,7 +110,7 @@
                                 <div class="card">
                                     <a href="{% url 'friends-profile' follow.user.id follow.user.username %}">
                                         <div class="info-container">
-                                            <img class="rounded-circle account-img" src="{{ follow.user.profpic.url }}" height="50px" width="50px" style="cursor: pointer;"/>
+                                            <img class="rounded-circle account-img" src="{{ follow.user.profile.profpic.url }}" height="50px" width="50px" style="cursor: pointer;"/>
                                             <h4 id="username">@{{ follow.user.username }}</h4>
                                             <h4 id="name">{{ follow.user.first_name }} {{follow.user.last_name}}</h4>
                                         </div>

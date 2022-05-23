@@ -36,6 +36,7 @@ body{
     height: 100%;
 }
 
+
 /* Navbar */
 
 .SideNav {
@@ -136,6 +137,7 @@ nav .UserLists {
     color: #6d44a8;
     display: block;
     font-weight: 600;
+    text-align: left;
 }
 
 
@@ -337,6 +339,7 @@ nav .UserLists {
     border-radius: 20px;
     cursor: pointer;
     object-fit: cover;
+    transform: rotate(90deg);
 }
 
 

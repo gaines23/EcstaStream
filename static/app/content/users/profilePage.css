@@ -197,7 +197,7 @@
     margin-left: 10px;
     border-radius: 30px;
     margin-top: 5px;
-    padding-left: 15px;
+    transform: rotate(90deg);
 }
 
 .FriendSection .info-container #username {

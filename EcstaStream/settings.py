@@ -18,6 +18,7 @@ from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 import pprint
+import djcelery
 from django.conf import settings
 
 env = environ.Env()
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
     'social_django',
     'rest_framework',
     'bootstrap_modal_forms',
+    'djcelery',
 ]
 
 # Middleware framework
@@ -162,3 +164,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = str(os.getenv('EMAIL_USER'))
 EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_PASSWORD'))
 
+djcelery.setup_loader()
