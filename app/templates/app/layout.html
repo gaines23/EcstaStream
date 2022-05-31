@@ -14,8 +14,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'content\site.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'content\socialcontent.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'content\jquery-ui.css' %}">
-    <link href="{% static 'fontawesome-free-6.0.0\css\all.min.css' %}" rel="stylesheet" type="text/css">
-    <script src="{% static 'fontawesome-free-6.0.0/js/all.min.js' %}"></script>
+    <link href="{% static 'fontawesome-free-6.1.1\css\all.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'fontawesome-free-6.1.1/js/all.min.js' %}"></script>
 
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images\favicon_io\apple-touch-icon.png' %}">
     <link rel="manifest" href="% static 'images\favicon_io\site.webmanifest' %}">
@@ -46,8 +46,11 @@
                     <nav class="Nav">
                         <div class="Nav-Options justify-content-center">
                             <a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
-
-                            
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'friends-list' user.id user.username %}">
+                            <i class="fa-solid fa-people-pulling"></i> Friends
+                            </a>
+                            {% endif %}
                         </div>
                             
                         <div class="UserLists">

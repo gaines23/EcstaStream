@@ -75,6 +75,34 @@ def home(request):
     )
 
 
+@login_required
+def friends_list(request, id, username):
+    assert isinstance(request, HttpRequest)
+    
+    userid = User.objects.get(id=id, username=username)
+    profid = Profile.objects.get(user=id)
+
+    follow_list = Profile.objects.exclude(user=request.user)
+    request_to_follow = FollowRequest.objects.filter(to_user=request.user)
+    pending_request = FollowRequest.objects.filter(from_user=request.user)
+    following = Profile.objects.filter(follows__in=[profid])
+    
+    playlists = UserPlaylist.objects.exclude(user=request.user)
+
+    context = {
+            'userid': userid,
+            'profid': profid,
+            'follow_list':follow_list,
+            'request_to_follow':request_to_follow,
+            'pending_request':pending_request,
+            'following':following,
+            'playlists':playlists,
+        }
+
+    return render(request, 
+                  'app/friends.html',
+                  context,
+    )
 
 def MainSearchResults(request):
     assert isinstance(request, HttpRequest)
@@ -196,18 +224,8 @@ class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
 def profile(request, id, username):
     assert isinstance(request, HttpRequest)
 
-    model = User
     userid = User.objects.get(id=id)
-
-    model = Profile
     profid = Profile.objects.get(user=id)
-
-    follow_list = Profile.objects.exclude(user=request.user)
-    request_to_follow = FollowRequest.objects.filter(to_user=request.user)
-    pending_request = FollowRequest.objects.filter(from_user=request.user)
-    following = Profile.objects.filter(follows__in=[profid])
-    
-    #playlists = UserPlaylist.objects.get(creator=request.user)
 
     if request.method == 'POST' and 'edit' in request.POST:
         user_form = UpdateUserForm(request.POST, instance=userid)
@@ -230,10 +248,6 @@ def profile(request, id, username):
             'profid': profid,
             'user_form': user_form, 
             'profile_form': profile_form,
-            'follow_list':follow_list,
-            'request_to_follow':request_to_follow,
-            'pending_request':pending_request,
-            'following':following,
         }
 
     return render(request, 
@@ -599,16 +613,15 @@ def edit_user_playlist(request, user, title):
 
 def user_playlist(request, user, title):
     
-    playlist = get_object_or_404(UserPlaylist, user=user, title=title)
-    all_pl_data = UserPlaylistData.objects.all()
+    assert isinstance(request, HttpRequest)
 
+    playlist = get_object_or_404(UserPlaylist, user=user, title=title)
+    pl_id = UserPlaylist.objects.get(Q(user=user) & Q(title=title))
+    
     details = []
-    playlist_data = []
     play = []
 
-    playlist_items = UserPlaylistData.objects.filter(user=user, user_playlist_id=playlist.user_pl_id)
     pl_data = list(UserPlaylistData.objects.filter(Q(user=user) & Q(user_playlist_id=playlist.user_pl_id)))
-    
     play = list(sorted(pl_data, key = lambda x: x.pl_date_added, reverse=True))
 
     try:
@@ -627,8 +640,8 @@ def user_playlist(request, user, title):
                'details':details,
                'play':play,
                'playlist':playlist,
-               'playlist_items':playlist_items,
-               'all_pl_data':all_pl_data,
+               'pl_data':pl_data,
+               'pl_id':pl_id,
     }
 
     return render(

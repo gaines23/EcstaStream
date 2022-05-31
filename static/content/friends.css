@@ -1,0 +1,393 @@
+
+.SearchForm {
+    display: none;
+}
+
+
+.ProfileForm {
+	text-align: center;
+	float: left;
+}
+
+.ProfileForm input {
+	text-align: center;
+}
+
+
+.RightSideBar .SignedIn .UserNotifications {
+	display: none;
+}
+
+.RightSideBar .SignedIn .UserSocialContainer {
+	display: none;
+}
+
+
+.SocialTab {
+	height: 100%;
+	width: 100%;
+}
+
+.SocialTab .SocialContent {
+	height: 100%;
+	width: 90%;
+	margin: auto;
+}
+
+
+.SocialTab .SocialContent .FriendSection {
+    height: 100%;
+    float: left;
+}
+
+.SocialTab .SocialContent .FriendSection a {
+    text-decoration: none;
+    color: white;
+}
+
+.SocialTab .SocialContent .FriendSection h3 {
+    font-size: 20px;
+    text-align: center;
+}
+
+
+
+
+
+
+
+.FriendSection .Search-Wrapper {
+	height: 140px;
+    width: 100%;
+    margin: auto;
+    color: white;
+}
+
+.FriendSection .Search-Wrapper .Followers {
+	width: 50%;
+	height: 70px;
+	float: left;
+	text-align: center;
+}
+
+.FriendSection .Search-Wrapper .Following {
+	width: 50%;
+	height: 70px;
+	float: right;
+	text-align: center;
+}
+
+
+.FriendSection .Search-Wrapper .Input-Wrapper {
+    width: 90%;
+    margin: auto;
+    border-radius: 10px;
+    color: white;
+}
+
+
+.FriendSection .Search-Wrapper .Input-Wrapper .Search-Input {
+    width: 100%;
+    margin: auto;
+    color: white;
+    backdrop-filter: blur(10px) saturate(130%);
+    -webkit-backdrop-filter: blur(10px) saturate(130%);
+    background-color: rgba(121, 0, 224, 0.06);
+    border-radius: 12px;
+    border: 3px solid rgba(255, 255, 255, 0.125);
+    outline: none;
+}
+
+.FriendSection .Search-Wrapper .Input-Wrapper .Search-Input:focus {
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    border: 3px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+    border-radius: 10px;
+    -webkit-transition: 0.3s;
+}
+
+
+
+
+.FriendSection .container #cards-container {
+    height: 85%;
+    overflow: hidden;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+.FriendSection .container #cards-container {
+  scrollbar-width: thin;
+  scrollbar-color: #f96d2d #000000;
+}
+
+  /* Chrome, Edge, and Safari */
+.FriendSection .container #cards-container::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.FriendSection .container #cards-container::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.FriendSection .container #cards-container::-webkit-scrollbar-thumb {
+  background-color: #f96d2d;
+  border-radius: 5px;
+}
+
+
+.FriendSection .cards {
+    display: inline-block;
+    height: 85%;
+    width: 100%;
+    margin: auto;
+}
+
+.FriendSection .cards .cardInfo {
+	margin-bottom: 20px;
+	height: 110px;
+}
+
+.FriendSection .card {
+    height: 110px;
+    width: 90%;
+    backdrop-filter: blur(10px) saturate(130%);
+    -webkit-backdrop-filter: blur(10px) saturate(130%);
+    background-color: rgba(121, 0, 224, 0.06);
+    border-radius: 12px;
+    border: 3px solid rgba(255, 255, 255, 0.125);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+}
+
+.FriendSection .card:hover {
+    -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 25%);
+    box-shadow: 0px 0px 2px 3px #f8f9fa73;
+    cursor: pointer;
+    background: rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    border: 1px solid rgb(255 255 255 / 35%);
+    -webkit-transition: 0.3s;
+}
+
+
+
+
+.FriendSection .card .info-container {
+    width: 100%;
+    height: 75px;
+    padding-top: 5px;
+    float: right;
+}
+
+.FriendSection .card img {
+    height: 55px;
+    width: 55px;
+    float: left;
+    display: inline-block;
+    margin-left: 10px;
+    border-radius: 30px;
+    margin-top: 5px;
+    transform: rotate(90deg);
+}
+
+.FriendSection .info-container #username {
+    height: fit-content;
+    font-size: 15px;
+    width: 160px; 
+    float: right;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.FriendSection .info-container #name {
+    height: fit-content;
+    font-size: 12px;
+    width: 160px;
+    float: right;
+}
+
+.FriendSection .FollowButtons {
+	width: 100%;
+	height: 15px;
+	padding-left: 15px;
+}
+
+
+
+
+
+.FriendsPlaylists {
+    float: right;
+    height: 100%;
+}
+
+.FriendsPlaylists a {
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.FriendsPlaylists {
+    width: 70%;
+    margin: auto;
+    float: right;
+    border-radius: 15px;
+    margin-top: 80px;
+    display: inline-flex;
+/*    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
+*/
+}
+
+.FriendsPlaylists a {
+    text-decoration: none;
+    color: white;
+}
+
+.FriendsPlaylists .Playlists .show {
+    display: inline-flex;
+}
+
+
+.FriendsPlaylists .Playlists {
+    width: 90%;
+    margin-left: auto;
+}
+
+.FriendsPlaylists .Playlists .Info {
+    height: 100%;
+    width: 100%;
+    list-style: none;
+    display: inline-flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    position: relative;
+}
+
+.FriendsPlaylists .Playlists .Info .posterinfo {
+    width: 25%;
+    height: 230px;
+    margin-bottom: 20px;
+    position: relative;
+    transition-duration: 0.5s;  
+}
+
+.FriendsPlaylists .Playlists .Info .posterinfo .card {
+    background: none;
+    height: 240px;
+    width: 165px;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    text-decoration: none;
+    margin: 10px auto 0px auto;
+    border-radius: 20px;
+}
+
+.FriendsPlaylists .Playlists .Info .posterinfo .card:hover {
+    -webkit-box-shadow: 0px 0px 2px 3px rgb(255 255 255 / 25%);
+    box-shadow: 0px 0px 2px 3px #f8f9fa73;
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) saturate(200%);
+    background-color: #530881;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
+}
+
+.FriendsPlaylists .Playlists .Info .posterinfo .card .face {
+    height: 230px;
+    width: 165px;
+    transition: 0.5s;
+}
+
+.FriendsPlaylists .Playlists .Info .posterinfo .card .face.face1 {
+    height: 200px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    transform: translateY(0px);
+}
+
+.FriendsPlaylists .Playlists .Info .posterinfo .card:hover .face.face1 {
+    transform: translateY(-50px);
+}
+
+.FriendsPlaylists .Playlists .Info .posterinfo .card .face.face1 .content {
+    transition: 0.5s;
+    height: 200px;
+    background-color: black;
+}
+
+.FriendsPlaylists .Playlists .Info .posterinfo .card .PlaylistTitle {
+    width: 160px;
+    height: 200px;
+    object-fit: cover;
+    margin-right: auto;
+    margin-left: auto;
+    display: inline-block;
+    border-radius: 20px;
+}
+
+.FriendsPlaylists .Playlists .Info .posterinfo .card .PlaylistTitle h1 {
+    width: 130px;
+    height: fit-content;
+    text-align: center;
+    margin: auto;
+}
+
+.FriendsPlaylists .Playlists .Info .posterinfo .card .face.face2 {
+    display: none;
+}
+
+.FriendsPlaylists .Playlists .Info .posterinfo .card:hover .face.face2 {
+    position: relative;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-50px);
+}
+
+.container .card:hover .face.face2 {
+    transform: translateY(0px);
+}
+
+.FriendsPlaylists .Playlists .Info .posterinfo .card:hover .face.face2 .content {
+    height: 80px;
+    width: 150px;
+    margin: auto;
+}
+
+.FriendsPlaylists .Playlists .Info .posterinfo .card:hover .face.face2 .content .info-container {
+    text-align: center;
+    height: 65px;
+}
+
+.FriendsPlaylists .Playlists .Info .posterinfo .card:hover .face.face2 .content .actions {
+    text-align: center;
+    height: 25px;
+}

@@ -13,6 +13,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('', views.home, name='home'),
     path('MainSearchResults', views.MainSearchResults, name='search-results'),
+    path('user-friends-list/<id>/<username>', views.friends_list, name='friends-list'),
     path('profile/<id>/<username>', views.profile, name='users-profile'),
     path('friend/<id>/<username>', views.FriendProfile, name='friends-profile'),
     path('send_follower_request/<int:userid>/', views.send_follower_request, name='send-follow-request'),

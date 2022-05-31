@@ -93,9 +93,10 @@ body{
 }
 
 .NavContent .Nav-Options {
-    height: 10%;
-    width: 150px;
+    height: 13%;
+    width: 190px;
     margin: auto;
+    border-bottom: 1px solid #ff5e00;
 }
 
 .NavContent .Nav-Options a {
@@ -114,13 +115,13 @@ body{
 }
 
 nav .UserLists {
-    height: 90%;
+    height: 87%;
 }
 
 .UserLists #watchlist {
     width: 190px;
     margin: auto;
-    border-top: 1px solid #ff5e00;
+    padding-top: 15px;
 }
 
 .UserLists .Playlists {
@@ -139,6 +140,7 @@ nav .UserLists {
     font-weight: 600;
     text-align: left;
 }
+
 
 
 

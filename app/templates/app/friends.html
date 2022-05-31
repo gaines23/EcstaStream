@@ -1,0 +1,198 @@
+{% extends "app/layout.html" %}
+
+{% block maincontent %}
+{% load static %}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'content\friends.css' %}">
+</head>
+
+
+
+<div class="SocialTab">
+
+    <div class="SocialContent">
+
+        <div class="col-md-3 FriendSection" id="friends">
+
+            <div class="Search-Wrapper">
+                <div class="Followers">
+                    <h3>Followers</h3>
+                    {{profid.followed_by.all.count}}
+                </div>
+
+                <div class="Following">
+                    <h3>Following</h3>
+                    {{profid.follows.all.count}}
+                </div>
+                
+            
+                <div class="Input-Wrapper">
+                    <input type="text" id="searchInput" onkeyup="searchFriends()" class="Search-Input" placeholder="Search..." />
+                </div>
+            </div>
+
+            <div class="FollowRequests">
+                {% if request_to_follow != '' %}
+                <h3>Follower Requests</h3>
+                <span class="container">
+                    <div id="cards-container">
+                        <div class="cards" id="cards">
+                        {% for follower in request_to_follow %}
+                            <div class="cardInfo" id="cardinfo">
+                                <div class="card">
+                                    <a href="{% url 'friends-profile' follower.from_user.id follower.from_user.username %}">
+                                        <div class="info-container">
+                                            <img class="rounded-circle account-img" src="{{ follower.from_user.profpic.url }} " height="50px" width="50px" style="cursor: pointer;"/>
+                                            <h4 id="username">@{{ follower.from_user.username }}</h4>
+                                            <h4 id="name">{{ follower.from_user.first_name }} {{follower.from_user.last_name}}</h4>
+                                        </div>
+                                    </a>
+
+                                    <div class="FollowButtons">
+                                        <a href="/accept_follower_request/{{follower.id}}/">
+                                            Sure
+                                        </a>
+                                        <a href="/reject_follower_request/{{follower.id}}/">
+                                           Nah
+                                        </a>
+                                    </div>
+                                </div>           
+                            </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </span>
+                {% else %}
+                    <div class="none" style="display:none;"></div>
+                {% endif %}
+            </div>
+
+            <div class="PendingRequests">
+                <h3>Pending Requests</h3>
+                {% if pending_request != '' %}
+                <span class="container">
+                    <div id="cards-container">
+                        <div class="cards" id="cards">
+                        {% for follower in pending_request %}
+                            <div class="cardInfo" id="cardinfo">
+                                <div class="card">
+                                    <a href="{% url 'friends-profile' follower.to_user.id follower.to_user.username %}">
+                                        <div class="info-container">
+                                            <img class="rounded-circle account-img" src="{{ follower.to_user.profpic.url }} " height="50px" width="50px" style="cursor: pointer;"/>
+                                            <h4 id="username">@{{ follower.to_user.username }}</h4>
+                                            <h4 id="name">{{ follower.to_user.first_name }} {{follower.to_user.last_name}}</h4>
+                                        </div>
+                                    </a>
+
+                                    <div class="FollowButtons">
+                                        <a href="/reject_follower_request/{{follower.id}}/">
+                                           Nevermind :(
+                                        </a>
+                                    </div>
+                                </div>           
+                            </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </span>
+                {% else %}
+                    <div class="none" style="display:none;"></div>
+                {% endif %}
+            </div>
+
+                  
+            <span class="container">
+                <div id="cards-container">
+                    <div class="cards" id="cards">
+                        {% for follow in profid.followed_by.all %}
+                            <div class="cardInfo" id="cardinfo">
+                                <div class="card">
+                                    <a href="{% url 'friends-profile' follow.user.id follow.user.username %}">
+                                        <div class="info-container">
+                                            <img class="rounded-circle account-img" src="{{ follow.user.profile.profpic.url }}" height="50px" width="50px" style="cursor: pointer;"/>
+                                            <h4 id="username">@{{ follow.user.username }}</h4>
+                                            <h4 id="name">{{ follow.user.first_name }} {{follow.user.last_name}}</h4>
+                                        </div>
+                                    </a>
+
+                                   <div class="FollowButtons">
+                                        {% if follow in user.profile.follows.all %}
+                                            <a href="{% url 'unfollow' follow.user.id follow.user.username %}" class="UnFollow">Unfollow</a>
+                                        {% else %}
+                                            <a href="{% url 'send-follow-request' follow.user.id %}" class="Follow">Follow</a>
+                                        {% endif %}
+                                    </div>
+                                </div>           
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </span>
+
+        </div>
+
+
+
+
+
+        <div class="col-9 FriendsPlaylists">
+
+            <div class="GroupPlaylists">
+
+            </div>
+
+            <div class="Playlists">
+                <div class="Info">               
+
+                {% for x in playlists %}
+                    <div class="posterinfo" id="posterinfo">
+                        <div class="card" id="card">
+                            <div class="face face1">
+                                <div class="content">
+                                    <a href="{% url 'user_playlist' x.user.id x.title %}">
+                                        <div class="PlaylistTitle">
+                                            <h1>{{x.title}}</h1>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="face face2">
+                                <div class="content">
+                                    <div class="info-container">
+                                        {{x.user}}
+                                        <br>
+                                        <i style="font-size: 10px">Created: {{x.created_on|date:"M d, Y" }}</i>
+                                    </div>
+
+                                    <div class="actions">
+                                        
+                                    </div>
+
+                                </div>
+                        
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+                
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+</div>
+
+
+
+
+<script src="{% static 'scripts\friends.js' %}"></script>
+
+{% endblock %}

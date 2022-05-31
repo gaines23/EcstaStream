@@ -104,52 +104,140 @@
 
 
 
-<div class="Playlist_Search_Section">
-
     <div class="PlaylistSection">
         <div class="SectionCards">
             <div class="Info">
                 {% for m in details %}
+
                 <div class="posterinfo" id="posterinfo">
                     {% if m.tv %}
-                    <a href="/TvDetails/{{m.tv.id}}/2" class="mtvFilter tvs">
+                    <div class="mtvFilter tvs ">
                         <div class="card" id="card">
-                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
-                            <div class="info-container">
-                                <h4>
-                                    <b style="font-size: 15px">{{ m.tv.name }}</b>
-                                    <br>
-                                    <i style="font-size: 12px">Added: </i>
-                                </h4>
+                            <div class="face face1">
+                                <div class="content">
+                                    <a href="/TvDetails/{{m.tv.id}}/2">
+                                        <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.tv.poster_path }}">
+                                    </a>
+                                </div>
+                            </div>
+                        
+                            <div class="face face2">
+                                <div class="content">
+                                    <div class="info-container">
+                                        <a href="/TvDetails/{{m.tv.id}}/2"><b style="font-size: 12px">{{ m.tv.name }}</b></a>
+                                        <br>
+                                        <i style="font-size: 10px">Added: {{m.tv.play.pl_date_added}}</i>
+                                    </div>
+
+                                    <div class="actions">
+                                        {% if m.tv.id == watched.fav_mov_show_id %}
+                                            <a href="/fav-show/{{m.tv.id}}/2" class="Watched">
+                                            <i class="fa-solid fa-check" style="color: #6d44a8; font-size:18px; height: 20px; width: 30px;"></i>
+                                            </a>
+                                        {% else %}
+                                            <a href="/fav-show/{{m.tv.id}}/2" class="Watched">
+                                            <i class="fa-solid fa-check" style="color: white;font-size:18px; height: 20px; width: 30px;"></i>
+                                            </a>
+                                        {% endif %}
+
+                                        {% if m.tv.id == watched.fav_mov_show_id %}
+                                            <a href="/fav-show/{{m.tv.id}}/2" class="Fav">
+                                            <i class="fa-solid fa-heart" style="color: #6d44a8; font-size:18px; height: 20px; width: 30px;"></i>
+                                            </a>
+                                        {% else %}
+                                            <a href="/fav-show/{{m.tv.id}}/2" class="Fav">
+                                            <i class="fa-regular fa-heart" style="color: white; font-size:18px; height: 20px; width: 30px;"></i>
+                                            </a>
+                                        {% endif %}
+                                                        
+                                        {% if m.tv.id == watch.watch_mov_show_id %}
+                                            <a href="/watchlist-show/{{m.tv.id}}/2" class="Watch">
+                                            <i class="fa-solid fa-tv" style="color: #6d44a8; font-size:18px; height: 20px; width: 30px;"></i>
+                                            </a>
+                                        {% else %}
+                                            <a href="/watchlist-show/{{m.tv.id}}/2" class="Watch">
+                                            <i class="fa-solid fa-tv" style="color: white; font-size:18px; height: 20px; width: 30px;"></i>
+                                            </a>
+                                        {% endif %}
+
+                                        <a href="/create-tv-review/{{request.user}}/{{m.tv.id}}/2" class="Review"><i class="fa-solid fa-pen-to-square" style="font-size:18px; height: 20px; width: 30px;"></i></a>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
-                    </a>
-
+                    </div>
                     {% else %}
 
-                    <a href="/MovieDetails/{{m.movie.id}}/1" class="tablinks mtvFilter movies" onmouseover="openStreaming(event, 'streaming')">
+                    <div class="mtvFilter movies">
                         <div class="card" id="card">
-                            <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.movie.poster_path }}">
-                            <div class="info-container">
-                                <h4>
-                                  <b style="font-size: 15px">{{ m.movie.title }}</b>
-                                  <br>
-                                  <i style="font-size: 12px">Added:</i>
-                                </h4>
+                            <div class="face face1">
+                                <div class="content">
+                                    <a href="/MovieDetails/{{m.movie.id}}/1">
+                                        <img id="profPoster" src="https://image.tmdb.org/t/p/original/{{ m.movie.poster_path }}">
+                                    </a>
+                                </div>
+                            </div>
+                        
+                            <div class="face face2">
+                                <div class="content">
+                                    <div class="info-container">
+                                        <a href="/MovieDetails/{{m.movie.id}}/1"><b style="font-size: 12px">{{ m.movie.title }}</b></a>
+                                        <br>
+                                        <i style="font-size:10px;">Added: </i>
+                                    </div>
+
+                                    <div class="actions">
+                                        {% if m.movie.id == watched.fav_mov_show_id %}
+                                            <a href="/fav-movie/{{m.movie.id}}/1" class="Watched">
+                                            <i class="fa-solid fa-check" style="color: #6d44a8; font-size:18px; height: 20px; width: 30px;"></i>
+                                            </a>
+                                        {% else %}
+                                            <a href="/fav-movie/{{m.movie.id}}/1" class="Watched">
+                                            <i class="fa-solid fa-check" style="color: white; font-size:18px; height: 20px; width: 30px;"></i>
+                                            </a>
+                                        {% endif %}
+
+                                        {% if m.movie.id == request.user.favs.fav_mov_show_id %}
+                                            <a href="/fav-movie/{{m.movie.id}}/1" class="Fav">
+                                            <i class="fa-solid fa-heart" style="color: #6d44a8; font-size:18px; height: 20px; width: 30px;"></i>
+                                            </a>
+                                        {% else %}
+                                            <a href="/fav-movie/{{m.movie.id}}/1" class="Fav">
+                                            <i class="fa-regular fa-heart" style="color: white; font-size:18px; height: 20px; width: 20px;"></i>
+                                            </a>
+                                        {% endif %}
+       
+                                        {% if m.movie.id == watch.request.user.watch_mov_show_id %}
+                                            <a href="/watchlist-movie/{{m.movie.id}}/1" class="Watch">
+                                            <i class="fa-solid fa-tv" style="color: #6d44a8; font-size:18px; height: 20px; width: 30px;"></i>
+                                            </a>
+                                        {% else %}
+                                            <a href="/watchlist-movie/{{m.movie.id}}/1" class="Watch">
+                                            <i class="fa-solid fa-tv" style="color: white; font-size:18px; height: 20px; width: 30px;"></i>
+                                            </a>
+                                        {% endif %}
+
+                                            {% if m.movie.id == request.user.user_reviews.fav_mov_show_id %}
+                                                <a href="{% url 'edit-movie-review' request.user.id m.movie.id 1 %}" class="Review"><i class="fa-solid fa-pen-to-square" style="font-size:18px; height: 20px; width: 30px; color: #6d44a8"></i></a>
+                                            {% else  %}
+                                                <a href="{% url 'create-movie-review' request.user.id m.movie.id 1 %}" class="Review"><i class="fa-solid fa-pen-to-square" style="font-size:18px; height: 20px; width: 30px; color: white;"></i></a>
+                                            {% endif %}
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
-                    </a>
+                    </div>
                     
                     {% endif %}
                 </div>
                 
                 {% endfor %}
 
-            </div>                
-                    
+            </div>
         </div>
     </div>
-</div>
 
 </div>
 

@@ -710,11 +710,6 @@
     float: right;
     border-radius: 15px;
     margin-top: 80px;
-/*    background-color: #530881;
-    background-image: 
-        radial-gradient(at 47% 33%, hsl(18.00, 100%, 51%) 0, transparent 59%), 
-        radial-gradient(at 82% 65%, hsl(19.73, 93%, 52%) 0, transparent 55%);
-*/
 }
 
 .PlaylistSection .show {
